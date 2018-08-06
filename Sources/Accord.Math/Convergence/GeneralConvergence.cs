@@ -27,8 +27,8 @@ namespace Accord.Math.Convergence
     /// <summary>
     ///   General convergence options.
     /// </summary>
-    /// 
-    public class GeneralConvergence 
+    ///
+    public class GeneralConvergence
     {
         private int n;
         private double ftol_rel;
@@ -44,9 +44,9 @@ namespace Accord.Math.Convergence
         /// <summary>
         ///   Creates a new <see cref="GeneralConvergence"/> object.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of variables to be tracked.</param>
-        /// 
+        ///
         public GeneralConvergence(int numberOfVariables)
         {
             this.n = numberOfVariables;
@@ -56,7 +56,7 @@ namespace Accord.Math.Convergence
         /// <summary>
         ///   Gets or sets the number of variables in the problem.
         /// </summary>
-        /// 
+        ///
         public int NumberOfVariables
         {
             get { return n; }
@@ -70,7 +70,7 @@ namespace Accord.Math.Convergence
         ///   iterations. Setting this value to zero disables those checks.
         ///   Default is 0.
         /// </summary>
-        /// 
+        ///
         public double RelativeFunctionTolerance
         {
             get { return ftol_rel; }
@@ -84,7 +84,7 @@ namespace Accord.Math.Convergence
         ///   iterations. Setting this value to zero disables those checks.
         ///   Default is 0.
         /// </summary>
-        /// 
+        ///
         public double AbsoluteFunctionTolerance
         {
             get { return ftol_abs; }
@@ -98,7 +98,7 @@ namespace Accord.Math.Convergence
         ///   iterations. Setting this value to zero disables those checks.
         ///   Default is 0.
         /// </summary>
-        /// 
+        ///
         public double RelativeParameterTolerance
         {
             get { return xtol_rel; }
@@ -112,7 +112,7 @@ namespace Accord.Math.Convergence
         ///   iterations. Setting this value to zero disables those checks.
         ///   Default is 0.
         /// </summary>
-        /// 
+        ///
         public double[] AbsoluteParameterTolerance
         {
             get { return xtol_abs; }
@@ -120,10 +120,10 @@ namespace Accord.Math.Convergence
         }
 
         /// <summary>
-        ///   Gets or sets the number of function evaluations 
+        ///   Gets or sets the number of function evaluations
         ///   performed by the optimization algorithm.
         /// </summary>
-        /// 
+        ///
         public int Evaluations
         {
             get { return nevals; }
@@ -138,7 +138,7 @@ namespace Accord.Math.Convergence
         ///   has been reached. Setting this value to zero disables this check.
         ///   Default is 0.
         /// </summary>
-        /// 
+        ///
         public int MaximumEvaluations
         {
             get { return maxeval; }
@@ -148,11 +148,11 @@ namespace Accord.Math.Convergence
         /// <summary>
         ///   Gets or sets the maximum amount of time that an optimization
         ///   algorithm is allowed to run. This property must be set together
-        ///   with <see cref="StartTime"/> in order to function correctly. 
+        ///   with <see cref="StartTime"/> in order to function correctly.
         ///   Setting this value to <see cref="TimeSpan.Zero"/> disables this
         ///   check. Default is <see cref="TimeSpan.Zero"/>.
         /// </summary>
-        /// 
+        ///
         public TimeSpan MaximumTime
         {
             get { return maxtime; }
@@ -164,7 +164,7 @@ namespace Accord.Math.Convergence
         ///   time will be tracked with the <see cref="MaximumTime"/> property,
         ///   this property must also be set to a correct value.
         /// </summary>
-        /// 
+        ///
         public DateTime StartTime
         {
             get { return start; }
@@ -175,12 +175,11 @@ namespace Accord.Math.Convergence
         ///   Gets or sets whether the algorithm should
         ///   be forced to terminate. Default is false.
         /// </summary>
-        /// 
+        ///
         public bool Cancel
         {
             get { return force_stop; }
             set { force_stop = value; }
         }
-
     }
 }

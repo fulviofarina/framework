@@ -32,7 +32,7 @@ namespace Accord
     ///   Minimum ThreadLocal implementation for .NET 3.5 to make
     ///   Accord.NET work. This is not a complete implementation.
     /// </summary>
-    /// 
+    ///
     internal class ThreadLocal<T> : IDisposable
     {
         [ThreadStatic]
@@ -43,7 +43,7 @@ namespace Accord
         /// <summary>
         ///   Initializes a new instance of the <see cref="ThreadLocal&lt;T&gt;"/> class.
         /// </summary>
-        /// 
+        ///
         public ThreadLocal()
             : this(() => default(T))
         {
@@ -52,7 +52,7 @@ namespace Accord
         /// <summary>
         ///   Initializes a new instance of the <see cref="ThreadLocal&lt;T&gt;"/> class.
         /// </summary>
-        /// 
+        ///
         public ThreadLocal(Func<T> init)
         {
             this.init = init;
@@ -62,7 +62,7 @@ namespace Accord
         /// Releases unmanaged resources and performs other cleanup operations before the
         /// <see cref="ThreadLocal&lt;T&gt;"/> is reclaimed by garbage collection.
         /// </summary>
-        /// 
+        ///
         ~ThreadLocal()
         {
             Dispose(false);
@@ -71,7 +71,7 @@ namespace Accord
         /// <summary>
         ///   Gets or sets the value.
         /// </summary>
-        /// 
+        ///
         public T Value
         {
             get
@@ -94,10 +94,10 @@ namespace Accord
         }
 
         /// <summary>
-        ///   Performs application-defined tasks associated with 
+        ///   Performs application-defined tasks associated with
         ///   freeing, releasing, or resetting unmanaged resources.
         /// </summary>
-        /// 
+        ///
         public void Dispose()
         {
             Dispose(true);
@@ -107,10 +107,10 @@ namespace Accord
         /// <summary>
         ///   Releases unmanaged and - optionally - managed resources
         /// </summary>
-        /// 
+        ///
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged
         ///   resources; <c>false</c> to release only unmanaged resources.</param>
-        /// 
+        ///
         public void Dispose(bool disposing)
         {
             if (disposing)
@@ -122,7 +122,6 @@ namespace Accord
                 }
             }
         }
-
     }
 }
 #endif

@@ -32,7 +32,7 @@ namespace Accord
     ///   Minimum CancellationToken implementation for .NET 3.5 to
     ///   make Accord.NET work. This is not a complete implementation.
     /// </summary>
-    /// 
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes"),
      System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2218:OverrideGetHashCodeOnOverridingEquals")]
     public struct CancellationToken
@@ -40,23 +40,22 @@ namespace Accord
         /// <summary>
         ///   Gets or sets a value indicating whether this instance can be cancelled.
         /// </summary>
-        /// 
+        ///
         public bool CanBeCancelled { get; set; }
 
         /// <summary>
         ///   Gets or sets a value indicating whether cancellation has been requested.
         /// </summary>
-        /// 
+        ///
         public bool IsCancellationRequested { get; set; }
 
         /// <summary>
         ///   Gets an empty token.
         /// </summary>
-        /// 
+        ///
         public static CancellationToken None { get { return none; } }
 
         private static readonly CancellationToken none = new CancellationToken();
-
     }
 }
 #endif

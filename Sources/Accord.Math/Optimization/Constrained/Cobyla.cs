@@ -24,7 +24,7 @@
 //
 // This implementation has been based on the original Fortran 77 version of this,
 // code, written by Michael Powell (M.J.D.Powell @ damtp.cam.ac.uk); and in the
-// Fortran 90 version was by Alan Miller (Alan.Miller @ vic.cmis.csiro.au). 
+// Fortran 90 version was by Alan Miller (Alan.Miller @ vic.cmis.csiro.au).
 //
 
 namespace Accord.Math.Optimization
@@ -35,59 +35,57 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Cobyla exit codes.
     /// </summary>
-    /// 
+    ///
     public enum CobylaStatus
     {
         /// <summary>
         ///   Optimization successfully completed.
         /// </summary>
-        /// 
+        ///
         Success = 0,
 
         /// <summary>
         ///   Maximum number of iterations (function/constraints evaluations) reached during optimization.
         /// </summary>
-        /// 
+        ///
         MaxIterationsReached,
 
         /// <summary>
         ///   Size of rounding error is becoming damaging, terminating prematurely.
         /// </summary>
-        /// 
+        ///
         DivergingRoundingErrors,
 
         /// <summary>
         ///   The posed constraints cannot be fulfilled.
         /// </summary>
-        /// 
+        ///
         NoPossibleSolution
     }
-
-
 
     /// <summary>
     ///   Constrained optimization by linear approximation.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
-    ///   Constrained optimization by linear approximation (COBYLA) is a numerical 
+    ///   Constrained optimization by linear approximation (COBYLA) is a numerical
     ///   optimization method for constrained problems where the derivative of the
     ///   objective function is not known, invented by Michael J. D. Powell. </para>
     ///
     /// <para>
     ///   COBYLA2 is an implementation of Powell’s nonlinear derivative–free constrained
-    ///   optimization that uses a linear approximation approach. The algorithm is a 
+    ///   optimization that uses a linear approximation approach. The algorithm is a
     ///   sequential trust–region algorithm that employs linear approximations to the
-    ///   objective and constraint functions, where the approximations are formed by linear 
+    ///   objective and constraint functions, where the approximations are formed by linear
     ///   interpolation at n + 1 points in the space of the variables and tries to maintain
     ///   a regular–shaped simplex over iterations.</para>
     ///
     /// <para>
     ///   This algorithm is able to solve non-smooth NLP problems with a moderate number
     ///   of variables (about 100), with inequality constraints only.</para>
-    ///   
-    /// <para>    
+    ///
+    /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description><a href="http://en.wikipedia.org/wiki/COBYLA">
@@ -95,38 +93,38 @@ namespace Accord.Math.Optimization
     ///       http://en.wikipedia.org/wiki/COBYLA </a></description></item>
     ///   </list></para>
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <para>
     ///   Let's say we would like to optimize a function whose gradient
-    ///   we do not know or would is too difficult to compute. All we 
+    ///   we do not know or would is too difficult to compute. All we
     ///   have to do is to specify the function, pass it to Cobyla and
     ///   call its Minimize() method:
     /// </para>
-    /// 
+    ///
     /// <code>
     /// // We would like to find the minimum of min f(x) = 10 * (x+1)^2 + y^2
     /// Func&lt;double[], double> function = x => 10 * Math.Pow(x[0] + 1, 2) + Math.Pow(x[1], 2);
-    ///   
+    ///
     /// // Create a cobyla method for 2 variables
     /// Cobyla cobyla = new Cobyla(2, function);
-    /// 
+    ///
     /// bool success = cobyla.Minimize();
-    /// 
+    ///
     /// double minimum = minimum = cobyla.Value; // Minimum should be 0.
     /// double[] solution = cobyla.Solution;     // Vector should be (-1, 0)
     /// </code>
-    /// 
+    ///
     /// <para>
     /// Cobyla can be used even when we have constraints in our optimization problem.
     /// The following example can be found in Fletcher's book Practical Methods of
     /// Optimization, under the equation number (9.1.15).
     /// </para>
-    /// 
+    ///
     /// <code>
     /// // We will optimize the 2-variable function f(x, y) = -x -y
     /// var f = new NonlinearObjectiveFunction(2, x => -x[0] - x[1]);
-    /// 
+    ///
     /// // Under the following constraints
     /// var constraints = new[]
     /// {
@@ -147,18 +145,17 @@ namespace Accord.Math.Optimization
     public class Cobyla : BaseOptimizationMethod, IOptimizationMethod,
         IOptimizationMethod<CobylaStatus>
     {
+        private double rhobeg = 0.5;
+        private double rhoend = 1.0e-6;
+        private int maxfun = 3500;
+        private int iterations;
 
-        double rhobeg = 0.5;
-        double rhoend = 1.0e-6;
-        int maxfun = 3500;
-        int iterations;
-
-        NonlinearConstraint[] constraints;
+        private NonlinearConstraint[] constraints;
         /*
                 /// <summary>
                 ///   Occurs when progress is made during the optimization.
                 /// </summary>
-                /// 
+                ///
                 public event EventHandler<OptimizationProgressEventArgs> Progress;
         */
 
@@ -166,11 +163,11 @@ namespace Accord.Math.Optimization
         ///   Gets the number of iterations performed in the last
         ///   call to <see cref="IOptimizationMethod.Minimize()"/>.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   The number of iterations performed
         ///   in the previous optimization.</value>
-        ///   
+        ///
         public int Iterations
         {
             get { return iterations; }
@@ -181,7 +178,7 @@ namespace Accord.Math.Optimization
         ///   to be performed during optimization. Default
         ///   is 0 (iterate until convergence).
         /// </summary>
-        /// 
+        ///
         public int MaxIterations
         {
             get { return maxfun; }
@@ -190,18 +187,18 @@ namespace Accord.Math.Optimization
 
         /// <summary>
         ///   Get the exit code returned in the last call to the
-        ///   <see cref="IOptimizationMethod.Maximize()"/> or 
+        ///   <see cref="IOptimizationMethod.Maximize()"/> or
         ///   <see cref="IOptimizationMethod.Minimize()"/> methods.
         /// </summary>
-        /// 
+        ///
         public CobylaStatus Status { get; private set; }
 
         /// <summary>
         ///   Creates a new instance of the Cobyla optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the function to be optimized.</param>
-        /// 
+        ///
         public Cobyla(int numberOfVariables)
             : base(numberOfVariables)
         {
@@ -211,10 +208,10 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new instance of the Cobyla optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the function to be optimized.</param>
         /// <param name="function">The function to be optimized.</param>
-        /// 
+        ///
         public Cobyla(int numberOfVariables, Func<double[], double> function)
             : base(numberOfVariables, function)
         {
@@ -224,9 +221,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new instance of the Cobyla optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The function to be optimized.</param>
-        /// 
+        ///
         public Cobyla(NonlinearObjectiveFunction function)
             : base(function.NumberOfVariables, function.Function)
         {
@@ -236,10 +233,10 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new instance of the Cobyla optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The function to be optimized.</param>
         /// <param name="constraints">The constraints of the optimization problem.</param>
-        /// 
+        ///
         public Cobyla(NonlinearObjectiveFunction function, IEnumerable<NonlinearConstraint> constraints)
             : this(function, System.Linq.Enumerable.ToArray(constraints))
         {
@@ -248,10 +245,10 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new instance of the Cobyla optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The function to be optimized.</param>
         /// <param name="constraints">The constraints of the optimization problem.</param>
-        /// 
+        ///
         public Cobyla(NonlinearObjectiveFunction function, NonlinearConstraint[] constraints)
             : base(function.NumberOfVariables, function.Function)
         {
@@ -272,12 +269,11 @@ namespace Accord.Math.Optimization
             this.constraints = constraints;
         }
 
-
         /// <summary>
         ///   Implements the actual optimization algorithm. This
         ///   method should try to minimize the objective function.
         /// </summary>
-        /// 
+        ///
         protected override bool Optimize()
         {
             Status = cobyla();
@@ -335,7 +331,6 @@ namespace Accord.Math.Optimization
             //     the objective and constraint functions at X in F and CON(1),CON(2),
             //     ...,CON(M).  Note that we are trying to adjust X so that F(X) is as
             //     small as possible subject to the constraint functions being nonnegative.
-
 
             // N.B. Arguments CON, SIM, SIMI, DATMAT, A, VSIG, VETA, SIGBAR, DX, W & IACT
             //      have been removed.
@@ -398,11 +393,11 @@ namespace Accord.Math.Optimization
 
             CobylaStatus status;
 
-        //     Make the next call of the user-supplied subroutine CALCFC. These
-        //     instructions are also used for calling CALCFC during the iterations of
-        //     the algorithm.
+            //     Make the next call of the user-supplied subroutine CALCFC. These
+            //     instructions are also used for calling CALCFC during the iterations of
+            //     the algorithm.
 
-        L_40:
+            L_40:
             if (iterations >= maxfun && iterations > 0)
             {
                 status = CobylaStatus.MaxIterationsReached;
@@ -440,7 +435,6 @@ namespace Accord.Math.Optimization
 
             if (iterations <= np)
             {
-
                 //     Exchange the new vertex of the initial simplex with the optimal vertex if
                 //     necessary. Then, if the initial simplex is not complete, pick its next
                 //     vertex and calculate the function values there.
@@ -482,7 +476,7 @@ namespace Accord.Math.Optimization
 
             //     Identify the optimal vertex of the current simplex.
 
-         L_140:
+            L_140:
             var phimin = datmat[mp, np] + parmu * datmat[mpp, np];
             var nbest = np;
 
@@ -747,7 +741,7 @@ namespace Accord.Math.Optimization
             ibrnch = true;
             goto L_40;
 
-        L_440:
+            L_440:
             var vmold = datmat[mp, np] + parmu * datmat[mpp, np];
             var vmnew = f + parmu * resmax;
             var trured = vmold - vmnew;
@@ -849,7 +843,7 @@ namespace Accord.Math.Optimization
             if (trured > 0.0 && trured >= 0.1 * prerem)
                 goto L_140;
 
-        L_550:
+            L_550:
 
             if (!iflag)
             {
@@ -909,14 +903,14 @@ namespace Accord.Math.Optimization
             if (ifull)
                 goto L_620;
 
-        L_600:
+            L_600:
             for (int k = 1; k <= n; ++k)
                 x[k - 1] = sim[k, np];
 
             f = datmat[mp, np];
             resmax = datmat[mpp, np];
 
-        L_620:
+            L_620:
 
             maxfun = iterations;
 
@@ -1022,17 +1016,17 @@ namespace Accord.Math.Optimization
             if (resmax == 0.0)
                 goto L_480;
 
-        //     End the current stage of the calculation if 3 consecutive iterations
-        //     have either failed to reduce the best calculated value of the objective
-        //     function or to increase the number of active constraints since the best
-        //     value was calculated. This strategy prevents cycling, but there is a
-        //     remote possibility that it will cause premature termination.
+            //     End the current stage of the calculation if 3 consecutive iterations
+            //     have either failed to reduce the best calculated value of the objective
+            //     function or to increase the number of active constraints since the best
+            //     value was calculated. This strategy prevents cycling, but there is a
+            //     remote possibility that it will cause premature termination.
 
-        L_60:
+            L_60:
             var optold = 0.0;
             var icount = 0;
 
-        L_70:
+            L_70:
 
             double optnew;
 
@@ -1240,9 +1234,9 @@ namespace Accord.Math.Optimization
             vmultc[nact] = ratio;
 
             //     Update IACT and ensure that the objective function continues to be
-        //     treated as the last active constraint when MCON>M.
+            //     treated as the last active constraint when MCON>M.
 
-        L_210:
+            L_210:
             iact[icon] = iact[nact];
             iact[nact] = kk;
             if (mcon > m && kk != mcon)
@@ -1294,7 +1288,7 @@ namespace Accord.Math.Optimization
 
             //     Delete the constraint that has the index IACT(ICON) from the active set.
 
-        L_260:
+            L_260:
             if (icon < nact)
             {
                 var isave = iact[icon];
@@ -1350,19 +1344,19 @@ namespace Accord.Math.Optimization
 
             //     Pick the next search direction of stage two.
 
-        L_320:
+            L_320:
             temp = 1.0 / zdota[nact];
 
             for (int k = 1; k <= n; ++k)
                 sdirn[k] = temp * z[k, nact];
 
             //     Calculate the step to the boundary of the trust region or take the step
-        //     that reduces RESMAX to zero. The two statements below that include the
-        //     factor 1.0E-6 prevent some harmless underflows that occurred in a test
-        //     calculation. Further, we skip the step if it could be zero within a
-        //     reasonable tolerance for computer rounding errors.
+            //     that reduces RESMAX to zero. The two statements below that include the
+            //     factor 1.0E-6 prevent some harmless underflows that occurred in a test
+            //     calculation. Further, we skip the step if it could be zero within a
+            //     reasonable tolerance for computer rounding errors.
 
-        L_340:
+            L_340:
             var dd = rho * rho;
             var sd = 0.0;
             var ss = 0.0;
@@ -1431,7 +1425,7 @@ namespace Accord.Math.Optimization
             {
                 int k = nact;
 
-            L_390:
+                L_390:
                 var zdotw = 0.0;
                 var zdwabs = 0.0;
                 for (int i = 1; i <= n; ++i)
@@ -1529,22 +1523,21 @@ namespace Accord.Math.Optimization
             if (icon > 0) goto L_70;
             if (step == stpful) return;
 
-        L_480:
+            L_480:
             mcon = m + 1;
             icon = mcon;
             iact[mcon] = mcon;
             vmultc[mcon] = 0.0;
             goto L_60;
 
-        //     We employ any freedom that may be available to reduce the objective
-        //     function before returning a DX whose length is less than RHO.
+            //     We employ any freedom that may be available to reduce the objective
+            //     function before returning a DX whose length is less than RHO.
 
-        L_490:
+            L_490:
             if (mcon == m)
                 goto L_480;
 
             ifull = false;
         }
-
     }
 }

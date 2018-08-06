@@ -34,10 +34,9 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Quadratic objective function.
     /// </summary>
-    /// 
+    ///
     public class NonlinearObjectiveFunction : IObjectiveFunction
     {
-
         private Dictionary<string, int> variables;
         private readonly IDictionary<string, int> readOnlyVariables;
 
@@ -47,7 +46,7 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets the name of each input variable.
         /// </summary>
-        /// 
+        ///
         public IDictionary<string, int> Variables
         {
             get { return readOnlyVariables; }
@@ -56,7 +55,7 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets the index of each input variable in the function.
         /// </summary>
-        /// 
+        ///
         public IDictionary<int, string> Indices
         {
             get { return readOnlyIndices; }
@@ -65,39 +64,37 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets the name of each input variable.
         /// </summary>
-        /// 
+        ///
         protected Dictionary<string, int> InnerVariables { get { return variables; } }
 
         /// <summary>
         ///   Gets the index of each input variable in the function.
         /// </summary>
-        /// 
+        ///
         protected Dictionary<int, string> InnerIndices { get { return indices; } }
 
         /// <summary>
         ///   Gets the objective function.
         /// </summary>
-        /// 
+        ///
         public Func<double[], double> Function { get; protected set; }
 
         /// <summary>
         ///   Gets the gradient of the <see cref="Function">objective function</see>.
         /// </summary>
-        /// 
+        ///
         public Func<double[], double[]> Gradient { get; protected set; }
-
 
         /// <summary>
         ///   Gets the number of input variables for the function.
         /// </summary>
-        /// 
+        ///
         public int NumberOfVariables { get; protected set; }
-
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="NonlinearObjectiveFunction"/> class.
         /// </summary>
-        /// 
+        ///
         protected NonlinearObjectiveFunction()
         {
             variables = new Dictionary<string, int>();
@@ -110,11 +107,11 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new objective function specified through a string.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of parameters in the <paramref name="function"/>.</param>
         /// <param name="function">A lambda expression defining the objective
         ///   function.</param>
-        /// 
+        ///
         public NonlinearObjectiveFunction(int numberOfVariables, Func<double[], double> function)
             : this()
         {
@@ -132,13 +129,13 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new objective function specified through a string.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of parameters in the <paramref name="function"/>.</param>
         /// <param name="function">A lambda expression defining the objective
         ///   function.</param>
         /// <param name="gradient">A lambda expression defining the gradient
         ///   of the <paramref name="function">objective function</paramref>.</param>
-        /// 
+        ///
         public NonlinearObjectiveFunction(int numberOfVariables,
             Func<double[], double> function, Func<double[], double[]> gradient)
             : this(numberOfVariables, function)
@@ -147,15 +144,16 @@ namespace Accord.Math.Optimization
         }
 
 #if !NET35
+
         /// <summary>
         ///   Creates a new objective function specified through a lambda expression.
         /// </summary>
-        /// 
-        /// <param name="function">A <see cref="Expression{T}"/> containing 
+        ///
+        /// <param name="function">A <see cref="Expression{T}"/> containing
         ///   the function in the form of a lambda expression.</param>
-        /// <param name="gradient">A <see cref="Expression{T}"/> containing 
+        /// <param name="gradient">A <see cref="Expression{T}"/> containing
         ///   the gradient of the <paramref name="function">objective function</paramref>.</param>
-        /// 
+        ///
         public NonlinearObjectiveFunction(Expression<Func<double>> function, Expression<Func<double[]>> gradient = null)
             : this()
         {
@@ -179,9 +177,8 @@ namespace Accord.Math.Optimization
             this.Function = func.Compile();
             this.Gradient = grad.Compile();
         }
+
 #endif
-
-
 
         internal static void CheckGradient(Func<double[], double[]> value, double[] probe)
         {
@@ -200,6 +197,5 @@ namespace Accord.Math.Optimization
                 if (!probe[i].IsEqual(original[i], 0))
                     throw new InvalidOperationException("The gradient function shouldn't modify the parameter vector.");
         }
-
     }
 }

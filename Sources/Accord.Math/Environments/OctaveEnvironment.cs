@@ -22,13 +22,13 @@
 
 namespace Accord.Math.Environments
 {
+    using System;
+    using System.CodeDom.Compiler;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     using Accord.Math;
     using Accord.Math.Decompositions;
-    using System.CodeDom.Compiler;
-    using System;
-    using System.Linq;
-    using System.Collections.Generic;
-    using System.Reflection;
 
     /// <summary>
     ///   Programming environment for Octave.
@@ -40,88 +40,88 @@ namespace Accord.Math.Environments
     ///   C# which is remarkably similar to Octave. Please take a loook
     ///   on what is possible to do using this class in the examples
     ///   section.</para>
-    ///   
+    ///
     /// <para>
     ///   To use this class, inherit from <see cref="OctaveEnvironment"/>.
     ///   After this step, all code written inside your child class will
     ///   be able to use the syntax below:</para>
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <para>
     ///   Using the <c>mat</c> and <c>ret</c> keywords, it is possible
     ///   to replicate most of the Octave environment inside plain C#
-    ///   code. The example below demonstrates how to compute the 
+    ///   code. The example below demonstrates how to compute the
     ///   Singular Value Decomposition of a matrix, which in turn was
     ///   generated using <see cref="Accord.Math.Matrix.Magic"/>.</para>
-    ///   
+    ///
     /// <code>
     ///   // Declare local matrices
-    ///   mat u = _, s = _, v = _; 
-    ///   
+    ///   mat u = _, s = _, v = _;
+    ///
     ///   // Compute a new mat
     ///   mat M = magic(3) * 5;
-    ///   
+    ///
     ///   // Compute the SVD
     ///   ret [u, s, v] = svd(M);
-    ///   
+    ///
     ///   // Write the matrix
     ///   string str = u;
-    ///   
+    ///
     ///   /*
-    ///        0.577350269189626 -0.707106781186548     0.408248290463863 
-    ///   u =  0.577350269189626 -1.48007149071427E-16 -0.816496580927726 
+    ///        0.577350269189626 -0.707106781186548     0.408248290463863
+    ///   u =  0.577350269189626 -1.48007149071427E-16 -0.816496580927726
     ///        0.577350269189626  0.707106781186548     0.408248290463863
     ///   */
     /// </code>
-    /// 
+    ///
     /// <para>
     ///   It is also possible to ignore certain parameters by
     ///   providing a wildcard in the return structure:</para>
-    ///   
+    ///
     /// <code>
     ///   // Declare local matrices
-    ///   mat u = _, v = _; 
-    ///   
+    ///   mat u = _, v = _;
+    ///
     ///   // Compute a new mat
     ///   mat M = magic(3) * 5;
-    ///   
+    ///
     ///   // Compute the SVD
     ///   ret [u, _, v] = svd(M); // the second argument is omitted
     /// </code>
-    /// 
+    ///
     /// <para>
     ///   Standard matrix operations are also supported: </para>
-    ///   
+    ///
     /// <code>
-    ///   
+    ///
     ///   mat I = eye(3); // 3x3 identity matrix
-    ///   
+    ///
     ///   mat A = I * 2;  // matrix-scalar multiplication
-    ///   
+    ///
     ///   Console.WriteLine(A);
     ///   //
     ///   //        2 0 0
     ///   //    A = 0 2 0
     ///   //        0 0 2
-    ///   
+    ///
     ///   mat B = ones(3, 6); // 3x6 unit matrix
-    ///   
+    ///
     ///   Console.WriteLine(B);
     ///   //
     ///   //        1 1 1 1 1 1
     ///   //    B = 1 1 1 1 1 1
     ///   //        1 1 1 1 1 1
-    ///   
+    ///
     ///   mat C = new double[,]
     ///   {
     ///       { 2, 2, 2, 2, 2, 2 },
     ///       { 2, 0, 0, 0, 0, 2 },
     ///       { 2, 2, 2, 2, 2, 2 },
     ///   };
-    ///   
+    ///
     ///   mat D = A * B - C;
-    ///   
+    ///
     ///   Console.WriteLine(D);
     ///   //
     ///   //        0 0 0 0 0 0
@@ -129,7 +129,7 @@ namespace Accord.Math.Environments
     ///   //        0 0 0 0 0 0
     /// </code>
     /// </example>
-    /// 
+    ///
     /// <seealso cref="Accord.Math.Matrix"/>
     ///
     [GeneratedCode("", "")]
@@ -138,7 +138,7 @@ namespace Accord.Math.Environments
         /// <summary>
         ///   Whether to use octave indexing or not.
         /// </summary>
-        /// 
+        ///
         protected static bool UseOctaveDimensionIndexing
         {
             get { return dimensionOffset == 1; }
@@ -146,7 +146,6 @@ namespace Accord.Math.Environments
         }
 
         private static int dimensionOffset;
-
 
         /// <summary>Pi.</summary>
         protected static double pi = System.Math.PI;
@@ -157,88 +156,115 @@ namespace Accord.Math.Environments
         // octave language commands
         /// <summary>Creates an identity matrix.</summary>
         protected static mat eye(int size) { return Matrix.Identity(size); }
+
         /// <summary>Inverts a matrix.</summary>
         protected static mat inv(double[,] matrix) { return Matrix.Inverse(matrix); }
+
         /// <summary>Inverts a matrix.</summary>
         protected static mat pinv(double[,] matrix) { return Matrix.PseudoInverse(matrix); }
+
         /// <summary>Creates a unit matrix.</summary>
         protected static mat ones(int size) { return Matrix.Ones(size, size); }
+
         /// <summary>Creates a unit matrix.</summary>
         protected static mat ones(int n, int m) { return Matrix.Create(n, m, 1.0); }
+
         /// <summary>Creates a unit matrix.</summary>
         protected static mat zeros(int size) { return Matrix.Square(size, 0.0); }
+
         /// <summary>Creates a unit matrix.</summary>
         protected static mat zeros(int n, int m) { return Matrix.Create(n, m, 0.0); }
+
         /// <summary>Random vector.</summary>
         protected static mat rand(int n, int m) { return Matrix.Random(n, m); }
+
         /// <summary>Size of a matrix.</summary>
         protected static double[] size(double[,] m) { return new double[] { m.GetLength(0), m.GetLength(1) }; }
+
         /// <summary>Rank of a matrix.</summary>
         protected static int rank(double[,] m) { return new SingularValueDecomposition(m).Rank; }
 
-
         /// <summary>Matrix sum vector.</summary>
         protected static double[] sum(double[,] matrix) { return Matrix.Sum(matrix, 0); }
+
         /// <summary>Sum of vector elements.</summary>
         protected static double sum(double[] vector) { return Matrix.Sum(vector); }
+
         /// <summary>Product of vector elements.</summary>
         protected static double prod(double[] vector) { return Matrix.Product(vector); }
+
         /// <summary>Matrix sum vector.</summary>
         protected static double[] sum(double[,] matrix, int dimension) { return Matrix.Sum(matrix, dimension - dimensionOffset); }
 
-
         /// <summary>Rounding.</summary>
         protected static double round(double f) { return System.Math.Round(f); }
+
         /// <summary>Ceiling.</summary>
         protected static double ceil(double f) { return System.Math.Ceiling(f); }
+
         /// <summary>Flooring.</summary>
         protected static double floor(double f) { return System.Math.Floor(f); }
 
         /// <summary>Rounding.</summary>
         protected static double[] round(double[] f) { return Matrix.Round(f, 0); }
+
         /// <summary>Ceiling.</summary>
         protected static double[] ceil(double[] f) { return Matrix.Ceiling(f); }
+
         /// <summary>Flooring.</summary>
         protected static double[] floor(double[] f) { return Matrix.Floor(f); }
 
         /// <summary>Rounding.</summary>
         protected static double[,] round(double[,] f) { return Matrix.Round(f, 0); }
+
         /// <summary>Ceiling.</summary>
         protected static double[,] ceil(double[,] f) { return Matrix.Ceiling(f); }
+
         /// <summary>Flooring.</summary>
         protected static double[,] floor(double[,] f) { return Matrix.Floor(f); }
 
-
         /// <summary>Sin.</summary>
         protected static double sin(double d) { return System.Math.Sin(d); }
+
         /// <summary>Cos.</summary>
         protected static double cos(double d) { return System.Math.Cos(d); }
+
         /// <summary>Exponential value.</summary>
         protected static double exp(double d) { return System.Math.Exp(d); }
+
         /// <summary>Absolute value.</summary>
         protected static double abs(double d) { return System.Math.Abs(d); }
+
         /// <summary>Logarithm.</summary>
         protected static double log(double d) { return System.Math.Log(d); }
 
         /// <summary>Sin.</summary>
         protected static double[] sin(double[] d) { return Matrix.Apply(d, x => System.Math.Sin(x)); }
+
         /// <summary>Cos.</summary>
         protected static double[] cos(double[] d) { return Matrix.Apply(d, x => System.Math.Cos(x)); }
+
         /// <summary>Exponential value.</summary>
         protected static double[] exp(double[] d) { return Matrix.Apply(d, x => System.Math.Exp(x)); }
+
         /// <summary>Absolute value.</summary>
         protected static double[] abs(double[] d) { return Matrix.Apply(d, x => System.Math.Abs(x)); }
+
         /// <summary>Logarithm.</summary>
         protected static double[] log(double[] d) { return Matrix.Apply(d, x => System.Math.Log(x)); }
 
         /// <summary>Sin.</summary>
         protected static mat sin(double[,] d) { return Matrix.Apply(d, x => System.Math.Sin(x)); }
+
         /// <summary>Cos.</summary>
         protected static mat cos(double[,] d) { return Matrix.Apply(d, x => System.Math.Cos(x)); }
+
         /// <summary>Exponential value.</summary>
         protected static mat exp(double[,] d) { return Matrix.Apply(d, x => System.Math.Exp(x)); }
+
         /// <summary>Absolute value.</summary>
         protected static mat abs(double[,] d) { return Matrix.Apply(d, x => System.Math.Abs(x)); }
+
         /// <summary>Logarithm.</summary>
         protected static mat log(double[,] d) { return Matrix.Apply(d, x => System.Math.Log(x)); }
 
@@ -246,20 +272,23 @@ namespace Accord.Math.Environments
         protected static mat magic(int n) { return Matrix.Magic(n); }
 
         // decompositions
+
         #region svd
+
         /// <summary>Singular value decomposition.</summary>
         protected List<mat> svd(double[,] m)
         {
             var svd = new SingularValueDecomposition(m, true, true, true);
-            return new List<mat> 
+            return new List<mat>
             {
-                svd.LeftSingularVectors, svd.DiagonalMatrix, svd.RightSingularVectors 
+                svd.LeftSingularVectors, svd.DiagonalMatrix, svd.RightSingularVectors
             };
         }
 
-        #endregion
+        #endregion svd
 
         #region qr
+
         /// <summary>QR decomposition.</summary>
         protected static void qr(double[,] m, out double[,] Q, out double[,] R)
         {
@@ -276,9 +305,11 @@ namespace Accord.Math.Environments
             R = qr.UpperTriangularFactor;
             d = qr.Diagonal;
         }
-        #endregion
+
+        #endregion qr
 
         #region eig
+
         /// <summary>Eigenvalue decomposition.</summary>
         protected static double[] eig(double[,] a, out double[,] V)
         {
@@ -334,21 +365,24 @@ namespace Accord.Math.Environments
             alphai = eig.ImaginaryAlphas;
             return eig.RealEigenvalues;
         }
-        #endregion
+
+        #endregion eig
 
         #region chol
+
         /// <summary>Cholesky decomposition.</summary>
         protected static double[,] chol(double[,] a)
         {
             var chol = new CholeskyDecomposition(a);
             return chol.LeftTriangularFactor;
         }
-        #endregion
+
+        #endregion chol
 
         /// <summary>
         ///   Matrix placeholder.
         /// </summary>
-        /// 
+        ///
         protected mat _
         {
             get { return new mat(null); }
@@ -357,20 +391,20 @@ namespace Accord.Math.Environments
         /// <summary>
         ///   Return setter keyword.
         /// </summary>
-        /// 
+        ///
         protected readonly retm ret = new retm();
 
         /// <summary>
         ///   Return definition operator.
         /// </summary>
-        /// 
+        ///
         protected class retm
         {
             /// <summary>
             ///   Can be used to set output arguments
             ///   to the output of another function.
             /// </summary>
-            /// 
+            ///
             public List<mat> this[params mat[] a]
             {
                 set
@@ -387,19 +421,19 @@ namespace Accord.Math.Environments
         /// <summary>
         ///   Matrix definition operator.
         /// </summary>
-        /// 
+        ///
         protected class mat
         {
             /// <summary>
             ///   Inner matrix object.
             /// </summary>
-            /// 
+            ///
             public double[,] matrix;
 
             /// <summary>
             ///   Initializes a new instance of the <see cref="mat"/> class.
             /// </summary>
-            /// 
+            ///
             public mat(double[,] matrix)
             {
                 this.matrix = matrix;
@@ -408,7 +442,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Multiplication operator
             /// </summary>
-            /// 
+            ///
             public static mat operator *(mat a, mat b)
             {
                 return Matrix.Dot(a.matrix, b.matrix);
@@ -417,7 +451,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Multiplication operator
             /// </summary>
-            /// 
+            ///
             public static mat operator *(mat a, double x)
             {
                 return a.matrix.Multiply(x);
@@ -426,7 +460,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Multiplication operator
             /// </summary>
-            /// 
+            ///
             public static mat operator *(double x, mat a)
             {
                 return a.matrix.Multiply(x);
@@ -435,7 +469,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Addition operator
             /// </summary>
-            /// 
+            ///
             public static mat operator +(mat a, double x)
             {
                 return a.matrix.Add(x);
@@ -444,7 +478,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Addition operator
             /// </summary>
-            /// 
+            ///
             public static mat operator +(double x, mat a)
             {
                 return a.matrix.Add(x);
@@ -453,7 +487,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Addition operator
             /// </summary>
-            /// 
+            ///
             public static mat operator +(mat a, mat b)
             {
                 return a.matrix.Add(b.matrix);
@@ -462,7 +496,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Subtraction operator
             /// </summary>
-            /// 
+            ///
             public static mat operator -(mat a, mat b)
             {
                 return a.matrix.Subtract(b.matrix);
@@ -471,7 +505,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Subtraction operator
             /// </summary>
-            /// 
+            ///
             public static mat operator -(mat a, double x)
             {
                 return a.matrix.Subtract(x);
@@ -480,7 +514,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Subtraction operator
             /// </summary>
-            /// 
+            ///
             public static mat operator -(double x, mat a)
             {
                 return a.matrix.Subtract(x);
@@ -489,7 +523,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Equality operator.
             /// </summary>
-            /// 
+            ///
             public static bool operator ==(mat a, mat b)
             {
                 return a.matrix.IsEqual(b.matrix);
@@ -498,7 +532,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Inequality operator.
             /// </summary>
-            /// 
+            ///
             public static bool operator !=(mat a, mat b)
             {
                 return !a.matrix.IsEqual(b.matrix);
@@ -507,7 +541,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Implicit conversion from double[,].
             /// </summary>
-            /// 
+            ///
             public static implicit operator mat(double[,] m)
             {
                 return new mat(m);
@@ -516,8 +550,8 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Implicit conversion to double[,].
             /// </summary>
-            /// 
-            public static implicit operator double[,](mat m)
+            ///
+            public static implicit operator double[,] (mat m)
             {
                 return m.matrix;
             }
@@ -525,10 +559,10 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Implicit conversion to string.
             /// </summary>
-            /// 
+            ///
             public static implicit operator string(mat m)
             {
-                if ((Object)m == null) 
+                if ((Object)m == null)
                     return String.Empty;
                 return Matrix.ToString(m.matrix, "e");
             }
@@ -536,7 +570,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Implicit conversion from list.
             /// </summary>
-            /// 
+            ///
             public static implicit operator mat(List<mat> m)
             {
                 return m.First();
@@ -545,7 +579,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Transpose operator.
             /// </summary>
-            /// 
+            ///
             public mat t
             {
                 get { return matrix.Transpose(); }
@@ -554,7 +588,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Determines whether the specified <see cref="System.Object" /> is equal to this instance.
             /// </summary>
-            /// 
+            ///
             public override bool Equals(object obj)
             {
                 mat m = obj as mat;
@@ -567,7 +601,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Returns a hash code for this instance.
             /// </summary>
-            /// 
+            ///
             public override int GetHashCode()
             {
                 return matrix.GetHashCode();
@@ -577,7 +611,7 @@ namespace Accord.Math.Environments
         /// <summary>
         ///   Initializes a new instance of the <see cref="OctaveEnvironment"/> class.
         /// </summary>
-        /// 
+        ///
         protected OctaveEnvironment()
         {
             var type = this.GetType();

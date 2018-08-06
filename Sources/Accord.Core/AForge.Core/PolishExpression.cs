@@ -16,9 +16,9 @@ namespace Accord
     /// <summary>
     /// Evaluator of expressions written in reverse polish notation.
     /// </summary>
-    /// 
+    ///
     /// <remarks><para>The class evaluates expressions writen in reverse postfix polish notation.</para>
-    /// 
+    ///
     /// <para>The list of supported functuins is:</para>
     /// <list type="bullet">
     /// <item><b>Arithmetic functions</b>: +, -, *, /;</item>
@@ -28,11 +28,11 @@ namespace Accord
     /// <item><b>exp</b> - exponent;</item>
     /// <item><b>sqrt</b> - square root.</item>
     /// </list>
-    /// 
+    ///
     /// <para>Arguments for these functions could be as usual constants, written as numbers, as variables,
     /// writen as $&lt;var_number&gt; (<b>$2</b>, for example). The variable number is zero based index
     /// of variables array.</para>
-    /// 
+    ///
     /// <para>Sample usage:</para>
     /// <code>
     /// // expression written in polish notation
@@ -43,7 +43,7 @@ namespace Accord
     /// double result = PolishExpression.Evaluate( expression, vars );
     /// </code>
     /// </remarks>
-    /// 
+    ///
     public static class PolishExpression
     {
         /// <summary>
@@ -52,9 +52,9 @@ namespace Accord
         ///
         /// <param name="expression">Expression written in postfix polish notation.</param>
         /// <param name="variables">Variables for the expression.</param>
-        /// 
+        ///
         /// <returns>Evaluated value of the expression.</returns>
-        /// 
+        ///
         /// <exception cref="ArgumentException">Unsupported function is used in the expression.</exception>
         /// <exception cref="ArgumentException">Incorrect postfix polish expression.</exception>
         ///

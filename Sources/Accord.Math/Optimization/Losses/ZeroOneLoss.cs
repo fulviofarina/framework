@@ -22,14 +22,14 @@
 
 namespace Accord.Math.Optimization.Losses
 {
+    using System;
     using Accord.Math;
     using Accord.Statistics;
-    using System;
 
     /// <summary>
     ///   Accuracy loss, also known as zero-one-loss.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public class ZeroOneLoss : LossBase<int[]>, ILoss<bool[]>,
         ILoss<double[][]>, ILoss<double[]>
@@ -37,14 +37,14 @@ namespace Accord.Math.Optimization.Losses
         private bool mean = true;
 
         /// <summary>
-        ///   Gets or sets a value indicating whether the average 
+        ///   Gets or sets a value indicating whether the average
         ///   accuracy loss should be computed. Default is true.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   <c>true</c> if the average accuracy loss should be computed; otherwise, <c>false</c>.
         /// </value>
-        /// 
+        ///
         public bool Mean
         {
             get { return mean; }

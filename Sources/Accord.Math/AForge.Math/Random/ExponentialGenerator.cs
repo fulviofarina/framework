@@ -13,13 +13,13 @@ namespace Accord.Math.Random
     /// <summary>
     /// Exponential random numbers generator.
     /// </summary>
-    /// 
+    ///
     /// <remarks><para>The random number generator generates exponential
     /// random numbers with specified rate value (lambda).</para>
-    /// 
+    ///
     /// <para>The generator uses <see cref="UniformOneGenerator"/> generator as a base
     /// to generate random numbers.</para>
-    /// 
+    ///
     /// <para>Sample usage:</para>
     /// <code>
     /// // create instance of random generator
@@ -28,7 +28,7 @@ namespace Accord.Math.Random
     /// float randomNumber = generator.Next( );
     /// </code>
     /// </remarks>
-    /// 
+    ///
     [Obsolete("Please use Accord.Statistics.Distributions.Exponential instead.")]
     public class ExponentialGenerator : IRandomNumberGenerator
     {
@@ -39,9 +39,9 @@ namespace Accord.Math.Random
         /// <summary>
         /// Rate value (inverse mean).
         /// </summary>
-        /// 
+        ///
         /// <remarks>The rate value should be positive and non zero.</remarks>
-        /// 
+        ///
         public float Rate
         {
             get { return rate; }
@@ -50,7 +50,7 @@ namespace Accord.Math.Random
         /// <summary>
         /// Mean value of the generator.
         /// </summary>
-        /// 
+        ///
         public float Mean
         {
             get { return 1.0f / rate; }
@@ -68,11 +68,11 @@ namespace Accord.Math.Random
         /// <summary>
         /// Initializes a new instance of the <see cref="ExponentialGenerator"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="rate">Rate value.</param>
-        /// 
+        ///
         /// <exception cref="ArgumentException">Rate value should be greater than zero.</exception>
-        /// 
+        ///
         public ExponentialGenerator(float rate) :
             this(rate, 0)
         {
@@ -81,12 +81,12 @@ namespace Accord.Math.Random
         /// <summary>
         /// Initializes a new instance of the <see cref="ExponentialGenerator"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="rate">Rate value (inverse mean).</param>
         /// <param name="seed">Seed value to initialize random numbers generator.</param>
-        /// 
+        ///
         /// <exception cref="ArgumentException">Rate value should be greater than zero.</exception>
-        /// 
+        ///
         public ExponentialGenerator(float rate, int seed)
         {
             // check rate value
@@ -100,9 +100,9 @@ namespace Accord.Math.Random
         /// <summary>
         /// Generate next random number
         /// </summary>
-        /// 
+        ///
         /// <returns>Returns next random number.</returns>
-        /// 
+        ///
         public float Next()
         {
             return -(float)Math.Log(rand.Next()) / rate;
@@ -111,12 +111,12 @@ namespace Accord.Math.Random
         /// <summary>
         /// Set seed of the random numbers generator.
         /// </summary>
-        /// 
+        ///
         /// <param name="seed">Seed value.</param>
-        /// 
+        ///
         /// <remarks>Resets random numbers generator initializing it with
         /// specified seed value.</remarks>
-        /// 
+        ///
         public void SetSeed(int seed)
         {
             rand = new UniformOneGenerator(seed);

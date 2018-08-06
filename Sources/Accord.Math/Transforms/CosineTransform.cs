@@ -26,27 +26,26 @@
 namespace Accord.Math
 {
     using System;
-    using AForge.Math;
 
     /// <summary>
     ///   Discrete Cosine Transformation.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///    A discrete cosine transform (DCT) expresses a finite sequence of data points
-    ///    in terms of a sum of cosine functions oscillating at different frequencies. 
+    ///    in terms of a sum of cosine functions oscillating at different frequencies.
     ///    DCTs are important to numerous applications in science and engineering, from
-    ///    lossy compression of audio (e.g. MP3) and images (e.g. JPEG) (where small 
-    ///    high-frequency components can be discarded), to spectral methods for the 
+    ///    lossy compression of audio (e.g. MP3) and images (e.g. JPEG) (where small
+    ///    high-frequency components can be discarded), to spectral methods for the
     ///    numerical solution of partial differential equations.</para>
-    ///    
+    ///
     /// <para>
     ///    The use of cosine rather than sine functions is critical in these applications:
     ///    for compression, it turns out that cosine functions are much more efficient,
-    ///    whereas for differential equations the cosines express a particular choice of 
+    ///    whereas for differential equations the cosines express a particular choice of
     ///    boundary conditions.</para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
@@ -58,14 +57,13 @@ namespace Accord.Math
     ///       Prentice. Hall, 1998.</description></item>
     ///   </list></para>
     /// </remarks>
-    /// 
+    ///
     public static class CosineTransform
     {
-
         /// <summary>
         ///   Forward Discrete Cosine Transform.
         /// </summary>
-        /// 
+        ///
         public static void DCT(double[] data)
         {
             double[] result = new double[data.Length];
@@ -88,7 +86,7 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse Discrete Cosine Transform.
         /// </summary>
-        /// 
+        ///
         public static void IDCT(double[] data)
         {
             double[] result = new double[data.Length];
@@ -108,11 +106,10 @@ namespace Accord.Math
                 data[i] = result[i];
         }
 
-
         /// <summary>
         ///   Forward 2D Discrete Cosine Transform.
         /// </summary>
-        /// 
+        ///
         public static void DCT(double[,] data)
         {
             int rows = data.GetLength(0);
@@ -147,7 +144,7 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse 2D Discrete Cosine Transform.
         /// </summary>
-        /// 
+        ///
         public static void IDCT(double[,] data)
         {
             int rows = data.GetLength(0);
@@ -180,4 +177,3 @@ namespace Accord.Math
         }
     }
 }
-

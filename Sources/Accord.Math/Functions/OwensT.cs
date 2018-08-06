@@ -30,9 +30,9 @@ namespace Accord.Math
     /// <summary>
     ///   Owen's T function and related functions.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
-    /// 
+    ///
     /// <para>
     ///   In mathematics, Owen's T function T(h, a), named after statistician Donald Bruce Owen,
     ///   is defined by</para>
@@ -41,21 +41,21 @@ namespace Accord.Math
     ///     T(h, a) =  ----  ∫  ------------------- dx
     ///                 2π   0        1 + x²
     /// </code>
-    /// 
+    ///
     /// <para>
     ///   The function <c>T(h, a)</c> gives the probability of the event <c>(X > h and 0 &lt; Y &lt; aX)</c>
-    ///   where <c>X</c> and <c>Y</c> are independent standard normal random variables. This function can 
+    ///   where <c>X</c> and <c>Y</c> are independent standard normal random variables. This function can
     ///   be used to calculate <see cref="Normal.Bivariate">bivariate normal distribution probabilities</see>
     ///   and, from there, in the calculation of multivariate normal distribution probabilities. It also
     ///   frequently appears in various integrals involving <see cref="Normal">Gaussian</see> functions.
     /// </para>
-    /// 
+    ///
     /// <para>
     ///   The code is based on the original FORTRAN77 version by Mike Patefield, David Tandy;
     ///   and the C version created by John Burkardt. The original code for the C version can
     ///   be found at http://people.sc.fsu.edu/~jburkardt/c_src/owens/owens.html  and is valid
     ///   under the LGPL.</para>
-    /// 
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
@@ -65,27 +65,27 @@ namespace Accord.Math
     ///       Mike Patefield, David Tandy, Fast and Accurate Calculation of Owen's T Function,
     ///       Journal of Statistical Software, Volume 5, Number 5, 2000, pages 1-25.
     ///       </description></item>
-    ///   </list></para>  
+    ///   </list></para>
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <code>
     /// // Computes Owens' T function
     /// double t = OwensT.Function(h: 2, a: 42); // 0.011375065974089608
     /// </code>
     /// </example>
-    /// 
+    ///
     public static class OwensT
     {
         /// <summary>
         ///   Computes Owen's T function for arbitrary H and A.
         /// </summary>
-        /// 
+        ///
         /// <param name="h">Owen's T function argument H.</param>
         /// <param name="a">Owen's T function argument A.</param>
-        /// 
+        ///
         /// <returns>The value of Owen's T function.</returns>
-        /// 
+        ///
         public static double Function(double h, double a)
         {
             double absa;
@@ -123,13 +123,13 @@ namespace Accord.Math
             return value;
         }
 
-        private static readonly double[] arange = 
+        private static readonly double[] arange =
         {
             0.025, 0.09, 0.15, 0.36, 0.5,
-            0.9, 0.99999 
+            0.9, 0.99999
         };
 
-        private static readonly double[] c2 = 
+        private static readonly double[] c2 =
         {
                                         0.99999999999999987510,
             -0.99999999999988796462,      0.99999999998290743652,
@@ -141,27 +141,27 @@ namespace Accord.Math
             -0.76893425990463999675,      0.58893528468484693250,
             -0.38380345160440256652,      0.20317601701045299653,
             -0.82813631607004984866E-01,  0.24167984735759576523E-01,
-            -0.44676566663971825242E-02,  0.39141169402373836468E-03 
+            -0.44676566663971825242E-02,  0.39141169402373836468E-03
         };
 
-        private static readonly double[] hrange = 
+        private static readonly double[] hrange =
         {
             0.02, 0.06, 0.09, 0.125, 0.26,
             0.4,  0.6,  1.6,  1.7,   2.33,
-            2.4,  3.36, 3.4,  4.8 
+            2.4,  3.36, 3.4,  4.8
         };
 
-        private static readonly int[] meth = 
+        private static readonly int[] meth =
         {
-            1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 5, 6 
+            1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 5, 6
         };
 
-        private static readonly int[] ord = 
+        private static readonly int[] ord =
         {
-            2, 3, 4, 5, 7,10,12,18,10,20,30,20, 4, 7, 8,20,13, 0 
+            2, 3, 4, 5, 7,10,12,18,10,20,30,20, 4, 7, 8,20,13, 0
         };
 
-        private static readonly double[] pts = 
+        private static readonly double[] pts =
         {
                                         0.35082039676451715489E-02,
             0.31279042338030753740E-01,  0.85266826283219451090E-01,
@@ -169,10 +169,10 @@ namespace Accord.Math
             0.36807553840697533536,      0.48501092905604697475,
             0.60277514152618576821,      0.71477884217753226516,
             0.81475510988760098605,      0.89711029755948965867,
-            0.95723808085944261843,      0.99178832974629703586 
+            0.95723808085944261843,      0.99178832974629703586
         };
 
-        private static readonly int[] select = 
+        private static readonly int[] select =
         {
             1, 1, 2,13,13,13,13,13,13,13,13,16,16,16, 9,
             1, 2, 2, 3, 3, 5, 5,14,14,15,15,16,16,16, 9,
@@ -181,10 +181,10 @@ namespace Accord.Math
             2, 3, 3, 5, 5, 6, 6, 8, 8,17,17,17,12,12,11,
             2, 3, 5, 5, 5, 6, 6, 8, 8,17,17,17,12,12,12,
             2, 3, 4, 4, 6, 6, 8, 8,17,17,17,17,17,12,12,
-            2, 3, 4, 4, 6, 6,18,18,18,18,17,17,17,12,12 
+            2, 3, 4, 4, 6, 6,18,18,18,18,17,17,17,12,12
         };
 
-        private static readonly double[] wts = 
+        private static readonly double[] wts =
         {
                                         0.18831438115323502887E-01,
             0.18567086243977649478E-01,  0.18042093461223385584E-01,
@@ -192,19 +192,19 @@ namespace Accord.Math
             0.14994592034116704829E-01,  0.13535474469662088392E-01,
             0.11886351605820165233E-01,  0.10070377242777431897E-01,
             0.81130545742299586629E-02,  0.60419009528470238773E-02,
-            0.38862217010742057883E-02,  0.16793031084546090448E-02 
+            0.38862217010742057883E-02,  0.16793031084546090448E-02
         };
 
         /// <summary>
         ///   Owen's T function for a restricted range of parameters.
         /// </summary>
-        /// 
+        ///
         /// <param name="h">Owen's T function argument H (where 0 &lt;= H).</param>
         /// <param name="a">Owen's T function argument A (where 0 &lt;= A &lt;= 1).</param>
         /// <param name="ah">The value of A*H.</param>
-        /// 
+        ///
         /// <returns>The value of Owen's T function.</returns>
-        /// 
+        ///
         public static double Function(double h, double a, double ah)
         {
             double ai;
@@ -237,7 +237,6 @@ namespace Accord.Math
 
             double value = 0;
             double vi;
-
 
             /*
               Determine appropriate method from t1...t6
@@ -285,7 +284,7 @@ namespace Accord.Math
                 dj = dhs - 1.0;
                 gj = hs * dhs;
 
-                for (; ; )
+                for (;;)
                 {
                     value = value + dj * aj / (double)(jj);
 
@@ -301,11 +300,11 @@ namespace Accord.Math
                 }
             }
 
-          /*
-            t2(h, a, m) ; m = 10, 20 or 30
-            z = (-1)^(i-1) * zi ; ii = 2i - 1
-            vi = (-1)^(i-1) * a^(2i-1) * exp[-(a*h)^2/2] / sqrt(2*pi)
-          */
+            /*
+              t2(h, a, m) ; m = 10, 20 or 30
+              z = (-1)^(i-1) * zi ; ii = 2i - 1
+              vi = (-1)^(i-1) * a^(2i-1) * exp[-(a*h)^2/2] / sqrt(2*pi)
+            */
             else if (meth[icode - 1] == 2)
             {
                 maxii = m + m + 1;
@@ -317,7 +316,7 @@ namespace Accord.Math
                 z = 0.5 * (-0.5 + Normal.Function(ah)) / h;
                 y = 1.0 / hs;
 
-                for (; ; )
+                for (;;)
                 {
                     value = value + z;
 
@@ -347,7 +346,7 @@ namespace Accord.Math
                 zi = 0.5 * (-0.5 + Normal.Function(ah)) / h;
                 y = 1.0 / hs;
 
-                for (; ; )
+                for (;;)
                 {
                     value = value + zi * c2[i - 1];
 
@@ -376,7 +375,7 @@ namespace Accord.Math
                 ai = rtwopi * a * Math.Exp(-0.5 * hs * (1.0 - AS));
                 yi = 1.0;
 
-                for (; ; )
+                for (;;)
                 {
                     value = value + ai * yi;
 

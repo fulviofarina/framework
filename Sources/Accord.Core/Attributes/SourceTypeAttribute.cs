@@ -23,35 +23,32 @@
 namespace Accord
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     ///   Specifies that an argument, in a method or function,
     ///   must be greater than zero.
     /// </summary>
-    /// 
+    ///
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public sealed class SourceTypeAttribute : Attribute
     {
         /// <summary>
         ///   Gets or sets the type of the source.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   The type of the source.
         /// </value>
-        /// 
-        Type SourceType { get; set; }
+        ///
+        private Type SourceType { get; set; }
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="SourceType"/> class.
         /// </summary>
-        /// 
+        ///
         public SourceTypeAttribute(Type type)
         {
             this.SourceType = type;
         }
-
     }
-
 }

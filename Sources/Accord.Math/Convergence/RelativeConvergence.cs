@@ -27,42 +27,41 @@ namespace Accord.Math
     /// <summary>
     ///   Relative convergence criteria.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     ///   This class can be used to track progress and convergence
     ///   of methods which rely on the relative change of a value.
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <code>
     ///   // Create a new convergence criteria with unlimited iterations
     ///   var criteria = new RelativeConvergence(iterations: 0, tolerance: 0.1);
-    ///   
+    ///
     ///   int progress = 1;
-    ///   
+    ///
     ///   do
     ///   {
     ///       // Do some processing...
-    ///   
-    ///   
+    ///
+    ///
     ///       // Update current iteration information:
     ///       criteria.NewValue = 12345.6 / progress++;
-    ///   
+    ///
     ///   } while (!criteria.HasConverged);
-    ///   
-    ///   
-    ///   // The method will converge after reaching the 
+    ///
+    ///
+    ///   // The method will converge after reaching the
     ///   // maximum of 11 iterations with a final value
     ///   // of 1234.56:
-    ///   
+    ///
     ///   int iterations = criteria.CurrentIteration; // 11
     ///   double value = criteria.OldValue; // 1234.56
     /// </code>
     /// </example>
-    /// 
+    ///
     public class RelativeConvergence : ISingleValueConvergence
     {
-
         private double tolerance = 0;
         private int maxIterations = 100;
         private double newValue;
@@ -70,13 +69,12 @@ namespace Accord.Math
         private int checks;
         private int maxChecks = 1;
 
-
         /// <summary>
         ///   Gets or sets the maximum relative change in the watched value
         ///   after an iteration of the algorithm used to detect convergence.
         ///   Default is zero.
         /// </summary>
-        /// 
+        ///
         public double Tolerance
         {
             get { return tolerance; }
@@ -94,7 +92,7 @@ namespace Accord.Math
         ///   performed by the iterative algorithm. Default
         ///   is 100.
         /// </summary>
-        /// 
+        ///
         public int Iterations
         {
             get { return maxIterations; }
@@ -111,7 +109,7 @@ namespace Accord.Math
         /// <summary>
         ///   Initializes a new instance of the <see cref="RelativeConvergence"/> class.
         /// </summary>
-        /// 
+        ///
         public RelativeConvergence()
         {
         }
@@ -119,14 +117,14 @@ namespace Accord.Math
         /// <summary>
         ///   Initializes a new instance of the <see cref="RelativeConvergence"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="iterations">The maximum number of iterations which should be
         ///   performed by the iterative algorithm. Setting to zero indicates there
         ///   is no maximum number of iterations. Default is 100.</param>
         /// <param name="tolerance">The maximum relative change in the watched value
         ///   after an iteration of the algorithm used to detect convergence.
         ///   Default is 0.</param>
-        /// 
+        ///
         public RelativeConvergence(int iterations, double tolerance)
         {
             this.Iterations = iterations;
@@ -136,7 +134,7 @@ namespace Accord.Math
         /// <summary>
         ///   Initializes a new instance of the <see cref="RelativeConvergence"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="iterations">The maximum number of iterations which should be
         ///   performed by the iterative algorithm. Setting to zero indicates there
         ///   is no maximum number of iterations. Default is 0.</param>
@@ -146,7 +144,7 @@ namespace Accord.Math
         /// <param name="checks">The minimum number of convergence checks that the
         ///   iterative algorithm should pass before convergence can be declared
         ///   reached.</param>
-        /// 
+        ///
         public RelativeConvergence(int iterations, double tolerance, int checks)
         {
             this.Iterations = iterations;
@@ -157,13 +155,13 @@ namespace Accord.Math
         /// <summary>
         ///   Gets or sets the watched value before the iteration.
         /// </summary>
-        /// 
+        ///
         public double OldValue { get; private set; }
 
         /// <summary>
         ///   Gets or sets the watched value after the iteration.
         /// </summary>
-        /// 
+        ///
         public double NewValue
         {
             get { return newValue; }
@@ -178,13 +176,13 @@ namespace Accord.Math
         /// <summary>
         ///   Gets or sets the current iteration number.
         /// </summary>
-        /// 
+        ///
         public int CurrentIteration { get; private set; }
 
         /// <summary>
         ///   Gets whether the algorithm has converged.
         /// </summary>
-        /// 
+        ///
         public bool HasConverged
         {
             get
@@ -218,12 +216,11 @@ namespace Accord.Math
             return false;
         }
 
-
         /// <summary>
         ///   Resets this instance, reverting all iteration statistics
         ///   statistics (number of iterations, last error) back to zero.
         /// </summary>
-        /// 
+        ///
         public void Clear()
         {
             CurrentIteration = 0;

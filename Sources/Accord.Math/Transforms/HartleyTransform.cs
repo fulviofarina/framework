@@ -26,21 +26,20 @@
 namespace Accord.Math
 {
     using System;
-    using AForge.Math;
 
     /// <summary>
     ///   Hartley Transformation.
     /// </summary>
-    /// 
+    ///
     /// <para>
     ///   In mathematics, the Hartley transform is an integral transform closely related
     ///   to the Fourier transform, but which transforms real-valued functions to real-
     ///   valued functions. It was proposed as an alternative to the Fourier transform by
-    ///   R. V. L. Hartley in 1942, and is one of many known Fourier-related transforms. 
-    ///   Compared to the Fourier transform, the Hartley transform has the advantages of 
-    ///   transforming real functions to real functions (as opposed to requiring complex 
+    ///   R. V. L. Hartley in 1942, and is one of many known Fourier-related transforms.
+    ///   Compared to the Fourier transform, the Hartley transform has the advantages of
+    ///   transforming real functions to real functions (as opposed to requiring complex
     ///   numbers) and of being its own inverse.</para>
-    /// 
+    ///
     /// <remarks>
     ///   References:
     ///   <list type="bullet">
@@ -51,18 +50,17 @@ namespace Accord.Math
     ///       K. R. Castleman, Digital Image Processing. Chapter 13, p.289.
     ///       Prentice. Hall, 1998.</description></item>
     ///     <item><description>
-    ///       Poularikas A. D. “The Hartley Transform”. The Handbook of Formulas and 
+    ///       Poularikas A. D. “The Hartley Transform”. The Handbook of Formulas and
     ///       Tables for Signal Processing. Ed. Alexander D. Poularikas, 1999.</description></item>
     ///   </list>
     /// </remarks>
-    /// 
+    ///
     public static class HartleyTransform
     {
-
         /// <summary>
         ///   Forward Hartley Transform.
         /// </summary>
-        /// 
+        ///
         public static void DHT(double[] data)
         {
             double[] result = new double[data.Length];
@@ -80,12 +78,10 @@ namespace Accord.Math
                 data[i] = result[i];
         }
 
-
-
         /// <summary>
         ///   Forward Hartley Transform.
         /// </summary>
-        /// 
+        ///
         public static void DHT(double[,] data)
         {
             int rows = data.GetLength(0);
@@ -111,7 +107,6 @@ namespace Accord.Math
             Array.Copy(result, data, result.Length);
         }
 
-
         private static double cas(double theta)
         {
             // Basis function. The cas can be computed in two ways:
@@ -119,7 +114,5 @@ namespace Accord.Math
             // 2. sqrt(2) * cos(theta - Math.PI / 4)
             return Constants.Sqrt2 * Math.Cos(theta - Math.PI / 4);
         }
-
     }
 }
-

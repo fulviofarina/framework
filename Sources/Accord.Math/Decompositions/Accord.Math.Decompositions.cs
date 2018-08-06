@@ -30,18 +30,18 @@ namespace Accord.Math.Decompositions
     ///   <see cref="CholeskyDecomposition">Cholesky</see>, and <see cref="NonnegativeMatrixFactorization">
     ///   NMF</see> with specialized definitions for most .NET data types: float, double, and decimals.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   The namespace class diagram is shown below. </para>
     ///   <img src="..\diagrams\classes\Accord.Math.Decompositions.png" />
     /// </remarks>
-    /// 
+    ///
     /// <seealso cref="Accord.Math"/>
     /// <seealso cref="Accord.Math.Optimization"/>
-    ///   
+    ///
     [CompilerGenerated]
-    class NamespaceDoc
+    internal class NamespaceDoc
     {
     }
 }

@@ -27,41 +27,41 @@ namespace Accord.Math
     /// <summary>
     ///   Relative parameter change convergence criteria.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     ///   This class can be used to track progress and convergence
     ///   of methods which rely on the maximum relative change of
     ///   the values within a parameter vector.
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <code>
     ///   // Converge if the maximum change amongst all parameters is less than 0.1:
     ///   var criteria = new RelativeParameterConvergence(iterations: 0, tolerance: 0.1);
-    /// 
+    ///
     ///   int progress = 1;
     ///   double[] parameters = { 12345.6, 952.12, 1925.1 };
-    ///   
+    ///
     ///   do
     ///   {
     ///       // Do some processing...
-    /// 
+    ///
     ///       // Update current iteration information:
     ///       criteria.NewValues = parameters.Divide(progress++);
-    /// 
+    ///
     ///   } while (!criteria.HasConverged);
-    /// 
-    /// 
-    ///   // The method will converge after reaching the 
+    ///
+    ///
+    ///   // The method will converge after reaching the
     ///   // maximum of 11 iterations with a final value
     ///   // of { 1234.56, 95.212, 192.51 }:
-    /// 
+    ///
     ///   int iterations = criteria.CurrentIteration; // 11
     ///   var v = criteria.OldValues; // { 1234.56, 95.212, 192.51 }
-    /// 
+    ///
     /// </code>
     /// </example>
-    /// 
+    ///
     public class RelativeParameterConvergence : IConvergence<double[]>
     {
         private double[] oldValues;
@@ -71,12 +71,11 @@ namespace Accord.Math
         private int maxIterations = 100;
         private double maxChange;
 
-
         /// <summary>
         ///   Gets or sets the maximum change in the watched value
         ///   after an iteration of the algorithm used to detect convergence.
         /// </summary>
-        /// 
+        ///
         public double Tolerance
         {
             get { return tolerance; }
@@ -93,7 +92,7 @@ namespace Accord.Math
         ///   Gets or sets the maximum number of iterations
         ///   performed by the iterative algorithm.
         /// </summary>
-        /// 
+        ///
         public int Iterations
         {
             get { return maxIterations; }
@@ -110,7 +109,7 @@ namespace Accord.Math
         /// <summary>
         ///   Initializes a new instance of the <see cref="RelativeParameterConvergence"/> class.
         /// </summary>
-        /// 
+        ///
         public RelativeParameterConvergence()
         {
         }
@@ -118,14 +117,14 @@ namespace Accord.Math
         /// <summary>
         ///   Initializes a new instance of the <see cref="RelativeParameterConvergence"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="iterations">The maximum number of iterations which should be
         ///   performed by the iterative algorithm. Setting to zero indicates there
         ///   is no maximum number of iterations. Default is 0.</param>
         /// <param name="tolerance">The maximum relative change in the watched value
         ///   after an iteration of the algorithm used to detect convergence.
         ///   Default is 0.</param>
-        /// 
+        ///
         public RelativeParameterConvergence(int iterations, double tolerance)
         {
             this.Iterations = iterations;
@@ -136,7 +135,7 @@ namespace Accord.Math
         ///   Gets the maximum relative parameter
         ///   change after the last iteration.
         /// </summary>
-        /// 
+        ///
         public double Delta
         {
             get { return maxChange; }
@@ -145,14 +144,13 @@ namespace Accord.Math
         /// <summary>
         ///   Gets or sets the watched value before the iteration.
         /// </summary>
-        /// 
+        ///
         public double[] OldValues { get { return oldValues; } }
-
 
         /// <summary>
         ///   Gets or sets the watched value after the iteration.
         /// </summary>
-        /// 
+        ///
         public double[] NewValues
         {
             get { return newValues; }
@@ -167,13 +165,13 @@ namespace Accord.Math
         /// <summary>
         ///   Gets or sets the current iteration number.
         /// </summary>
-        /// 
+        ///
         public int CurrentIteration { get; set; }
 
         /// <summary>
         ///   Gets whether the algorithm has diverged.
         /// </summary>
-        /// 
+        ///
         public bool HasDiverged
         {
             get
@@ -188,7 +186,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets whether the algorithm has converged.
         /// </summary>
-        /// 
+        ///
         public bool HasConverged
         {
             get
@@ -239,7 +237,7 @@ namespace Accord.Math
         /// <summary>
         ///   Clears this instance.
         /// </summary>
-        /// 
+        ///
         public void Clear()
         {
             CurrentIteration = 0;

@@ -23,19 +23,18 @@
 namespace Accord.Math.Distances
 {
     using System;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     ///   Cosine distance.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public sealed class Cosine : IDistance<double[]>, ISimilarity<double[]>
     {
         /// <summary>
         ///   Initializes a new instance of the <see cref="Cosine"/> class.
         /// </summary>
-        /// 
+        ///
         public Cosine()
         {
         }
@@ -44,19 +43,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(double[] x, double[] y)
         {
             double sum = 0;
@@ -77,15 +77,16 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Gets a similarity measure between two points.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point to be compared.</param>
         /// <param name="y">The second point to be compared.</param>
-        /// 
+        ///
         /// <returns>A similarity measure between x and y.</returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Similarity(double[] x, double[] y)
         {
             double sum = 0;

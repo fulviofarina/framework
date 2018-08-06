@@ -9,20 +9,19 @@
 namespace Accord.Math.Random
 {
     using System;
-    using AForge;
 
     /// <summary>
     /// Uniform random numbers generator.
     /// </summary>
-    /// 
+    ///
     /// <remarks><para>The random numbers generator generates uniformly
     /// distributed numbers in the <see cref="Range">specified range</see> - values
     /// are greater or equal to minimum range's value and less than maximum range's
     /// value.</para>
-    /// 
+    ///
     /// <para>The generator uses <see cref="UniformOneGenerator"/> generator
     /// to generate random numbers.</para>
-    /// 
+    ///
     /// <para>Sample usage:</para>
     /// <code>
     /// // create instance of random generator
@@ -31,15 +30,15 @@ namespace Accord.Math.Random
     /// float randomNumber = generator.Next( );
     /// </code>
     /// </remarks>
-    /// 
+    ///
     [Obsolete("Please use Accord.Statistics.UniformDistribution instead.")]
     public class UniformGenerator : IRandomNumberGenerator
     {
-
         private UniformOneGenerator rand = null;
 
         // generator's range
         private float min;
+
         private float length;
 
         /// <summary>
@@ -63,12 +62,12 @@ namespace Accord.Math.Random
         /// <summary>
         /// Random numbers range.
         /// </summary>
-        /// 
+        ///
         /// <remarks><para>Range of random numbers to generate. Generated numbers are
         /// greater or equal to minimum range's value and less than maximum range's
         /// value.</para>
         /// </remarks>
-        /// 
+        ///
         public Accord.Range Range
         {
             get { return new Accord.Range(min, min + length); }
@@ -77,11 +76,11 @@ namespace Accord.Math.Random
         /// <summary>
         /// Initializes a new instance of the <see cref="UniformGenerator"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="range">Random numbers range.</param>
-        /// 
+        ///
         /// <remarks>Initializes random numbers generator with zero seed.</remarks>
-        /// 
+        ///
         public UniformGenerator(Accord.Range range)
             : this(range, 0)
         {
@@ -90,10 +89,10 @@ namespace Accord.Math.Random
         /// <summary>
         /// Initializes a new instance of the <see cref="UniformGenerator"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="range">Random numbers range.</param>
         /// <param name="seed">Seed value to initialize random numbers generator.</param>
-        /// 
+        ///
         public UniformGenerator(Accord.Range range, int seed)
         {
             rand = new UniformOneGenerator(seed);
@@ -105,9 +104,9 @@ namespace Accord.Math.Random
         /// <summary>
         /// Generate next random number.
         /// </summary>
-        /// 
+        ///
         /// <returns>Returns next random number.</returns>
-        /// 
+        ///
         public float Next()
         {
             return (float)rand.Next() * length + min;
@@ -116,28 +115,28 @@ namespace Accord.Math.Random
         /// <summary>
         /// Set seed of the random numbers generator.
         /// </summary>
-        /// 
+        ///
         /// <param name="seed">Seed value.</param>
-        /// 
+        ///
         /// <remarks>Resets random numbers generator initializing it with
         /// specified seed value.</remarks>
-        /// 
+        ///
         public void SetSeed(int seed)
         {
             rand = new UniformOneGenerator(seed);
         }
     }
 
-    internal class RandomNumberGeneratorAdapter : 
+    internal class RandomNumberGeneratorAdapter :
         IRandomNumberGenerator<double>,
         IRandomNumberGenerator<float>
     {
 #pragma warning disable 0618
-        IRandomNumberGenerator rng;
+        private IRandomNumberGenerator rng;
 
         public RandomNumberGeneratorAdapter(IRandomNumberGenerator rng)
         {
-            this.rng = rng;       
+            this.rng = rng;
         }
 
         public float Generate()
@@ -182,5 +181,4 @@ namespace Accord.Math.Random
             throw new NotImplementedException();
         }
     }
-
 }

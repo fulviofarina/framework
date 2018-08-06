@@ -27,10 +27,10 @@ namespace Accord.Math.Optimization.Losses
     /// <summary>
     ///   Base class for <see cref="ILoss{T}">loss functions</see>.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The type for the expected data.</typeparam>
     /// <typeparam name="TOutput">The type for the loss value. Default is double.</typeparam>
-    /// 
+    ///
     [Serializable]
     public abstract class LossBase<TInput, TOutput> : ILoss<TInput, TOutput>
     {
@@ -39,15 +39,15 @@ namespace Accord.Math.Optimization.Losses
         /// <summary>
         ///   Gets the expected outputs (the ground truth).
         /// </summary>
-        /// 
+        ///
         public TInput Expected { get { return expected; } }
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="LossBase{TInput, TOutput}"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="expected">The expected outputs (ground truth).</param>
-        /// 
+        ///
         protected LossBase(TInput expected)
         {
             this.expected = expected;
@@ -57,32 +57,32 @@ namespace Accord.Math.Optimization.Losses
         ///   Computes the loss between the expected values (ground truth)
         ///   and the given actual values that have been predicted.
         /// </summary>
-        /// 
+        ///
         /// <param name="actual">The actual values that have been predicted.</param>
-        /// 
+        ///
         /// <returns>
         ///   The loss value between the expected values and
         ///   the actual predicted values.
         /// </returns>
-        /// 
+        ///
         public abstract TOutput Loss(TInput actual);
     }
 
     /// <summary>
     ///   Base class for <see cref="ILoss{T}">loss functions</see>.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="T">The type for the expected data.</typeparam>
-    /// 
+    ///
     [Serializable]
     public abstract class LossBase<T> : LossBase<T, double>, ILoss<T>
     {
         /// <summary>
         ///   Initializes a new instance of the <see cref="LossBase{TInput, TOutput}"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="expected">The expected outputs (ground truth).</param>
-        /// 
+        ///
         protected LossBase(T expected)
             : base(expected)
         {

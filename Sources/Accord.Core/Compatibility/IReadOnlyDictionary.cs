@@ -30,41 +30,40 @@ namespace Accord
     ///   Minimum IReadOnlyDictionary implementation for .NET 3.5 to
     ///   make Accord.NET work. This is not a complete implementation.
     /// </summary>
-    /// 
+    ///
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
     public interface IReadOnlyDictionary<TKey, TValue> : IReadOnlyCollection<KeyValuePair<TKey, TValue>>,
         IEnumerable<KeyValuePair<TKey, TValue>>, IEnumerable
     {
-
         /// <summary>
         ///   Gets the keys.
         /// </summary>
-        /// 
+        ///
         IEnumerable<TKey> Keys { get; }
 
         /// <summary>
         ///   Gets the values.
         /// </summary>
-        /// 
+        ///
         IEnumerable<TValue> Values { get; }
 
         /// <summary>
         ///   Gets the value associated with the specified key.
         /// </summary>
-        /// 
+        ///
         TValue this[TKey key] { get; }
 
         /// <summary>
         ///   Determines whether the dictionary contains the specified key.
         /// </summary>
-        /// 
+        ///
         bool ContainsKey(TKey key);
 
         /// <summary>
         ///   Tries to get a value.
         /// </summary>
-        /// 
+        ///
         bool TryGetValue(TKey key, out TValue value);
     }
 }

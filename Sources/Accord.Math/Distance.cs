@@ -22,31 +22,27 @@
 
 namespace Accord.Math
 {
-    using Accord.Math.Decompositions;
-    using Accord.Math.Distances;
     using System;
-    using System.Collections;
     using System.Reflection;
-    using System.Runtime.CompilerServices;
+    using Accord.Math.Distances;
 
     /// <summary>
     ///   Static class Distance. Defines a set of extension methods defining distance measures.
     /// </summary>
-    /// 
+    ///
     public static partial class Distance
     {
-
         /// <summary>
         ///   Computes the squared Euclidean distance of two vectors given in sparse representation.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first vector <c>x</c>.</param>
         /// <param name="y">The second vector <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   The squared Euclidean distance <c>d² = |x - y|²</c> between the given vectors.
         /// </returns>
-        /// 
+        ///
         public static double SquareEuclidean(Sparse<double> x, Sparse<double> y)
         {
             double sum = 0;
@@ -93,14 +89,13 @@ namespace Accord.Math
         ///   the triangle inequality. Please note that a function can still pass
         ///   this test and not respect the triangle inequality.
         /// </summary>
-        /// 
+        ///
         public static bool IsMetric(Func<double[], double[], double> value)
         {
             // Direct test
             double z = value(new[] { 1.0 }, new[] { 1.0 });
             if (z > 2 || z < 0)
                 return false;
-
 
             var a = new double[1];
             var b = new double[1];
@@ -127,7 +122,7 @@ namespace Accord.Math
         ///   the triangle inequality. Please note that a function can still pass
         ///   this test and not respect the triangle inequality.
         /// </summary>
-        /// 
+        ///
         public static bool IsMetric(Func<int[], int[], double> value)
         {
             // Direct test
@@ -166,7 +161,7 @@ namespace Accord.Math
         ///   the triangle inequality. Please note that a function can still pass
         ///   this test and not respect the triangle inequality.
         /// </summary>
-        /// 
+        ///
         public static bool IsMetric<T>(IDistance<T> value)
         {
             return value is IMetric<T>;
@@ -176,20 +171,20 @@ namespace Accord.Math
         ///   Gets the a <see cref="IDistance{T}"/> object implementing a
         ///   particular method of the <see cref="Distance"/> static class.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   This method relies on reflection and might not work on all scenarios,
         ///   environments, and/or platforms.
         /// </remarks>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements being compared in the distance function.</typeparam>
-        /// 
+        ///
         /// <param name="func">The method of <see cref="Distance"/>.</param>
-        /// 
+        ///
         /// <returns>
         ///   An object of the class that implements the given distance.
         /// </returns>
-        /// 
+        ///
         public static IDistance<T> GetDistance<T>(Func<T, T, double> func)
         {
             var methods = typeof(Distance).GetMethods(BindingFlags.Public | BindingFlags.Static);
@@ -220,7 +215,7 @@ namespace Accord.Math
         ///   Please use the <see cref="Distance.Hamming(byte[], byte[])">Distance.Hamming</see>
         ///   method or the <see cref="Accord.Math.Distances.Hamming"/> class instead.
         /// </summary>
-        /// 
+        ///
         [Obsolete("Please use Distance.Hamming instead.")]
         public static double BitwiseHamming(byte[] x, byte[] y)
         {
@@ -230,19 +225,19 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the Levenshtein distance between two points.
         /// </summary>
-        ///  
+        ///
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// 
+        ///
         /// <returns>The Levenshtein distance between x and y.</returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Levenshtein<T>(T[] x, T[] y)
         {
             return new Levenshtein<T>().Distance(x, y);
         }
-
     }
 }

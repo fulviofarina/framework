@@ -29,15 +29,14 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Resilient Backpropagation method for unconstrained optimization.
     /// </summary>
-    /// 
+    ///
     /// <seealso cref="ConjugateGradient"/>
     /// <seealso cref="BoundedBroydenFletcherGoldfarbShanno"/>
     /// <seealso cref="BroydenFletcherGoldfarbShanno"/>
     /// <seealso cref="TrustRegionNewtonMethod"/>
-    /// 
+    ///
     public class ResilientBackpropagation : BaseGradientOptimizationMethod, IGradientOptimizationMethod
     {
-
         private RelativeConvergence convergence;
 
         private double initialStep = 0.0125;
@@ -53,20 +52,17 @@ namespace Accord.Math.Optimization
         // update values, also known as deltas
         private double[] weightsUpdates;
 
-
-
         /// <summary>
         ///   Occurs when the current learning progress has changed.
         /// </summary>
-        /// 
+        ///
         public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
-
 
         /// <summary>
         ///   Gets or sets the maximum possible update step,
         ///   also referred as delta min. Default is 50.
         /// </summary>
-        /// 
+        ///
         public double UpdateUpperBound
         {
             get { return deltaMax; }
@@ -77,7 +73,7 @@ namespace Accord.Math.Optimization
         ///   Gets or sets the minimum possible update step,
         ///   also referred as delta max. Default is 1e-6.
         /// </summary>
-        /// 
+        ///
         public double UpdateLowerBound
         {
             get { return deltaMin; }
@@ -85,10 +81,10 @@ namespace Accord.Math.Optimization
         }
 
         /// <summary>
-        ///   Gets the decrease parameter, also 
+        ///   Gets the decrease parameter, also
         ///   referred as eta minus. Default is 0.5.
         /// </summary>
-        /// 
+        ///
         public double DecreaseFactor
         {
             get { return etaMinus; }
@@ -104,7 +100,7 @@ namespace Accord.Math.Optimization
         ///   Gets the increase parameter, also
         ///   referred as eta plus. Default is 1.2.
         /// </summary>
-        /// 
+        ///
         public double IncreaseFactor
         {
             get { return etaPlus; }
@@ -120,7 +116,7 @@ namespace Accord.Math.Optimization
         ///   Gets or sets the maximum change in the average log-likelihood
         ///   after an iteration of the algorithm used to detect convergence.
         /// </summary>
-        /// 
+        ///
         public double Tolerance
         {
             get { return convergence.Tolerance; }
@@ -131,7 +127,7 @@ namespace Accord.Math.Optimization
         ///   Gets or sets the maximum number of iterations
         ///   performed by the learning algorithm.
         /// </summary>
-        /// 
+        ///
         public int Iterations
         {
             get { return convergence.Iterations; }
@@ -141,9 +137,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new instance of the L-BFGS optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The function to be optimized.</param>
-        /// 
+        ///
         public ResilientBackpropagation(NonlinearObjectiveFunction function)
             : this(function.NumberOfVariables, function.Function, function.Gradient)
         {
@@ -152,11 +148,11 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new instance of the L-BFGS optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the function to be optimized.</param>
         /// <param name="function">The function to be optimized.</param>
         /// <param name="gradient">The gradient of the function.</param>
-        /// 
+        ///
         public ResilientBackpropagation(int numberOfVariables,
             Func<double[], double> function, Func<double[], double[]> gradient)
             : base(numberOfVariables, function, gradient)
@@ -167,9 +163,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new <see cref="ResilientBackpropagation"/> function optimizer.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of parameters in the function to be optimized.</param>
-        /// 
+        ///
         public ResilientBackpropagation(int numberOfVariables)
             : base(numberOfVariables)
         {
@@ -188,12 +184,11 @@ namespace Accord.Math.Optimization
             Reset(initialStep);
         }
 
-
         /// <summary>
         ///   Implements the actual optimization algorithm. This
         ///   method should try to minimize the objective function.
         /// </summary>
-        /// 
+        ///
         protected override bool Optimize()
         {
             convergence.Clear();
@@ -208,9 +203,6 @@ namespace Accord.Math.Optimization
 
             return true;
         }
-
-
-
 
         private double runEpoch()
         {
@@ -254,9 +246,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Raises the <see cref="E:ProgressChanged"/> event.
         /// </summary>
-        /// 
+        ///
         /// <param name="args">The <see cref="System.ComponentModel.ProgressChangedEventArgs"/> instance containing the event data.</param>
-        /// 
+        ///
         protected void OnProgressChanged(ProgressChangedEventArgs args)
         {
             if (ProgressChanged != null)
@@ -266,7 +258,7 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Resets the current update steps using the given learning rate.
         /// </summary>
-        /// 
+        ///
         public void Reset(double rate)
         {
             convergence.Clear();
@@ -277,6 +269,5 @@ namespace Accord.Math.Optimization
                     weightsUpdates[i] = rate;
             });
         }
-
     }
 }

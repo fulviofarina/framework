@@ -23,72 +23,70 @@
 namespace Accord.Math
 {
     using System;
-    using Accord.Math.Decompositions;
-    using Accord.Math.Comparers;
-    using System.Collections.Generic;
     using System.Collections;
-    using System.Runtime.CompilerServices;
+    using System.Collections.Generic;
     using System.Reflection;
     using System.Runtime.InteropServices;
+    using Accord.Math.Comparers;
+    using Accord.Math.Decompositions;
 
     /// <summary>
     ///   Special matrix types.
     /// </summary>
-    /// 
+    ///
     [Flags]
     public enum MatrixType
     {
         /// <summary>
         ///   Symmetric matrix.
         /// </summary>
-        /// 
+        ///
         Symmetric,
 
         /// <summary>
         ///   Lower (left) triangular matrix.
         /// </summary>
-        /// 
+        ///
         LowerTriangular,
 
         /// <summary>
         ///   Upper (right) triangular matrix.
         /// </summary>
-        /// 
+        ///
         UpperTriangular,
 
         /// <summary>
         ///   Diagonal matrix.
         /// </summary>
-        /// 
+        ///
         Diagonal,
 
         /// <summary>
         ///   Rectangular matrix.
         /// </summary>
-        /// 
+        ///
         Rectangular,
 
         /// <summary>
         ///   Square matrix.
         /// </summary>
-        /// 
+        ///
         Square,
     }
 
     public static partial class Matrix
     {
-
         #region Comparison
 
         /// <summary>
         ///   Determines whether a number is an integer, given a tolerance threshold.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The value to be compared.</param>
         /// <param name="threshold">The maximum that the number can deviate from its closest integer number.</param>
-        /// 
+        ///
         /// <returns>True if the number if an integer, false otherwise.</returns>
-        /// 
+        ///
         public static bool IsInteger(this double x, double threshold)
         {
             double a = Math.Round(x);
@@ -106,22 +104,21 @@ namespace Accord.Math
         /// <summary>
         ///   Compares two values for equality, considering a relative acceptance threshold.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         [Obsolete("Use IsEqual(a, b, rtol) with the named parameter rtol instead.")]
         public static bool IsRelativelyEqual(this double a, double b, double threshold)
         {
             return a.IsEqual(b, rtol: threshold);
         }
 
-
-
         /// <summary>
         ///   Compares two matrices for equality.
         /// </summary>
-        /// 
+        ///
         public static bool IsEqual<T>(this T[][] objA, T[][] objB)
         {
             // TODO: Make this method recursive, or create
@@ -260,7 +257,7 @@ namespace Accord.Math
         /// <summary>
         ///   This method should not be called. Use Matrix.IsEqual instead.
         /// </summary>
-        /// 
+        ///
         public static new bool Equals(object value)
         {
             throw new NotSupportedException("Use Matrix.IsEqual instead.");
@@ -269,7 +266,7 @@ namespace Accord.Math
         /// <summary>
         ///   Checks whether two arrays have the same dimensions.
         /// </summary>
-        /// 
+        ///
         public static bool DimensionEquals(this Array a, Array b)
         {
             if (a.Rank != b.Rank)
@@ -286,16 +283,16 @@ namespace Accord.Math
         ///   same elements, but not necessarily in the same
         ///   order.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The element type.</typeparam>
-        /// 
+        ///
         /// <param name="list1">The first set.</param>
         /// <param name="list2">The first set.</param>
-        /// 
+        ///
         /// <returns>
         ///   True if the two sets contains the same elements, false otherwise.
         /// </returns>
-        /// 
+        ///
         public static bool SetEquals<T>(this IEnumerable<T> list1, IEnumerable<T> list2)
         {
             var cnt = new Dictionary<T, int>();
@@ -327,11 +324,11 @@ namespace Accord.Math
         ///   Returns a value indicating whether the specified
         ///   matrix contains a value that is not a number (NaN).
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A double-precision multidimensional matrix.</param>
-        /// 
+        ///
         /// <returns>True if the matrix contains a value that is not a number, false otherwise.</returns>
-        /// 
+        ///
         public static bool HasNaN(this double[,] matrix)
         {
             foreach (var e in matrix)
@@ -343,11 +340,11 @@ namespace Accord.Math
         ///   Returns a value indicating whether the specified
         ///   matrix contains a value that is not a number (NaN).
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A double-precision multidimensional matrix.</param>
-        /// 
+        ///
         /// <returns>True if the matrix contains a value that is not a number, false otherwise.</returns>
-        /// 
+        ///
         public static bool HasNaN(this double[] matrix)
         {
             foreach (var e in matrix)
@@ -360,11 +357,11 @@ namespace Accord.Math
         ///   Returns a value indicating whether the specified
         ///   matrix contains a value that is not a number (NaN).
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A double-precision multidimensional matrix.</param>
-        /// 
+        ///
         /// <returns>True if the matrix contains a value that is not a number, false otherwise.</returns>
-        /// 
+        ///
         public static bool HasNaN(this double[][] matrix)
         {
             for (int i = 0; i < matrix.Length; i++)
@@ -378,11 +375,11 @@ namespace Accord.Math
         ///   Returns a value indicating whether the specified
         ///   matrix contains a infinity value.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A double-precision multidimensional matrix.</param>
-        /// 
+        ///
         /// <returns>True if the matrix contains infinity values, false otherwise.</returns>
-        /// 
+        ///
         public static bool HasInfinity(this double[,] matrix)
         {
             foreach (var e in matrix)
@@ -391,19 +388,18 @@ namespace Accord.Math
             return false;
         }
 
-
         /// <summary>
         ///   Returns a value indicating whether the specified
         ///   matrix contains a value within a given tolerance.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A double-precision multidimensional matrix.</param>
         /// <param name="value">The value to search for in the matrix.</param>
         /// <param name="tolerance">The relative tolerance that a value must be in
         ///   order to be considered equal to the value being searched.</param>
-        /// 
+        ///
         /// <returns>True if the matrix contains the value, false otherwise.</returns>
-        /// 
+        ///
         public static bool Has(this double[,] matrix, double value, double tolerance = 0.0)
         {
             foreach (var e in matrix)
@@ -416,14 +412,14 @@ namespace Accord.Math
         ///   Returns a value indicating whether the specified
         ///   matrix contains a value within a given tolerance.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A single-precision multidimensional matrix.</param>
         /// <param name="value">The value to search for in the matrix.</param>
         /// <param name="tolerance">The relative tolerance that a value must be in
         ///   order to be considered equal to the value being searched.</param>
-        /// 
+        ///
         /// <returns>True if the matrix contains the value, false otherwise.</returns>
-        /// 
+        ///
         public static bool Has(this float[,] matrix, float value, double tolerance = 0.0)
         {
             foreach (var e in matrix)
@@ -436,11 +432,11 @@ namespace Accord.Math
         ///   Returns a value indicating whether the specified
         ///   matrix contains a infinity value.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A double-precision multidimensional matrix.</param>
-        /// 
+        ///
         /// <returns>True if the matrix contains a infinity value, false otherwise.</returns>
-        /// 
+        ///
         public static bool HasInfinity(this double[] matrix)
         {
             foreach (var e in matrix)
@@ -453,11 +449,11 @@ namespace Accord.Math
         ///   Returns a value indicating whether the specified
         ///   matrix contains a infinity value.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A double-precision multidimensional matrix.</param>
-        /// 
+        ///
         /// <returns>True if the matrix contains a infinity value, false otherwise.</returns>
-        /// 
+        ///
         public static bool HasInfinity(this double[][] matrix)
         {
             for (int i = 0; i < matrix.Length; i++)
@@ -467,19 +463,18 @@ namespace Accord.Math
             return false;
         }
 
-        #endregion
-
+        #endregion Comparison
 
         #region Transpose
 
         /// <summary>
         ///   Gets the transpose of a matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix.</param>
-        /// 
+        ///
         /// <returns>The transpose of the given matrix.</returns>
-        /// 
+        ///
         public static T[,] Transpose<T>(this T[,] matrix)
         {
             return Transpose(matrix, false);
@@ -488,14 +483,14 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the transpose of a matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix.</param>
-        /// 
+        ///
         /// <param name="inPlace">True to store the transpose over the same input
         ///   <paramref name="matrix"/>, false otherwise. Default is false.</param>
-        ///   
+        ///
         /// <returns>The transpose of the given matrix.</returns>
-        /// 
+        ///
         public static T[,] Transpose<T>(this T[,] matrix, bool inPlace)
         {
             int rows = matrix.GetLength(0);
@@ -529,16 +524,14 @@ namespace Accord.Math
             }
         }
 
-
-
         /// <summary>
         ///   Gets the transpose of a row vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="rowVector">A row vector.</param>
-        /// 
+        ///
         /// <returns>The transpose of the given vector.</returns>
-        /// 
+        ///
         public static T[,] Transpose<T>(this T[] rowVector)
         {
             var result = new T[rowVector.Length, 1];
@@ -550,12 +543,12 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the transpose of a row vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="rowVector">A row vector.</param>
         /// <param name="result">The matrix where to store the transpose.</param>
-        /// 
+        ///
         /// <returns>The transpose of the given vector.</returns>
-        /// 
+        ///
         public static T[,] Transpose<T>(this T[] rowVector, T[,] result)
         {
             for (int i = 0; i < rowVector.Length; i++)
@@ -563,16 +556,15 @@ namespace Accord.Math
             return result;
         }
 
-
         /// <summary>
         ///   Gets the generalized transpose of a tensor.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">A tensor.</param>
         /// <param name="order">The new order for the tensor's dimensions.</param>
-        /// 
+        ///
         /// <returns>The transpose of the given tensor.</returns>
-        /// 
+        ///
         public static Array Transpose(this Array array, int[] order)
         {
             return transpose(array, order);
@@ -581,12 +573,12 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the generalized transpose of a tensor.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">A tensor.</param>
         /// <param name="order">The new order for the tensor's dimensions.</param>
-        /// 
+        ///
         /// <returns>The transpose of the given tensor.</returns>
-        /// 
+        ///
         public static T Transpose<T>(this T array, int[] order)
             where T : class, ICloneable, IList
         {
@@ -610,7 +602,7 @@ namespace Accord.Math
 
             Array r = Array.CreateInstance(array.GetType().GetElementType(), size.Get(order));
 
-            // Generate all indices for accessing the matrix 
+            // Generate all indices for accessing the matrix
             foreach (int[] pos in Combinatorics.Sequences(size, true))
             {
                 int[] newPos = pos.Get(order);
@@ -621,15 +613,14 @@ namespace Accord.Math
             return r;
         }
 
-        #endregion
-
+        #endregion Transpose
 
         #region Matrix Characteristics
 
         /// <summary>
         /// Gets the total number of elements in the vector.
         /// </summary>
-        /// 
+        ///
         public static int GetNumberOfElements<T>(this T[] value)
         {
             return value.Length;
@@ -638,7 +629,7 @@ namespace Accord.Math
         /// <summary>
         /// Gets the total number of elements in the matrix.
         /// </summary>
-        /// 
+        ///
         public static int GetNumberOfElements<T>(this T[][] value)
         {
             int sum = 0;
@@ -650,7 +641,7 @@ namespace Accord.Math
         /// <summary>
         /// Gets the total number of elements in the matrix.
         /// </summary>
-        /// 
+        ///
         public static int GetNumberOfElements<T>(this T[,] elements)
         {
             return elements.GetLength().Product();
@@ -659,7 +650,7 @@ namespace Accord.Math
         /// <summary>
         /// Gets the size of a vector, in bytes.
         /// </summary>
-        /// 
+        ///
         public static int GetSizeInBytes<T>(this T[] elements)
         {
             return elements.GetNumberOfElements() * Marshal.SizeOf(typeof(T));
@@ -668,7 +659,7 @@ namespace Accord.Math
         /// <summary>
         /// Gets the size of a matrix, in bytes.
         /// </summary>
-        /// 
+        ///
         public static int GetSizeInBytes<T>(this T[][] elements)
         {
             return elements.GetNumberOfElements() * Marshal.SizeOf(typeof(T));
@@ -677,7 +668,7 @@ namespace Accord.Math
         /// <summary>
         /// Gets the size of a matrix, in bytes.
         /// </summary>
-        /// 
+        ///
         public static int GetSizeInBytes<T>(this T[,] elements)
         {
             return elements.GetNumberOfElements() * Marshal.SizeOf(typeof(T));
@@ -686,12 +677,12 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the number of rows in a vector.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements in the column vector.</typeparam>
         /// <param name="vector">The vector whose number of rows must be computed.</param>
-        /// 
+        ///
         /// <returns>The number of rows in the column vector.</returns>
-        /// 
+        ///
         public static int Rows<T>(this T[] vector)
         {
             return vector.Length;
@@ -700,12 +691,12 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the number of rows in a multidimensional matrix.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements in the matrix.</typeparam>
         /// <param name="matrix">The matrix whose number of rows must be computed.</param>
-        /// 
+        ///
         /// <returns>The number of rows in the matrix.</returns>
-        /// 
+        ///
         public static int Rows<T>(this T[,] matrix)
         {
             return matrix.GetLength(0);
@@ -714,12 +705,12 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the number of columns in a multidimensional matrix.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements in the matrix.</typeparam>
         /// <param name="matrix">The matrix whose number of columns must be computed.</param>
-        /// 
+        ///
         /// <returns>The number of columns in the matrix.</returns>
-        /// 
+        ///
         public static int Columns<T>(this T[,] matrix)
         {
             return matrix.GetLength(1);
@@ -729,9 +720,9 @@ namespace Accord.Math
         ///   Returns true if a vector of real-valued observations
         ///   is ordered in ascending or descending order.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An array of values.</param>
-        /// 
+        ///
         public static bool IsSorted<T>(this T[] values)
             where T : IComparable<T>
         {
@@ -743,10 +734,10 @@ namespace Accord.Math
         ///   Returns true if a vector of real-valued observations
         ///   is ordered in ascending or descending order.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An array of values.</param>
         /// <param name="direction">The sort order direction.</param>
-        /// 
+        ///
         public static bool IsSorted<T>(this T[] values, ComparerDirection direction)
             where T : IComparable<T>
         {
@@ -800,8 +791,6 @@ namespace Accord.Math
             return false;
         }
 
-
-
         /// <summary>
         ///   Returns true if a matrix is upper triangular.
         /// </summary>
@@ -845,7 +834,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a matrix to lower triangular form, if possible.
         /// </summary>
-        /// 
+        ///
         public static T[,] ToLowerTriangular<T>(this T[,] matrix, MatrixType from, T[,] result = null)
         {
             if (result == null)
@@ -872,7 +861,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a matrix to upper triangular form, if possible.
         /// </summary>
-        /// 
+        ///
         public static T[,] ToUpperTriangular<T>(this T[,] matrix, MatrixType from, T[,] result = null)
         {
             if (result == null)
@@ -899,7 +888,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a matrix to lower triangular form, if possible.
         /// </summary>
-        /// 
+        ///
         public static T[][] ToLowerTriangular<T>(this T[][] matrix, MatrixType from, T[][] result = null)
         {
             if (result == null)
@@ -926,7 +915,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a matrix to upper triangular form, if possible.
         /// </summary>
-        /// 
+        ///
         public static T[][] ToUpperTriangular<T>(this T[][] matrix, MatrixType from, T[][] result = null)
         {
             if (result == null)
@@ -953,7 +942,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the lower triangular part of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[,] GetLowerTriangle<T>(this T[,] matrix, bool includeDiagonal = true)
         {
             int s = includeDiagonal ? 1 : 0;
@@ -967,7 +956,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the upper triangular part of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[,] GetUpperTriangle<T>(this T[,] matrix, bool includeDiagonal = false)
         {
             int s = includeDiagonal ? 0 : 1;
@@ -982,7 +971,7 @@ namespace Accord.Math
         ///   Transforms a triangular matrix in a symmetric matrix by copying
         ///   its elements to the other, unfilled part of the matrix.
         /// </summary>
-        /// 
+        ///
         public static T[,] GetSymmetric<T>(this T[,] matrix, MatrixType type, T[,] result = null)
         {
             if (result == null)
@@ -995,11 +984,13 @@ namespace Accord.Math
                         for (int j = 0; j <= i; j++)
                             result[i, j] = result[j, i] = matrix[i, j];
                     break;
+
                 case MatrixType.UpperTriangular:
                     for (int i = 0; i < matrix.Rows(); i++)
                         for (int j = i; j <= matrix.Columns(); j++)
                             result[i, j] = result[j, i] = matrix[i, j];
                     break;
+
                 default:
                     throw new Exception("Matrix type can be either LowerTriangular or UpperTrianguler.");
             }
@@ -1030,13 +1021,13 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the trace of a matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   The trace of an n-by-n square matrix A is defined to be the sum of the
         ///   elements on the main diagonal (the diagonal from the upper left to the
         ///   lower right) of A.
         /// </remarks>
-        /// 
+        ///
         public static double Trace(this double[,] matrix)
         {
             if (matrix == null) throw new ArgumentNullException("matrix");
@@ -1052,7 +1043,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the trace of a matrix product.
         /// </summary>
-        /// 
+        ///
         public static double Trace(double[,] matrixA, double[,] matrixB)
         {
             if (matrixA.Length != matrixB.Length)
@@ -1079,13 +1070,13 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the trace of a matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   The trace of an n-by-n square matrix A is defined to be the sum of the
         ///   elements on the main diagonal (the diagonal from the upper left to the
         ///   lower right) of A.
         /// </remarks>
-        /// 
+        ///
         public static int Trace(this int[,] matrix)
         {
             if (matrix == null)
@@ -1102,13 +1093,13 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the trace of a matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   The trace of an n-by-n square matrix A is defined to be the sum of the
         ///   elements on the main diagonal (the diagonal from the upper left to the
         ///   lower right) of A.
         /// </remarks>
-        /// 
+        ///
         public static float Trace(this float[,] matrix)
         {
             if (matrix == null)
@@ -1125,11 +1116,11 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the diagonal vector from a matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix.</param>
-        /// 
+        ///
         /// <returns>The diagonal vector from the given matrix.</returns>
-        /// 
+        ///
         public static T[] Diagonal<T>(this T[,] matrix)
         {
             if (matrix == null)
@@ -1145,7 +1136,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the determinant of a matrix.
         /// </summary>
-        /// 
+        ///
         public static double Determinant(this double[,] matrix)
         {
             // Assume the most general case
@@ -1155,7 +1146,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the determinant of a matrix.
         /// </summary>
-        /// 
+        ///
         public static double Determinant(this double[,] matrix, bool symmetric)
         {
             if (matrix == null)
@@ -1181,7 +1172,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the log-determinant of a matrix.
         /// </summary>
-        /// 
+        ///
         public static double LogDeterminant(this double[,] matrix)
         {
             // Assume the most general case
@@ -1191,7 +1182,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the log-determinant of a matrix.
         /// </summary>
-        /// 
+        ///
         public static double LogDeterminant(this double[,] matrix, bool symmetric)
         {
             if (matrix == null)
@@ -1217,7 +1208,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the pseudo-determinant of a matrix.
         /// </summary>
-        /// 
+        ///
         public static double PseudoDeterminant(this double[,] matrix)
         {
             if (matrix == null)
@@ -1231,7 +1222,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the pseudo-determinant of a matrix.
         /// </summary>
-        /// 
+        ///
         public static double PseudoDeterminant(this double[][] matrix)
         {
             if (matrix == null)
@@ -1245,7 +1236,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the log of the pseudo-determinant of a matrix.
         /// </summary>
-        /// 
+        ///
         public static double LogPseudoDeterminant(this double[,] matrix)
         {
             if (matrix == null)
@@ -1259,7 +1250,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the log of the pseudo-determinant of a matrix.
         /// </summary>
-        /// 
+        ///
         public static double LogPseudoDeterminant(this double[][] matrix)
         {
             if (matrix == null)
@@ -1270,12 +1261,10 @@ namespace Accord.Math
                 autoTranspose: true, inPlace: false).LogPseudoDeterminant;
         }
 
-
-
         /// <summary>
         ///   Gets the rank of a matrix.
         /// </summary>
-        /// 
+        ///
         public static int Rank(this double[,] matrix)
         {
             return new SingularValueDecomposition(matrix,
@@ -1286,7 +1275,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the rank of a matrix.
         /// </summary>
-        /// 
+        ///
         public static int Rank(this float[,] matrix)
         {
             return new SingularValueDecompositionF(matrix,
@@ -1297,7 +1286,7 @@ namespace Accord.Math
         /// <summary>
         ///    Gets whether a matrix is singular.
         /// </summary>
-        /// 
+        ///
         public static bool IsSingular(this double[,] matrix)
         {
             if (matrix == null) throw new ArgumentNullException("matrix");
@@ -1307,7 +1296,7 @@ namespace Accord.Math
         /// <summary>
         ///    Gets whether a matrix is positive definite.
         /// </summary>
-        /// 
+        ///
         public static bool IsPositiveDefinite(this double[,] matrix)
         {
             if (matrix == null) throw new ArgumentNullException("matrix");
@@ -1315,16 +1304,14 @@ namespace Accord.Math
             return new CholeskyDecomposition(matrix).IsPositiveDefinite;
         }
 
-        #endregion
-
-
+        #endregion Matrix Characteristics
 
         #region Operation Mapping (Apply)
 
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[] Apply<TInput, TResult>(this TInput[] vector, Func<TInput, TResult> func)
         {
             return Apply(vector, func, new TResult[vector.Length]);
@@ -1333,7 +1320,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[] Apply<TInput, TResult>(this TInput[] vector, Func<TInput, int, TResult> func)
         {
             return Apply(vector, func, new TResult[vector.Length]);
@@ -1342,7 +1329,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[] Apply<TInput, TResult>(this TInput[] vector, Func<TInput, TResult> func, TResult[] result)
         {
             for (int i = 0; i < vector.Length; i++)
@@ -1353,7 +1340,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[] Apply<TInput, TResult>(this TInput[] vector, Func<TInput, int, TResult> func, TResult[] result)
         {
             for (int i = 0; i < vector.Length; i++)
@@ -1361,12 +1348,10 @@ namespace Accord.Math
             return result;
         }
 
-
-
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[,] Apply<TInput, TResult>(this TInput[,] matrix, Func<TInput, TResult> func)
         {
             return Apply(matrix, func, Matrix.CreateAs<TInput, TResult>(matrix));
@@ -1375,7 +1360,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[,] Apply<TInput, TResult>(this TInput[,] matrix, Func<TInput, int, int, TResult> func)
         {
             return Apply(matrix, func, Matrix.CreateAs<TInput, TResult>(matrix));
@@ -1384,7 +1369,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[,] Apply<TInput, TResult>(this TInput[,] matrix, Func<TInput, TResult> func, TResult[,] result)
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
@@ -1396,7 +1381,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[,] Apply<TInput, TResult>(this TInput[,] matrix, Func<TInput, int, int, TResult> func, TResult[,] result)
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
@@ -1404,10 +1389,6 @@ namespace Accord.Math
                     result[i, j] = func(matrix[i, j], i, j);
             return result;
         }
-
-
-
-
 
         /// <summary>
         ///   Applies a function to every element of the array.
@@ -1421,7 +1402,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of a matrix.
         /// </summary>
-        /// 
+        ///
         [Obsolete("Please use Apply passing a result parameter instead.")]
         public static void ApplyInPlace<T>(this T[,] matrix, Func<T, T> func)
         {
@@ -1440,7 +1421,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         [Obsolete("Please use Apply passing a result parameter instead.")]
         public static T[] ApplyInPlace<T>(this T[] vector, Func<T, int, T> func)
         {
@@ -1450,7 +1431,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         [Obsolete("Please use Apply passing a result parameter instead.")]
         public static TResult[] ApplyWithIndex<TData, TResult>(this TData[] vector, Func<TData, int, TResult> func)
         {
@@ -1460,7 +1441,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of a matrix.
         /// </summary>
-        /// 
+        ///
         [Obsolete("Please use Apply passing a result parameter instead.")]
         public static TResult[,] ApplyWithIndex<TData, TResult>(this TData[,] matrix, Func<TData, int, int, TResult> func)
         {
@@ -1470,7 +1451,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[] Apply<TData, TResult>(this IList<TData> vector, Func<TData, TResult> func)
         {
             return Apply(vector, func, new TResult[vector.Count]);
@@ -1479,21 +1460,22 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[] Apply<TData, TResult>(this IList<TData> vector, Func<TData, TResult> func, TResult[] result)
         {
             for (int i = 0; i < vector.Count; i++)
                 result[i] = func(vector[i]);
             return result;
         }
-        #endregion
 
+        #endregion Operation Mapping (Apply)
 
         #region Rounding and discretization
+
         /// <summary>
         ///   Rounds a double-precision floating-point matrix to a specified number of fractional digits.
         /// </summary>
-        /// 
+        ///
         public static double[,] Round(this double[,] matrix, int decimals = 0)
         {
             if (matrix == null) throw new ArgumentNullException("matrix");
@@ -1511,10 +1493,10 @@ namespace Accord.Math
         }
 
         /// <summary>
-        ///   Returns the largest integer less than or equal than to the specified 
+        ///   Returns the largest integer less than or equal than to the specified
         ///   double-precision floating-point number for each element of the matrix.
         /// </summary>
-        /// 
+        ///
         public static double[,] Floor(this double[,] matrix)
         {
             if (matrix == null) throw new ArgumentNullException("matrix");
@@ -1532,7 +1514,7 @@ namespace Accord.Math
         }
 
         /// <summary>
-        ///   Returns the largest integer greater than or equal than to the specified 
+        ///   Returns the largest integer greater than or equal than to the specified
         ///   double-precision floating-point number for each element of the matrix.
         /// </summary>
         public static double[,] Ceiling(this double[,] matrix)
@@ -1565,7 +1547,7 @@ namespace Accord.Math
         }
 
         /// <summary>
-        ///   Returns the largest integer less than or equal than to the specified 
+        ///   Returns the largest integer less than or equal than to the specified
         ///   double-precision floating-point number for each element of the array.
         /// </summary>
         public static double[] Floor(double[] vector)
@@ -1579,7 +1561,7 @@ namespace Accord.Math
         }
 
         /// <summary>
-        ///   Returns the largest integer greater than or equal than to the specified 
+        ///   Returns the largest integer greater than or equal than to the specified
         ///   double-precision floating-point number for each element of the array.
         /// </summary>
         public static double[] Ceiling(double[] vector)
@@ -1592,21 +1574,20 @@ namespace Accord.Math
             return result;
         }
 
-        #endregion
-
+        #endregion Rounding and discretization
 
         #region Morphological operations
 
         /// <summary>
         ///   Transforms a matrix into a single vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix.</param>
         /// <param name="order">The direction to perform copying. Pass
         ///   1 to perform a copy by reading the matrix in row-major order.
-        ///   Pass 0 to perform a copy in column-major copy. Default is 1 
+        ///   Pass 0 to perform a copy in column-major copy. Default is 1
         ///   (row-major, c-style order).</param>
-        /// 
+        ///
         public static T[] Flatten<T>(this T[,] matrix, MatrixOrder order = MatrixOrder.Default)
         {
             return Reshape(matrix, order);
@@ -1615,30 +1596,29 @@ namespace Accord.Math
         /// <summary>
         ///   Transforms a matrix into a single vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix.</param>
         /// <param name="result">The vector where to store the copy.</param>
         /// <param name="order">The direction to perform copying. Pass
         ///   1 to perform a copy by reading the matrix in row-major order.
-        ///   Pass 0 to perform a copy in column-major copy. Default is 1 
+        ///   Pass 0 to perform a copy in column-major copy. Default is 1
         ///   (row-major, c-style order).</param>
-        /// 
+        ///
         public static T[] Flatten<T>(this T[,] matrix, T[] result, MatrixOrder order = MatrixOrder.Default)
         {
             return Reshape(matrix, result, order);
         }
 
-
         /// <summary>
         ///   Transforms a jagged array matrix into a single vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">A jagged array.</param>
         /// <param name="order">The direction to perform copying. Pass
         ///   1 to perform a copy by reading the matrix in row-major order.
-        ///   Pass 0 to perform a copy in column-major copy. Default is 1 
+        ///   Pass 0 to perform a copy in column-major copy. Default is 1
         ///   (row-major, c-style order).</param>
-        /// 
+        ///
         public static T[] Flatten<T>(this T[][] array, MatrixOrder order = MatrixOrder.Default)
         {
             return Reshape(array, order);
@@ -1647,14 +1627,14 @@ namespace Accord.Math
         /// <summary>
         ///   Transforms a jagged array matrix into a single vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">A jagged array.</param>
         /// <param name="result">The vector where to store the copy.</param>
         /// <param name="order">The direction to perform copying. Pass
         ///   1 to perform a copy by reading the matrix in row-major order.
-        ///   Pass 0 to perform a copy in column-major copy. Default is 1 
+        ///   Pass 0 to perform a copy in column-major copy. Default is 1
         ///   (row-major, c-style order).</param>
-        /// 
+        ///
         public static T[] Flatten<T>(this T[][] array, T[] result, MatrixOrder order = MatrixOrder.Default)
         {
             return Reshape(array, result, order);
@@ -1663,13 +1643,13 @@ namespace Accord.Math
         /// <summary>
         ///   Transforms a matrix into a single vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix.</param>
         /// <param name="order">The direction to perform copying. Pass
         ///   1 to perform a copy by reading the matrix in row-major order.
-        ///   Pass 0 to perform a copy in column-major copy. Default is 1 
+        ///   Pass 0 to perform a copy in column-major copy. Default is 1
         ///   (row-major, c-style order).</param>
-        /// 
+        ///
         public static T[] Reshape<T>(this T[,] matrix, MatrixOrder order = MatrixOrder.Default)
         {
             int rows = matrix.GetLength(0);
@@ -1680,14 +1660,14 @@ namespace Accord.Math
         /// <summary>
         ///   Transforms a matrix into a single vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix.</param>
         /// <param name="result">The vector where to store the copy.</param>
         /// <param name="order">The direction to perform copying. Pass
         ///   1 to perform a copy by reading the matrix in row-major order.
-        ///   Pass 0 to perform a copy in column-major copy. Default is 1 
+        ///   Pass 0 to perform a copy in column-major copy. Default is 1
         ///   (row-major, c-style order).</param>
-        /// 
+        ///
         public static T[] Reshape<T>(this T[,] matrix, T[] result, MatrixOrder order = MatrixOrder.Default)
         {
             int rows = matrix.GetLength(0);
@@ -1711,17 +1691,16 @@ namespace Accord.Math
             return result;
         }
 
-
         /// <summary>
         ///   Transforms a jagged array matrix into a single vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">A jagged array.</param>
         /// <param name="order">The direction to perform copying. Pass
         ///   1 to perform a copy by reading the matrix in row-major order.
-        ///   Pass 0 to perform a copy in column-major copy. Default is 1 
+        ///   Pass 0 to perform a copy in column-major copy. Default is 1
         ///   (row-major, c-style order).</param>
-        /// 
+        ///
         public static T[] Reshape<T>(this T[][] array, MatrixOrder order = MatrixOrder.Default)
         {
             int count = 0;
@@ -1733,14 +1712,14 @@ namespace Accord.Math
         /// <summary>
         ///   Transforms a jagged array matrix into a single vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">A jagged array.</param>
         /// <param name="result">The vector where to store the copy.</param>
         /// <param name="order">The direction to perform copying. Pass
         ///   1 to perform a copy by reading the matrix in row-major order.
-        ///   Pass 0 to perform a copy in column-major copy. Default is 1 
+        ///   Pass 0 to perform a copy in column-major copy. Default is 1
         ///   (row-major, c-style order).</param>
-        /// 
+        ///
         public static T[] Reshape<T>(this T[][] array, T[] result, MatrixOrder order = MatrixOrder.Default)
         {
             if (order == MatrixOrder.CRowMajor)
@@ -1772,15 +1751,15 @@ namespace Accord.Math
             return result;
         }
 
-        #endregion
+        #endregion Morphological operations
 
         /// <summary>
         ///   Convolves an array with the given kernel.
         /// </summary>
-        /// 
+        ///
         /// <param name="a">A floating number array.</param>
         /// <param name="kernel">A convolution kernel.</param>
-        /// 
+        ///
         public static double[] Convolve(this double[] a, double[] kernel)
         {
             return Convolve(a, kernel, false);
@@ -1789,13 +1768,13 @@ namespace Accord.Math
         /// <summary>
         /// Convolves an array with the given kernel.
         /// </summary>
-        /// 
+        ///
         /// <param name="a">A floating number array.</param>
         /// <param name="kernel">A convolution kernel.</param>
         /// <param name="trim">
         ///   If <c>true</c> the resulting array will be trimmed to
         ///   have the same length as the input array. Default is false.</param>
-        ///   
+        ///
         public static double[] Convolve(this double[] a, double[] kernel, bool trim)
         {
             double[] result;
@@ -1835,12 +1814,11 @@ namespace Accord.Math
             return result;
         }
 
-
         /// <summary>
         ///   Creates a memberwise copy of a multidimensional matrix. Matrix elements
         ///   themselves are copied only in a shallowed manner (i.e. not cloned).
         /// </summary>
-        /// 
+        ///
         public static T[,] MemberwiseClone<T>(this T[,] a)
         {
             // TODO: Rename to Copy and implement shallow and deep copies
@@ -1851,7 +1829,7 @@ namespace Accord.Math
         ///   Creates a memberwise copy of a vector matrix. Vector elements
         ///   themselves are copied only in a shallow manner (i.e. not cloned).
         /// </summary>
-        /// 
+        ///
         public static T[] MemberwiseClone<T>(this T[] a)
         {
             // TODO: Rename to Copy and implement shallow and deep copies
@@ -1862,7 +1840,7 @@ namespace Accord.Math
         ///   Creates a memberwise copy of a matrix. Matrix elements
         ///   themselves are copied only in a shallow manner (i.e. not cloned).
         /// </summary>
-        /// 
+        ///
         public static T[,] Copy<T>(this T[,] a)
         {
             return (T[,])a.Clone();
@@ -1871,13 +1849,13 @@ namespace Accord.Math
         /// <summary>
         ///   Copies the content of an array to another array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="matrix">The source matrix to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
         /// <param name="transpose">Whether to transpose the matrix when copying or not. Default is false.</param>
-        /// 
+        ///
         public static void CopyTo<T>(this T[,] matrix, T[,] destination, bool transpose = false)
         {
             if (matrix == destination)
@@ -1916,13 +1894,13 @@ namespace Accord.Math
         /// <summary>
         ///   Copies the content of an array to another array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="matrix">The source matrix to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
         /// <param name="transpose">Whether to transpose the matrix when copying or not. Default is false.</param>
-        /// 
+        ///
         public static void CopyTo<T>(this T[,] matrix, T[][] destination, bool transpose = false)
         {
             if (transpose)
@@ -1950,16 +1928,15 @@ namespace Accord.Math
             }
         }
 
-
         /// <summary>
         ///   Copies the content of an array to another array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="matrix">The source matrix to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
-        /// 
+        ///
         public static void CopyTo<T>(this T[,] matrix, T[][] destination)
         {
             for (int i = 0; i < destination.Length; i++)
@@ -1970,12 +1947,12 @@ namespace Accord.Math
         /// <summary>
         ///   Copies the content of an array to another array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="matrix">The source matrix to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
-        /// 
+        ///
         public static void SetTo<T>(this T[] destination, T[] matrix)
         {
             if (matrix != destination)
@@ -1985,27 +1962,26 @@ namespace Accord.Math
         /// <summary>
         ///   Copies the content of an array to another array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="matrix">The source matrix to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
-        /// 
+        ///
         public static void SetTo<T>(this T[,] destination, T[,] matrix)
         {
             Array.Copy(matrix, 0, destination, 0, matrix.Length);
         }
 
-
         /// <summary>
         ///   Copies the content of an array to another array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="matrix">The source matrix to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
-        /// 
+        ///
         public static void SetTo<T>(this T[,] destination, T[][] matrix)
         {
             for (int i = 0; i < matrix.Length; i++)
@@ -2016,12 +1992,12 @@ namespace Accord.Math
         /// <summary>
         ///   Copies the content of an array to another array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="matrix">The source matrix to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
-        /// 
+        ///
         public static void SetTo<T>(this T[][] destination, T[,] matrix)
         {
             for (int i = 0; i < destination.Length; i++)
@@ -2032,12 +2008,12 @@ namespace Accord.Math
         /// <summary>
         ///   Sets all elements of an array to a given value.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="value">The value to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
-        /// 
+        ///
         public static void SetTo<T>(this T[,] destination, T value)
         {
             for (int i = 0; i < destination.GetLength(0); i++)
@@ -2045,16 +2021,15 @@ namespace Accord.Math
                     destination[i, j] = value;
         }
 
-
         /// <summary>
         ///   Sets all elements of an array to a given value.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="value">The value to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
-        /// 
+        ///
         public static void SetTo<T>(this T[][] destination, T value)
         {
             for (int i = 0; i < destination.Length; i++)
@@ -2065,7 +2040,7 @@ namespace Accord.Math
         /// <summary>
         ///   Sets all elements in an array to zero.
         /// </summary>
-        /// 
+        ///
         public static void Clear(this Array array)
         {
             Array.Clear(array, 0, array.Length);
@@ -2074,7 +2049,7 @@ namespace Accord.Math
         /// <summary>
         ///   Sets all elements in an array to zero.
         /// </summary>
-        /// 
+        ///
         public static void Clear<T>(this T[][] array)
         {
             for (int i = 0; i < array.Length; i++)
@@ -2085,14 +2060,14 @@ namespace Accord.Math
         ///   Replaces one value by another in a matrix of any dimensions.
         ///   This is not an optimized operation.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">The array where elements will be replaced.</param>
         /// <param name="from">The values which should be replaced.</param>
         /// <param name="to">The value to put in place of <paramref name="from"/>.</param>
-        /// 
+        ///
         /// <returns>A new array where all instances of <paramref name="from"/>
         ///   have been replaced with <paramref name="to"/>.</returns>
-        /// 
+        ///
         public static T Replace<T>(this T array, object from, object to)
             where T : class
         {
@@ -2105,4 +2080,3 @@ namespace Accord.Math
         }
     }
 }
-

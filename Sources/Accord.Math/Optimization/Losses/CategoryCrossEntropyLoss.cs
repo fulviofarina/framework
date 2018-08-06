@@ -23,22 +23,17 @@
 namespace Accord.Math.Optimization.Losses
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///   Categorical cross-entropy loss for multi-class problems,
     ///   also known as the logistic loss for softmax (categorical) outputs.
     /// </summary>
-    /// 
+    ///
     /// <seealso cref="BinaryCrossEntropyLoss"/>
-    /// 
+    ///
     [Serializable]
     public class CategoryCrossEntropyLoss : LossBase<double[][]>, ILoss<int[]>
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoryCrossEntropyLoss"/> class.
         /// </summary>

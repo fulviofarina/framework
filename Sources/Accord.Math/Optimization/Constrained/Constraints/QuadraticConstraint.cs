@@ -23,42 +23,35 @@
 namespace Accord.Math.Optimization
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq.Expressions;
-    using System.Text.RegularExpressions;
-    using System.Text;
-
 
     /// <summary>
     ///   Constraint with only quadratic terms.
     /// </summary>
-    /// 
+    ///
     public class QuadraticConstraint : NonlinearConstraint, IConstraint
     {
-
         /// <summary>
         ///   Gets the matrix of <c>A</c> quadratic terms
         ///   for the constraint <c>x'Ax + x'b</c>.
         /// </summary>
-        /// 
+        ///
         public double[,] QuadraticTerms { get; private set; }
 
         /// <summary>
         ///   Gets the vector <c>b</c> of linear terms
         ///   for the constraint <c>x'Ax + x'b</c>.
         /// </summary>
-        /// 
+        ///
         public double[] LinearTerms { get; private set; }
-
 
         /// <summary>
         ///   Constructs a new quadratic constraint in the form <c>x'Ax + x'b</c>.
         /// </summary>
-        /// 
+        ///
         /// <param name="objective">The objective function to which this constraint refers.</param>
         /// <param name="quadraticTerms">The matrix of <c>A</c> quadratic terms.</param>
         /// <param name="linearTerms">The vector <c>b</c> of linear terms.</param>
-        /// <param name="shouldBe">How the left hand side of the constraint should be compared to 
+        /// <param name="shouldBe">How the left hand side of the constraint should be compared to
         ///   the given <paramref name="value"/>.</param>
         /// <param name="value">The right hand side of the constraint equation.</param>
         /// <param name="withinTolerance">The tolerance for violations of the constraint. Equality
@@ -78,14 +71,14 @@ namespace Accord.Math.Optimization
                 throw new DimensionMismatchException("quadraticTerms", "Matrix must be square.");
 
             if (quadraticTerms.GetLength(0) != n)
-                throw new DimensionMismatchException("quadraticTerms", 
+                throw new DimensionMismatchException("quadraticTerms",
                     "Matrix rows must match the number of variables in the objective function.");
 
             if (linearTerms != null)
             {
                 if (linearTerms.Length != n)
                     throw new DimensionMismatchException("linearTerms",
-                        "The length of the linear terms vector must match the "+
+                        "The length of the linear terms vector must match the " +
                         "number of variables in the objective function.");
             }
             else
@@ -98,7 +91,6 @@ namespace Accord.Math.Optimization
 
             Create(n, this.function, shouldBe, value, this.gradient, withinTolerance);
         }
-
 
         private double function(double[] x)
         {

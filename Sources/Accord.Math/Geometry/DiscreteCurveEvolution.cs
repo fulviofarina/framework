@@ -36,19 +36,19 @@ namespace Accord.Math.Geometry
 {
     using System;
     using System.Collections.Generic;
-    using Accord.Math;
     using System.Numerics;
+    using Accord.Math;
 
     /// <summary>
     ///   Discrete Curve Evolution.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
-    ///   The Discrete Curve Evolution (DCE) algorithm can be used to simplify 
+    ///   The Discrete Curve Evolution (DCE) algorithm can be used to simplify
     ///   contour curves. It can preserve the outline of a shape by preserving
     ///   its most visually critical points.</para>
-    ///   
+    ///
     /// <para>
     ///   The implementation available in the framework has been contributed by
     ///   Diego Catalano, from the Catalano Framework for Java. The original work
@@ -60,35 +60,34 @@ namespace Accord.Math.Geometry
     ///   L.J. Latecki and R. Lakaemper; Convexity rule for shape decomposition based
     ///   on discrete contour evolution. Computer Vision and Image Understanding 73 (3),
     ///   441-454, 1999.</para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
-    ///     <item><description><a 
+    ///     <item><description><a
     ///     href="http://knight.temple.edu/~lakaemper/courses/cis2168_2010FALL/assignments/assig05_folder/CVIU1999.pdf">
     ///       L.J. Latecki and R. Lakaemper; Convexity rule for shape decomposition based
     ///       on discrete contour evolution. Computer Vision and Image Understanding 73 (3),
     ///       441-454, 1999.</a></description></item>
     ///   </list>
-    /// </para>   
+    /// </para>
     /// </remarks>
-    /// 
+    ///
     public class DiscreteCurveEvolution : IShapeOptimizer
     {
-
         private int vertices = 20;
 
         /// <summary>
         /// Gets or sets the number of vertices.
         /// </summary>
-        /// 
+        ///
         public int NumberOfVertices
         {
             get { return vertices; }
             set
             {
                 if (value <= 0 || value > 3)
-                    throw new ArgumentOutOfRangeException("value", 
+                    throw new ArgumentOutOfRangeException("value",
                         "Number of vertices should be between 0 and 3.");
 
                 vertices = value;
@@ -98,15 +97,15 @@ namespace Accord.Math.Geometry
         /// <summary>
         ///   Initializes a new instance of the <see cref="DiscreteCurveEvolution"/> class.
         /// </summary>
-        /// 
+        ///
         public DiscreteCurveEvolution() { }
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="DiscreteCurveEvolution"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="vertices">Number of vertices.</param>
-        /// 
+        ///
         public DiscreteCurveEvolution(int vertices)
         {
             NumberOfVertices = vertices;
@@ -115,13 +114,13 @@ namespace Accord.Math.Geometry
         /// <summary>
         ///   Optimize specified shape.
         /// </summary>
-        /// 
+        ///
         /// <param name="shape">Shape to be optimized.</param>
-        /// 
+        ///
         /// <returns>
         ///   Returns final optimized shape, which may have reduced amount of points.
         /// </returns>
-        /// 
+        ///
         public List<IntPoint> OptimizeShape(List<IntPoint> shape)
         {
             if (vertices > shape.Count)
@@ -177,9 +176,8 @@ namespace Accord.Math.Geometry
                 // the original relevance measure
                 his[j] = a * lr * ll / (lr + ll);
 
-                if (his[j] > max) 
+                if (his[j] > max)
                     max = his[j];
-
             }
 
             his[0] = max;
@@ -187,6 +185,5 @@ namespace Accord.Math.Geometry
 
             return his;
         }
-
     }
 }

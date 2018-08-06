@@ -22,25 +22,25 @@
 
 namespace Accord.Statistics
 {
-    using Accord.Math;
     using System;
     using System.Collections.Generic;
+    using Accord.Math;
 
     /// <summary>
     ///   Methods for operating with categorical data.
     /// </summary>
-    /// 
+    ///
     public static class Classes
     {
         /// <summary>
         ///   Calculates the prevalence of a class for each variable.
         /// </summary>
-        /// 
+        ///
         /// <param name="positives">An array of counts detailing the occurrence of the first class.</param>
         /// <param name="negatives">An array of counts detailing the occurrence of the second class.</param>
-        /// 
+        ///
         /// <returns>An array containing the proportion of the first class over the total of occurrences.</returns>
-        /// 
+        ///
         public static double[] GetRatio(int[] positives, int[] negatives)
         {
             double[] r = new double[positives.Length];
@@ -52,13 +52,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the prevalence of a class.
         /// </summary>
-        /// 
+        ///
         /// <param name="data">A matrix containing counted, grouped data.</param>
         /// <param name="positiveColumn">The index for the column which contains counts for occurrence of the first class.</param>
         /// <param name="negativeColumn">The index for the column which contains counts for occurrence of the second class.</param>
-        /// 
+        ///
         /// <returns>An array containing the proportion of the first class over the total of occurrences.</returns>
-        /// 
+        ///
         public static double[] GetRatio(this int[][] data, int positiveColumn, int negativeColumn)
         {
             double[] r = new double[data.Length];
@@ -71,16 +71,16 @@ namespace Accord.Statistics
         ///   Groups the occurrences contained in data matrix of binary (dichotomous) data.
         ///   This operation can be reversed using the <see cref="Expand(int[][], int, int, int)"/> method.
         /// </summary>
-        /// 
+        ///
         /// <param name="data">A data matrix containing at least a column of binary data.</param>
         /// <param name="groupIndex">Index of the column which contains the group label name.</param>
         /// <param name="yesNoIndex">Index of the column which contains the binary [0,1] data.</param>
-        /// 
+        ///
         /// <returns>
         ///    A matrix containing the group label in the first column, the number of occurrences of the first class
         ///    in the second column and the number of occurrences of the second class in the third column.
         /// </returns>
-        /// 
+        ///
         public static int[][] Summarize(this int[][] data, int groupIndex, int yesNoIndex)
         {
             var groups = new List<int>();
@@ -112,39 +112,39 @@ namespace Accord.Statistics
         }
 
         /// <summary>
-        ///   Divides values into groups given a vector 
+        ///   Divides values into groups given a vector
         ///   containing the group labels for every value.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the values.</typeparam>
         /// <param name="values">The values to be separated into groups.</param>
         /// <param name="labels">
-        ///   A vector containing the class label associated with each of the 
+        ///   A vector containing the class label associated with each of the
         ///   values. The labels must begin on 0 and its maximum value should
         ///   be the number of groups - 1.</param>
-        /// 
+        ///
         /// <returns>The original values divided into groups.</returns>
-        /// 
+        ///
         public static T[][] Separate<T>(this T[] values, int[] labels)
         {
             return Separate(values, labels, labels.Max() + 1);
         }
 
         /// <summary>
-        ///   Divides values into groups given a vector 
+        ///   Divides values into groups given a vector
         ///   containing the group labels for every value.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the values.</typeparam>
         /// <param name="values">The values to be separated into groups.</param>
         /// <param name="labels">
-        ///   A vector containing the class label associated with each of the 
+        ///   A vector containing the class label associated with each of the
         ///   values. The labels must begin on 0 and its maximum value should
         ///   be the number of groups - 1.</param>
         /// <param name="groups">The number of groups.</param>
-        /// 
+        ///
         /// <returns>The original values divided into groups.</returns>
-        /// 
+        ///
         public static T[][] Separate<T>(this T[] values, int[] labels, int groups)
         {
             if (values.Length != labels.Length)
@@ -171,7 +171,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Extends a grouped data into a full observation matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="data">The group labels.</param>
         /// <param name="positives">
         ///   An array containing he occurrence of the positive class
@@ -179,9 +179,9 @@ namespace Accord.Statistics
         /// <param name="negatives">
         ///   An array containing he occurrence of the negative class
         ///   for each of the groups.</param>
-        ///   
+        ///
         /// <returns>A full sized observation matrix.</returns>
-        /// 
+        ///
         public static int[][] Expand(this int[] data, int[] positives, int[] negatives)
         {
             if (data.Length != positives.Length)
@@ -207,7 +207,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Expands a grouped data into a full observation matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="data">The grouped data matrix.</param>
         /// <param name="labelColumn">Index of the column which contains the labels
         /// in the grouped data matrix. </param>
@@ -215,9 +215,9 @@ namespace Accord.Statistics
         ///   the occurrences for the first class.</param>
         /// <param name="negativeColumn">Index of the column which contains
         ///   the occurrences for the second class.</param>
-        ///   
+        ///
         /// <returns>A full sized observation matrix.</returns>
-        /// 
+        ///
         public static int[][] Expand(this int[][] data, int labelColumn, int positiveColumn, int negativeColumn)
         {
             List<int[]> rows = new List<int[]>();
@@ -237,10 +237,10 @@ namespace Accord.Statistics
         /// <summary>
         ///   Returns a random group assignment for a sample.
         /// </summary>
-        /// 
+        ///
         /// <param name="samples">The sample size.</param>
         /// <param name="groups">The number of groups.</param>
-        /// 
+        ///
         public static int[] Random(int samples, int groups)
         {
             // Create the index vector
@@ -263,10 +263,10 @@ namespace Accord.Statistics
         ///   Returns a random group assignment for a sample
         ///   into two mutually exclusive groups.
         /// </summary>
-        /// 
+        ///
         /// <param name="samples">The sample size.</param>
         /// <param name="proportion">The proportion of samples between the groups.</param>
-        /// 
+        ///
         public static int[] Random(int samples, double proportion)
         {
             // Create the index vector
@@ -288,11 +288,11 @@ namespace Accord.Statistics
         ///   sure different class labels are distributed evenly among
         ///   the groups.
         /// </summary>
-        /// 
+        ///
         /// <param name="labels">A vector containing class labels.</param>
         /// <param name="classes">The number of different classes in <paramref name="labels"/>.</param>
         /// <param name="categories">The number of groups.</param>
-        /// 
+        ///
         public static int[] Random(int[] labels, int classes, int categories)
         {
             int size = labels.Length;
@@ -311,7 +311,7 @@ namespace Accord.Statistics
             for (int i = 0; i < partitions.Length; i++)
                 partitions[i] = new List<Tuple<int, int>>();
 
-            // We are going to take samples from the buckets and assign to 
+            // We are going to take samples from the buckets and assign to
             // groups. For this, we will be following the buckets in order,
             // such that new samples are drawn equally from each bucket.
 
@@ -343,7 +343,6 @@ namespace Accord.Statistics
                         currentPartition.Add(next);
                     }
                 }
-
             } while (!allEmpty);
 
             for (int i = 0; i < partitions.Length; i++)
@@ -360,12 +359,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Gets the percentage of positive samples in a set of class labels.
         /// </summary>
-        /// 
+        ///
         /// <param name="y">The class labels.</param>
         /// <param name="positives">The number of positive samples in <paramref name="y"/>.</param>
         /// <param name="negatives">The number of negatives samples in <paramref name="y"/>.</param>
         /// <returns>The percentage of positive samples in <paramref name="y"/>.</returns>
-        /// 
+        ///
         public static double GetRatio(int[] y, out int positives, out int negatives)
         {
             return GetRatio(y.ToBoolean(), out positives, out negatives);
@@ -374,12 +373,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Gets the percentage of positive samples in a set of class labels.
         /// </summary>
-        /// 
+        ///
         /// <param name="y">The class labels.</param>
         /// <param name="positives">The number of positive samples in <paramref name="y"/>.</param>
         /// <param name="negatives">The number of negatives samples in <paramref name="y"/>.</param>
         /// <returns>The percentage of positive samples in <paramref name="y"/>.</returns>
-        /// 
+        ///
         public static double GetRatio(this bool[] y, out int positives, out int negatives)
         {
             positives = 0;
@@ -396,7 +395,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts a boolean variable into a 0-or-1 representation (0 is false, 1 is true).
         /// </summary>
-        /// 
+        ///
         public static int ToZeroOne(this bool p)
         {
             return p ? 1 : 0;
@@ -405,7 +404,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts a boolean variable into a 0-or-1 representation (0 is false, 1 is true).
         /// </summary>
-        /// 
+        ///
         public static int ToZeroOne(this int p)
         {
             return Decide(p) ? 1 : 0;
@@ -414,7 +413,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts a boolean variable into a 0-or-1 representation (0 is false, 1 is true).
         /// </summary>
-        /// 
+        ///
         public static int ToZeroOne(this double p)
         {
             return Decide(p) ? 1 : 0;
@@ -423,7 +422,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts boolean variables into a 0-or-1 representation (0 is false, 1 is true).
         /// </summary>
-        /// 
+        ///
         public static int[] ToZeroOne(this bool[] p)
         {
             var result = new int[p.Length];
@@ -435,7 +434,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts boolean variables into a 0-or-1 representation (0 is false, 1 is true).
         /// </summary>
-        /// 
+        ///
         public static int[] ToZeroOne(this int[] p)
         {
             var result = new int[p.Length];
@@ -447,7 +446,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts boolean variables into a 0-or-1 representation (0 is false, 1 is true).
         /// </summary>
-        /// 
+        ///
         public static int[] ToZeroOne(this double[] p)
         {
             var result = new int[p.Length];
@@ -459,7 +458,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts a boolean variable into a -1 or +1 representation (-1 is false, +1 is true).
         /// </summary>
-        /// 
+        ///
         public static int ToMinusOnePlusOne(this bool p)
         {
             return p ? 1 : -1;
@@ -468,7 +467,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts a boolean variable into a -1 or +1 representation (-1 is false, +1 is true).
         /// </summary>
-        /// 
+        ///
         public static int ToMinusOnePlusOne(this int p)
         {
             return Decide(p) ? 1 : -1;
@@ -477,7 +476,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts a boolean variable into a -1 or +1 representation (-1 is false, +1 is true).
         /// </summary>
-        /// 
+        ///
         public static int ToMinusOnePlusOne(this double p)
         {
             return Decide(p) ? 1 : -1;
@@ -486,7 +485,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts boolean variables into a -1 or +1 representation (-1 is false, +1 is true).
         /// </summary>
-        /// 
+        ///
         public static int[] ToMinusOnePlusOne(this bool[] p)
         {
             var result = new int[p.Length];
@@ -498,7 +497,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts boolean variables into a -1 or +1 representation (-1 is false, +1 is true).
         /// </summary>
-        /// 
+        ///
         public static int[] ToMinusOnePlusOne(this int[] p)
         {
             var result = new int[p.Length];
@@ -510,7 +509,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts boolean variables into a -1 or +1 representation (-1 is false, +1 is true).
         /// </summary>
-        /// 
+        ///
         public static int[] ToMinusOnePlusOne(this double[] p)
         {
             var result = new int[p.Length];
@@ -522,7 +521,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts double variables into class labels, starting at zero.
         /// </summary>
-        /// 
+        ///
         public static int[] ToMulticlass(this double[] p)
         {
             return ToMulticlass(p, (int)p.Min());
@@ -531,7 +530,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts double variables into class labels, starting at zero.
         /// </summary>
-        /// 
+        ///
         public static int[] ToMulticlass(this int[] p)
         {
             return ToMulticlass(p, (int)p.Min());
@@ -540,7 +539,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts double variables into class labels, starting at zero.
         /// </summary>
-        /// 
+        ///
         public static int[] ToMulticlass(this double[] p, int min)
         {
             var result = new int[p.Length];
@@ -552,7 +551,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Converts double variables into class labels, starting at zero.
         /// </summary>
-        /// 
+        ///
         public static int[] ToMulticlass(this int[] p, int min)
         {
             var result = new int[p.Length];
@@ -561,12 +560,11 @@ namespace Accord.Statistics
             return result;
         }
 
-
         /// <summary>
         ///   Hyperplane decision function. Return true if distance
         ///   is higher than zero, and false otherwise.
         /// </summary>
-        /// 
+        ///
         public static bool Decide(double distance)
         {
             return distance > 0;
@@ -576,7 +574,7 @@ namespace Accord.Statistics
         ///   Hyperplane decision function. Return true if distance
         ///   is higher than zero, and false otherwise.
         /// </summary>
-        /// 
+        ///
         public static bool[] Decide(double[] values)
         {
             bool[] result = new bool[values.Length];
@@ -589,7 +587,7 @@ namespace Accord.Statistics
         ///   Hyperplane decision function. Return true if distance
         ///   is higher than zero, and false otherwise.
         /// </summary>
-        /// 
+        ///
         public static bool[] Decide(int[] values)
         {
             bool[] result = new bool[values.Length];
@@ -602,7 +600,7 @@ namespace Accord.Statistics
         ///   Hyperplane decision function. Return true if distance
         ///   is higher than zero, and false otherwise.
         /// </summary>
-        /// 
+        ///
         public static bool[][] Decide(double[][] values)
         {
             bool[][] result = new bool[values.Length][];
@@ -615,7 +613,7 @@ namespace Accord.Statistics
         ///   Hyperplane decision function. Return true if distance
         ///   is higher than zero, and false otherwise.
         /// </summary>
-        /// 
+        ///
         public static bool[][] Decide(int[][] values)
         {
             bool[][] result = new bool[values.Length][];

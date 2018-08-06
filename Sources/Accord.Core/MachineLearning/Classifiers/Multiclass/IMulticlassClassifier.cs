@@ -22,28 +22,26 @@
 
 namespace Accord.MachineLearning
 {
-
     /// <summary>
     ///   Common interface for multi-class models. Classification models
     ///   learn how to produce a class-label <c>y</c> from an input vector <c>x</c>.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
     /// <typeparam name="TClasses">The data type for the class labels. Default is int.</typeparam>
     ///
     public interface IMulticlassClassifier<in TInput, TClasses> :
         IClassifier<TInput, TClasses>
     {
-        
     }
 
     /// <summary>
     ///   Common interface for multi-class models. Classification models
     ///   learn how to produce a class-label <c>y</c> from an input vector <c>x</c>.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
-    /// 
+    ///
     public interface IMulticlassClassifier<in TInput> :
         IMultilabelClassifier<TInput>,
         IMulticlassClassifier<TInput, int>,
@@ -54,9 +52,9 @@ namespace Accord.MachineLearning
         ///   giving access to more advanced methods, such as the prediction
         ///   of one-hot vectors.
         /// </summary>
-        /// 
+        ///
         /// <returns>This instance seen as an <see cref="IMultilabelLikelihoodClassifier{TInput}"/>.</returns>
-        /// 
+        ///
         IMultilabelClassifier<TInput> ToMultilabel();
     }
 
@@ -64,13 +62,11 @@ namespace Accord.MachineLearning
     ///   Common interface for multi-class models. Classification models
     ///   learn how to produce a class-label <c>y</c> from an input vector <c>x</c>.
     /// </summary>
-    /// 
+    ///
     public interface IMulticlassClassifier :
         IMulticlassClassifier<double[]>,
         IMulticlassClassifier<int[]>,
         IMulticlassClassifier<float[]>
     {
-
     }
-
 }

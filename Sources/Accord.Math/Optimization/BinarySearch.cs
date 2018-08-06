@@ -27,52 +27,49 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Binary search root finding algorithm.
     /// </summary>
-    /// 
+    ///
     public class BinarySearch
     {
-
         /// <summary>
         ///   Gets or sets the lower bound for the search interval <c>a</c>.
         /// </summary>
-        /// 
+        ///
         public int LowerBound { get; set; }
 
         /// <summary>
         ///   Gets or sets the lower bound for the search interval <c>a</c>.
         /// </summary>
-        /// 
+        ///
         public int UpperBound { get; set; }
 
         /// <summary>
         ///   Gets the solution found in the last call
         ///   to or <see cref="FindRoot()"/>.
         /// </summary>
-        /// 
+        ///
         public int Solution { get; private set; }
 
         /// <summary>
         ///   Gets the value at the solution found in the last call
         ///   to <see cref="FindRoot()"/>.
         /// </summary>
-        /// 
+        ///
         public double Value { get; private set; }
-
 
         /// <summary>
         ///   Gets the function to be searched.
         /// </summary>
-        /// 
+        ///
         public Func<int, double> Function { get; private set; }
-
 
         /// <summary>
         ///   Constructs a new Binary search algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The function to be searched.</param>
         /// <param name="a">Start of search region.</param>
         /// <param name="b">End of search region.</param>
-        /// 
+        ///
         public BinarySearch(Func<int, double> function, int a, int b)
         {
             this.Function = function;
@@ -80,13 +77,12 @@ namespace Accord.Math.Optimization
             this.UpperBound = b;
         }
 
-
         /// <summary>
-        ///   Attempts to find a root in the interval [a;b] 
+        ///   Attempts to find a root in the interval [a;b]
         /// </summary>
-        /// 
+        ///
         /// <returns>The location of the zero value in the given interval.</returns>
-        /// 
+        ///
         public int Find(double value)
         {
             Solution = Find(Function, LowerBound, UpperBound, value);
@@ -95,11 +91,11 @@ namespace Accord.Math.Optimization
         }
 
         /// <summary>
-        ///   Attempts to find a root in the interval [a;b] 
+        ///   Attempts to find a root in the interval [a;b]
         /// </summary>
-        /// 
+        ///
         /// <returns>The location of the zero value in the given interval.</returns>
-        /// 
+        ///
         public int FindRoot()
         {
             Solution = Find(Function, LowerBound, UpperBound, 0);
@@ -107,18 +103,17 @@ namespace Accord.Math.Optimization
             return Solution;
         }
 
-
         /// <summary>
         ///   Finds a value of a function in the interval [a;b]
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The function to have its root computed.</param>
         /// <param name="lowerBound">Start of search region.</param>
         /// <param name="upperBound">End of search region.</param>
         /// <param name="value">The value to be looked for in the function.</param>
-        /// 
+        ///
         /// <returns>The location of the zero value in the given interval.</returns>
-        /// 
+        ///
         public static int Find(Func<int, double> function, int lowerBound, int upperBound, double value)
         {
             int start = lowerBound;
@@ -150,6 +145,5 @@ namespace Accord.Math.Optimization
                 return m;
             return m + 1;
         }
-
     }
 }

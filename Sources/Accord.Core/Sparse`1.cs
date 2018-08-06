@@ -26,16 +26,14 @@ namespace Accord.Math
     using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
     using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///   Sparse vector representation (in LibSVM format).
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="T">The type for the non-zero elements in this vector.</typeparam>
-    /// 
+    ///
     public sealed class Sparse<T> : IEnumerable<T>, ICloneable,
         IList<T>, IList, IFormattable
     {
@@ -46,7 +44,7 @@ namespace Accord.Math
         ///   Gets or sets the vector of indices indicating the location
         ///   of the non-zero elements contained in this sparse vector.
         /// </summary>
-        /// 
+        ///
         public int[] Indices
         {
             get { return indices; }
@@ -57,7 +55,7 @@ namespace Accord.Math
         ///   Gets or sets the vector of values indicating which non-zero
         ///   value happens at each position indicated in <see cref="Indices"/>.
         /// </summary>
-        /// 
+        ///
         public T[] Values
         {
             get { return values; }
@@ -67,10 +65,10 @@ namespace Accord.Math
         /// <summary>
         ///   Creates a sparse vector with the maximum number of elements.
         /// </summary>
-        /// 
+        ///
         /// <param name="length">The maximum number of non-zero
         ///   elements that this vector can accomodate.</param>
-        ///   
+        ///
         public Sparse(int length)
         {
             this.indices = new int[length];
@@ -81,10 +79,10 @@ namespace Accord.Math
         ///   Creates a sparse vector from a vector of indices
         ///   and a vector of values occuring at those indices.
         /// </summary>
-        /// 
+        ///
         /// <param name="indices">The indices for non-zero entries.</param>
         /// <param name="values">The non-zero values happening at each index.</param>
-        /// 
+        ///
         public Sparse(int[] indices, T[] values)
         {
             this.indices = indices;
@@ -94,7 +92,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts this sparse vector to a dense vector of the given length.
         /// </summary>
-        /// 
+        ///
         public T[] ToDense(int length)
         {
             T[] result = new T[length];
@@ -104,10 +102,10 @@ namespace Accord.Math
         }
 
         /// <summary>
-        ///   Converts this sparse vector to a sparse representation where 
+        ///   Converts this sparse vector to a sparse representation where
         ///   the indices are intertwined with their corresponding values.
         /// </summary>
-        /// 
+        ///
         public T[] ToSparse()
         {
             T[] result = new T[Indices.Length * 2];
@@ -120,18 +118,14 @@ namespace Accord.Math
             return result;
         }
 
-
-
-
-
         /// <summary>
         ///   Creates a new object that is a copy of the current instance.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   A new object that is a copy of this instance.
         /// </returns>
-        /// 
+        ///
         public object Clone()
         {
             return new Sparse<T>((int[])indices.Clone(), (T[])values.Clone());
@@ -140,7 +134,7 @@ namespace Accord.Math
         /// <summary>
         ///   Performs an implicit conversion from <see cref="Sparse{T}"/> to <see cref="Array"/>.
         /// </summary>
-        /// 
+        ///
         public static implicit operator Array(Sparse<T> obj)
         {
             return obj.Values;
@@ -149,15 +143,11 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the number of non-zero elements in the sparse vector.
         /// </summary>
-        /// 
+        ///
         public int Length
         {
             get { return Indices.Length; }
         }
-
-
-
-
 
         int IList<T>.IndexOf(T item)
         {

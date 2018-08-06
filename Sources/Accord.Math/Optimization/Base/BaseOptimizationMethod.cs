@@ -27,35 +27,34 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Base class for optimization methods.
     /// </summary>
-    /// 
+    ///
     public abstract class BaseOptimizationMethod
     {
-
         private double[] x;
         private double value;
 
         /// <summary>
         ///   Gets or sets the function to be optimized.
         /// </summary>
-        /// 
+        ///
         /// <value>The function to be optimized.</value>
-        /// 
+        ///
         public Func<double[], double> Function { get; set; }
 
         /// <summary>
         ///   Gets the number of variables (free parameters)
         ///   in the optimization problem.
         /// </summary>
-        /// 
+        ///
         /// <value>The number of parameters.</value>
-        /// 
+        ///
         public int NumberOfVariables { get; protected set; }
 
         /// <summary>
-        ///   Gets the current solution found, the values of 
+        ///   Gets the current solution found, the values of
         ///   the parameters which optimizes the function.
         /// </summary>
-        /// 
+        ///
         public double[] Solution
         {
             get { return x; }
@@ -74,7 +73,7 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets the output of the function at the current <see cref="Solution"/>.
         /// </summary>
-        /// 
+        ///
         public double Value
         {
             get { return value; }
@@ -84,9 +83,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Initializes a new instance of the <see cref="BaseOptimizationMethod"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
-        /// 
+        ///
         protected BaseOptimizationMethod(int numberOfVariables)
         {
             if (numberOfVariables <= 0)
@@ -98,10 +97,10 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Initializes a new instance of the <see cref="BaseOptimizationMethod"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
         /// <param name="function">The objective function whose optimum values should be found.</param>
-        /// 
+        ///
         protected BaseOptimizationMethod(int numberOfVariables, Func<double[], double> function)
         {
             if (function == null)
@@ -114,9 +113,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Initializes a new instance of the <see cref="BaseOptimizationMethod"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The objective function whose optimum values should be found.</param>
-        /// 
+        ///
         protected BaseOptimizationMethod(NonlinearObjectiveFunction function)
         {
             if (function == null)
@@ -139,31 +138,30 @@ namespace Accord.Math.Optimization
         ///   Finds the maximum value of a function. The solution vector
         ///   will be made available at the <see cref="Solution"/> property.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">The initial solution vector to start the search.</param>
-        /// 
+        ///
         /// <returns>Returns <c>true</c> if the method converged to a <see cref="Solution"/>.
         ///   In this case, the found value will also be available at the <see cref="Value"/>
         ///   property.</returns>
-        ///  
+        ///
         public bool Maximize(double[] values)
         {
             Solution = values;
             return Maximize();
         }
 
-
         /// <summary>
         ///   Finds the minimum value of a function. The solution vector
         ///   will be made available at the <see cref="Solution"/> property.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">The initial solution vector to start the search.</param>
-        /// 
+        ///
         /// <returns>Returns <c>true</c> if the method converged to a <see cref="Solution"/>.
         ///   In this case, the found value will also be available at the <see cref="Value"/>
         ///   property.</returns>
-        ///  
+        ///
         public bool Minimize(double[] values)
         {
             Solution = values;
@@ -174,11 +172,11 @@ namespace Accord.Math.Optimization
         ///   Finds the maximum value of a function. The solution vector
         ///   will be made available at the <see cref="Solution"/> property.
         /// </summary>
-        /// 
+        ///
         /// <returns>Returns <c>true</c> if the method converged to a <see cref="Solution"/>.
         ///   In this case, the found value will also be available at the <see cref="Value"/>
         ///   property.</returns>
-        ///  
+        ///
         public virtual bool Maximize()
         {
             if (Function == null)
@@ -197,16 +195,15 @@ namespace Accord.Math.Optimization
             return success;
         }
 
-
         /// <summary>
         ///   Finds the minimum value of a function. The solution vector
         ///   will be made available at the <see cref="Solution"/> property.
         /// </summary>
-        /// 
+        ///
         /// <returns>Returns <c>true</c> if the method converged to a <see cref="Solution"/>.
         ///   In this case, the found value will also be available at the <see cref="Value"/>
         ///   property.</returns>
-        ///  
+        ///
         public virtual bool Minimize()
         {
             if (Function == null)
@@ -219,19 +216,17 @@ namespace Accord.Math.Optimization
             return success;
         }
 
-
         /// <summary>
         ///   Implements the actual optimization algorithm. This
         ///   method should try to minimize the objective function.
         /// </summary>
-        /// 
+        ///
         protected abstract bool Optimize();
-
 
         /// <summary>
         ///   Creates an exception with a given inner optimization algorithm code (for debugging purposes).
         /// </summary>
-        /// 
+        ///
         protected static ArgumentOutOfRangeException ArgumentException(string paramName, string message, string code)
         {
             var e = new ArgumentOutOfRangeException(paramName, message);
@@ -242,7 +237,7 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates an exception with a given inner optimization algorithm code (for debugging purposes).
         /// </summary>
-        /// 
+        ///
         protected static InvalidOperationException OperationException(string message, string code)
         {
             var e = new InvalidOperationException(message);

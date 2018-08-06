@@ -33,7 +33,7 @@ namespace Accord
     ///   Minimum Lazy implementation for .NET 3.5 to make
     ///   Accord.NET work. This is not a complete implementation.
     /// </summary>
-    /// 
+    ///
     internal class Lazy<T>
     {
         private readonly Func<T> valueFactory;
@@ -42,13 +42,12 @@ namespace Accord
         private bool isValueCreated;
         private T value;
 
-
         /// <summary>
         ///   Initializes a new instance of the <see cref="Lazy&lt;T&gt;"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="valueFactory">A function which creates the instance value on first access.</param>
-        /// 
+        ///
         public Lazy(Func<T> valueFactory)
             : this(valueFactory, true)
         {
@@ -57,10 +56,10 @@ namespace Accord
         /// <summary>
         ///   Initializes a new instance of the <see cref="Lazy&lt;T&gt;"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="valueFactory">A function which creates the instance value on first access.</param>
         /// <param name="isThreadSafe">Needs to be true.</param>
-        /// 
+        ///
         public Lazy(Func<T> valueFactory, bool isThreadSafe)
         {
             if (valueFactory == null)
@@ -76,7 +75,7 @@ namespace Accord
         /// <summary>
         ///   Gets the lazily initialized value for this instance.
         /// </summary>
-        /// 
+        ///
         public T Value
         {
             get
@@ -103,7 +102,7 @@ namespace Accord
         /// <summary>
         ///   Gets a value that indicates whether a value has been created for this Lazy{T} instance.
         /// </summary>
-        /// 
+        ///
         public bool IsValueCreated
         {
             get
@@ -115,15 +114,14 @@ namespace Accord
             }
         }
 
-
         /// <summary>
         ///   Returns a <see cref="System.String"/> that represents this instance.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   A <see cref="System.String"/> that represents this instance.
         /// </returns>
-        /// 
+        ///
         public override string ToString()
         {
             return Value.ToString();

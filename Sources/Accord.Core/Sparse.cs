@@ -22,15 +22,13 @@
 
 namespace Accord.Math
 {
-    using System.Globalization;
     using System;
-    using System.Linq;
-    using System.Collections.Generic;
+    using System.Globalization;
 
     /// <summary>
     ///   Extension methods for <see cref="Sparse{T}">sparse vectors</see>.
     /// </summary>
-    /// 
+    ///
     public static class Sparse
     {
         /// <summary>
@@ -67,7 +65,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts an array of sparse vectors into a jagged matrix.
         /// </summary>
-        /// 
+        ///
         public static T[][] ToDense<T>(this Sparse<T>[] vectors)
         {
             int max = 0;
@@ -84,19 +82,19 @@ namespace Accord.Math
         /// <summary>
         ///   Converts an array of sparse vectors into a jagged matrix.
         /// </summary>
-        /// 
+        ///
         public static T[][] ToDense<T>(this Sparse<T>[] vectors, int length)
         {
             T[][] dense = new T[vectors.Length][];
             for (int i = 0; i < dense.Length; i++)
                 dense[i] = vectors[i].ToDense(length);
-            return dense; 
+            return dense;
         }
 
         /// <summary>
         ///   Creates a sparse vector from a dense array.
         /// </summary>
-        /// 
+        ///
         public static Sparse<T> FromDense<T>(T[] dense)
         {
             int[] idx = new int[dense.Length];

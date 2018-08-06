@@ -30,7 +30,7 @@ namespace Accord
     ///   Minimum Lazy implementation for .NET 3.5 to make
     ///   Accord.NET work. This is not a complete implementation.
     /// </summary>
-    /// 
+    ///
     public class ConcurrentBag<T> : IEnumerable<T>
     {
         private LinkedList<T> list;
@@ -38,7 +38,7 @@ namespace Accord
         /// <summary>
         ///   Initializes a new instance of the <see cref="ConcurrentBag{T}"/> class.
         /// </summary>
-        /// 
+        ///
         public ConcurrentBag()
         {
             list = new LinkedList<T>();
@@ -47,7 +47,7 @@ namespace Accord
         /// <summary>
         ///   Adds the specified item.
         /// </summary>
-        /// 
+        ///
         public void Add(T item)
         {
             lock (list)
@@ -57,7 +57,7 @@ namespace Accord
         /// <summary>
         ///   Counts this instance.
         /// </summary>
-        /// 
+        ///
         public int Count
         {
             get
@@ -70,7 +70,7 @@ namespace Accord
         /// <summary>
         ///   Gets the enumerator.
         /// </summary>
-        /// 
+        ///
         public IEnumerator<T> GetEnumerator()
         {
             lock (list)
@@ -80,7 +80,7 @@ namespace Accord
         /// <summary>
         ///   Gets the enumerator.
         /// </summary>
-        /// 
+        ///
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             lock (list)

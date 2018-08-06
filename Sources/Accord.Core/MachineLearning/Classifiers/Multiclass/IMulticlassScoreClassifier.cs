@@ -22,17 +22,16 @@
 
 namespace Accord.MachineLearning
 {
-
     /// <summary>
     ///   Common interface for score-based multi-class classifiers. A multi-class
     ///   classifier can predict to which class an instance belongs based
     ///   on a decision score (a real number) that measures the association of the
     ///   input with each class.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
     /// <typeparam name="TClasses">The data type for the class labels. Default is int.</typeparam>
-    /// 
+    ///
     public interface IMulticlassScoreClassifier<in TInput, TClasses>
         : IClassifier<TInput, TClasses>
     {
@@ -41,11 +40,11 @@ namespace Accord.MachineLearning
         ///   numerical score measuring the strength of association of the
         ///   input vector to the most strongly related class.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">A set of input vectors.</param>
         /// <param name="decision">The class labels predicted for each input
         ///   vector, as predicted by the classifier.</param>
-        /// 
+        ///
         double[] Score(TInput[] input, ref TClasses[] decision);
 
         /// <summary>
@@ -53,15 +52,14 @@ namespace Accord.MachineLearning
         ///   numerical score measuring the strength of association of the
         ///   input vector to the most strongly related class.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">A set of input vectors.</param>
         /// <param name="decision">The class labels predicted for each input
         ///   vector, as predicted by the classifier.</param>
         /// <param name="result">An array where the distances will be stored,
         ///   avoiding unnecessary memory allocations.</param>
-        /// 
+        ///
         double[] Score(TInput[] input, ref TClasses[] decision, double[] result);
-
     }
 
     /// <summary>
@@ -70,10 +68,10 @@ namespace Accord.MachineLearning
     ///   on a decision score (a real number) that measures the association of the
     ///   input with each class.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
     /// <typeparam name="TClasses">The data type for the class labels. Default is int.</typeparam>
-    /// 
+    ///
     public interface IMulticlassOutScoreClassifier<TInput, TClasses> :
         IMulticlassScoreClassifier<TInput, TClasses>,
         IMultilabelOutScoreClassifier<TInput, TClasses>
@@ -83,10 +81,10 @@ namespace Accord.MachineLearning
         ///   numerical score measuring the strength of association of the
         ///   input vector to its most strongly related class.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The input vector.</param>
         /// <param name="decision">The class label predicted by the classifier.</param>
-        /// 
+        ///
         double Score(TInput input, out TClasses decision);
     }
 
@@ -96,10 +94,10 @@ namespace Accord.MachineLearning
     ///   on a decision score (a real number) that measures the association of the
     ///   input with each class.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
     /// <typeparam name="TClasses">The data type for the class labels. Default is int.</typeparam>
-    /// 
+    ///
     public interface IMulticlassRefScoreClassifier<TInput, TClasses> :
         //IMulticlassDistanceClassifier<TInput, TClasses>,
         IMultilabelRefScoreClassifier<TInput, TClasses>
@@ -109,10 +107,10 @@ namespace Accord.MachineLearning
         /////   numerical score measuring the strength of association of the
         /////   input vector to its most strongly related class.
         ///// </summary>
-        ///// 
+        /////
         ///// <param name="input">The input vector.</param>
         ///// <param name="decision">The class label predicted by the classifier.</param>
-        ///// 
+        /////
         //double Distance(TInput input, ref TClasses decision);
     }
 
@@ -122,9 +120,9 @@ namespace Accord.MachineLearning
     ///   on a decision score (a real number) that measures the association of the
     ///   input with each class.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
-    /// 
+    ///
     public interface IMulticlassScoreClassifier<TInput> :
         IMulticlassOutScoreClassifier<TInput, int>,
         IMulticlassOutScoreClassifier<TInput, double>,
@@ -134,15 +132,14 @@ namespace Accord.MachineLearning
         IMultilabelScoreClassifier<TInput>,
         IMulticlassClassifier<TInput>
     {
-
         /// <summary>
         ///   Computes a numerical score measuring the association between
         ///   the given <paramref name="input"/> vector and its most strongly
         ///   associated class (as predicted by the classifier).
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The input vector.</param>
-        /// 
+        ///
         double Score(TInput input);
 
         /// <summary>
@@ -150,9 +147,9 @@ namespace Accord.MachineLearning
         ///   each of the given <paramref name="input"/> vectors and their
         ///   respective most strongly associated classes.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">A set of input vectors.</param>
-        /// 
+        ///
         double[] Score(TInput[] input);
 
         /// <summary>
@@ -160,9 +157,9 @@ namespace Accord.MachineLearning
         ///   each of the given <paramref name="input"/> vectors and their
         ///   respective most strongly associated classes.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">A set of input vectors.</param>
-        /// <param name="result">An array where the result will be stored, 
+        /// <param name="result">An array where the result will be stored,
         ///   avoiding unnecessary memory allocations.</param>
         ///
         double[] Score(TInput[] input, double[] result);
@@ -172,9 +169,9 @@ namespace Accord.MachineLearning
         ///   giving access to more advanced methods, such as the prediction
         ///   of one-hot vectors.
         /// </summary>
-        /// 
+        ///
         /// <returns>This instance seen as an <see cref="IMultilabelScoreClassifier{TInput}"/>.</returns>
-        /// 
+        ///
         new IMultilabelScoreClassifier<TInput> ToMultilabel();
     }
 }

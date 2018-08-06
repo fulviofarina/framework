@@ -14,12 +14,12 @@ namespace Accord.Math
     /// <summary>
     /// Histogram for continuous random values.
     /// </summary>
-    /// 
+    ///
     /// <remarks><para>The class wraps histogram for continuous stochastic function, which is represented
     /// by integer array and range of the function. Values of the integer array are treated
     /// as total amount of hits on the corresponding subranges, which are calculated by splitting the
     /// specified range into required amount of consequent ranges.</para>
-    /// 
+    ///
     /// <para>For example, if the integer array is equal to { 1, 2, 4, 8, 16 } and the range is set
     /// to [0, 1], then the histogram consists of next subranges:
     /// <list type="bullet">
@@ -30,7 +30,7 @@ namespace Accord.Math
     /// <item>[0.8, 1.0] - 16 hits.</item>
     /// </list>
     /// </para>
-    /// 
+    ///
     /// <para>Sample usage:</para>
     /// <code>
     /// // create histogram
@@ -40,7 +40,7 @@ namespace Accord.Math
     /// Console.WriteLine( "mean = " + histogram.Mean + ", std.dev = " + histogram.StdDev );
     /// </code>
     /// </remarks>
-    /// 
+    ///
     [Serializable]
     public class ContinuousHistogram
     {
@@ -57,7 +57,7 @@ namespace Accord.Math
         /// <summary>
         /// Values of the histogram.
         /// </summary>
-        /// 
+        ///
         public int[] Values
         {
             get { return values; }
@@ -66,7 +66,7 @@ namespace Accord.Math
         /// <summary>
         /// Range of random values.
         /// </summary>
-        /// 
+        ///
         public Range Range
         {
             get { return range; }
@@ -75,9 +75,9 @@ namespace Accord.Math
         /// <summary>
         /// Mean value.
         /// </summary>
-        /// 
+        ///
         /// <remarks><para>The property allows to retrieve mean value of the histogram.</para>
-        /// 
+        ///
         /// <para>Sample usage:</para>
         /// <code>
         /// // create histogram
@@ -87,7 +87,7 @@ namespace Accord.Math
         /// Console.WriteLine( "mean = " + histogram.Mean.ToString( "F3" ) );
         /// </code>
         /// </remarks>
-        /// 
+        ///
         public float Mean
         {
             get { return mean; }
@@ -96,9 +96,9 @@ namespace Accord.Math
         /// <summary>
         /// Standard deviation.
         /// </summary>
-        /// 
+        ///
         /// <remarks><para>The property allows to retrieve standard deviation value of the histogram.</para>
-        /// 
+        ///
         /// <para>Sample usage:</para>
         /// <code>
         /// // create histogram
@@ -108,7 +108,7 @@ namespace Accord.Math
         /// Console.WriteLine( "std.dev. = " + histogram.StdDev.ToString( "F3" ) );
         /// </code>
         /// </remarks>
-        /// 
+        ///
         public float StdDev
         {
             get { return stdDev; }
@@ -117,9 +117,9 @@ namespace Accord.Math
         /// <summary>
         /// Median value.
         /// </summary>
-        /// 
+        ///
         /// <remarks><para>The property allows to retrieve median value of the histogram.</para>
-        /// 
+        ///
         /// <para>Sample usage:</para>
         /// <code>
         /// // create histogram
@@ -129,7 +129,7 @@ namespace Accord.Math
         /// Console.WriteLine( "median = " + histogram.Median.ToString( "F3" ) );
         /// </code>
         /// </remarks>
-        /// 
+        ///
         public float Median
         {
             get { return median; }
@@ -138,10 +138,10 @@ namespace Accord.Math
         /// <summary>
         /// Minimum value.
         /// </summary>
-        /// 
+        ///
         /// <remarks><para>The property allows to retrieve minimum value of the histogram with non zero
         /// hits count.</para>
-        /// 
+        ///
         /// <para>Sample usage:</para>
         /// <code>
         /// // create histogram
@@ -159,10 +159,10 @@ namespace Accord.Math
         /// <summary>
         /// Maximum value.
         /// </summary>
-        /// 
+        ///
         /// <remarks><para>The property allows to retrieve maximum value of the histogram with non zero
         /// hits count.</para>
-        /// 
+        ///
         /// <para>Sample usage:</para>
         /// <code>
         /// // create histogram
@@ -172,7 +172,7 @@ namespace Accord.Math
         /// Console.WriteLine( "max = " + histogram.Max.ToString( "F3" ) );
         /// </code>
         /// </remarks>
-        /// 
+        ///
         public float Max
         {
             get { return max; }
@@ -181,16 +181,16 @@ namespace Accord.Math
         /// <summary>
         /// Initializes a new instance of the <see cref="ContinuousHistogram"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">Values of the histogram.</param>
         /// <param name="range">Range of random values.</param>
-        /// 
+        ///
         /// <remarks>Values of the integer array are treated as total amount of hits on the
         /// corresponding subranges, which are calculated by splitting the specified range into
         /// required amount of consequent ranges (see <see cref="ContinuousHistogram"/> class
         /// description for more information).
         /// </remarks>
-        /// 
+        ///
         public ContinuousHistogram(int[] values, Range range)
         {
             this.values = values;
@@ -202,14 +202,14 @@ namespace Accord.Math
         /// <summary>
         /// Get range around median containing specified percentage of values.
         /// </summary>
-        /// 
+        ///
         /// <param name="percent">Values percentage around median.</param>
-        /// 
+        ///
         /// <returns>Returns the range which containes specifies percentage of values.</returns>
-        /// 
+        ///
         /// <remarks><para>The method calculates range of stochastic variable, which summary probability
         /// comprises the specified percentage of histogram's hits.</para>
-        /// 
+        ///
         /// <para>Sample usage:</para>
         /// <code>
         /// // create histogram
@@ -221,7 +221,7 @@ namespace Accord.Math
         /// Console.WriteLine( "50% range = [" + range.Min + ", " + range.Max + "]" );
         /// </code>
         /// </remarks>
-        /// 
+        ///
         public Accord.Range GetRange(float percent)
         {
             int min, max, hits;
@@ -252,12 +252,12 @@ namespace Accord.Math
         /// <summary>
         /// Update statistical value of the histogram.
         /// </summary>
-        /// 
+        ///
         /// <remarks>The method recalculates statistical values of the histogram, like mean,
         /// standard deviation, etc. The method should be called only in the case if histogram
         /// values were retrieved through <see cref="Values"/> property and updated after that.
         /// </remarks>
-        /// 
+        ///
         public void Update()
         {
             int hits;

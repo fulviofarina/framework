@@ -30,7 +30,7 @@ namespace Accord
     ///   Minimum SpinLock implementation for .NET 3.5 to make
     ///   Accord.NET work. This is not a complete implementation.
     /// </summary>
-    /// 
+    ///
     internal struct SpinLock
     {
         private int lockObj;
@@ -38,7 +38,7 @@ namespace Accord
         /// <summary>
         ///   Gets whether the lock is currently held by any thread.
         /// </summary>
-        /// 
+        ///
         public bool IsHeld
         {
             get { return this.lockObj != 0; }
@@ -47,7 +47,7 @@ namespace Accord
         /// <summary>
         ///   Acquires the lock.
         /// </summary>
-        /// 
+        ///
         public void Enter(ref bool taken)
         {
             if (Interlocked.CompareExchange(ref lockObj, 1, 0) != 0)
@@ -70,7 +70,7 @@ namespace Accord
         /// <summary>
         ///   Releases the lock.
         /// </summary>
-        /// 
+        ///
         public void Exit()
         {
             this.lockObj = 0;

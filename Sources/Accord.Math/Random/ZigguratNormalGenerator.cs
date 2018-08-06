@@ -20,21 +20,16 @@
 //    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-
 namespace Accord.Math.Random
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///   Normal random number generator using the Ziggurat method.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
-    /// <para>    
+    /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description><a href="http://people.sc.fsu.edu/~jburkardt/c_src/ziggurat/ziggurat.html">
@@ -45,26 +40,26 @@ namespace Accord.Math.Random
     ///       A comment on the implementation of the ziggurat method,
     ///       Journal of Statistical Software, Volume 12, Number 7, February 2005.
     ///     </description></item>
-    ///     <item><description>  
+    ///     <item><description>
     ///       George Marsaglia, Wai Wan Tsang, The Ziggurat Method for Generating Random Variables,
     ///       Journal of Statistical Software, Volume 5, Number 8, October 2000, seven pages. </description></item>
     ///   </list></para>
     /// </remarks>
-    /// 
+    ///
     public class ZigguratNormalGenerator : IRandomNumberGenerator<double>
     {
         private ZigguratUniformOneGenerator u;
-        uint[] kn;
-        double[] fn;
-        double[] wn;
+        private uint[] kn;
+        private double[] fn;
+        private double[] wn;
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="ZigguratNormalGenerator"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="seed">The random seed to use. Default is to use the next value from
         ///   the <see cref="Generator">the framework-wide random generator</see>.</param>
-        /// 
+        ///
         public ZigguratNormalGenerator(int seed)
         {
             u = new ZigguratUniformOneGenerator(seed);
@@ -73,7 +68,7 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Initializes a new instance of the <see cref="ZigguratNormalGenerator"/> class.
         /// </summary>
-        /// 
+        ///
         public ZigguratNormalGenerator()
             : this(Generator.Random.Next())
         {
@@ -86,13 +81,13 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Generates a random vector of observations from the current distribution.
         /// </summary>
-        /// 
+        ///
         /// <param name="samples">The number of samples to generate.</param>
-        /// 
+        ///
         /// <returns>
         ///   A random vector of observations drawn from this distribution.
         /// </returns>
-        /// 
+        ///
         public double[] Generate(int samples)
         {
             return Generate(samples, new double[samples]);
@@ -101,14 +96,14 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Generates a random vector of observations from the current distribution.
         /// </summary>
-        /// 
+        ///
         /// <param name="samples">The number of samples to generate.</param>
         /// <param name="result">The location where to store the samples.</param>
-        /// 
+        ///
         /// <returns>
         ///   A random vector of observations drawn from this distribution.
         /// </returns>
-        /// 
+        ///
         public double[] Generate(int samples, double[] result)
         {
             for (int i = 0; i < samples; i++)
@@ -119,11 +114,11 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Generates a random vector of observations from the current distribution.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   A random vector of observations drawn from this distribution.
         /// </returns>
-        /// 
+        ///
         public double Generate()
         {
             const double r = 3.442620;
@@ -134,14 +129,14 @@ namespace Accord.Math.Random
             if (Math.Abs(hz) < kn[iz])
                 return hz * wn[iz];
 
-            for (; ; )
+            for (;;)
             {
                 double x;
                 double y;
 
                 if (iz == 0)
                 {
-                    for (; ; )
+                    for (;;)
                     {
                         x = -0.2904764 * Math.Log(u.Generate());
                         y = -Math.Log(u.Generate());
@@ -171,8 +166,7 @@ namespace Accord.Math.Random
             throw new InvalidOperationException("Execution should not reach here.");
         }
 
-
-        void setup()
+        private void setup()
         {
             double dn = 3.442619855899;
             const double m1 = 2147483648.0;
@@ -201,7 +195,5 @@ namespace Accord.Math.Random
 
             return;
         }
-
-
     }
 }

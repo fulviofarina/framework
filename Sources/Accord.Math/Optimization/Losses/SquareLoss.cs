@@ -23,15 +23,11 @@
 namespace Accord.Math.Optimization.Losses
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///   Square loss, also known as L2-loss.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public class SquareLoss : LossBase<double[][]>
     {
@@ -43,11 +39,11 @@ namespace Accord.Math.Optimization.Losses
         ///   root square loss should be computed. If <see cref="Mean"/>
         ///   is also set, computes the root mean square loss. Default is false.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   <c>true</c> if the root square loss should be computed; otherwise, <c>false</c>.
         /// </value>
-        /// 
+        ///
         public bool Root
         {
             get { return root; }
@@ -59,11 +55,11 @@ namespace Accord.Math.Optimization.Losses
         ///   mean square loss should be computed. If <see cref="Root"/>
         ///   is also set, computes the root mean square loss. Default is true.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   <c>true</c> if the mean square loss should be computed; otherwise, <c>false</c>.
         /// </value>
-        /// 
+        ///
         public bool Mean
         {
             get { return mean; }
@@ -73,20 +69,20 @@ namespace Accord.Math.Optimization.Losses
         /// <summary>
         /// Initializes a new instance of the <see cref="SquareLoss"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="expected">The expected outputs (ground truth).</param>
-        /// 
+        ///
         public SquareLoss(double[][] expected)
             : base(expected)
-        { 
+        {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SquareLoss"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="expected">The expected outputs (ground truth).</param>
-        /// 
+        ///
         public SquareLoss(double[] expected)
             : base(Jagged.ColumnVector(expected))
         {
@@ -96,14 +92,14 @@ namespace Accord.Math.Optimization.Losses
         ///   Computes the loss between the expected values (ground truth)
         ///   and the given actual values that have been predicted.
         /// </summary>
-        /// 
+        ///
         /// <param name="actual">The actual values that have been predicted.</param>
-        /// 
+        ///
         /// <returns>
         ///   The loss value between the expected values and
         ///   the actual predicted values.
         /// </returns>
-        /// 
+        ///
         public override double Loss(double[][] actual)
         {
             double error = 0;
@@ -123,14 +119,14 @@ namespace Accord.Math.Optimization.Losses
         ///   Computes the loss between the expected values (ground truth)
         ///   and the given actual values that have been predicted.
         /// </summary>
-        /// 
+        ///
         /// <param name="actual">The actual values that have been predicted.</param>
-        /// 
+        ///
         /// <returns>
         ///   The loss value between the expected values and
         ///   the actual predicted values.
         /// </returns>
-        /// 
+        ///
         public double Loss(double[] actual)
         {
             double error = 0;

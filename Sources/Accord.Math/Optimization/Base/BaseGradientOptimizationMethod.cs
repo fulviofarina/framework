@@ -28,14 +28,14 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Base class for gradient-based optimization methods.
     /// </summary>
-    /// 
+    ///
     public abstract class BaseGradientOptimizationMethod : BaseOptimizationMethod
     {
         /// <summary>
         ///   Gets or sets a cancellation token that can be used to
         ///   stop the learning algorithm while it is running.
         /// </summary>
-        /// 
+        ///
         public CancellationToken Token { get; set; }
 
         /// <summary>
@@ -43,18 +43,17 @@ namespace Accord.Math.Optimization
         ///   vector of the function to be optimized for a
         ///   given value of its free parameters.
         /// </summary>
-        /// 
+        ///
         /// <value>The gradient function.</value>
-        /// 
+        ///
         public Func<double[], double[]> Gradient { get; set; }
-
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="BaseGradientOptimizationMethod"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
-        /// 
+        ///
         protected BaseGradientOptimizationMethod(int numberOfVariables)
             : base(numberOfVariables)
         {
@@ -63,11 +62,11 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Initializes a new instance of the <see cref="BaseGradientOptimizationMethod"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
         /// <param name="function">The objective function whose optimum values should be found.</param>
         /// <param name="gradient">The gradient of the objective <paramref name="function"/>.</param>
-        /// 
+        ///
         protected BaseGradientOptimizationMethod(int numberOfVariables,
             Func<double[], double> function, Func<double[], double[]> gradient)
             : base(numberOfVariables, function)
@@ -82,11 +81,11 @@ namespace Accord.Math.Optimization
         ///   Finds the maximum value of a function. The solution vector
         ///   will be made available at the <see cref="IOptimizationMethod.Solution"/> property.
         /// </summary>
-        /// 
+        ///
         /// <returns>Returns <c>true</c> if the method converged to a <see cref="IOptimizationMethod.Solution"/>.
         ///   In this case, the found value will also be available at the <see cref="IOptimizationMethod.Value"/>
         ///   property.</returns>
-        ///  
+        ///
         public override bool Maximize()
         {
             if (Gradient == null)
@@ -109,11 +108,11 @@ namespace Accord.Math.Optimization
         ///   Finds the minimum value of a function. The solution vector
         ///   will be made available at the <see cref="IOptimizationMethod.Solution"/> property.
         /// </summary>
-        /// 
+        ///
         /// <returns>Returns <c>true</c> if the method converged to a <see cref="IOptimizationMethod.Solution"/>.
         ///   In this case, the found value will also be available at the <see cref="IOptimizationMethod.Value"/>
         ///   property.</returns>
-        ///  
+        ///
         public override bool Minimize()
         {
             if (Gradient == null)
@@ -123,8 +122,5 @@ namespace Accord.Math.Optimization
 
             return base.Minimize();
         }
-
-
-
     }
 }

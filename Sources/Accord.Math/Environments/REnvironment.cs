@@ -28,14 +28,14 @@ namespace Accord.Math.Environments
     /// <summary>
     ///   GNU R algorithm environment. Work in progress.
     /// </summary>
-    /// 
+    ///
     [GeneratedCode("", "")]
     public abstract class REnvironment
     {
         /// <summary>
         ///   Creates a new vector.
         /// </summary>
-        /// 
+        ///
         protected vec c(params double[] values)
         {
             return values;
@@ -44,39 +44,37 @@ namespace Accord.Math.Environments
         /// <summary>
         ///   Creates a new matrix.
         /// </summary>
-        /// 
+        ///
         protected mat matrix(double[] values, int rows, int cols)
         {
             return Matrix.Reshape(values, rows, cols, MatrixOrder.FortranColumnMajor);
         }
 
-
         /// <summary>
         ///   Placeholder vector definition
         /// </summary>
-        /// 
+        ///
         protected vec _
         {
             get { return new vec(null); }
         }
 
-
         /// <summary>
         ///   Vector definition operator.
         /// </summary>
-        /// 
+        ///
         protected class vec
         {
             /// <summary>
             ///   Inner vector object
             /// </summary>
-            /// 
+            ///
             public double[] vector;
 
             /// <summary>
             ///   Initializes a new instance of the <see cref="vec"/> class.
             /// </summary>
-            /// 
+            ///
             public vec(double[] values)
             {
                 this.vector = values;
@@ -85,7 +83,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Implements the operator -.
             /// </summary>
-            /// 
+            ///
             public static vec operator -(vec v)
             {
                 return v;
@@ -94,17 +92,17 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Implements the operator &lt;.
             /// </summary>
-            /// 
+            ///
             public static vec operator <(vec a, vec v)
             {
-                    a.vector = v.vector;
-                    return a;
+                a.vector = v.vector;
+                return a;
             }
 
             /// <summary>
             ///   Implements the operator &gt;.
             /// </summary>
-            /// 
+            ///
             public static vec operator >(vec a, vec v)
             {
                 return a;
@@ -114,20 +112,19 @@ namespace Accord.Math.Environments
             ///   Performs an implicit conversion from <see cref="T:System.Double[]"/>
             ///   to <see cref="Accord.Math.Environments.REnvironment.vec"/>.
             /// </summary>
-            /// 
+            ///
             public static implicit operator vec(double[] v)
             {
                 return new vec(v);
             }
 
-
             /// <summary>
-            ///   Performs an implicit conversion from 
-            ///   <see cref="Accord.Math.Environments.REnvironment.vec"/> 
+            ///   Performs an implicit conversion from
+            ///   <see cref="Accord.Math.Environments.REnvironment.vec"/>
             ///   to <see cref="T:System.Double[]"/>.
             /// </summary>
-            /// 
-            public static implicit operator double[](vec v)
+            ///
+            public static implicit operator double[] (vec v)
             {
                 return v.vector;
             }
@@ -136,19 +133,19 @@ namespace Accord.Math.Environments
         /// <summary>
         ///   Matrix definition operator.
         /// </summary>
-        /// 
+        ///
         protected class mat
         {
             /// <summary>
             ///   Inner matrix object.
             /// </summary>
-            /// 
+            ///
             public double[,] matrix;
 
             /// <summary>
             ///   Initializes a new instance of the <see cref="mat"/> class.
             /// </summary>
-            /// 
+            ///
             public mat(double[,] values)
             {
                 this.matrix = values;
@@ -157,7 +154,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Implements the operator -.
             /// </summary>
-            /// 
+            ///
             public static mat operator -(mat v)
             {
                 return v;
@@ -166,7 +163,7 @@ namespace Accord.Math.Environments
             /// <summary>
             ///   Implements the operator &lt;.
             /// </summary>
-            /// 
+            ///
             public static mat operator <(mat a, mat v)
             {
                 a.matrix = v.matrix;
@@ -176,31 +173,30 @@ namespace Accord.Math.Environments
             /// <summary>
             ///    Implements the operator &gt;.
             /// </summary>
-            /// 
+            ///
             public static mat operator >(mat a, mat v)
             {
                 return a;
             }
 
             /// <summary>
-            ///   Performs an implicit conversion from 
-            ///   <see cref="T:System.Double[]"/> to 
+            ///   Performs an implicit conversion from
+            ///   <see cref="T:System.Double[]"/> to
             ///   <see cref="Accord.Math.Environments.REnvironment.mat"/>.
             /// </summary>
-            /// 
+            ///
             public static implicit operator mat(double[,] v)
             {
                 return new mat(v);
             }
 
-
             /// <summary>
-            ///   Performs an implicit conversion from 
-            ///   <see cref="Accord.Math.Environments.REnvironment.mat"/> 
+            ///   Performs an implicit conversion from
+            ///   <see cref="Accord.Math.Environments.REnvironment.mat"/>
             ///   to <see cref="T:System.Double[]"/>.
             /// </summary>
-            /// 
-            public static implicit operator double[,](mat v)
+            ///
+            public static implicit operator double[,] (mat v)
             {
                 return v.matrix;
             }

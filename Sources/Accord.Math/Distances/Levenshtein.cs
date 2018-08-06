@@ -23,43 +23,41 @@
 namespace Accord.Math.Distances
 {
     using System;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     ///   Levenshtein distance.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   In information theory and computer science, the Levenshtein distance is a
     ///   string metric for measuring the difference between two sequences. Informally,
-    ///   the Levenshtein distance between two words is the minimum number of single-character 
-    ///   edits (i.e. insertions, deletions or substitutions) required to change one 
-    ///   word into the other. It is named after Vladimir Levenshtein, who considered 
+    ///   the Levenshtein distance between two words is the minimum number of single-character
+    ///   edits (i.e. insertions, deletions or substitutions) required to change one
+    ///   word into the other. It is named after Vladimir Levenshtein, who considered
     ///   this distance in 1965.</para>
-    ///   
+    ///
     /// <para>
-    ///   Levenshtein distance may also be referred to as edit distance, although that 
+    ///   Levenshtein distance may also be referred to as edit distance, although that
     ///   may also denote a larger family of distance metrics. It is closely related to
     ///   pairwise string alignments.</para>
-    /// 
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description><a href="https://en.wikipedia.org/wiki/Levenshtein_distance">
     ///       https://en.wikipedia.org/wiki/Levenshtein_distance </a></description></item>
-    ///   </list></para>  
+    ///   </list></para>
     /// </remarks>
-    /// 
+    ///
     /// <seealso cref="Levenshtein{T}"/>
-    /// 
+    ///
     public sealed class Levenshtein : IMetric<string>
     {
-
         /// <summary>
         ///   Initializes a new instance of the <see cref="Levenshtein"/> class.
         /// </summary>
-        /// 
+        ///
         public Levenshtein()
         {
         }
@@ -68,19 +66,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(string x, string y)
         {
             if (x == null || x.Length == 0)

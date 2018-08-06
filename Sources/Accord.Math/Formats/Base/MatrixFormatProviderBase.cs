@@ -23,16 +23,15 @@
 namespace Accord.Math
 {
     using System;
-    using System.Globalization;
 
     /// <summary>
     ///   Base class for IMatrixFormatProvider implementers.
     /// </summary>
-    /// 
+    ///
     public abstract class MatrixFormatProviderBase : IMatrixFormatProvider
     {
-
         #region Formatting specification
+
         /// <summary>
         /// A string denoting the start of the matrix to be used in formatting.
         /// </summary>
@@ -47,6 +46,7 @@ namespace Accord.Math
         /// A string denoting the start of a matrix row to be used in formatting.
         /// </summary>
         public string FormatRowStart { get; protected set; }
+
         /// <summary>
         /// A string denoting the end of a matrix row to be used in formatting.
         /// </summary>
@@ -71,9 +71,11 @@ namespace Accord.Math
         /// A string containing the column delimiter for a matrix to be used in formatting.
         /// </summary>
         public string FormatColDelimiter { get; protected set; }
-        #endregion
+
+        #endregion Formatting specification
 
         #region Parsing specification
+
         /// <summary>
         /// A string denoting the start of the matrix to be used in parsing.
         /// </summary>
@@ -113,23 +115,22 @@ namespace Accord.Math
         /// A string containing the column delimiter for a matrix to be used in parsing.
         /// </summary>
         public string ParseColDelimiter { get; protected set; }
-        #endregion
 
+        #endregion Parsing specification
 
         /// <summary>
         ///   Gets the culture specific formatting information
         ///   to be used during parsing or formatting.
         /// </summary>
-        /// 
+        ///
         public IFormatProvider InnerProvider { get; protected set; }
-
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="MatrixFormatProviderBase"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="innerProvider">The inner format provider.</param>
-        /// 
+        ///
         protected MatrixFormatProviderBase(IFormatProvider innerProvider)
         {
             this.InnerProvider = innerProvider;
@@ -146,7 +147,7 @@ namespace Accord.Math
         ///   An instance of the object specified by formatType, if the
         ///   <see cref="IFormatProvider">IFormatProvider</see> implementation
         ///   can supply that type of object; otherwise, null.</returns>
-        ///   
+        ///
         public object GetFormat(Type formatType)
         {
             // Determine whether custom formatting object is requested.
@@ -158,6 +159,5 @@ namespace Accord.Math
 
             return null;
         }
-
     }
 }

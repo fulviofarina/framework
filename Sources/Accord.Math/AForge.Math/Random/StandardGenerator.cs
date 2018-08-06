@@ -13,14 +13,14 @@ namespace Accord.Math.Random
     /// <summary>
     /// Standard random numbers generator.
     /// </summary>
-    /// 
+    ///
     /// <remarks><para>The random number generator generates gaussian
     /// random numbers with zero mean and standard deviation of one. The generator
     /// implements polar form of the Box-Muller transformation.</para>
-    /// 
+    ///
     /// <para>The generator uses <see cref="UniformOneGenerator"/> generator as a base
     /// to generate random numbers.</para>
-    /// 
+    ///
     /// <para>Sample usage:</para>
     /// <code>
     /// // create instance of random generator
@@ -29,7 +29,7 @@ namespace Accord.Math.Random
     /// float randomNumber = generator.Next( );
     /// </code>
     /// </remarks>
-    /// 
+    ///
     [Obsolete("Please use Accord.Statistics.Distributions.NormalDistribution.Standard instead.")]
     public class StandardGenerator : IRandomNumberGenerator
     {
@@ -41,7 +41,7 @@ namespace Accord.Math.Random
         /// <summary>
         /// Mean value of the generator.
         /// </summary>
-        /// 
+        ///
         public float Mean
         {
             get { return 0; }
@@ -59,7 +59,7 @@ namespace Accord.Math.Random
         /// <summary>
         /// Initializes a new instance of the <see cref="StandardGenerator"/> class.
         /// </summary>
-        /// 
+        ///
         public StandardGenerator()
         {
             rand = new UniformOneGenerator();
@@ -68,9 +68,9 @@ namespace Accord.Math.Random
         /// <summary>
         /// Initializes a new instance of the <see cref="StandardGenerator"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="seed">Seed value to initialize random numbers generator.</param>
-        /// 
+        ///
         public StandardGenerator(int seed)
         {
             rand = new UniformOneGenerator(seed);
@@ -79,9 +79,9 @@ namespace Accord.Math.Random
         /// <summary>
         /// Generate next random number.
         /// </summary>
-        /// 
+        ///
         /// <returns>Returns next random number.</returns>
-        /// 
+        ///
         public float Next()
         {
             // check if we can use second value
@@ -118,12 +118,12 @@ namespace Accord.Math.Random
         /// <summary>
         /// Set seed of the random numbers generator.
         /// </summary>
-        /// 
+        ///
         /// <param name="seed">Seed value.</param>
-        /// 
+        ///
         /// <remarks>Resets random numbers generator initializing it with
         /// specified seed value.</remarks>
-        /// 
+        ///
         public void SetSeed(int seed)
         {
             rand = new UniformOneGenerator(seed);

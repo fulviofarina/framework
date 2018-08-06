@@ -27,26 +27,26 @@ namespace Accord.Math.Integration
     /// <summary>
     ///   Numerical methods for approximating integrals.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
-    ///  This namespace contains different methods for numerically approximating 
+    ///  This namespace contains different methods for numerically approximating
     ///  integrals, such as the <see cref="TrapezoidalRule">Trapezoidal Rule</see>,
     ///  <see cref="RombergMethod">Romberg method</see>, up to more advanced versions
     ///  such as the <see cref="InfiniteAdaptiveGaussKronrod">Infinite Adaptive Gauss
     ///  Kronrod</see> for improper integrals or <see cref="MonteCarloIntegration">
     ///  Monte Carlo integration</see> for multivariate integrals.</para>
-    ///  
+    ///
     /// <para>
     ///   The namespace class diagram is shown below. </para>
     ///   <img src="..\diagrams\classes\Accord.Math.Integration.png" />
     /// </remarks>
-    /// 
+    ///
     /// <seealso cref="Accord.Math"/>
     /// <seealso cref="Accord.Math.Differentiation"/>
-    ///   
+    ///
     [CompilerGenerated]
-    class NamespaceDoc
+    internal class NamespaceDoc
     {
     }
 }

@@ -48,28 +48,28 @@ namespace Accord.Math
     /// <summary>
     ///   Bessel functions.
     /// </summary>
-    ///  
+    ///
     /// <remarks>
     /// <para>
-    ///   Bessel functions, first defined by the mathematician Daniel 
+    ///   Bessel functions, first defined by the mathematician Daniel
     ///   Bernoulli and generalized by Friedrich Bessel, are the canonical
     ///   solutions y(x) of Bessel's differential equation.</para>
-    ///   
+    ///
     /// <para>
     ///   Bessel's equation arises when finding separable solutions to Laplace's
     ///   equation and the Helmholtz equation in cylindrical or spherical coordinates.
-    ///   Bessel functions are therefore especially important for many problems of wave 
+    ///   Bessel functions are therefore especially important for many problems of wave
     ///   propagation and static potentials. In solving problems in cylindrical coordinate
-    ///   systems, one obtains Bessel functions of integer order (α = n); in spherical 
+    ///   systems, one obtains Bessel functions of integer order (α = n); in spherical
     ///   problems, one obtains half-integer orders (α = n+1/2). For example:</para>
-    ///   
+    ///
     ///   <list type="bullet">
     ///     <item><description>
     ///       Electromagnetic waves in a cylindrical waveguide</description></item>
     ///     <item><description>
     ///       Heat conduction in a cylindrical object</description></item>
     ///     <item><description>
-    ///       Modes of vibration of a thin circular (or annular) artificial 
+    ///       Modes of vibration of a thin circular (or annular) artificial
     ///       membrane (such as a drum or other membranophone)</description></item>
     ///     <item><description>
     ///       Diffusion problems on a lattice</description></item>
@@ -82,60 +82,59 @@ namespace Accord.Math
     ///       Frequency-dependent friction in circular pipelines</description></item>
     ///       </description></item>
     /// </list>
-    ///       
+    ///
     /// <para>
     ///   Bessel functions also appear in other problems, such as signal processing
     ///   (e.g., see FM synthesis, Kaiser window, or Bessel filter).</para>
-    /// 
+    ///
     /// <para>
     ///   This class offers implementations of Bessel's first and second kind
     ///   functions, with special cases for zero and for arbitrary <c>n</c>.
     /// </para>
-    /// 
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description>
     ///       Cephes Math Library, http://www.netlib.org/cephes/ </description></item>
     ///     <item><description>
-    ///       Wikipedia contributors, "Bessel function,". Wikipedia, The Free 
-    ///       Encyclopedia. Available at: http://en.wikipedia.org/wiki/Bessel_function 
+    ///       Wikipedia contributors, "Bessel function,". Wikipedia, The Free
+    ///       Encyclopedia. Available at: http://en.wikipedia.org/wiki/Bessel_function
     ///       </description></item>
-    ///   </list></para>  
+    ///   </list></para>
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <code>
     ///   // Bessel function of order 0
     ///   actual = Bessel.J0(1);  //  0.765197686557967
     ///   actual = Bessel.J0(5);  // -0.177596771314338
-    ///   
+    ///
     ///   // Bessel function of order n
     ///   double j2  = Bessel.J(2, 17.3); // 0.117351128521774
     ///   double j01 = Bessel.J(0, 1);    // 0.765197686557967
     ///   double j05 = Bessel.J(0, 5);    // -0.177596771314338
-    ///   
-    /// 
+    ///
+    ///
     ///   // Bessel function of the second kind, of order 0.
     ///   double y0 = Bessel.Y0(64);   // 0.037067103232088
-    ///   
+    ///
     ///   // Bessel function of the second kind, of order n.
     ///   double y2 = Bessel.Y(2, 4);  // 0.215903594603615
     ///   double y0 = Bessel.Y(0, 64); // 0.037067103232088
     /// </code>
     /// </example>
-    /// 
+    ///
     public static class Bessel
     {
-
         /// <summary>
         ///   Bessel function of order 0.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   See <see cref="Bessel"/>
         /// </example>
-        /// 
+        ///
         public static double J0(double x)
         {
             double ax;
@@ -169,11 +168,11 @@ namespace Accord.Math
         /// <summary>
         ///   Bessel function of order 1.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   See <see cref="Bessel"/>
         /// </example>
-        /// 
+        ///
         public static double J(double x)
         {
             double ax;
@@ -210,11 +209,11 @@ namespace Accord.Math
         /// <summary>
         ///   Bessel function of order <c>n</c>.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   See <see cref="Bessel"/>
         /// </example>
-        /// 
+        ///
         public static double J(int n, double x)
         {
             int j, m;
@@ -276,11 +275,11 @@ namespace Accord.Math
         /// <summary>
         ///   Bessel function of the second kind, of order 0.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   See <see cref="Bessel"/>
         /// </example>
-        /// 
+        ///
         public static double Y0(double x)
         {
             if (x < 8.0)
@@ -313,11 +312,11 @@ namespace Accord.Math
         /// <summary>
         ///   Bessel function of the second kind, of order 1.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   See <see cref="Bessel"/>
         /// </example>
-        /// 
+        ///
         public static double Y(double x)
         {
             if (x < 8.0)
@@ -349,11 +348,11 @@ namespace Accord.Math
         /// <summary>
         ///   Bessel function of the second kind, of order <c>n</c>.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   See <see cref="Bessel"/>
         /// </example>
-        /// 
+        ///
         public static double Y(int n, double x)
         {
             double by, bym, byp, tox;
@@ -376,11 +375,11 @@ namespace Accord.Math
         /// <summary>
         ///   Bessel function of the first kind, of order 0.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   See <see cref="Bessel"/>
         /// </example>
-        /// 
+        ///
         public static double I0(double x)
         {
             double ans;
@@ -408,11 +407,11 @@ namespace Accord.Math
         /// <summary>
         ///   Bessel function of the first kind, of order 1.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   See <see cref="Bessel"/>
         /// </example>
-        /// 
+        ///
         public static double I(double x)
         {
             double ans;
@@ -439,11 +438,11 @@ namespace Accord.Math
         /// <summary>
         ///   Bessel function of the first kind, of order <c>n</c>.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   See <see cref="Bessel"/>
         /// </example>
-        /// 
+        ///
         public static double I(int n, double x)
         {
             if (n < 0)
@@ -486,6 +485,5 @@ namespace Accord.Math
             ans *= I0(x) / bi;
             return x < 0.0 && n % 2 == 1 ? -ans : ans;
         }
-
     }
 }

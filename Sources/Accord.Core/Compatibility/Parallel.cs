@@ -33,20 +33,20 @@ namespace System.Threading.Tasks
     ///   and exists only to provide compile-time compatibility with
     ///   previous framework versions.
     /// </summary>
-    /// 
+    ///
     internal static class Parallel
     {
         /// <summary>
         ///   Loop body delegate.
         /// </summary>
-        /// 
+        ///
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
         public delegate void ForLoopBody(int index);
 
         /// <summary>
         ///   Loop body delegate.
         /// </summary>
-        /// 
+        ///
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
         public delegate T ForLoopBody<T>(int index, Object state, T result);
 
@@ -54,22 +54,21 @@ namespace System.Threading.Tasks
         ///   Parallel for mock-up. The provided
         ///   code will NOT be run in parallel.
         /// </summary>
-        /// 
+        ///
         public static void For(int start, int stop, ForLoopBody loopBody)
         {
             for (int i = start; i < stop; i++)
                 loopBody(i);
         }
 
-
         /// <summary>
         ///   Parallel for mock-up. The provided
         ///   code will NOT be run in parallel.
         /// </summary>
-        /// 
+        ///
         public static void For(int start, int stop, ParallelOptions options, ForLoopBody loopBody)
         {
-            for (int i = start; i < stop; i++) 
+            for (int i = start; i < stop; i++)
                 loopBody(i);
         }
 
@@ -77,7 +76,7 @@ namespace System.Threading.Tasks
         ///   Parallel for mock-up. The provided
         ///   code will NOT be run in parallel.
         /// </summary>
-        /// 
+        ///
         public static void For<T>(int start, int stop, ParallelOptions options,
             Func<T> initial, ForLoopBody<T> loopBody, Action<T> end)
         {
@@ -94,21 +93,20 @@ namespace System.Threading.Tasks
     ///   and exists only to provide compile-time compatibility with
     ///   previous framework versions.
     /// </summary>
-    /// 
+    ///
     public class ParallelOptions
     {
         /// <summary>
         ///   Does not have any effect in .NET 3.5.
         /// </summary>
-        /// 
+        ///
         public int MaxDegreeOfParallelism { get; set; }
 
         /// <summary>
         ///   Does not have any effect in .NET 3.5.
         /// </summary>
-        /// 
+        ///
         public CancellationToken CancellationToken { get; set; }
     }
-
 }
 #endif

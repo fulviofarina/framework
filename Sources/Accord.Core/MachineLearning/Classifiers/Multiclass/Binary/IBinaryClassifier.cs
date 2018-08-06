@@ -22,15 +22,14 @@
 
 namespace Accord.MachineLearning
 {
-
     /// <summary>
     ///   Common interface for classification models. Classification models
     ///   learn how to produce a class-label (or a set of class labels) <c>y</c>
     ///   from an input vector <c>x</c>.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
-    /// 
+    ///
     public interface IBinaryClassifier<in TInput> :
         IMulticlassClassifier<TInput>,
         IClassifier<TInput, bool>,
@@ -42,9 +41,9 @@ namespace Accord.MachineLearning
         ///   giving access to more advanced methods, such as the prediction
         ///   of integer labels.
         /// </summary>
-        /// 
+        ///
         /// <returns>This instance seen as an <see cref="IMulticlassClassifier{TInput}"/>.</returns>
-        /// 
+        ///
         IMulticlassClassifier<TInput> ToMulticlass();
     }
 
@@ -53,7 +52,7 @@ namespace Accord.MachineLearning
     ///   learn how to produce a class-label (or a set of class labels) <c>y</c>
     ///   from an input vector <c>x</c>.
     /// </summary>
-    /// 
+    ///
     public interface IBinaryClassifier :
         IBinaryClassifier<double[]>,
         IBinaryClassifier<float[]>,

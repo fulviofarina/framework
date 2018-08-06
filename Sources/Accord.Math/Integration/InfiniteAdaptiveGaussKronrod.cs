@@ -23,142 +23,140 @@
 namespace Accord.Math.Integration
 {
     using System;
-    using AForge;
 
     /// <summary>
     ///   Status codes for the <see cref="InfiniteAdaptiveGaussKronrodStatus"/>
     ///   integration method.
     /// </summary>
-    /// 
+    ///
     public enum InfiniteAdaptiveGaussKronrodStatus
     {
         /// <summary>
         ///   The integration calculation has been completed with success.
         ///   The obtained result is under the selected convergence criteria.
         /// </summary>
-        /// 
+        ///
         Success,
 
         /// <summary>
         ///   Maximum number of allowed subdivisions has been reached.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
-        ///  The maximum number of subdivisions allowed has been achieved. One can allow 
+        ///  The maximum number of subdivisions allowed has been achieved. One can allow
         ///  more subdivisions by increasing the value of limit (and taking the according
-        ///  dimension adjustments into account). However, if this yields no improvement 
-        ///  it is advised to analyze the integrand in order to determine the integration 
-        ///  difficulties. If the position of a local difficulty can be determined (e.g. 
+        ///  dimension adjustments into account). However, if this yields no improvement
+        ///  it is advised to analyze the integrand in order to determine the integration
+        ///  difficulties. If the position of a local difficulty can be determined (e.g.
         ///  singularity, discontinuity within the interval) one will probably gain from
-        ///  splitting up the interval at this point and calling the integrator on the 
+        ///  splitting up the interval at this point and calling the integrator on the
         ///  subranges. if possible, an appropriate special-purpose integrator should be
         ///  used, which is designed for handling the type of difficulty involved.
         /// </remarks>
-        /// 
+        ///
         MaximumSubdivisions = 1,
 
         /// <summary>
         ///   Roundoff errors prevent the tolerance from being reached.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
-        ///   The occurrence of roundoff error is detected, which prevents the requested 
+        ///   The occurrence of roundoff error is detected, which prevents the requested
         ///   tolerance from being achieved. The error may be under-estimated.
         /// </remarks>
-        /// 
+        ///
         RoundoffError = 2,
 
         /// <summary>
         ///   There are severe discontinuities in the integrand function.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
-        ///   Extremely bad integrand behaviour occurs at some points of the 
+        ///   Extremely bad integrand behaviour occurs at some points of the
         ///   integration interval.
         /// </remarks>
-        /// 
+        ///
         BadBehavioredFunction = 3,
 
         /// <summary>
         ///   The algorithm cannot converge.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   The algorithm does not converge. Roundoff error is detected in the
         ///   extrapolation table. It is assumed that the requested tolerance cannot
         ///   be achieved, and that the returned result is the best which can be obtained.
         /// </remarks>
-        /// 
+        ///
         AlgorithmDivergence = 4,
 
         /// <summary>
         ///   The integral is divergent or slowly convergent.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   The integral is probably divergent, or slowly convergent. It must be
         ///   noted that divergence can occur with any other error code.
         /// </remarks>
-        /// 
+        ///
         IntegralDiverence = 5,
-
     }
 
     /// <summary>
-    ///   Infinite Adaptive Gauss-Kronrod integration method. 
+    ///   Infinite Adaptive Gauss-Kronrod integration method.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   In applied mathematics, adaptive quadrature is a process in which the
     ///   integral of a function f(x) is approximated using static quadrature rules
-    ///   on adaptively refined subintervals of the integration domain. Generally, 
+    ///   on adaptively refined subintervals of the integration domain. Generally,
     ///   adaptive algorithms are just as efficient and effective as traditional
-    ///   algorithms for "well behaved" integrands, but are also effective for 
+    ///   algorithms for "well behaved" integrands, but are also effective for
     ///   "badly behaved" integrands for which traditional algorithms fail.</para>
-    /// 
+    ///
     /// <para>
-    ///   The algorithm implemented by this class has been based on the original FORTRAN 
+    ///   The algorithm implemented by this class has been based on the original FORTRAN
     ///   implementation from QUADPACK. The function implemented the Non-adaptive Gauss-
     ///   Kronrod integration is <c>qagi(f,bound,inf,epsabs,epsrel,result,abserr,neval,
-    ///   ier,limit,lenw,last,iwork,work)</c>. The original source code is in the public 
-    ///   domain, but this version is under the LGPL. The original authors, as long as the 
+    ///   ier,limit,lenw,last,iwork,work)</c>. The original source code is in the public
+    ///   domain, but this version is under the LGPL. The original authors, as long as the
     ///   original routine description, are listed below:</para>
-    ///   
+    ///
     /// <para>
     ///   Robert Piessens, Elise de Doncker; Applied Mathematics and Programming Division,
-    ///   K.U.Leuven, Leuvenappl. This routine calculates an approximation result to a given 
-    ///   integral   i = integral of f over (bound,+infinity) or i = integral of f over 
+    ///   K.U.Leuven, Leuvenappl. This routine calculates an approximation result to a given
+    ///   integral   i = integral of f over (bound,+infinity) or i = integral of f over
     ///   (-infinity,bound) or i = integral of f over (-infinity,+infinity) hopefully satisfying
     ///   following claim for accuracy abs(i-result).le.max(epsabs,epsrel*abs(i)).</para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description><a href="http://en.wikipedia.org/wiki/Adaptive_quadrature">
-    ///       Wikipedia, The Free Encyclopedia. Adaptive quadrature. Available on: 
+    ///       Wikipedia, The Free Encyclopedia. Adaptive quadrature. Available on:
     ///       http://en.wikipedia.org/wiki/Adaptive_quadrature </a></description></item>
     ///     <item><description><a href="http://en.wikipedia.org/wiki/QUADPACK">
-    ///       Wikipedia, The Free Encyclopedia. QUADPACK. Available on: 
+    ///       Wikipedia, The Free Encyclopedia. QUADPACK. Available on:
     ///       http://en.wikipedia.org/wiki/QUADPACK </a></description></item>
     ///     <item><description><a href="http://www.netlib.no/netlib/quadpack/qagi.f">
-    ///       Robert Piessens, Elise de Doncker; Non-adaptive integration standard fortran 
+    ///       Robert Piessens, Elise de Doncker; Non-adaptive integration standard fortran
     ///       subroutine (qng.f). Applied Mathematics and Programming Division, K.U.Leuven,
     ///       Leuvenappl. Available at: http://www.netlib.no/netlib/quadpack/qagi.f </a>
     ///     </description></item>
     ///   </list>
     ///  </para>
     ///  </remarks>
-    /// 
+    ///
     /// <example>
     /// <para>
-    ///   Let's say we would like to compute the definite integral of the function 
-    ///   <c>f(x) = cos(x)</c> in the interval -1 to +1 using a variety of integration 
+    ///   Let's say we would like to compute the definite integral of the function
+    ///   <c>f(x) = cos(x)</c> in the interval -1 to +1 using a variety of integration
     ///   methods, including the <see cref="TrapezoidalRule"/>, <see cref="RombergMethod"/>
     ///   and <see cref="NonAdaptiveGaussKronrod"/>. Those methods can compute definite
     ///   integrals where the integration interval is finite:
     /// </para>
-    /// 
+    ///
     /// <code>
     /// // Declare the function we want to integrate
     /// Func&lt;double, double> f = (x) => Math.Cos(x);
@@ -171,14 +169,14 @@ namespace Accord.Math.Integration
     /// double romberg = RombergMethod.Integrate(f, a, b);                // 1.6829419
     /// double nagk    = NonAdaptiveGaussKronrod.Integrate(f, a, b);      // 1.6829419
     /// </code>
-    /// 
+    ///
     /// <para>
     ///   Moreover, it is also possible to calculate the value of improper integrals
     ///   (it is, integrals with infinite bounds) using <see cref="InfiniteAdaptiveGaussKronrod"/>,
     ///   as shown below. Let's say we would like to compute the area under the Gaussian
     ///   curve from -infinite to +infinite. While this function has infinite bounds, this
     ///   function is known to integrate to 1.</para>
-    ///   
+    ///
     /// <code>
     /// // Declare the Normal distribution's density function (which is the Gaussian's bell curve)
     /// Func&lt;double, double> g = (x) => (1 / Math.Sqrt(2 * Math.PI)) * Math.Exp(-(x * x) / 2);
@@ -188,12 +186,12 @@ namespace Accord.Math.Integration
     ///     Double.NegativeInfinity, Double.PositiveInfinity);   // Result should be 0.99999...
     /// </code>
     /// </example>
-    /// 
+    ///
     /// <seealso cref="TrapezoidalRule"/>
     /// <seealso cref="RombergMethod"/>
     /// <seealso cref="InfiniteAdaptiveGaussKronrod"/>
     /// <seealso cref="MonteCarloIntegration"/>
-    /// 
+    ///
     public class InfiniteAdaptiveGaussKronrod : IUnivariateIntegration,
         INumericalIntegration<InfiniteAdaptiveGaussKronrodStatus>
     {
@@ -213,20 +211,20 @@ namespace Accord.Math.Integration
         ///   Get the maximum number of subintervals to be utilized in the
         ///   partition of the <see cref="Range">integration interval</see>.
         /// </summary>
-        /// 
+        ///
         public int Subintervals { get { return iwork.Length; } }
 
         /// <summary>
         ///   Gets or sets the function to be differentiated.
         /// </summary>
-        /// 
+        ///
         public Func<double, double> Function { get; set; }
 
         /// <summary>
         ///   Gets or sets the input range under
         ///   which the integral must be computed.
         /// </summary>
-        /// 
+        ///
         public DoubleRange Range { get; set; }
 
         /// <summary>
@@ -234,7 +232,7 @@ namespace Accord.Math.Integration
         ///   will be ignored and only other requisites will be taken
         ///   into account. Default is zero.
         /// </summary>
-        /// 
+        ///
         public double ToleranceAbsolute
         {
             get { return abstol; }
@@ -246,7 +244,7 @@ namespace Accord.Math.Integration
         ///   will be ignored and only other requisites will be taken
         ///   into account. Default is 1e-3.
         /// </summary>
-        /// 
+        ///
         public double ToleranceRelative
         {
             get { return reltol; }
@@ -269,38 +267,37 @@ namespace Accord.Math.Integration
         ///   Get the exit code returned in the last call to the
         ///   <see cref="INumericalIntegration.Compute()"/> method.
         /// </summary>
-        /// 
+        ///
         public InfiniteAdaptiveGaussKronrodStatus Status { get; private set; }
 
         /// <summary>
         ///   Gets the numerically computed result of the
         ///   definite integral for the specified function.
         /// </summary>
-        /// 
+        ///
         public double Area { get { return result; } }
 
         /// <summary>
         ///   Gets the integration error for the
         ///   computed <see cref="Area"/> value.
         /// </summary>
-        /// 
+        ///
         public double Error { get { return error; } }
 
         /// <summary>
-        ///   Gets the number of function evaluations performed in 
+        ///   Gets the number of function evaluations performed in
         ///   the last call to the <see cref="Compute"/> method.
         /// </summary>
-        /// 
+        ///
         public int FunctionEvaluations { get { return evaluations; } }
-
 
         /// <summary>
         ///   Creates a new <see cref="InfiniteAdaptiveGaussKronrod"/> integration algorithm.
         /// </summary>
-        /// 
-        /// <param name="subintervals">Maximum number of subintervals in the 
+        ///
+        /// <param name="subintervals">Maximum number of subintervals in the
         ///   partition of the given integration interval. Default is 100.</param>
-        /// 
+        ///
         public InfiniteAdaptiveGaussKronrod(int subintervals)
         {
             init(subintervals, null, Double.MinValue, Double.MaxValue);
@@ -309,11 +306,11 @@ namespace Accord.Math.Integration
         /// <summary>
         ///   Creates a new <see cref="InfiniteAdaptiveGaussKronrod"/> integration algorithm.
         /// </summary>
-        /// 
-        /// <param name="subintervals">Maximum number of subintervals in the 
+        ///
+        /// <param name="subintervals">Maximum number of subintervals in the
         ///   partition of the given integration interval. Default is 100.</param>
         /// <param name="function">The function to be integrated.</param>
-        /// 
+        ///
         public InfiniteAdaptiveGaussKronrod(int subintervals, Func<double, double> function)
         {
             if (function == null)
@@ -325,13 +322,13 @@ namespace Accord.Math.Integration
         /// <summary>
         ///   Creates a new <see cref="InfiniteAdaptiveGaussKronrod"/> integration algorithm.
         /// </summary>
-        /// 
-        /// <param name="subintervals">Maximum number of subintervals in the 
+        ///
+        /// <param name="subintervals">Maximum number of subintervals in the
         ///   partition of the given integration interval. Default is 100.</param>
         /// <param name="function">The function to be integrated.</param>
         /// <param name="a">The lower limit of integration.</param>
         /// <param name="b">The upper limit of integration.</param>
-        /// 
+        ///
         public InfiniteAdaptiveGaussKronrod(int subintervals,
             Func<double, double> function, double a, double b)
         {
@@ -366,15 +363,15 @@ namespace Accord.Math.Integration
         ///   Computes the area of the function under the selected <see cref="Range"/>.
         ///   The computed value will be available at this object's <see cref="Area"/>.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   If the integration method fails, the reason will be available at <see cref="Status"/>.
         /// </remarks>
-        /// 
+        ///
         /// <returns>
         ///   True if the integration method succeeds, false otherwise.
         /// </returns>
-        /// 
+        ///
         public bool Compute()
         {
             Status = InfiniteAdaptiveGaussKronrodStatus.Success;
@@ -389,7 +386,6 @@ namespace Accord.Math.Integration
                 NonAdaptiveGaussKronrod.qng_(Function, a, b, ToleranceAbsolute, ToleranceRelative,
                         out result, out error, out evaluations, out errorCode);
             }
-
             else
             {
                 double bound = 0;
@@ -416,7 +412,6 @@ namespace Accord.Math.Integration
                     limit, lenw, out last, iwork, work);
             }
 
-
             if (errorCode == 6)
             {
                 throw new InvalidOperationException("Invalid inputs. If this error happens, the "
@@ -430,14 +425,14 @@ namespace Accord.Math.Integration
         }
 
         /// <summary>
-        ///   Computes the area under the integral for the given function, in the given 
+        ///   Computes the area under the integral for the given function, in the given
         ///   integration interval, using the Infinite Adaptive Gauss Kronrod algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="f">The unidimensional function whose integral should be computed.</param>
-        /// 
+        ///
         /// <returns>The integral's value in the current interval.</returns>
-        /// 
+        ///
         public static double Integrate(Func<double, double> f)
         {
             var iagk = new InfiniteAdaptiveGaussKronrod(100, f);
@@ -448,16 +443,16 @@ namespace Accord.Math.Integration
         }
 
         /// <summary>
-        ///   Computes the area under the integral for the given function, in the given 
+        ///   Computes the area under the integral for the given function, in the given
         ///   integration interval, using the Infinite Adaptive Gauss Kronrod algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="f">The unidimensional function whose integral should be computed.</param>
         /// <param name="a">The beginning of the integration interval.</param>
         /// <param name="b">The ending of the integration interval.</param>
-        /// 
+        ///
         /// <returns>The integral's value in the current interval.</returns>
-        /// 
+        ///
         public static double Integrate(Func<double, double> f, double a, double b)
         {
             var iagk = new InfiniteAdaptiveGaussKronrod(1000, f, a, b);
@@ -468,18 +463,18 @@ namespace Accord.Math.Integration
         }
 
         /// <summary>
-        ///   Computes the area under the integral for the given function, in the given 
+        ///   Computes the area under the integral for the given function, in the given
         ///   integration interval, using the Infinite Adaptive Gauss Kronrod algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="f">The unidimensional function whose integral should be computed.</param>
         /// <param name="a">The beginning of the integration interval.</param>
         /// <param name="b">The ending of the integration interval.</param>
         /// <param name="tolerance">
         ///   The relative tolerance under which the solution has to be found. Default is 1e-3.</param>
-        /// 
+        ///
         /// <returns>The integral's value in the current interval.</returns>
-        /// 
+        ///
         public static double Integrate(Func<double, double> f, double a, double b, double tolerance)
         {
             var iagk = new InfiniteAdaptiveGaussKronrod(100, f, a, b)
@@ -492,12 +487,9 @@ namespace Accord.Math.Integration
             return iagk.Area;
         }
 
-
-
-
         #region Quadpack
 
-        static int qagi_(Func<double, double> f, double bound, int inf, double epsabs,
+        private static int qagi_(Func<double, double> f, double bound, int inf, double epsabs,
             double epsrel, out double result, out double abserr, out int neval,
             out int ier, int limit, int lenw, out int last, int[] iwork,
             double[] dwork)
@@ -540,7 +532,7 @@ namespace Accord.Math.Integration
             }
 
             // lvl = 0;
-        L10:
+            L10:
             if (ier == 6)
             {
                 // lvl = 1;
@@ -549,7 +541,7 @@ namespace Accord.Math.Integration
             return 0;
         }
 
-        static unsafe int qagie_(Func<double, double> f, ref double bound, ref int inf, ref double epsabs,
+        private static unsafe int qagie_(Func<double, double> f, ref double bound, ref int inf, ref double epsabs,
             ref double epsrel, ref int limit, ref double result, ref double abserr,
             ref int neval, ref int ier, double* alist__, double* blist,
             double* rlist, double* elist, int* iord, ref int last)
@@ -639,7 +631,6 @@ namespace Accord.Math.Integration
                     return 0;
                 }
 
-
                 /*           first approximation to the integral */
                 /*           ----------------------------------- */
 
@@ -713,7 +704,6 @@ namespace Accord.Math.Integration
                 i__1 = limit;
                 for (last = 2; last <= i__1; ++last)
                 {
-
                     /*           bisect the subinterval with nrmax-th largest */
                     /*           error estimate. */
 
@@ -752,12 +742,12 @@ namespace Accord.Math.Integration
                     {
                         ++iroff1;
                     }
-                L10:
+                    L10:
                     if (last > 10 && erro12 > errmax)
                     {
                         ++iroff3;
                     }
-                L15:
+                    L15:
                     rlist[maxerr] = area1;
                     rlist[last] = area2;
                     errbnd = Math.Max(epsabs, epsrel * Math.Abs(area));
@@ -804,7 +794,7 @@ namespace Accord.Math.Integration
                     elist[maxerr] = error1;
                     elist[last] = error2;
                     goto L30;
-                L20:
+                    L20:
                     alist__[maxerr] = a2;
                     alist__[last] = a1;
                     blist[last] = b1;
@@ -813,12 +803,12 @@ namespace Accord.Math.Integration
                     elist[maxerr] = error2;
                     elist[last] = error1;
 
-                /*           call subroutine qpsrt to maintain the descending ordering */
-                /*           in the list o error estimates and select the */
-                /*           subinterval with nrmax-th largest error estimate (to be */
-                /*           bisected next). */
+                    /*           call subroutine qpsrt to maintain the descending ordering */
+                    /*           in the list o error estimates and select the */
+                    /*           subinterval with nrmax-th largest error estimate (to be */
+                    /*           bisected next). */
 
-            L30:
+                    L30:
                     qpsrt_(ref limit, ref last, ref maxerr, ref errmax,
                         &elist[1], &iord[1], ref nrmax);
 
@@ -859,7 +849,7 @@ namespace Accord.Math.Integration
                     }
                     extrap = true;
                     nrmax = 2;
-                L40:
+                    L40:
                     if (ierro == 3 || erlarg <= ertest)
                     {
                         goto L60;
@@ -889,9 +879,9 @@ namespace Accord.Math.Integration
                         /* L50: */
                     }
 
-            /*           perform extrapolation. */
+                    /*           perform extrapolation. */
 
-            L60:
+                    L60:
                     ++numrl2;
 
                     Accord.Diagnostics.Debug.Assert(numrl2 > 1);
@@ -922,9 +912,9 @@ namespace Accord.Math.Integration
                         goto L100;
                     }
 
-            /*            preparef bisection o the smallest interval. */
+                    /*            preparef bisection o the smallest interval. */
 
-            L70:
+                    L70:
                     if (numrl2 == 1)
                     {
                         noext = true;
@@ -940,19 +930,19 @@ namespace Accord.Math.Integration
                     small *= .5;
                     erlarg = errsum;
                     goto L90;
-                L80:
+                    L80:
                     small = .375;
                     erlarg = errsum;
                     ertest = errbnd;
                     rlist2[1] = area;
-                L90:
+                    L90:
                     ;
                 }
 
-        /*           set final result and error estimate. */
-            /*           ------------------------------------ */
+                /*           set final result and error estimate. */
+                /*           ------------------------------------ */
 
-        L100:
+                L100:
                 if (abserr == oflow)
                 {
                     goto L115;
@@ -982,15 +972,15 @@ namespace Accord.Math.Integration
                     goto L130;
                 }
                 goto L110;
-            L105:
+                L105:
                 if (abserr / Math.Abs(result) > errsum / Math.Abs(area))
                 {
                     goto L115;
                 }
 
-        /*           test on divergence */
+                /*           test on divergence */
 
-        L110:
+                L110:
                 /* Computing MAX */
                 if (ksgn == -1 && Math.Max(Math.Abs(result), Math.Abs(area)) <= defabs * 0.01)
                 {
@@ -1003,9 +993,9 @@ namespace Accord.Math.Integration
                 }
                 goto L130;
 
-        /*           compute global integral sum. */
+                /*           compute global integral sum. */
 
-        L115:
+                L115:
                 result = 0.0;
                 for (k = 1; k <= last; ++k)
                 {
@@ -1013,7 +1003,7 @@ namespace Accord.Math.Integration
                     /* L120: */
                 }
                 abserr = errsum;
-            L130:
+                L130:
                 neval = last * 30 - 15;
                 if (inf == 2)
                 {
@@ -1028,7 +1018,7 @@ namespace Accord.Math.Integration
             return 0;
         }
 
-        static unsafe int qelg_(ref int n, double* epstab, ref double result,
+        private static unsafe int qelg_(ref int n, double* epstab, ref double result,
             ref double abserr, double* res3la, ref int nres)
         {
             /* System generated locals */
@@ -1109,7 +1099,7 @@ namespace Accord.Math.Integration
                 abserr = err2 + err3;
                 /* ***jump out o do-loop */
                 goto L100;
-            L10:
+                L10:
 
                 Accord.Diagnostics.Debug.Assert(k1 > 0 && k1 < 52);
 
@@ -1137,13 +1127,13 @@ namespace Accord.Math.Integration
                 {
                     goto L30;
                 }
-            L20:
+                L20:
                 n = i__ + i__ - 1;
                 /* ***jump out o do-loop */
                 goto L50;
 
                 /*           compute a new element and eventually adjust */
-            /*           the value o result. */
+                /*           the value o result. */
 
                 L30:
                 res = e1 + 1.0 / ss;
@@ -1159,7 +1149,7 @@ namespace Accord.Math.Integration
                 }
                 abserr = error;
                 result = res;
-            L40:
+                L40:
                 ;
             }
 
@@ -1202,7 +1192,7 @@ namespace Accord.Math.Integration
                 ++indx;
                 /* L70: */
             }
-        L80:
+            L80:
             if (nres >= 4)
             {
                 goto L90;
@@ -1222,35 +1212,35 @@ namespace Accord.Math.Integration
             res3la[1] = res3la[2];
             res3la[2] = res3la[3];
             res3la[3] = result;
-        L100:
+            L100:
             abserr = Math.Max(abserr, epmach * 5.0 * Math.Abs(result));
             return 0;
         } /* qelg_ */
 
-        static unsafe int qk15i_(Func<double, double> f, ref double boun, ref int inf, double a,
+        private static unsafe int qk15i_(Func<double, double> f, ref double boun, ref int inf, double a,
             double b, ref double result, ref double abserr, ref double resabs, ref double resasc)
         {
             /* Initialized data */
 
-            double[] xgk = 
-            { 
+            double[] xgk =
+            {
                 0.9914553711208126, 0.9491079123427585,
-	            0.8648644233597691, 0.7415311855993944, 0.5860872354676911,
-	            0.4058451513773972, 0.2077849550078985, 0.0 
+                0.8648644233597691, 0.7415311855993944, 0.5860872354676911,
+                0.4058451513773972, 0.2077849550078985, 0.0
             };
 
-            double[] wgk = 
+            double[] wgk =
             {
                 0.02293532201052922, 0.06309209262997855,
-	            0.1047900103222502,  0.1406532597155259,  0.1690047266392679,
-	            0.1903505780647854,  0.2044329400752989,  0.2094821410847278 
+                0.1047900103222502,  0.1406532597155259,  0.1690047266392679,
+                0.1903505780647854,  0.2044329400752989,  0.2094821410847278
             };
 
-            double[] wg = 
-            { 
+            double[] wg =
+            {
                 0.0000000000000000, 0.1294849661688697, 0.0000000000000000,
-                0.2797053914892767, 0.0000000000000000, 0.3818300505051189, 
-                0.0000000000000000, 0.4179591836734694 
+                0.2797053914892767, 0.0000000000000000, 0.3818300505051189,
+                0.0000000000000000, 0.4179591836734694
             };
 
             /* Local variables */
@@ -1265,7 +1255,6 @@ namespace Accord.Math.Integration
                 double absc, din, resg, resk, fsum, absc1;
                 double absc2, fval1, fval2, hlgth, centr, reskh, uflow;
                 double tabsc1, tabsc2, epmach;
-
 
                 /* ***first executable statement  qk15i */
                 epmach = Constants.SingleEpsilon;
@@ -1347,7 +1336,7 @@ namespace Accord.Math.Integration
             return 0;
         }
 
-        static unsafe int qpsrt_(ref int limit, ref int last, ref int maxerr,
+        private static unsafe int qpsrt_(ref int limit, ref int last, ref int maxerr,
             ref double ermax, double* elist, int* iord, ref int nrmax)
         {
             /* System generated locals */
@@ -1356,7 +1345,6 @@ namespace Accord.Math.Integration
             /* Local variables */
             int i__, j, k, ido, ibeg, jbnd, isucc, jupbn;
             double errmin, errmax;
-
 
             /* Function Body */
             if (last > 2)
@@ -1368,10 +1356,10 @@ namespace Accord.Math.Integration
             goto L90;
 
             /*           this part o the routine is only executed */
-        /*           i, due to a difficult integrand, subdivision */
-        /*           increased the error estimate. in the normal case */
-        /*           the insert proceduref should start after the */
-        /*           nrmax-th largest error estimate. */
+            /*           i, due to a difficult integrand, subdivision */
+            /*           increased the error estimate. in the normal case */
+            /*           the insert proceduref should start after the */
+            /*           nrmax-th largest error estimate. */
 
             L10:
             errmax = elist[maxerr];
@@ -1395,9 +1383,9 @@ namespace Accord.Math.Integration
             }
 
             /*           compute the number o elements in the list to */
-        /*           be maintained in descending order. this number */
-        /*           depends on the number o subdivisions still */
-        /*           allowed. */
+            /*           be maintained in descending order. this number */
+            /*           depends on the number o subdivisions still */
+            /*           allowed. */
 
             L30:
             jupbn = last;
@@ -1428,7 +1416,7 @@ namespace Accord.Math.Integration
                 iord[i__ - 1] = isucc;
                 /* L40: */
             }
-        L50:
+            L50:
             iord[jbnd] = maxerr;
             iord[jupbn] = last;
             goto L90;
@@ -1453,7 +1441,7 @@ namespace Accord.Math.Integration
             }
             iord[i__] = last;
             goto L90;
-        L80:
+            L80:
             iord[k + 1] = last;
 
             /*           set maxerr and ermax. */
@@ -1464,8 +1452,7 @@ namespace Accord.Math.Integration
             return 0;
         } /* qpsrt_ */
 
-
-        #endregion
+        #endregion Quadpack
 
         private InfiniteAdaptiveGaussKronrod()
         {
@@ -1474,11 +1461,11 @@ namespace Accord.Math.Integration
         /// <summary>
         ///   Creates a new object that is a copy of the current instance.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   A new object that is a copy of this instance.
         /// </returns>
-        /// 
+        ///
         public object Clone()
         {
             var clone = new InfiniteAdaptiveGaussKronrod();

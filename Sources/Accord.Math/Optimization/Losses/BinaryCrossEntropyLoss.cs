@@ -22,16 +22,16 @@
 
 namespace Accord.Math.Optimization.Losses
 {
-    using Accord.Statistics;
     using System;
+    using Accord.Statistics;
 
     /// <summary>
     ///   Binary cross-entropy loss for multi-label problems, also
     ///   known as logistic loss per output of a multi-label classifier.
     /// </summary>
-    /// 
+    ///
     /// <seealso cref="CategoryCrossEntropyLoss"/>
-    /// 
+    ///
     [Serializable]
     public class BinaryCrossEntropyLoss : LossBase<bool[][]>, ILoss<int[]>,
         ILoss<double[]>, ILoss<double[][]>
@@ -177,7 +177,5 @@ namespace Accord.Math.Optimization.Losses
         {
             return Loss(Jagged.OneHot(actual));
         }
-
-
     }
 }

@@ -22,31 +22,31 @@
 
 namespace Accord.Statistics
 {
-    using Accord.Math;
     using System;
+    using Accord.Math;
 
     /// <summary>
     ///   Sample weight types.
     /// </summary>
-    /// 
+    ///
     public enum WeightType
     {
         /// <summary>
         ///   Weights should be ignored.
         /// </summary>
-        /// 
+        ///
         None,
 
         /// <summary>
         ///   Weights are integers representing how many times a sample should repeat itself.
         /// </summary>
-        /// 
+        ///
         Repetition,
 
         /// <summary>
         ///   Weights are fractional numbers that sum up to one.
         /// </summary>
-        /// 
+        ///
         Fraction,
 
         /// <summary>
@@ -54,22 +54,21 @@ namespace Accord.Statistics
         ///   weights</see>. If they sum to a whole number, they are handled as <see cref="Repetition">
         ///   integer repetition counts</see>.
         /// </summary>
-        /// 
+        ///
         Automatic,
     }
 
     public static partial class Measures
     {
-
         /// <summary>
         ///   Calculates the weighted matrix Mean vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose means will be calculated.</param>
         /// <param name="weights">A vector containing the importance of each sample in the matrix.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the means of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedMean(this double[][] matrix, double[] weights)
         {
             return WeightedMean(matrix, weights, 0);
@@ -87,7 +86,7 @@ namespace Accord.Statistics
         ///   Default value is 0.
         /// </param>
         /// <returns>Returns a vector containing the means of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedMean(double[][] matrix, double[] weights, int dimension = 0)
         {
             int rows = matrix.Length;
@@ -158,12 +157,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the weighted matrix Mean vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose means will be calculated.</param>
         /// <param name="weights">A vector containing the importance of each sample in the matrix.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the means of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedMean(this double[,] matrix, double[] weights)
         {
             return WeightedMean(matrix, weights, 0);
@@ -181,7 +180,7 @@ namespace Accord.Statistics
         ///   Default value is 0.
         /// </param>
         /// <returns>Returns a vector containing the means of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedMean(double[,] matrix, double[] weights, int dimension = 0)
         {
             int rows = matrix.GetLength(0);
@@ -234,7 +233,6 @@ namespace Accord.Statistics
                 throw new ArgumentException("Invalid dimension.", "dimension");
             }
 
-
             double weightSum = weights.Sum();
 
             if (weightSum != 0)
@@ -247,12 +245,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the weighted matrix Mean vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose means will be calculated.</param>
         /// <param name="weights">A vector containing the importance of each sample in the matrix.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the means of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedMean(this double[][] matrix, int[] weights)
         {
             return WeightedMean(matrix, weights, 0);
@@ -270,7 +268,7 @@ namespace Accord.Statistics
         ///   Default value is 0.
         /// </param>
         /// <returns>Returns a vector containing the means of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedMean(double[][] matrix, int[] weights, int dimension = 0)
         {
             int rows = matrix.Length;
@@ -341,12 +339,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the weighted matrix Mean vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose means will be calculated.</param>
         /// <param name="weights">A vector containing the importance of each sample in the matrix.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the means of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedMean(this double[,] matrix, int[] weights)
         {
             return WeightedMean(matrix, weights, 0);
@@ -364,7 +362,7 @@ namespace Accord.Statistics
         ///   Default value is 0.
         /// </param>
         /// <returns>Returns a vector containing the means of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedMean(double[,] matrix, int[] weights, int dimension = 0)
         {
             int rows = matrix.GetLength(0);
@@ -417,7 +415,6 @@ namespace Accord.Statistics
                 throw new ArgumentException("Invalid dimension.", "dimension");
             }
 
-
             double weightSum = weights.Sum();
 
             if (weightSum != 0)
@@ -430,12 +427,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Standard Deviations vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose deviations will be calculated.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the standard deviations of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedStandardDeviation(this double[,] matrix, int[] weights)
         {
             return WeightedStandardDeviation(matrix, weights, WeightedMean(matrix, weights));
@@ -444,13 +441,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Standard Deviations vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose deviations will be calculated.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the standard deviations of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedStandardDeviation(this double[,] matrix, int[] weights, double[] means)
         {
             return Elementwise.Sqrt(WeightedVariance(matrix, weights, means));
@@ -459,7 +456,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Standard Deviations vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose deviations will be calculated.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
         /// <param name="unbiased">
@@ -467,11 +464,11 @@ namespace Accord.Statistics
         ///   Pass false to compute it using the population variance. See remarks
         ///   for more details.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        /// 
+        ///
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the standard deviation σ using the sample variance, which is an unbiased 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the standard deviation σ using the sample variance, which is an unbiased
         ///     estimator of the true population variance. Setting this parameter to true will
         ///     thus compute σ using the following formula:</para>
         ///     <code>
@@ -489,9 +486,9 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        ///   
+        ///
         /// <returns>Returns a vector containing the standard deviations of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedStandardDeviation(this double[][] matrix, int[] weights, double[] means, bool unbiased = true)
         {
             return Elementwise.Sqrt(WeightedVariance(matrix, weights, means, unbiased));
@@ -500,18 +497,18 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Standard Deviations vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose deviations will be calculated.</param>
         /// <param name="unbiased">
         ///   Pass true to compute the standard deviation using the sample variance.
         ///   Pass false to compute it using the population variance. See remarks
         ///   for more details.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        /// 
+        ///
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the standard deviation σ using the sample variance, which is an unbiased 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the standard deviation σ using the sample variance, which is an unbiased
         ///     estimator of the true population variance. Setting this parameter to true will
         ///     thus compute σ using the following formula:</para>
         ///     <code>
@@ -529,9 +526,9 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        /// 
+        ///
         /// <returns>Returns a vector containing the standard deviations of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedStandardDeviation(this double[][] matrix, int[] weights, bool unbiased = true)
         {
             return WeightedStandardDeviation(matrix, weights, WeightedMean(matrix, weights), unbiased);
@@ -540,12 +537,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Standard Deviations vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose deviations will be calculated.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the standard deviations of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedStandardDeviation(this double[,] matrix, double[] weights)
         {
             return WeightedStandardDeviation(matrix, weights, WeightedMean(matrix, weights));
@@ -554,13 +551,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Standard Deviations vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose deviations will be calculated.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the standard deviations of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedStandardDeviation(this double[,] matrix, double[] weights, double[] means)
         {
             return Elementwise.Sqrt(WeightedVariance(matrix, weights, means));
@@ -569,7 +566,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Standard Deviations vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose deviations will be calculated.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
         /// <param name="unbiased">
@@ -577,11 +574,11 @@ namespace Accord.Statistics
         ///   Pass false to compute it using the population variance. See remarks
         ///   for more details.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        ///   
+        ///
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the standard deviation σ using the sample variance, which is an unbiased 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the standard deviation σ using the sample variance, which is an unbiased
         ///     estimator of the true population variance. Setting this parameter to true will
         ///     thus compute σ using the following formula:</para>
         ///     <code>
@@ -599,9 +596,9 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        ///   
+        ///
         /// <returns>Returns a vector containing the standard deviations of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedStandardDeviation(this double[][] matrix, double[] weights, double[] means, bool unbiased = true)
         {
             return Elementwise.Sqrt(WeightedVariance(matrix, weights, means, unbiased));
@@ -610,18 +607,18 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Standard Deviations vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose deviations will be calculated.</param>
         /// <param name="unbiased">
         ///   Pass true to compute the standard deviation using the sample variance.
         ///   Pass false to compute it using the population variance. See remarks
         ///   for more details.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        ///   
+        ///
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the standard deviation σ using the sample variance, which is an unbiased 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the standard deviation σ using the sample variance, which is an unbiased
         ///     estimator of the true population variance. Setting this parameter to true will
         ///     thus compute σ using the following formula:</para>
         ///     <code>
@@ -639,9 +636,9 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        /// 
+        ///
         /// <returns>Returns a vector containing the standard deviations of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedStandardDeviation(this double[][] matrix, double[] weights, bool unbiased = true)
         {
             return WeightedStandardDeviation(matrix, weights, WeightedMean(matrix, weights), unbiased);
@@ -650,20 +647,20 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the scatter matrix of a sample matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   By dividing the Scatter matrix by the sample size, we get the population
         ///   Covariance matrix. By dividing by the sample size minus one, we get the
         ///   sample Covariance matrix.
         /// </remarks>
-        /// 
+        ///
         /// <param name="matrix">A number multi-dimensional array containing the matrix values.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
         /// <param name="means">The mean value of the given values, if already known.</param>
-        /// 
+        ///
         /// <returns>The covariance matrix.</returns>
-        /// 
+        ///
         public static double[,] WeightedCovariance(double[][] matrix, double[] weights, double[] means)
         {
             return WeightedCovariance(matrix, weights, means, dimension: 0);
@@ -672,22 +669,22 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the scatter matrix of a sample matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   By dividing the Scatter matrix by the sample size, we get the population
         ///   Covariance matrix. By dividing by the sample size minus one, we get the
         ///   sample Covariance matrix.
         /// </remarks>
-        /// 
+        ///
         /// <param name="matrix">A number multi-dimensional array containing the matrix values.</param>
         /// <param name="dimension">
         ///   Pass 0 to if mean vector is a row vector, 1 otherwise. Default value is 0.
         /// </param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
-        /// 
+        ///
         /// <returns>The covariance matrix.</returns>
-        /// 
+        ///
         public static double[,] WeightedCovariance(double[][] matrix, double[] weights, int dimension = 0)
         {
             double[] mean = WeightedMean(matrix, weights, dimension);
@@ -697,21 +694,21 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the scatter matrix of a sample matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   By dividing the Scatter matrix by the sample size, we get the population
         ///   Covariance matrix. By dividing by the sample size minus one, we get the
         ///   sample Covariance matrix.
         /// </remarks>
-        /// 
+        ///
         /// <param name="weights">The number of times each sample should be repeated.</param>
         /// <param name="matrix">A number multi-dimensional array containing the matrix values.</param>
         /// <param name="dimension">
         ///   Pass 0 to if mean vector is a row vector, 1 otherwise. Default value is 0.
         /// </param>
-        /// 
+        ///
         /// <returns>The covariance matrix.</returns>
-        /// 
+        ///
         public static double[,] WeightedCovariance(double[][] matrix, int[] weights, int dimension = 0)
         {
             double[] mean = WeightedMean(matrix, weights, dimension);
@@ -721,13 +718,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the scatter matrix of a sample matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   By dividing the Scatter matrix by the sample size, we get the population
         ///   Covariance matrix. By dividing by the sample size minus one, we get the
         ///   sample Covariance matrix.
         /// </remarks>
-        /// 
+        ///
         /// <param name="matrix">A number multi-dimensional array containing the matrix values.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
@@ -735,9 +732,9 @@ namespace Accord.Statistics
         /// <param name="dimension">
         ///   Pass 0 to if mean vector is a row vector, 1 otherwise. Default value is 0.
         /// </param>
-        /// 
+        ///
         /// <returns>The covariance matrix.</returns>
-        /// 
+        ///
         public static double[,] WeightedCovariance(double[][] matrix, double[] weights, double[] means, int dimension)
         {
             double s1 = 0, s2 = 0;
@@ -754,22 +751,22 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the scatter matrix of a sample matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   By dividing the Scatter matrix by the sample size, we get the population
         ///   Covariance matrix. By dividing by the sample size minus one, we get the
         ///   sample Covariance matrix.
         /// </remarks>
-        /// 
+        ///
         /// <param name="weights">The number of times each sample should be repeated.</param>
         /// <param name="matrix">A number multi-dimensional array containing the matrix values.</param>
         /// <param name="means">The mean value of the given values, if already known.</param>
         /// <param name="dimension">
         ///   Pass 0 to if mean vector is a row vector, 1 otherwise. Default value is 0.
         /// </param>
-        /// 
+        ///
         /// <returns>The covariance matrix.</returns>
-        /// 
+        ///
         public static double[,] WeightedCovariance(double[][] matrix, int[] weights, double[] means, int dimension)
         {
             double s1 = 0, s2 = 0;
@@ -786,13 +783,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the scatter matrix of a sample matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   By dividing the Scatter matrix by the sample size, we get the population
         ///   Covariance matrix. By dividing by the sample size minus one, we get the
         ///   sample Covariance matrix.
         /// </remarks>
-        /// 
+        ///
         /// <param name="matrix">A number multi-dimensional array containing the matrix values.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
@@ -801,9 +798,9 @@ namespace Accord.Statistics
         /// <param name="dimension">
         ///   Pass 0 to if mean vector is a row vector, 1 otherwise. Default value is 0.
         /// </param>
-        /// 
+        ///
         /// <returns>The covariance matrix.</returns>
-        /// 
+        ///
         public static double[,] WeightedScatter(double[][] matrix, double[] weights,
             double[] means, double factor, int dimension)
         {
@@ -879,13 +876,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the scatter matrix of a sample matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   By dividing the Scatter matrix by the sample size, we get the population
         ///   Covariance matrix. By dividing by the sample size minus one, we get the
         ///   sample Covariance matrix.
         /// </remarks>
-        /// 
+        ///
         /// <param name="weights">The number of times each sample should be repeated.</param>
         /// <param name="matrix">A number multi-dimensional array containing the matrix values.</param>
         /// <param name="means">The mean value of the given values, if already known.</param>
@@ -893,9 +890,9 @@ namespace Accord.Statistics
         /// <param name="dimension">
         ///   Pass 0 to if mean vector is a row vector, 1 otherwise. Default value is 0.
         /// </param>
-        /// 
+        ///
         /// <returns>The covariance matrix.</returns>
-        /// 
+        ///
         public static double[,] WeightedScatter(double[][] matrix, int[] weights,
             double[] means, double factor, int dimension)
         {
@@ -968,7 +965,6 @@ namespace Accord.Statistics
             return cov;
         }
 
-
         private static double correct(bool unbiased, WeightType weightType, double sum, double weightSum, double squareSum)
         {
             if (unbiased)
@@ -1002,4 +998,3 @@ namespace Accord.Statistics
         }
     }
 }
-

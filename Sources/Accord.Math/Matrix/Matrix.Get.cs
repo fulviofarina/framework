@@ -27,17 +27,16 @@ namespace Accord.Math
 
     public static partial class Matrix
     {
-
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="startRow">Start row index</param>
         /// <param name="endRow">End row index</param>
         /// <param name="startColumn">Start column index</param>
         /// <param name="endColumn">End column index</param>
-        /// 
+        ///
         public static T[,] Get<T>(this T[,] source,
             int startRow, int endRow, int startColumn, int endColumn)
         {
@@ -47,14 +46,14 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="destination">The matrix where results should be stored.</param>
         /// <param name="startRow">Start row index</param>
         /// <param name="endRow">End row index</param>
         /// <param name="startColumn">Start column index</param>
         /// <param name="endColumn">End column index</param>
-        /// 
+        ///
         public static T[,] Get<T>(this T[,] source, T[,] destination,
             int startRow, int endRow, int startColumn, int endColumn)
         {
@@ -81,11 +80,11 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="rowIndexes">Array of row indices. Pass null to select all indices.</param>
         /// <param name="columnIndexes">Array of column indices. Pass null to select all indices.</param>
-        /// 
+        ///
         public static T[,] Get<T>(this T[,] source, int[] rowIndexes, int[] columnIndexes)
         {
             return get(source, null, rowIndexes, columnIndexes);
@@ -94,12 +93,12 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="destination">The matrix where results should be stored.</param>
         /// <param name="rowIndexes">Array of row indices. Pass null to select all indices.</param>
         /// <param name="columnIndexes">Array of column indices. Pass null to select all indices.</param>
-        /// 
+        ///
         public static T[,] Get<T>(this T[,] source, T[,] destination, int[] rowIndexes, int[] columnIndexes)
         {
             if (destination == null)
@@ -111,10 +110,10 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="rowIndexes">Array of row indices</param>
-        /// 
+        ///
         public static T[,] Get<T>(this T[,] source, int[] rowIndexes)
         {
             return get(source, null, rowIndexes, null);
@@ -123,16 +122,16 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="startRow">Starting row index</param>
         /// <param name="endRow">End row index</param>
         /// <param name="columnIndexes">Array of column indices</param>
-        /// 
+        ///
         /// <remarks>
         ///   Routine adapted from Lutz Roeder's Mapack for .NET, September 2000.
         /// </remarks>
-        /// 
+        ///
         public static T[,] Get<T>(this T[,] source, int startRow, int endRow, int[] columnIndexes)
         {
             if (source == null)
@@ -184,16 +183,16 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="rowIndexes">Array of row indices</param>
         /// <param name="startColumn">Start column index</param>
         /// <param name="endColumn">End column index</param>
-        /// 
+        ///
         /// <remarks>
         ///   Routine adapted from Lutz Roeder's Mapack for .NET, September 2000.
         /// </remarks>
-        /// 
+        ///
         public static T[,] Get<T>(this T[,] source, int[] rowIndexes, int startColumn, int endColumn)
         {
             if (source == null)
@@ -256,20 +255,16 @@ namespace Accord.Math
             return end;
         }
 
-
-
-
-
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="startRow">Start row index</param>
         /// <param name="endRow">End row index</param>
         /// <param name="startColumn">Start column index</param>
         /// <param name="endColumn">End column index</param>
-        /// 
+        ///
         public static T[][] Get<T>(this T[][] source,
             int startRow, int endRow, int startColumn, int endColumn)
         {
@@ -279,14 +274,14 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="destination">The matrix where the values should be stored.</param>
         /// <param name="values">The values to be stored.</param>
         /// <param name="startRow">Start row index in the destination matrix.</param>
         /// <param name="endRow">End row index in the destination matrix.</param>
         /// <param name="startColumn">Start column index in the destination matrix.</param>
         /// <param name="endColumn">End column index in the destination matrix.</param>
-        /// 
+        ///
         public static T[][] Set<T>(this T[][] destination,
             int startRow, int endRow, int startColumn, int endColumn,
             T[][] values)
@@ -297,15 +292,15 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="rowIndexes">Array of row indices. Pass null to select all indices.</param>
         /// <param name="columnIndexes">Array of column indices. Pass null to select all indices.</param>
-        /// <param name="reuseMemory">Set to true to avoid memory allocations 
+        /// <param name="reuseMemory">Set to true to avoid memory allocations
         ///   when possible. This might result on the shallow copies of some
         ///   elements. Default is false (default is to always provide a true,
         ///   deep copy of every element in the matrices, using more memory).</param>
-        /// 
+        ///
         public static T[][] Get<T>(this T[][] source,
             int[] rowIndexes, int[] columnIndexes, bool reuseMemory = false)
         {
@@ -315,11 +310,11 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="indexes">Array of indices.</param>
         /// <param name="transpose">True to return a transposed matrix; false otherwise.</param>
-        /// 
+        ///
         public static T[][] Get<T>(this T[][] source, int[] indexes, bool transpose = false)
         {
             if (source == null)
@@ -355,24 +350,23 @@ namespace Accord.Math
             return destination;
         }
 
-
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="rowIndexes">Array of row indices</param>
         /// <param name="startColumn">Start column index</param>
         /// <param name="endColumn">End column index</param>
-        /// <param name="reuseMemory">Set to true to avoid memory allocations 
+        /// <param name="reuseMemory">Set to true to avoid memory allocations
         ///   when possible. This might result on the shallow copies of some
         ///   elements. Default is false (default is to always provide a true,
         ///   deep copy of every element in the matrices, using more memory).</param>
-        /// 
+        ///
         /// <remarks>
         ///   Routine adapted from Lutz Roeder's Mapack for .NET, September 2000.
         /// </remarks>
-        /// 
+        ///
         public static T[][] Get<T>(this T[][] source, int[] rowIndexes,
             int startColumn, int endColumn, bool reuseMemory = false)
         {
@@ -443,16 +437,16 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a sub matrix extracted from the current matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The matrix to return the submatrix from.</param>
         /// <param name="startRow">Starting row index</param>
         /// <param name="endRow">End row index</param>
         /// <param name="columnIndexes">Array of column indices</param>
-        /// 
+        ///
         /// <remarks>
         ///   Routine adapted from Lutz Roeder's Mapack for .NET, September 2000.
         /// </remarks>
-        /// 
+        ///
         public static T[][] Get<T>(this T[][] source, int startRow, int endRow, int[] columnIndexes)
         {
             if (source == null)
@@ -472,7 +466,6 @@ namespace Accord.Math
             {
                 throw new ArgumentException("Argument out of range");
             }
-
 
             T[][] destination;
 
@@ -510,18 +503,15 @@ namespace Accord.Math
             return destination;
         }
 
-
-
-
         /// <summary>
         ///   Returns a subvector extracted from the current vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The vector to return the subvector from.</param>
         /// <param name="indexes">Array of indices.</param>
         /// <param name="inPlace">True to return the results in place, changing the
         ///   original <paramref name="source"/> vector; false otherwise.</param>
-        /// 
+        ///
         public static T[] Get<T>(this T[] source, int[] indexes, bool inPlace = false)
         {
             if (source == null)
@@ -555,10 +545,10 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a subvector extracted from the current vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The vector to return the subvector from.</param>
         /// <param name="indexes">Array of indices.</param>
-        /// 
+        ///
         public static T[] Get<T>(this T[] source, IList<int> indexes)
         {
             if (source == null)
@@ -579,14 +569,14 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a subvector extracted from the current vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The vector to return the subvector from.</param>
         /// <param name="startRow">Starting index.</param>
         /// <param name="endRow">End index.</param>
         /// <remarks>
         ///   Routine adapted from Lutz Roeder's Mapack for .NET, September 2000.
         /// </remarks>
-        /// 
+        ///
         public static T[] Get<T>(this T[] source, int startRow, int endRow)
         {
             endRow = end(endRow, source.Length);
@@ -600,7 +590,7 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a value extracted from the current vector.
         /// </summary>
-        /// 
+        ///
         public static T Get<T>(this T[] source, int index)
         {
             if (source == null)
@@ -617,10 +607,10 @@ namespace Accord.Math
         /// <summary>
         ///   Returns a subvector extracted from the current vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="source">The vector to return the subvector from.</param>
         /// <param name="indexes">Array of indices.</param>
-        /// 
+        ///
         public static List<T> Get<T>(this List<T> source, int[] indexes)
         {
             if (source == null)
@@ -636,17 +626,14 @@ namespace Accord.Math
             return destination;
         }
 
-
-
-
         /// <summary>
         ///   Extracts a selected area from a matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   Routine adapted from Lutz Roeder's Mapack for .NET, September 2000.
         /// </remarks>
-        /// 
+        ///
         private static T[,] get<T>(this T[,] source, T[,] destination,
             int startRow, int endRow, int startColumn, int endColumn)
         {
@@ -680,11 +667,11 @@ namespace Accord.Math
         /// <summary>
         ///   Extracts a selected area from a matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   Routine adapted from Lutz Roeder's Mapack for .NET, September 2000.
         /// </remarks>
-        /// 
+        ///
         private static T[,] get<T>(this T[,] source, T[,] destination, int[] rowIndexes, int[] columnIndexes)
         {
             if (source == null)
@@ -715,7 +702,6 @@ namespace Accord.Math
                     if ((columnIndexes[i] < 0) || (columnIndexes[i] >= cols))
                         throw new ArgumentException("Argument out of range.");
             }
-
 
             if (destination != null)
             {
@@ -753,11 +739,11 @@ namespace Accord.Math
         /// <summary>
         ///   Extracts a selected area from a matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   Routine adapted from Lutz Roeder's Mapack for .NET, September 2000.
         /// </remarks>
-        /// 
+        ///
         private static T[][] get<T>(this T[][] source, T[][] destination,
             int[] rowIndexes, int[] columnIndexes, bool reuseMemory)
         {
@@ -794,7 +780,6 @@ namespace Accord.Math
                         throw new ArgumentException("Argument out of range.");
             }
 
-
             if (destination != null)
             {
                 if (destination.Length < newRows)
@@ -810,7 +795,6 @@ namespace Accord.Math
                         destination[i] = new T[newCols];
                 }
             }
-
 
             if (columnIndexes == null)
             {
@@ -844,11 +828,11 @@ namespace Accord.Math
         /// <summary>
         ///   Extracts a selected area from a matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   Routine adapted from Lutz Roeder's Mapack for .NET, September 2000.
         /// </remarks>
-        /// 
+        ///
         private static T[][] get<T>(this T[][] source, T[][] destination,
             int startRow, int endRow, int startColumn, int endColumn, bool reuseMemory)
         {
@@ -899,11 +883,11 @@ namespace Accord.Math
         /// <summary>
         ///   Extracts a selected area from a matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   Routine adapted from Lutz Roeder's Mapack for .NET, September 2000.
         /// </remarks>
-        /// 
+        ///
         private static T[][] set<T>(this T[][] destination, T[][] source,
             int startRow, int endRow, int startColumn, int endColumn)
         {
@@ -927,6 +911,5 @@ namespace Accord.Math
 
             return destination;
         }
-
     }
 }

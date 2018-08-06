@@ -25,25 +25,23 @@ namespace Accord.Math.Optimization.Losses
     using System;
 
     /// <summary>
-    ///   Absolute loss, also known as L1-loss. 
+    ///   Absolute loss, also known as L1-loss.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public class AbsoluteLoss : LossBase<double[][]>
     {
         private bool mean;
 
-
-
         /// <summary>
         ///   Gets or sets a value indicating whether the
         ///   mean absolute loss should be computed.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   <c>true</c> if the mean absolute loss should be computed; otherwise, <c>false</c>.
         /// </value>
-        /// 
+        ///
         public bool Mean
         {
             get { return mean; }
@@ -53,9 +51,9 @@ namespace Accord.Math.Optimization.Losses
         /// <summary>
         /// Initializes a new instance of the <see cref="AbsoluteLoss"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="expected">The expected outputs (ground truth).</param>
-        /// 
+        ///
         public AbsoluteLoss(double[][] expected)
             : base(expected)
         {
@@ -81,7 +79,5 @@ namespace Accord.Math.Optimization.Losses
 
             return error;
         }
-
-      
     }
 }

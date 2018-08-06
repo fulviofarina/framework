@@ -22,24 +22,21 @@
 
 namespace Accord.Math
 {
-    using AForge;
     using System;
     using System.Numerics;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     ///  Static class ComplexExtensions. Defines a set of extension methods
     ///  that operates mainly on multidimensional arrays and vectors of
     ///  AForge.NET's <seealso cref="Complex"/> data type.
     /// </summary>
-    /// 
+    ///
     public static class ComplexMatrix
     {
-
         /// <summary>
         ///   Computes the absolute value of an array of complex numbers.
         /// </summary>
-        /// 
+        ///
         public static Complex[] Abs(this Complex[] x)
         {
             if (x == null)
@@ -54,7 +51,7 @@ namespace Accord.Math
         /// <summary>
         ///   Computes the sum of an array of complex numbers.
         /// </summary>
-        /// 
+        ///
         public static Complex Sum(this Complex[] x)
         {
             if (x == null) throw new ArgumentNullException("x");
@@ -68,7 +65,7 @@ namespace Accord.Math
         /// <summary>
         ///   Elementwise multiplication of two complex vectors.
         /// </summary>
-        /// 
+        ///
         public static Complex[] Multiply(this Complex[] a, Complex[] b)
         {
             if (a == null) throw new ArgumentNullException("a");
@@ -85,10 +82,10 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the magnitude of every complex number in an array.
         /// </summary>
-        /// 
+        ///
         public static double[] Magnitude(this Complex[] c)
         {
-            if (c == null) 
+            if (c == null)
                 throw new ArgumentNullException("c");
 
             double[] magnitudes = new double[c.Length];
@@ -101,7 +98,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the magnitude of every complex number in a matrix.
         /// </summary>
-        /// 
+        ///
         public static double[,] Magnitude(this Complex[,] c)
         {
             if (c == null) throw new ArgumentNullException("c");
@@ -120,7 +117,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the phase of every complex number in an array.
         /// </summary>
-        /// 
+        ///
         public static double[] Phase(this Complex[] c)
         {
             if (c == null) throw new ArgumentNullException("c");
@@ -135,11 +132,11 @@ namespace Accord.Math
         /// <summary>
         ///   Returns the real vector part of the complex vector c.
         /// </summary>
-        /// 
+        ///
         /// <param name="c">A vector of complex numbers.</param>
-        /// 
+        ///
         /// <returns>A vector of scalars with the real part of the complex numbers.</returns>
-        /// 
+        ///
         public static double[] Re(this Complex[] c)
         {
             if (c == null) throw new ArgumentNullException("c");
@@ -154,11 +151,11 @@ namespace Accord.Math
         /// <summary>
         ///   Returns the real matrix part of the complex matrix c.
         /// </summary>
-        /// 
+        ///
         /// <param name="c">A matrix of complex numbers.</param>
-        /// 
+        ///
         /// <returns>A matrix of scalars with the real part of the complex numbers.</returns>
-        /// 
+        ///
         public static double[,] Re(this Complex[,] c)
         {
             if (c == null)
@@ -178,11 +175,11 @@ namespace Accord.Math
         /// <summary>
         ///   Returns the imaginary vector part of the complex vector c.
         /// </summary>
-        /// 
+        ///
         /// <param name="c">A vector of complex numbers.</param>
-        /// 
+        ///
         /// <returns>A vector of scalars with the imaginary part of the complex numbers.</returns>
-        /// 
+        ///
         // TODO: Rename to Imaginary
         public static double[] Im(this Complex[] c)
         {
@@ -219,7 +216,7 @@ namespace Accord.Math
 
         /// <summary>
         ///   Converts a complex number to a matrix of scalar values
-        ///   in which the first column contains the real values and 
+        ///   in which the first column contains the real values and
         ///   the second column contains the imaginary values.
         /// </summary>
         /// <param name="c">An array of complex numbers.</param>
@@ -241,14 +238,14 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a vector of real numbers to complex numbers.
         /// </summary>
-        /// 
+        ///
         /// <param name="real">The real numbers to be converted.</param>
-        /// 
+        ///
         /// <returns>
-        ///   A vector of complex number with the given 
+        ///   A vector of complex number with the given
         ///   real numbers as their real components.
         /// </returns>
-        /// 
+        ///
         public static Complex[] ToComplex(this double[] real)
         {
             if (real == null)
@@ -265,16 +262,16 @@ namespace Accord.Math
         ///   Combines a vector of real and a vector of
         ///   imaginary numbers to form complex numbers.
         /// </summary>
-        /// 
+        ///
         /// <param name="real">The real part of the complex numbers.</param>
         /// <param name="imag">The imaginary part of the complex numbers</param>
-        /// 
+        ///
         /// <returns>
-        ///   A vector of complex number with the given 
+        ///   A vector of complex number with the given
         ///   real numbers as their real components and
         ///   imaginary numbers as their imaginary parts.
         /// </returns>
-        /// 
+        ///
         public static Complex[] ToComplex(this double[] real, double[] imag)
         {
             if (real == null)
@@ -296,10 +293,10 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the range of the magnitude values in a complex number vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">A complex number vector.</param>
         /// <returns>The range of magnitude values in the complex vector.</returns>
-        /// 
+        ///
         public static DoubleRange Range(this Complex[] array)
         {
             if (array == null)
@@ -361,7 +358,7 @@ namespace Accord.Math
             if (objB == null) throw new ArgumentNullException("objB");
 
             for (int i = 0; i < objA.Length; i++)
-            { 
+            {
                 double xr = objA[i].Real;
                 double yr = objB[i].Real;
                 double xi = objA[i].Imaginary;
@@ -379,14 +376,14 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the squared magnitude of a complex number.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double SquaredMagnitude(this Complex value)
         {
             return value.Magnitude * value.Magnitude;
         }
-
     }
 }

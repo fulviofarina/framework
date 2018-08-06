@@ -27,10 +27,10 @@ namespace Accord
     /// <summary>
     ///   Runtime cast.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="T">The target type.</typeparam>
     /// <typeparam name="U">The source type.</typeparam>
-    /// 
+    ///
     internal struct cast<T, U>
     {
         private T value;
@@ -38,13 +38,13 @@ namespace Accord
         /// <summary>
         ///   Gets the value being casted.
         /// </summary>
-        /// 
+        ///
         public T Value { get { return value; } }
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="cast{T, U}"/> struct.
         /// </summary>
-        /// 
+        ///
         public cast(U value)
         {
             this.value = (T)System.Convert.ChangeType(value, typeof(T));
@@ -78,9 +78,9 @@ namespace Accord
     /// <summary>
     ///   Runtime cast.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="T">The target type.</typeparam>
-    /// 
+    ///
     internal struct cast<T>
     {
         private T value;
@@ -88,7 +88,7 @@ namespace Accord
         /// <summary>
         ///   Gets the value being casted.
         /// </summary>
-        /// 
+        ///
         public T Value { get { return value; } }
 
         /// <summary>

@@ -22,22 +22,15 @@
 
 namespace Accord.MachineLearning
 {
-    using Accord.MachineLearning;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
     /// <summary>
     ///   Common interface for multiple regression models. Multiple regression
     ///   models learn how to produce a set of real values (a real-valued vector)
     ///   from an input vector <c>x</c>.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
     /// <typeparam name="TOutput">The data type for the predicted variables. Default is double.</typeparam>
-    /// 
+    ///
     public interface IMultipleRegression<TInput, TOutput> :
         IRegression<TInput, TOutput[]>
     {
@@ -48,9 +41,9 @@ namespace Accord.MachineLearning
     ///   models learn how to produce a set of real values (a real-valued vector)
     ///   from an input vector <c>x</c>.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
-    /// 
+    ///
     public interface IMultipleRegression<TInput> :
         IMultipleRegression<TInput, double>,
         IMultipleRegression<TInput, float>

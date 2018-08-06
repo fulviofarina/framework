@@ -23,23 +23,19 @@
 namespace Accord.Diagnostics
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///   Temporary internal framework class for handling debug assertions
     ///   while inside unit tests. Will be removed in a future release.
     /// </summary>
-    /// 
+    ///
     public static class Debug
     {
         /// <summary>
         ///   Throws an exception if a condition is false.
         /// </summary>
-        /// 
+        ///
         [Conditional("DEBUG")]
         public static void Assert(bool condition, string message = "Internal framework error.")
         {

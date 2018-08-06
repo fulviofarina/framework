@@ -26,7 +26,7 @@
 //
 //    Copyright (C) 2011, C. Zhu, R. Byrd, J. Nocedal and J. L. Morales.
 //    All rights reserved.
-// 
+//
 //    Redistribution and use in source and binary forms, with or without
 //    modification, are permitted provided the following conditions are met:
 //
@@ -34,38 +34,38 @@
 //         notice, this list of conditions and the following disclaimer.
 //
 //      2. Redistributions in binary form must reproduce the above copyright
-//         notice, this list of conditions and the following disclaimer in 
-//         the documentation and/or other materials provided with the 
+//         notice, this list of conditions and the following disclaimer in
+//         the documentation and/or other materials provided with the
 //         distribution.
 //
-//      3. The contributor name(s) may not be used to endorse or promote 
-//         products derived from this software without specific prior 
+//      3. The contributor name(s) may not be used to endorse or promote
+//         products derived from this software without specific prior
 //         written permission.
 //
 //    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-//    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-//    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
-//    FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
-//    COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
-//    INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
-//    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS 
-//    OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
-//    ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR 
+//    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+//    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+//    FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+//    COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+//    INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+//    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+//    OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+//    ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
 //    TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF USE
 //    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
 using System;
+
 namespace Accord.Math.Optimization
 {
     partial class BoundedBroydenFletcherGoldfarbShanno
     {
-
-        // 
+        //
         // c======================= The end of mainlb =============================
-        // 
-        // 
-        // 
+        //
+        //
+        //
         // c     ************
         // c
         // c     Subroutine active
@@ -92,24 +92,23 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
-        // 
+        //
+        //
         // c     Initialize nbdd, prjctd, cnstnd and boxed.
-        // 
+        //
         private static void active(int n, double[] l, int _l_offset, double[] u, int _u_offset, int[] nbd,
             int _nbd_offset, double[] x, int _x_offset, int[] iwhere, int _iwhere_offset, int iprint,
             ref bool prjctd, ref bool cnstnd, ref bool boxed)
         {
-
             int nbdd = 0;
             int i = 0;
             nbdd = 0;
             prjctd = false;
             cnstnd = false;
             boxed = true;
-            // 
+            //
             // c     Project the initial x to the feasible set if necessary.
-            // 
+            //
             {
                 for (i = 1; i <= n; i++)
                 {
@@ -138,9 +137,9 @@ namespace Accord.Math.Optimization
                     }
                 }
             }
-            // 
+            //
             // c     Initialize iwhere and assign values to cnstnd and boxed.
-            // 
+            //
             {
                 for (i = 1; i <= n; i++)
                 {
@@ -152,7 +151,7 @@ namespace Accord.Math.Optimization
                     {
                         // this variable is always free
                         iwhere[(i - (1)) + _iwhere_offset] = -1;
-                        // 
+                        //
                         // otherwise set x(i)=mid(x(i), u(i), l(i)).
                     }
                     else
@@ -172,7 +171,7 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
+            //
             if ((iprint >= 0))
             {
                 if (prjctd)
@@ -191,10 +190,9 @@ namespace Accord.Math.Optimization
             }
         }
 
-
-        // 
+        //
         // c====================== The end of dpofa ===============================
-        // 
+        //
         // c
         // c
         // c     dtrsl solves systems of the form
@@ -279,9 +277,9 @@ namespace Accord.Math.Optimization
 
             info = 0;
 
-            // 
+            //
             // determine the task and go to it.
-            // 
+            //
             Case = 1;
 
             if (((job) % (10) != 0))
@@ -306,10 +304,10 @@ namespace Accord.Math.Optimization
                     goto L110;
             }
 
-        //
-        // solve t*x=b for t lower triangular
-        //
-        L20:
+            //
+            // solve t*x=b for t lower triangular
+            //
+            L20:
 
             b[(1 - (1)) + _b_offset] = (b[(1 - (1)) + _b_offset]
                 / t[(1 - (1)) + (1 - (1)) * (ldt) + _t_offset]);
@@ -331,10 +329,10 @@ namespace Accord.Math.Optimization
             }
             return;
 
-        // 
-        // solve t*x=b for t upper triangular.
-        // 
-        L50:
+            //
+            // solve t*x=b for t upper triangular.
+            //
+            L50:
 
             b[(n - (1)) + _b_offset] = (b[(n - (1)) + _b_offset]
                 / t[(n - (1)) + (n - (1)) * (ldt) + _t_offset]);
@@ -359,10 +357,10 @@ namespace Accord.Math.Optimization
             }
 
             return;
-        // 
-        // solve trans(t)*x=b for t lower triangular.
-        // 
-        L80:
+            //
+            // solve trans(t)*x=b for t lower triangular.
+            //
+            L80:
             b[(n - (1)) + _b_offset] = (b[(n - (1)) + _b_offset]
                 / t[(n - (1)) + (n - (1)) * (ldt) + _t_offset]);
 
@@ -385,10 +383,10 @@ namespace Accord.Math.Optimization
             }
             return;
 
-        // 
-        // solve trans(t)*x=b for t upper triangular.
-        // 
-        L110:
+            //
+            // solve trans(t)*x=b for t upper triangular.
+            //
+            L110:
             b[(1 - (1)) + _b_offset] = (b[(1 - (1)) + _b_offset]
                 / t[(1 - (1)) + (1 - (1)) * (ldt) + _t_offset]);
 
@@ -410,19 +408,19 @@ namespace Accord.Math.Optimization
             }
         }
 
-        // 
+        //
         // c======================= The end of active =============================
-        // 
-        // 
-        // 
+        //
+        //
+        //
         // c     ************
         // c
         // c     Subroutine bmv
         // c
-        // c     This subroutine computes the product of the 2m x 2m middle matrix 
-        // c       in the compact L-BFGS formula of B and a 2m vector v;  
+        // c     This subroutine computes the product of the 2m x 2m middle matrix
+        // c       in the compact L-BFGS formula of B and a 2m vector v;
         // c       it returns the product in p.
-        // c       
+        // c
         // c     m is an integer variable.
         // c       On entry m is the maximum number of variable metric corrections
 
@@ -434,7 +432,7 @@ namespace Accord.Math.Optimization
         // c       On exit sy is unchanged.
         // c
         // c     wt is a double precision array of dimension m x m.
-        // c       On entry wt specifies the upper triangular matrix J' which is 
+        // c       On entry wt specifies the upper triangular matrix J' which is
         // c         the Cholesky factor of (thetaS'S+LD^(-1)L').
         // c       On exit wt is unchanged.
         // c
@@ -459,7 +457,7 @@ namespace Accord.Math.Optimization
         // c
         // c     Subprograms called:
         // c
-        // c       Linpack ... 
+        // c       Linpack ...
         // c
         // c
         // c                           *  *  *
@@ -473,12 +471,11 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
-        // 
+        //
+        //
         private static void bmv(int m, double[] sy, int _sy_offset, double[] wt, int _wt_offset,
             int col, double[] v, int _v_offset, double[] p, int _p_offset, ref int info)
         {
-
             int i = 0;
             int k = 0;
             int i2 = 0;
@@ -487,10 +484,10 @@ namespace Accord.Math.Optimization
             if ((col == 0))
                 return;
 
-            // 
+            //
             // PART I: solve [  D^(1/2)      O ] [ p1 ] = [ v1 ]
             //               [ -L*D^(-1/2)   J ] [ p2 ]   [ v2 ].
-            // 
+            //
             //  solve Jp2=v2+LD^(-1)v1.
             //
             p[((col + 1) - (1)) + _p_offset] = v[((col + 1) - (1)) + _v_offset];
@@ -519,7 +516,7 @@ namespace Accord.Math.Optimization
             if ((info != 0))
                 return;
 
-            // 
+            //
             // solve D^(1/2)p1=v1.
             {
                 for (i = 1; i <= col; i++)
@@ -529,11 +526,11 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
+            //
             //  PART II: solve [ -D^(1/2)   D^(-1/2)*L'  ] [ p1 ] = [ p1 ]
-            //                 [  0         J'           ] [ p2 ]   [ p2 ]. 
-            // 
-            //    solve J^Tp2=p2. 
+            //                 [  0         J'           ] [ p2 ]   [ p2 ].
+            //
+            //    solve J^Tp2=p2.
             //
             dtrsl(wt, _wt_offset, m, col,
                 p, ((col + 1) - (1)) + _p_offset, 01, ref info);
@@ -541,9 +538,9 @@ namespace Accord.Math.Optimization
             if ((info != 0))
                 return;
 
-            // 
+            //
             // compute p1 = -D^(-1/2)(p1-D^(-1/2)L'p2)
-            //            = -D^(-1/2)p1+D^(-1)L'p2.  
+            //            = -D^(-1/2)p1+D^(-1)L'p2.
             {
                 for (i = 1; i <= col; i++)
                 {
@@ -568,10 +565,10 @@ namespace Accord.Math.Optimization
             }
         }
 
-        // 
+        //
         // c======================== The end of bmv ===============================
-        // 
-        // 
+        //
+        //
         // c     ************
         // c
         // c     Subroutine cauchy
@@ -585,8 +582,8 @@ namespace Accord.Math.Optimization
         // c                  Q(x + s) = g's + 1/2 s'Bs
         // c
         // c       along the projected gradient direction P(x-tg,l,u).
-        // c       The routine returns the GCP in xcp. 
-        // c       
+        // c       The routine returns the GCP in xcp.
+        // c
         // c     n is an integer variable.
         // c       On entry n is the dimension of the problem.
         // c       On exit n is unchanged.
@@ -609,7 +606,7 @@ namespace Accord.Math.Optimization
         // c         nbd(i)=0 if x(i) is unbounded,
         // c                1 if x(i) has only a lower bound,
         // c                2 if x(i) has both lower and upper bounds, and
-        // c                3 if x(i) has only an upper bound. 
+        // c                3 if x(i) has only an upper bound.
         // c       On exit nbd is unchanged.
         // c
         // c     g is a double precision array of dimension n.
@@ -620,7 +617,7 @@ namespace Accord.Math.Optimization
         // c       iorder will be used to store the breakpoints in the piecewise
         // c       linear path and free variables encountered. On exit,
         // c         iorder(1),...,iorder(nleft) are indices of breakpoints
-        // c                                which have not been encountered; 
+        // c                                which have not been encountered;
         // c         iorder(nleft+1),...,iorder(nbreak) are indices of
         // c                                     encountered breakpoints; and
         // c         iorder(nfree),...,iorder(n) are indices of variables which
@@ -638,7 +635,7 @@ namespace Accord.Math.Optimization
         // c                 3   if x(i) is always fixed, i.e.,  u(i)=x(i)=l(i)
         // c                 -1  if x(i) is always free, i.e., it has no bounds.
         // c
-        // c     t is a double precision working array of dimension n. 
+        // c     t is a double precision working array of dimension n.
         // c       t will be used to store the break points.
         // c
         // c     d is a double precision array of dimension n used to store
@@ -649,7 +646,7 @@ namespace Accord.Math.Optimization
         // c       GCP on exit.
         // c
         // c     m is an integer variable.
-        // c       On entry m is the maximum number of variable metric corrections 
+        // c       On entry m is the maximum number of variable metric corrections
         // c         used to define the limited memory matrix.
         // c       On exit m is unchanged.
         // c
@@ -695,8 +692,8 @@ namespace Accord.Math.Optimization
         // c
         // c     sg and yg are double precision arrays of dimension m.
         // c       On entry sg  and yg store S'g and Y'g correspondingly.
-        // c       On exit they are unchanged. 
-        // c 
+        // c       On exit they are unchanged.
+        // c
         // c     iprint is an INTEGER variable that must be set by the user.
         // c       It controls the frequency and type of output generated:
         // c        iprint<0    no output is generated;
@@ -721,10 +718,10 @@ namespace Accord.Math.Optimization
         // c                              used in routine bmv is singular.
         // c
         // c     Subprograms called:
-        // c 
+        // c
         // c       L-BFGS-B Library ... hpsolb, bmv.
         // c
-        // c       Linpack ... dscal dcopy, 
+        // c       Linpack ... dscal dcopy,
         // c
         // c
         // c     References:
@@ -753,12 +750,12 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
-        // 
+        //
+        //
         // c     Check the status of the variables, reset iwhere(i) if necessary;
         // c       compute the Cauchy direction d and the breakpoints t; initialize
         // c       the derivative f1 and the vector p = W'd (for theta = 1).
-        // 
+        //
         private static void cauchy(int n, double[] x, int _x_offset, double[] l, int _l_offset,
             double[] u, int _u_offset, int[] nbd, int _nbd_offset, double[] g, int _g_offset,
             int[] iorder, int _iorder_offset, int[] iwhere, int _iwhere_offset, double[] t, int _t_offset,
@@ -769,7 +766,6 @@ namespace Accord.Math.Optimization
             double[] wbp, int _wbp_offset, double[] v, int _v_offset, ref int nseg,
             int iprint, double sbgnrm, ref int info, double epsmch)
         {
-
             bool xlower = false;
             bool xupper = false;
             bool bnded = false;
@@ -824,20 +820,20 @@ namespace Accord.Math.Optimization
             {
                 // DISPLAY: '---------------- CAUCHY entered-------------------'
             }
-            // 
+            //
             // c     We set p to zero and build it up as we determine d.
-            // 
+            //
             {
                 for (i = 1; i <= col2; i++)
                 {
                     p[(i - (1)) + _p_offset] = 0.0;
                 }
             }
-            // 
+            //
             // c     In the following loop we determine for each variable its bound
             // c        status and its breakpoint, and update p accordingly.
             // c        Smallest breakpoint is identified.
-            // 
+            //
             {
                 for (i = 1; i <= n; i++)
                 {
@@ -856,12 +852,12 @@ namespace Accord.Math.Optimization
                         {
                             tu = (u[(i - (1)) + _u_offset] - x[(i - (1)) + _x_offset]);
                         }
-                        // 
+                        //
                         // c           If a variable is close enough to a bound
                         // c             we treat it as at bound.
                         xlower = ((nbd[(i - (1)) + _nbd_offset] <= 2) && (tl <= 0.0));
                         xupper = ((nbd[(i - (1)) + _nbd_offset] >= 2) && (tu <= 0.0));
-                        // 
+                        //
                         // c              reset iwhere(i).
                         iwhere[(i - (1)) + _iwhere_offset] = 0;
                         if (xlower)
@@ -947,20 +943,20 @@ namespace Accord.Math.Optimization
                     }
                 }
             }
-            // 
+            //
             // The indices of the nonzero components of d are now stored
             // in iorder(1),...,iorder(nbreak) and iorder(nfree),...,iorder(n).
             // The smallest of the nbreak breakpoints is in t(ibkmin)=bkmin.
-            // 
+            //
             if ((theta != 1.0))
             {
                 // complete the initialization of p for theta not= one.
                 dscal(col, theta, p, ((col + 1) - (1)) + _p_offset, 1);
             }
 
-            // 
+            //
             // c     Initialize GCP xcp = x.
-            // 
+            //
             dcopy(n, x, _x_offset, 1, xcp, _xcp_offset, 1);
 
             if (((nbreak == 0) && (nfree == (n + 1))))
@@ -969,9 +965,9 @@ namespace Accord.Math.Optimization
                 return;
             }
 
-            // 
+            //
             // c     Initialize c = W'(xcp - x) = 0.
-            // 
+            //
             {
                 for (j = 1; j <= col2; j++)
                 {
@@ -979,9 +975,9 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
+            //
             // c     Initialize derivative f2.
-            // 
+            //
             f2 = (-((theta * f1)));
             f2_org = f2;
             if ((col > 0))
@@ -1006,9 +1002,9 @@ namespace Accord.Math.Optimization
                 // DISPLAY: "There are " + nbreak + "  breakpoints "
             }
 
-            // 
-            // c     If there are no breakpoints, locate the GCP and return. 
-            // 
+            //
+            // c     If there are no breakpoints, locate the GCP and return.
+            //
             if ((nbreak == 0))
                 goto L888;
 
@@ -1016,14 +1012,14 @@ namespace Accord.Math.Optimization
             iter = 1;
             tj = 0.0;
 
-        // 
-        // c------------------- the beginning of the loop -------------------------
-        // 
-        L777:
-            // 
+            //
+            // c------------------- the beginning of the loop -------------------------
+            //
+            L777:
+            //
             //     Find the next smallest breakpoint;
             //      compute dt = t(nleft) - t(nleft + 1).
-            // 
+            //
             tj0 = tj;
 
             if ((iter == 1))
@@ -1053,14 +1049,14 @@ namespace Accord.Math.Optimization
                 tj = t[(nleft - (1)) + _t_offset];
                 ibp = iorder[(nleft - (1)) + _iorder_offset];
             }
-            // 
+            //
             dt = (tj - tj0);
-            // 
+            //
             if (((dt != 0.0) && (iprint >= 100)))
             {
                 // DISPLAY: nseg, f1, f2
                 //          "/,'Piece    ',i3,' --f1, f2 at start point ',1p,2(1x,d11.4)"
-                // 
+                //
                 // DISPLAY: dt,
                 //          "'Distance to the next break point =  ',1p,d11.4"
                 //
@@ -1068,16 +1064,16 @@ namespace Accord.Math.Optimization
                 //          "'Distance to the stationary point =  ',1p,d11.4"
             }
 
-            // 
+            //
             // If a minimizer is within this interval, locate the GCP and return.
-            // 
+            //
             if ((dtm < dt))
                 goto L888;
 
-            // 
+            //
             // Otherwise fix one variable and
             //   reset the corresponding component of d to zero.
-            // 
+            //
             tsum = (tsum + dt);
             nleft = (nleft - 1);
             iter = (iter + 1);
@@ -1110,20 +1106,20 @@ namespace Accord.Math.Optimization
                 goto L999;
             }
 
-            // 
+            //
             // Update the derivative information.
-            // 
+            //
             nseg = (nseg + 1);
             dibp2 = (System.Math.Pow(dibp, 2));
 
-            // 
+            //
             // Update f1 and f2.
-            // 
+            //
             // temporarily set f1 and f2 for col=0.
             //
             f1 = (((f1 + (dt * f2)) + dibp2) - ((theta * dibp) * zibp));
             f2 = (f2 - (theta * dibp2));
-            // 
+            //
             if ((col > 0))
             {
                 // update c = c + dt*p.
@@ -1158,7 +1154,7 @@ namespace Accord.Math.Optimization
                 wmp = ddot(col2, p, _p_offset, 1, v, _v_offset, 1);
                 wmw = ddot(col2, wbp, _wbp_offset, 1, v, _v_offset, 1);
 
-                // update p = p - dibp*wbp. 
+                // update p = p - dibp*wbp.
                 daxpy(col2, (-(dibp)), wbp, _wbp_offset, 1, p, _p_offset, 1);
 
                 // complete updating f1 and f2 while col > 0.
@@ -1166,14 +1162,13 @@ namespace Accord.Math.Optimization
                 f2 = ((f2 + ((2.0e0 * dibp) * wmp)) - (dibp2 * wmw));
             }
 
-
             f2 = System.Math.Max((epsmch * f2_org), f2);
 
             if ((nleft > 0))
             {
                 dtm = (-((f1 / f2)));
                 goto L777;
-                // to repeat the loop for unsearched intervals. 
+                // to repeat the loop for unsearched intervals.
             }
             else if (bnded)
             {
@@ -1186,14 +1181,14 @@ namespace Accord.Math.Optimization
                 dtm = (-((f1 / f2)));
             }
 
-        // 
-        // c------------------- the end of the loop -------------------------------
-        // 
-        L888:
+            //
+            // c------------------- the end of the loop -------------------------------
+            //
+            L888:
 
             if ((iprint >= 99))
             {
-                // DISPLAY: "GCP found in this segment", 
+                // DISPLAY: "GCP found in this segment",
                 //
                 // DISPLAY: nseg, f1, f2
                 //          'Piece    ',i3,' --f1, f2 at start point ',1p,2(1x,d11.4)"
@@ -1206,23 +1201,22 @@ namespace Accord.Math.Optimization
             }
             tsum = (tsum + dtm);
 
-            // 
-            // Move free variables (i.e., the ones w/o breakpoints) and 
+            //
+            // Move free variables (i.e., the ones w/o breakpoints) and
             //   the variables whose breakpoints haven't been reached.
-            // 
+            //
             daxpy(n, tsum, d, _d_offset, 1, xcp, _xcp_offset, 1);
-        // 
-        L999:
-            // 
-            // Update c = c + dtm*p = W'(x^c - x) 
+            //
+            L999:
+            //
+            // Update c = c + dtm*p = W'(x^c - x)
             //   which will be used in computing r = Z'(B(x^c - x) + g).
-            // 
+            //
             if ((col > 0))
             {
                 daxpy(col2, dtm, p, _p_offset, 1, c, _c_offset, 1);
             }
 
-            
             if ((iprint > 100))
             {
                 for (i = 1; i <= n; i++)
@@ -1236,19 +1230,18 @@ namespace Accord.Math.Optimization
             {
                 // DISPLAY: '---------------- exit CAUCHY----------------------'
             }
-
         }
 
-        // 
+        //
         // c====================== The end of cauchy ==============================
-        // 
-        // 
-        // 
+        //
+        //
+        //
         // c     ************
         // c
-        // c     Subroutine cmprlb 
+        // c     Subroutine cmprlb
         // c
-        // c       This subroutine computes r=-Z'B(xcp-xk)-Z'g by using 
+        // c       This subroutine computes r=-Z'B(xcp-xk)-Z'g by using
         // c         wa(2m+1)=W'(xcp-x) from subroutine cauchy.
         // c
         // c     Subprograms called:
@@ -1267,14 +1260,13 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
-        // 
+        //
+        //
         private static void cmprlb(int n, int m, double[] x, int _x_offset, double[] g, int _g_offset, double[] ws, int _ws_offset, double[] wy, int _wy_offset, double[] sy, int _sy_offset,
         double[] wt, int _wt_offset, double[] z, int _z_offset, double[] r, int _r_offset,
         double[] wa, int _wa_offset, int[] index, int _index_offset, double theta,
         int col, int head, int nfree, bool cnstnd, ref int info)
         {
-
             int i = 0;
             int j = 0;
             int k = 0;
@@ -1335,7 +1327,7 @@ namespace Accord.Math.Optimization
         }
 
         // c====================== The end of subsm ===============================
-        // 
+        //
         // c     **********
         // c
         // c     Subroutine dcsrch
@@ -1343,17 +1335,17 @@ namespace Accord.Math.Optimization
         // c     This subroutine finds a step that satisfies a sufficient
         // c     decrease condition and a curvature condition.
         // c
-        // c     Each call of the subroutine updates an interval with 
-        // c     endpoints stx and sty. The interval is initially chosen 
+        // c     Each call of the subroutine updates an interval with
+        // c     endpoints stx and sty. The interval is initially chosen
         // c     so that it contains a minimizer of the modified function
         // c
         // c           psi(stp) = f(stp) - f(0) - ftol*stp*f'(0).
         // c
         // c     If psi(stp) <= 0 and f'(stp) >= 0 for some step, then the
-        // c     interval is chosen so that it contains a minimizer of f. 
+        // c     interval is chosen so that it contains a minimizer of f.
         // c
-        // c     The algorithm is designed to find a step that satisfies 
-        // c     the sufficient decrease condition 
+        // c     The algorithm is designed to find a step that satisfies
+        // c     the sufficient decrease condition
         // c
         // c           f(stp) <= f(0) + ftol*stp*f'(0),
         // c
@@ -1363,10 +1355,10 @@ namespace Accord.Math.Optimization
         // c
         // c     If ftol is less than gtol and if, for example, the function
         // c     is bounded below, then there is always a step which satisfies
-        // c     both conditions. 
+        // c     both conditions.
         // c
-        // c     If no step can be found that satisfies both conditions, then 
-        // c     the algorithm stops with a warning. In this case stp only 
+        // c     If no step can be found that satisfies both conditions, then
+        // c     the algorithm stops with a warning. In this case stp only
         // c     satisfies the sufficient decrease condition.
         // c
         // c     A typical invocation of dcsrch has the following outline:
@@ -1375,7 +1367,7 @@ namespace Accord.Math.Optimization
         // c  10 continue
         // c        call dcsrch( ... )
         // c        if (task .eq. 'FG') then
-        // c           Evaluate the function and the gradient at stp 
+        // c           Evaluate the function and the gradient at stp
         // c           goto 10
         // c           end if
         // c
@@ -1389,32 +1381,32 @@ namespace Accord.Math.Optimization
         // c
         // c       f is a double precision variable.
         // c         On initial entry f is the value of the function at 0.
-        // c            On subsequent entries f is the value of the 
+        // c            On subsequent entries f is the value of the
         // c            function at stp.
         // c         On exit f is the value of the function at stp.
         // c
         // c       g is a double precision variable.
         // c         On initial entry g is the derivative of the function at 0.
-        // c            On subsequent entries g is the derivative of the 
+        // c            On subsequent entries g is the derivative of the
         // c            function at stp.
         // c         On exit g is the derivative of the function at stp.
         // c
-        // c       stp is a double precision variable. 
-        // c         On entry stp is the current estimate of a satisfactory 
-        // c            step. On initial entry, a positive initial estimate 
-        // c            must be provided. 
+        // c       stp is a double precision variable.
+        // c         On entry stp is the current estimate of a satisfactory
+        // c            step. On initial entry, a positive initial estimate
+        // c            must be provided.
         // c         On exit stp is the current estimate of a satisfactory step
         // c            if task = 'FG'. If task = 'CONV' then stp satisfies
         // c            the sufficient decrease and curvature condition.
         // c
         // c       ftol is a double precision variable.
-        // c         On entry ftol specifies a nonnegative tolerance for the 
+        // c         On entry ftol specifies a nonnegative tolerance for the
         // c            sufficient decrease condition.
         // c         On exit ftol is unchanged.
         // c
         // c       gtol is a double precision variable.
-        // c         On entry gtol specifies a nonnegative tolerance for the 
-        // c            curvature condition. 
+        // c         On entry gtol specifies a nonnegative tolerance for the
+        // c            curvature condition.
         // c         On exit gtol is unchanged.
         // c
         // c       xtol is a double precision variable.
@@ -1436,7 +1428,7 @@ namespace Accord.Math.Optimization
         // c         On initial entry task must be set to 'START'.
         // c         On exit task indicates the required action:
         // c
-        // c            If task(1:2) = 'FG' then evaluate the function and 
+        // c            If task(1:2) = 'FG' then evaluate the function and
         // c            derivative at stp and call dcsrch again.
         // c
         // c            If task(1:4) = 'CONV' then the search is successful.
@@ -1452,7 +1444,7 @@ namespace Accord.Math.Optimization
         // c            variable task contains additional information.
         // c
         // c       isave is an integer work array of dimension 2.
-        // c         
+        // c
         // c       dsave is a double precision work array of dimension 13.
         // c
         // c     Subprograms called
@@ -1460,23 +1452,22 @@ namespace Accord.Math.Optimization
         // c       MINPACK-2 ... dcstep
         // c
         // c     MINPACK-1 Project. June 1983.
-        // c     Argonne National Laboratory. 
+        // c     Argonne National Laboratory.
         // c     Jorge J. More' and David J. Thuente.
         // c
         // c     MINPACK-2 Project. October 1993.
-        // c     Argonne National Laboratory and University of Minnesota. 
-        // c     Brett M. Averick, Richard G. Carter, and Jorge J. More'. 
+        // c     Argonne National Laboratory and University of Minnesota.
+        // c     Brett M. Averick, Richard G. Carter, and Jorge J. More'.
         // c
         // c     **********
-        // 
-        // 
+        //
+        //
         // c     Initialization block.
-        // 
+        //
         private static void dcsrch(double f, double g, ref double stp, double ftol,
         double gtol, double xtol, double stpmin, double stpmax, ref string task,
         int[] isave, int _isave_offset, double[] dsave, int _dsave_offset)
         {
-
             bool brackt = false;
             int stage = 0;
             double finit = 0.0d;
@@ -1502,9 +1493,9 @@ namespace Accord.Math.Optimization
 
             if ((task.StartsWith("START", StringComparison.OrdinalIgnoreCase)))
             {
-                // 
+                //
                 //  Check the input arguments for errors.
-                // 
+                //
                 if ((stp < stpmin))
                 {
                     task = "ERROR: STP .LT. STPMIN";
@@ -1537,17 +1528,17 @@ namespace Accord.Math.Optimization
                 {
                     task = "ERROR: STPMAX .LT. STPMIN";
                 }
-                // 
+                //
                 // c        Exit if there are errors on input.
-                // 
+                //
                 if ((task.StartsWith("ERROR", StringComparison.OrdinalIgnoreCase)))
                 {
                     return;
                 }
 
-                // 
+                //
                 // Initialize local variables.
-                // 
+                //
                 brackt = false;
                 stage = 1;
                 finit = f;
@@ -1556,14 +1547,14 @@ namespace Accord.Math.Optimization
                 width = (stpmax - stpmin);
                 width1 = (width / 0.5);
 
-                // 
-                // The variables stx, fx, gx contain the values of the step, 
-                // function, and derivative at the best step. 
-                // The variables sty, fy, gy contain the value of the step, 
+                //
+                // The variables stx, fx, gx contain the values of the step,
+                // function, and derivative at the best step.
+                // The variables sty, fy, gy contain the value of the step,
                 // function, and derivative at sty.
-                // The variables stp, f, g contain the values of the step, 
+                // The variables stp, f, g contain the values of the step,
                 // function, and derivative at stp.
-                // 
+                //
                 stx = 0.0;
                 fx = finit;
                 gx = ginit;
@@ -1577,9 +1568,9 @@ namespace Accord.Math.Optimization
             }
             else
             {
-                // 
+                //
                 // Restore local variables.
-                // 
+                //
                 if ((isave[(1 - (1)) + _isave_offset] == 1))
                 {
                     brackt = true;
@@ -1604,19 +1595,19 @@ namespace Accord.Math.Optimization
                 width1 = dsave[(13 - (1)) + _dsave_offset];
             }
 
-            // 
+            //
             // c     If psi(stp) <= 0 and f'(stp) >= 0 for some step, then the
             // c     algorithm enters the second stage.
-            // 
+            //
             ftest = (finit + (stp * gtest));
             if ((((stage == 1) && (f <= ftest)) && (g >= 0.0)))
             {
                 stage = 2;
             }
 
-            // 
+            //
             // c     Test for warnings.
-            // 
+            //
             if ((brackt && (((stp <= stmin) || (stp >= stmax)))))
             {
                 task = "WARNING: ROUNDING ERRORS PREVENT PROGRESS";
@@ -1634,32 +1625,32 @@ namespace Accord.Math.Optimization
                 task = "WARNING: STP = STPMIN";
             }
 
-            // 
+            //
             // c     Test for convergence.
-            // 
+            //
             if (((f <= ftest) && (System.Math.Abs(g) <= (gtol * ((-(ginit)))))))
             {
                 task = "CONVERGENCE";
             }
-            // 
+            //
             // c     Test for termination.
-            // 
+            //
             if (((task.StartsWith("WARN", StringComparison.OrdinalIgnoreCase)) ||
                 (task.StartsWith("CONV", StringComparison.OrdinalIgnoreCase))))
             {
                 goto L1000;
             }
 
-            // 
+            //
             // c     A modified function is used to predict the step during the
-            // c     first stage if a lower function value has been obtained but 
+            // c     first stage if a lower function value has been obtained but
             // c     the decrease is not sufficient.
-            // 
+            //
             if ((((stage == 1) && (f <= fx)) && (f > ftest)))
             {
-                // 
+                //
                 // c        Define the modified function and derivative values.
-                // 
+                //
                 fm = (f - (stp * gtest));
                 fxm = (fx - (stx * gtest));
                 fym = (fy - (sty * gtest));
@@ -1667,33 +1658,33 @@ namespace Accord.Math.Optimization
                 gxm = (gx - gtest);
                 gym = (gy - gtest);
 
-                // 
+                //
                 // Call dcstep to update stx, sty, and to compute the new step.
-                // 
+                //
                 dcstep(ref stx, ref fxm, ref gxm, ref sty, ref fym, ref gym,
                     ref stp, fm, gm, ref brackt, stmin, stmax);
 
-                // 
+                //
                 // Reset the function and derivative values for f.
-                // 
+                //
                 fx = (fxm + (stx * gtest));
                 fy = (fym + (sty * gtest));
                 gx = (gxm + gtest);
                 gy = (gym + gtest);
-                // 
+                //
             }
             else
             {
-                // 
+                //
                 // Call dcstep to update stx, sty, and to compute the new step.
-                // 
+                //
                 dcstep(ref stx, ref fx, ref gx, ref sty, ref fy, ref gy,
                     ref stp, f, g, ref brackt, stmin, stmax);
             }
 
-            // 
+            //
             // c     Decide if a bisection step is needed.
-            // 
+            //
             if (brackt)
             {
                 if ((System.Math.Abs((sty - stx)) >= (0.6600000000000000310862446895043831318617 * width1)))
@@ -1703,9 +1694,9 @@ namespace Accord.Math.Optimization
                 width1 = width;
                 width = System.Math.Abs((sty - stx));
             }
-            // 
+            //
             // c     Set the minimum and maximum steps allowed for stp.
-            // 
+            //
             if (brackt)
             {
                 stmin = System.Math.Min(stx, sty);
@@ -1717,30 +1708,30 @@ namespace Accord.Math.Optimization
                 stmax = (stp + (4.0 * ((stp - stx))));
             }
 
-            // 
+            //
             // c     Force the step to be within the bounds stpmax and stpmin.
-            // 
+            //
             stp = System.Math.Max(stp, stpmin);
             stp = System.Math.Min(stp, stpmax);
-            // 
+            //
             // c     If further progress is not possible, let stp be the best
             // c     point obtained during the search.
-            // 
+            //
             if (((brackt && (((stp <= stmin) || (stp >= stmax)))) || ((brackt && ((stmax - stmin) <= (xtol * stmax))))))
             {
                 stp = stx;
             }
-            // 
+            //
             // c     Obtain another function and derivative.
-            // 
+            //
             task = "FG";
 
-        // 
-        L1000:
+            //
+            L1000:
 
-            // 
+            //
             // c     Save local variables.
-            // 
+            //
             if (brackt)
             {
                 isave[(1 - (1)) + _isave_offset] = 1;
@@ -1766,9 +1757,9 @@ namespace Accord.Math.Optimization
             dsave[(13 - (1)) + _dsave_offset] = width1;
         }
 
-        // 
+        //
         // c====================== The end of dcsrch ==============================
-        // 
+        //
         // c     **********
         // c
         // c     Subroutine dcstep
@@ -1780,12 +1771,12 @@ namespace Accord.Math.Optimization
         // c     The parameter stx contains the step with the least function
         // c     value. If brackt is set to .true. then a minimizer has
         // c     been bracketed in an interval with endpoints stx and sty.
-        // c     The parameter stp contains the current step. 
+        // c     The parameter stp contains the current step.
         // c     The subroutine assumes that if brackt is set to .true. then
         // c
         // c           min(stx,sty) < stp < max(stx,sty),
         // c
-        // c     and that the derivative at stx is negative in the direction 
+        // c     and that the derivative at stx is negative in the direction
         // c     of the step.
         // c
         // c     The subroutine statement is
@@ -1797,7 +1788,7 @@ namespace Accord.Math.Optimization
         // c
         // c       stx is a double precision variable.
         // c         On entry stx is the best step obtained so far and is an
-        // c            endpoint of the interval that contains the minimizer. 
+        // c            endpoint of the interval that contains the minimizer.
         // c         On exit stx is the updated best step.
         // c
         // c       fx is a double precision variable.
@@ -1805,16 +1796,16 @@ namespace Accord.Math.Optimization
         // c         On exit fx is the function at stx.
         // c
         // c       dx is a double precision variable.
-        // c         On entry dx is the derivative of the function at 
-        // c            stx. The derivative must be negative in the direction of 
-        // c            the step, that is, dx and stp - stx must have opposite 
+        // c         On entry dx is the derivative of the function at
+        // c            stx. The derivative must be negative in the direction of
+        // c            the step, that is, dx and stp - stx must have opposite
         // c            signs.
         // c         On exit dx is the derivative of the function at stx.
         // c
         // c       sty is a double precision variable.
-        // c         On entry sty is the second endpoint of the interval that 
+        // c         On entry sty is the second endpoint of the interval that
         // c            contains the minimizer.
-        // c         On exit sty is the updated endpoint of the interval that 
+        // c         On exit sty is the updated endpoint of the interval that
         // c            contains the minimizer.
         // c
         // c       fy is a double precision variable.
@@ -1828,7 +1819,7 @@ namespace Accord.Math.Optimization
         // c
         // c       stp is a double precision variable.
         // c         On entry stp is the current step. If brackt is set to .true.
-        // c            then on input stp must be between stx and sty. 
+        // c            then on input stp must be between stx and sty.
         // c         On exit stp is a new trial step.
         // c
         // c       fp is a double precision variable.
@@ -1854,21 +1845,20 @@ namespace Accord.Math.Optimization
         // c         On exit stpmax is unchanged.
         // c
         // c     MINPACK-1 Project. June 1983
-        // c     Argonne National Laboratory. 
+        // c     Argonne National Laboratory.
         // c     Jorge J. More' and David J. Thuente.
         // c
         // c     MINPACK-2 Project. October 1993.
-        // c     Argonne National Laboratory and University of Minnesota. 
+        // c     Argonne National Laboratory and University of Minnesota.
         // c     Brett M. Averick and Jorge J. More'.
         // c
         // c     **********
-        // 
-        // 
+        //
+        //
         internal static void dcstep(ref double stx, ref double fx, ref double dx,
             ref double sty, ref double fy, ref double dy, ref double stp,
             double fp, double dp, ref bool brackt, double stpmin, double stpmax)
         {
-
             double gamma = 0.0d;
             double p = 0.0d;
             double q = 0.0d;
@@ -1881,12 +1871,12 @@ namespace Accord.Math.Optimization
             double theta = 0.0d;
             sgnd = (dp * ((dx / System.Math.Abs(dx))));
 
-            // 
-            // c     First case: A higher function value. The minimum is bracketed. 
-            // c     If the cubic step is closer to stx than the quadratic step, the 
-            // c     cubic step is taken, otherwise the average of the cubic and 
+            //
+            // c     First case: A higher function value. The minimum is bracketed.
+            // c     If the cubic step is closer to stx than the quadratic step, the
+            // c     cubic step is taken, otherwise the average of the cubic and
             // c     quadratic steps is taken.
-            // 
+            //
 
             if ((fp > fx))
             {
@@ -1916,13 +1906,13 @@ namespace Accord.Math.Optimization
 
                 brackt = true;
 
-                // 
-                // c     Second case: A lower function value and derivatives of opposite 
-                // c     sign. The minimum is bracketed. If the cubic step is farther from 
-                // c     stp than the secant step, the cubic step is taken, otherwise the 
+                //
+                // c     Second case: A lower function value and derivatives of opposite
+                // c     sign. The minimum is bracketed. If the cubic step is farther from
+                // c     stp than the secant step, the cubic step is taken, otherwise the
 
                 // c     secant step is taken.
-                // 
+                //
             }
             else if ((sgnd < 0.0))
             {
@@ -1951,27 +1941,27 @@ namespace Accord.Math.Optimization
                 }
 
                 brackt = true;
-                // 
+                //
                 // c     Third case: A lower function value, derivatives of the same sign,
 
                 // c     and the magnitude of the derivative decreases.
-                // 
+                //
             }
             else if ((System.Math.Abs(dp) < System.Math.Abs(dx)))
             {
-                // 
-                // c        The cubic step is computed only if the cubic tends to infinity 
+                //
+                // c        The cubic step is computed only if the cubic tends to infinity
                 // c        in the direction of the step or if the minimum of the cubic
-                // c        is beyond stp. Otherwise the cubic step is defined to be the 
+                // c        is beyond stp. Otherwise the cubic step is defined to be the
                 // c        secant step.
-                // 
+                //
                 theta = ((((3.0 * ((fx - fp))) / ((stp - stx))) + dx) + dp);
                 s = Accord.Math.Tools.Max(System.Math.Abs(theta), System.Math.Abs(dx), System.Math.Abs(dp));
 
-                // 
+                //
                 // c        The case gamma = 0 only arises if the cubic does not tend
                 // c        to infinity in the direction of the step.
-                // 
+                //
                 gamma = (s * System.Math.Sqrt(System.Math.Max(0.0,
                     ((System.Math.Pow(((theta / s)), 2)) - (((dx / s)) * ((dp / s)))))));
 
@@ -2001,11 +1991,11 @@ namespace Accord.Math.Optimization
 
                 if (brackt)
                 {
-                    // 
-                    // c           A minimizer has been bracketed. If the cubic step is 
-                    // c           closer to stp than the secant step, the cubic step is 
+                    //
+                    // c           A minimizer has been bracketed. If the cubic step is
+                    // c           closer to stp than the secant step, the cubic step is
                     // c           taken, otherwise the secant step is taken.
-                    // 
+                    //
                     if ((System.Math.Abs((stpc - stp)) < System.Math.Abs((stpq - stp))))
                     {
                         stpf = stpc;
@@ -2027,11 +2017,11 @@ namespace Accord.Math.Optimization
                 }
                 else
                 {
-                    // 
-                    // c           A minimizer has not been bracketed. If the cubic step is 
-                    // c           farther from stp than the secant step, the cubic step is 
+                    //
+                    // c           A minimizer has not been bracketed. If the cubic step is
+                    // c           farther from stp than the secant step, the cubic step is
                     // c           taken, otherwise the secant step is taken.
-                    // 
+                    //
                     if ((System.Math.Abs((stpc - stp)) > System.Math.Abs((stpq - stp))))
                     {
                         stpf = stpc;
@@ -2044,12 +2034,12 @@ namespace Accord.Math.Optimization
                     stpf = System.Math.Max(stpmin, stpf);
                 }
 
-                // 
+                //
                 // c     Fourth case: A lower function value, derivatives of the same sign,
-                // c     and the magnitude of the derivative does not decrease. If the 
-                // c     minimum is not bracketed, the step is either stpmin or stpmax, 
+                // c     and the magnitude of the derivative does not decrease. If the
+                // c     minimum is not bracketed, the step is either stpmin or stpmax,
                 // c     otherwise the cubic step is taken.
-                // 
+                //
             }
             else
             {
@@ -2080,9 +2070,9 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
+            //
             // c     Update the interval which contains a minimizer.
-            // 
+            //
             if ((fp > fx))
             {
                 sty = stp;
@@ -2102,17 +2092,17 @@ namespace Accord.Math.Optimization
                 dx = dp;
             }
 
-            // 
+            //
             // c     Compute the new step.
-            // 
+            //
             stp = stpf;
         }
 
-        // 
+        //
         // c======================= The end of cmprlb =============================
-        // 
-        // 
-        // 
+        //
+        //
+        //
         // c     ************
         // c
         // c     Subroutine errclb
@@ -2131,15 +2121,14 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
-        // 
+        //
+        //
         // c     Check the input arguments for errors.
-        // 
+        //
         private static void errclb(int n, int m, double factr,
             double[] l, int _l_offset, double[] u, int _u_offset,
             int[] nbd, int _nbd_offset, ref string task, ref int info, ref int k)
         {
-
             int i = 0;
             if ((n <= 0))
             {
@@ -2154,9 +2143,9 @@ namespace Accord.Math.Optimization
                 task = "ERROR: FACTR .LT. 0";
             }
 
-            // 
+            //
             // c     Check the validity of the arrays nbd(i), u(i), and l(i).
-            // 
+            //
             {
                 for (i = 1; i <= n; i++)
                 {
@@ -2179,17 +2168,16 @@ namespace Accord.Math.Optimization
                     }
                 }
             }
-
         }
 
-        // 
+        //
         // c======================= The end of errclb =============================
-        // 
-        // 
-        // 
+        //
+        //
+        //
         // c     ************
         // c
-        // c     Subroutine formk 
+        // c     Subroutine formk
         // c
         // c     This subroutine forms  the LEL^T factorization of the indefinite
         // c
@@ -2211,31 +2199,31 @@ namespace Accord.Math.Optimization
         // c
         // c     ind is an integer array of dimension nsub.
         // c       On entry ind specifies the indices of subspace variables.
-        // c       On exit ind is unchanged. 
+        // c       On exit ind is unchanged.
         // c
         // c     nenter is an integer variable.
-        // c       On entry nenter is the number of variables entering the 
+        // c       On entry nenter is the number of variables entering the
         // c         free set.
-        // c       On exit nenter is unchanged. 
+        // c       On exit nenter is unchanged.
         // c
         // c     ileave is an integer variable.
         // c       On entry indx2(ileave),...,indx2(n) are the variables leaving
         // c         the free set.
-        // c       On exit ileave is unchanged. 
+        // c       On exit ileave is unchanged.
         // c
         // c     indx2 is an integer array of dimension n.
         // c       On entry indx2(1),...,indx2(nenter) are the variables entering
         // c         the free set, while indx2(ileave),...,indx2(n) are the
         // c         variables leaving the free set.
-        // c       On exit indx2 is unchanged. 
+        // c       On exit indx2 is unchanged.
         // c
         // c     iupdat is an integer variable.
         // c       On entry iupdat is the total number of BFGS updates made so far.
-        // c       On exit iupdat is unchanged. 
+        // c       On exit iupdat is unchanged.
         // c
         // c     updatd is a logical variable.
         // c       On entry 'updatd' is true if the L-BFGS matrix is updatd.
-        // c       On exit 'updatd' is unchanged. 
+        // c       On exit 'updatd' is unchanged.
         // c
         // c     wn is a double precision array of dimension 2m x 2m.
         // c       On entry wn is unspecified.
@@ -2246,7 +2234,7 @@ namespace Accord.Math.Optimization
         // c                     [L_a -R_z           theta*S'AA'S ]
         // c
         // c     wn1 is a double precision array of dimension 2m x 2m.
-        // c       On entry wn1 stores the lower triangular part of 
+        // c       On entry wn1 stores the lower triangular part of
         // c                     [Y' ZZ'Y   L_a'+R_z']
         // c                     [L_a+R_z   S'AA'S   ]
         // c         in the previous iteration.
@@ -2284,7 +2272,7 @@ namespace Accord.Math.Optimization
         // c
         // c     Subprograms called:
         // c
-        // c       Linpack ... dcopy, dpofa, 
+        // c       Linpack ... dcopy, dpofa,
         // c
         // c
         // c     References:
@@ -2312,14 +2300,14 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
-        // 
+        //
+        //
         // c     Form the lower triangular part of
-        // c               WN1 = [Y' ZZ'Y   L_a'+R_z'] 
+        // c               WN1 = [Y' ZZ'Y   L_a'+R_z']
         // c                     [L_a+R_z   S'AA'S   ]
         // c        where L_a is the strictly lower triangular part of S'AA'Y
         // c              R_z is the upper triangular part of S'ZZ'Y.
-        // 
+        //
         private static void formk(int n, int nsub, int[] ind, int _ind_offset,
             int nenter, int ileave, int[] indx2, int _indx2_offset,
             int iupdat, bool updatd, double[] wn, int _wn_offset, double[] wn1, int _wn1_offset,
@@ -2327,7 +2315,6 @@ namespace Accord.Math.Optimization
             double[] sy, int _sy_offset, double theta, int col, int head,
             ref int info)
         {
-
             int m2 = 0;
             int ipntr = 0;
             int jpntr = 0;
@@ -2370,7 +2357,7 @@ namespace Accord.Math.Optimization
                     }
                 }
 
-                // 
+                //
                 // c          put new rows in blocks (1,1), (2,1) and (2,2).
                 pbegin = 1;
                 pend = nsub;
@@ -2420,7 +2407,7 @@ namespace Accord.Math.Optimization
                     }
                 }
 
-                // 
+                //
                 // c          put new column in block (2,1).
                 jy = col;
                 jpntr = ((head + col) - 1);
@@ -2454,7 +2441,7 @@ namespace Accord.Math.Optimization
                 upcl = col;
             }
 
-            // 
+            //
             // c       modify the old parts in blocks (1,1) and (2,2) due to changes
             // c       in the set of free variables.
 
@@ -2505,7 +2492,7 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
+            //
             // c       modify the old parts in block (2,1).
             ipntr = head;
             {
@@ -2551,10 +2538,10 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
-            // c     Form the upper triangle of WN = [D+Y' ZZ'Y/theta   -L_a'+R_z' ] 
+            //
+            // c     Form the upper triangle of WN = [D+Y' ZZ'Y/theta   -L_a'+R_z' ]
             // c                                     [-L_a +R_z        S'AA'S*theta]
-            // 
+            //
             m2 = (2 * m);
             {
                 for (iy = 1; iy <= col; iy++)
@@ -2592,10 +2579,10 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
+            //
             // c     Form the upper triangle of WN= [  LL'            L^-1(-L_a'+R_z')]
             // c                                    [(-L_a +R_z)L'^-1   S'AA'S*theta  ]
-            // 
+            //
             // c        first Cholesky factor (1,1) block of wn to get LL'
             // c                          with L' stored in the upper triangle of wn.
             dpofa(wn, _wn_offset, m2, col, ref info);
@@ -2616,11 +2603,11 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
+            //
             // c     Form S'AA'S*theta + (L^-1(-L_a'+R_z'))'L^-1(-L_a'+R_z') in the
             // c        upper triangle of (2,2) block of wn.
-            // 
-            // 
+            //
+            //
             {
                 for (is2 = (col + 1); is2 <= col2; is2++)
                 {
@@ -2636,9 +2623,9 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
+            //
             // c     Cholesky factorization of (2,2) block of wn.
-            // 
+            //
             dpofa(wn, ((col + 1) - (1)) + ((col + 1) - (1))
                 * ((2 * m)) + _wn_offset, m2, col, ref info);
 
@@ -2647,14 +2634,13 @@ namespace Accord.Math.Optimization
                 info = -2;
                 return;
             }
-
         }
 
-        // 
+        //
         // c======================= The end of formk ==============================
-        // 
-        // 
-        // 
+        //
+        //
+        //
         // c     ************
         // c
         // c     Subroutine formt
@@ -2682,19 +2668,18 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
-        // 
-        // 
+        //
+        //
+        //
         // c     Form the upper half of  T = theta*SS + L*D^(-1)*L',
         // c        store T in the upper triangle of the array wt.
-        // 
+        //
         private static void formt(int m,
             double[] wt, int _wt_offset,
             double[] sy, int _sy_offset,
             double[] ss, int _ss_offset,
             int col, double theta, ref int info)
         {
-
             int i = 0;
             int j = 0;
             int k = 0;
@@ -2734,10 +2719,10 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
-            // c     Cholesky factorize T to J*J' with 
+            //
+            // c     Cholesky factorize T to J*J' with
             // c        J' stored in the upper triangle of wt.
-            // 
+            //
             dpofa(wt, _wt_offset, m, col, ref info);
 
             if ((info != 0))
@@ -2746,14 +2731,14 @@ namespace Accord.Math.Optimization
             }
         }
 
-        // 
+        //
         // c======================= The end of formt ==============================
-        // 
-        // 
-        // 
+        //
+        //
+        //
         // c     ************
         // c
-        // c     Subroutine freev 
+        // c     Subroutine freev
         // c
         // c     This subroutine counts the entering and leaving variables when
         // c       iter > 0, and finds the index set of free and active variables
@@ -2764,7 +2749,7 @@ namespace Accord.Math.Optimization
         // c     index is an integer array of dimension n
         // c       for i=1,...,nfree, index(i) are the indices of free variables
         // c       for i=nfree+1,...,n, index(i) are the indices of bound variables
-        // c       On entry after the first iteration, index gives 
+        // c       On entry after the first iteration, index gives
         // c         the free variables at the previous iteration.
         // c       On exit it gives the free variables based on the determination
         // c         in cauchy using the array iwhere.
@@ -2775,7 +2760,7 @@ namespace Accord.Math.Optimization
         // c          have changed status since the previous iteration.
         // c       For i= 1,...,nenter, indx2(i) have changed from bound to free.
         // c       For i= ileave+1,...,n, indx2(i) have changed from free to bound.
-        // c 
+        // c
         // c
         // c                           *  *  *
         // c
@@ -2788,14 +2773,13 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
-        // 
+        //
+        //
         private static void freev(int n, ref int nfree,
             int[] index, int _index_offset, ref int nenter, ref int ileave,
             int[] indx2, int _indx2_offset, int[] iwhere, int _iwhere_offset,
             ref bool wrk, bool updatd, bool cnstnd, int iprint, int iter)
         {
-
             int iact = 0;
             int i = 0;
             int k = 0;
@@ -2811,10 +2795,10 @@ namespace Accord.Math.Optimization
                     {
                         k = index[(i - (1)) + _index_offset];
 
-                        // 
+                        //
                         // c            write(6,*) ' k  = index(i) ', k
                         // c            write(6,*) ' index = ', i
-                        // 
+                        //
                         if ((iwhere[(k - (1)) + _iwhere_offset] > 0))
                         {
                             ileave = (ileave - 1);
@@ -2836,7 +2820,6 @@ namespace Accord.Math.Optimization
                             nenter = (nenter + 1);
                             indx2[(nenter - (1)) + _indx2_offset] = k;
 
-                            
                             if ((iprint >= 100))
                             {
                                 // DISPLAY: "Variable " + k + " enters the set of free variables"
@@ -2844,7 +2827,7 @@ namespace Accord.Math.Optimization
                         }
                     }
                 }
-                
+
                 if ((iprint >= 99))
                 {
                     // DISPLAY: ((n + 1) - ileave)) + " variables leave; "
@@ -2854,9 +2837,9 @@ namespace Accord.Math.Optimization
 
             wrk = ((((ileave < (n + 1))) || ((nenter > 0))) || updatd);
 
-            // 
+            //
             // c     Find the index set of free and active variables at the GCP.
-            // 
+            //
             nfree = 0;
             iact = (n + 1);
             {
@@ -2881,17 +2864,17 @@ namespace Accord.Math.Optimization
             }
         }
 
-        // 
+        //
         // c======================= The end of freev ==============================
-        // 
-        // 
+        //
+        //
         // c     ************
         // c
-        // c     Subroutine hpsolb 
+        // c     Subroutine hpsolb
         // c
         // c     This subroutine sorts out the least element of t, and puts the
         // c       remaining elements of t in a heap.
-        // c 
+        // c
         // c     n is an integer variable.
         // c       On entry n is the dimension of the arrays t and iorder.
         // c       On exit n is unchanged.
@@ -2928,12 +2911,11 @@ namespace Accord.Math.Optimization
         // c     in collaboration with R.H. Byrd, P. Lu-Chen and J. Nocedal.
         // c
         // c     ************
-        // 
-        // 
+        //
+        //
         private static void hpsolb(int n, double[] t, int _t_offset,
         int[] iorder, int _iorder_offset, int iheap)
         {
-
             int i = 0;
             int j = 0;
             int k = 0;
@@ -2944,19 +2926,19 @@ namespace Accord.Math.Optimization
 
             if ((iheap == 0))
             {
-                // 
+                //
                 // c        Rearrange the elements t(1) to t(n) to form a heap.
-                // 
+                //
                 {
                     for (k = 2; k <= n; k++)
                     {
                         ddum = t[(k - (1)) + _t_offset];
                         indxin = iorder[(k - (1)) + _iorder_offset];
-                        // 
+                        //
                         // c           Add ddum to the heap.
                         i = k;
 
-                    L10:
+                        L10:
                         if ((i > 1))
                         {
                             j = (i / 2);
@@ -2974,11 +2956,11 @@ namespace Accord.Math.Optimization
                     }
                 }
             }
-            // 
+            //
             // c     Assign to 'out' the value of t(1), the least member of the heap,
             // c        and rearrange the remaining members to form a heap as
             // c        elements 1 to n-1 of t.
-            // 
+            //
             if ((n > 1))
             {
                 i = 1;
@@ -2987,9 +2969,9 @@ namespace Accord.Math.Optimization
                 ddum = t[(n - (1)) + _t_offset];
                 indxin = iorder[(n - (1)) + _iorder_offset];
 
-            // 
-            // c        Restore the heap 
-            L30:
+                //
+                // c        Restore the heap
+                L30:
                 j = (i + i);
                 if ((j <= (n - 1)))
                 {
@@ -3007,18 +2989,18 @@ namespace Accord.Math.Optimization
                 }
                 t[(i - (1)) + _t_offset] = ddum;
                 iorder[(i - (1)) + _iorder_offset] = indxin;
-                // 
-                // c     Put the least member in t(n). 
-                // 
+                //
+                // c     Put the least member in t(n).
+                //
                 t[(n - (1)) + _t_offset] = out2;
                 iorder[(n - (1)) + _iorder_offset] = indxou;
             }
         }
 
-        // 
+        //
         // c====================== The end of hpsolb ==============================
-        // 
-        // 
+        //
+        //
         // c     **********
         // c
         // c     Subroutine lnsrlb
@@ -3032,7 +3014,7 @@ namespace Accord.Math.Optimization
         // c
         // c       Minpack2 Library ... dcsrch.
         // c
-        // c       Linpack ... dtrsl, 
+        // c       Linpack ... dtrsl,
         // c
         // c
         // c                           *  *  *
@@ -3046,8 +3028,8 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     **********
-        // 
-        // 
+        //
+        //
         private static void lnsrlb(int n, double[] l, int _l_offset, double[] u, int _u_offset,
             int[] nbd, int _nbd_offset, double[] x, int _x_offset, double f, ref double fold, ref double gd,
             ref double gdold, double[] g, int _g_offset, double[] d, int _d_offset, double[] r, int _r_offset,
@@ -3057,7 +3039,6 @@ namespace Accord.Math.Optimization
             bool boxed, bool cnstnd, ref string csave, int[] isave, int _isave_offset,
             double[] dsave, int _dsave_offset)
         {
-
             int i = 0;
             double a1 = 0.0d;
             double a2 = 0.0d;
@@ -3067,12 +3048,12 @@ namespace Accord.Math.Optimization
                 goto L556;
             }
 
-            // 
+            //
             dtd = ddot(n, d, _d_offset, 1, d, _d_offset, 1);
             dnorm = System.Math.Sqrt(dtd);
-            // 
+            //
             // c     Determine the maximum step length.
-            // 
+            //
             stpmx = 10000000000.0;
             if (cnstnd)
             {
@@ -3118,7 +3099,7 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
+            //
             if (((iter == 0) && (!boxed)))
             {
                 if (double.IsNaN(dnorm))
@@ -3131,7 +3112,7 @@ namespace Accord.Math.Optimization
                 stp = 1.0;
             }
 
-            // 
+            //
             dcopy(n, x, _x_offset, 1, t, _t_offset, 1);
             dcopy(n, g, _g_offset, 1, r, _r_offset, 1);
 
@@ -3140,7 +3121,7 @@ namespace Accord.Math.Optimization
             iback = 0;
             csave = "START";
 
-        L556:
+            L556:
             gd = BoundedBroydenFletcherGoldfarbShanno.ddot(n, g, _g_offset, 1, d, _d_offset, 1);
 
             if ((ifun == 0))
@@ -3163,7 +3144,7 @@ namespace Accord.Math.Optimization
                 0.1000000000000000055511151231257827021182, 0.0,
                 stpmx, ref csave, isave, _isave_offset, dsave, _dsave_offset);
 
-            // 
+            //
             xstep = (stp * dnorm);
             if (((!csave.StartsWith("CONV", StringComparison.OrdinalIgnoreCase))
                 && (!csave.StartsWith("WARN", StringComparison.OrdinalIgnoreCase))))
@@ -3192,12 +3173,12 @@ namespace Accord.Math.Optimization
             }
         }
 
-        // 
+        //
         // c======================= The end of setulb =============================
-        // 
+        //
         // c-jlm-jn
-        // 
-        // 
+        //
+        //
         // c     ************
         // c
         // c     Subroutine mainlb
@@ -3205,7 +3186,7 @@ namespace Accord.Math.Optimization
         // c     This subroutine solves bound constrained optimization problems by
 
         // c       using the compact formula of the limited memory BFGS updates.
-        // c       
+        // c
         // c     n is an integer variable.
         // c       On entry n is the number of variables.
         // c       On exit n is unchanged.
@@ -3288,13 +3269,13 @@ namespace Accord.Math.Optimization
         // c       used to store the lower triangular part of
         // c                 N = [Y' ZZ'Y   L_a'+R_z']
         // c                     [L_a +R_z  S'AA'S   ]
-        // c            
+        // c
         // c     z(n),r(n),d(n),t(n), xp(n),wa(8*m) are double precision working ar
         // c       z  is used at different times to store the Cauchy point and
         // c          the Newton point.
         // c       xp is used to safeguard the projected Newton direction
         // c
-        // c     sg(m),sgo(m),yg(m),ygo(m) are double precision working arrays. 
+        // c     sg(m),sgo(m),yg(m),ygo(m) are double precision working arrays.
         // c
         // c     index is an integer working array of dimension n.
         // c       In subroutine freev, index is used to store the free and fixed
@@ -3341,7 +3322,7 @@ namespace Accord.Math.Optimization
         // c
         // c     Subprograms called
         // c
-        // c       L-BFGS-B Library ... cauchy, subsm, lnsrlb, formk, 
+        // c       L-BFGS-B Library ... cauchy, subsm, lnsrlb, formk,
         // c
         // c        errclb, prn1lb, prn2lb, prn3lb, active, projgr,
         // c
@@ -3349,7 +3330,7 @@ namespace Accord.Math.Optimization
         // c
         // c       Minpack2 Library ... timer
         // c
-        // c       Linpack Library ... dcopy, 
+        // c       Linpack Library ... dcopy,
         // c
         // c
         // c     References:
@@ -3363,7 +3344,7 @@ namespace Accord.Math.Optimization
         // c       Tech. Report, NAM-11, EECS Department, Northwestern University,
 
         // c       1994.
-        // c 
+        // c
         // c       [3] R. Byrd, J. Nocedal and R. Schnabel "Representations of
         // c       Quasi-Newton Matrices and their use in Limited Memory Methods'',
         // c       Mathematical Programming 63 (1994), no. 4, pp. 129-156.
@@ -3382,8 +3363,8 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
-        // 
+        //
+        //
         private static void mainlb(int n,
             int m,
             double[] x, int _x_offset,
@@ -3417,7 +3398,6 @@ namespace Accord.Math.Optimization
             int[] isave, int _isave_offset,
             double[] dsave, int _dsave_offset)
         {
-
             bool prjctd = false;
             bool cnstnd = false;
             bool boxed = false;
@@ -3470,15 +3450,15 @@ namespace Accord.Math.Optimization
 
             if ((task.StartsWith("START", StringComparison.OrdinalIgnoreCase)))
             {
-                // 
+                //
                 // epsmch = (double)(Epsilon.epsilon(1.0));
                 epsmch = Constants.DoubleEpsilon;
 
-                // 
+                //
                 //Timer.timer(time1);
-                // 
+                //
                 // c        Initialize counters and scalars when task='START'.
-                // 
+                //
                 // c           for the limited memory BFGS matrices:
                 col = 0;
                 head = 1;
@@ -3500,7 +3480,7 @@ namespace Accord.Math.Optimization
                 stp = 0.0;
                 gdold = 0.0;
                 dtd = 0.0;
-                // 
+                //
                 // c           for operation counts:
                 iter = 0;
                 nfgv = 0;
@@ -3511,25 +3491,25 @@ namespace Accord.Math.Optimization
                 ifun = 0;
                 // c           for stopping tolerance:
                 tol = (factr * epsmch);
-                // 
+                //
                 // c           for measuring running time:
                 cachyt = (double)(0);
                 sbtime = (double)(0);
                 lnscht = (double)(0);
 
-                // 
+                //
                 // c           'info' records the termination information.
                 info = 0;
-                // 
+                //
                 itfile = 8;
                 if ((iprint >= 1))
                 {
                     // c                                open a summary file 'iterate.dat'
                     ; // WARNING: Unimplemented statement in Fortran source.
                 }
-                // 
+                //
                 // c        Check the input arguments for errors.
-                // 
+                //
                 errclb(n, m, factr, l, _l_offset, u, _u_offset,
                     nbd, _nbd_offset, ref task, ref info, ref k);
 
@@ -3543,27 +3523,27 @@ namespace Accord.Math.Optimization
                     return;
                 }
 
-                // 
+                //
                 // Prn1lb.prn1lb(n, m, l, _l_offset, u, _u_offset, x, _x_offset, iprint, itfile, epsmch);
 
-                // 
+                //
                 // c        Initialize iwhere & project x onto the feasible set.
-                // 
+                //
                 active(n, l, _l_offset, u, _u_offset, nbd, _nbd_offset, x,
                     _x_offset, iwhere, _iwhere_offset, iprint, ref prjctd, ref cnstnd, ref boxed);
-                // 
+                //
                 // c        The end of the initialization.
-                // 
+                //
             }
             else
             {
                 // c          restore local variables.
-                // 
+                //
                 prjctd = lsave[(1 - (1)) + _lsave_offset];
                 cnstnd = lsave[(2 - (1)) + _lsave_offset];
                 boxed = lsave[(3 - (1)) + _lsave_offset];
                 updatd = lsave[(4 - (1)) + _lsave_offset];
-                // 
+                //
                 nintol = isave[(1 - (1)) + _isave_offset];
                 itfile = isave[(3 - (1)) + _isave_offset];
                 iback = isave[(4 - (1)) + _isave_offset];
@@ -3582,7 +3562,7 @@ namespace Accord.Math.Optimization
                 nact = isave[(18 - (1)) + _isave_offset];
                 ileave = isave[(19 - (1)) + _isave_offset];
                 nenter = isave[(20 - (1)) + _isave_offset];
-                // 
+                //
                 theta = dsave[(1 - (1)) + _dsave_offset];
                 fold = dsave[(2 - (1)) + _dsave_offset];
                 tol = dsave[(3 - (1)) + _dsave_offset];
@@ -3599,10 +3579,10 @@ namespace Accord.Math.Optimization
                 stp = dsave[(14 - (1)) + _dsave_offset];
                 gdold = dsave[(15 - (1)) + _dsave_offset];
                 dtd = dsave[(16 - (1)) + _dsave_offset];
-                // 
+                //
                 // c        After returning from the driver go to the point where execution
                 // c        is to resume.
-                // 
+                //
                 if ((task.Substring((1) - 1, 5).StartsWith("FG_LN", StringComparison.OrdinalIgnoreCase)))
                 {
                     goto L666;
@@ -3631,21 +3611,21 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
+            //
             // c     Compute f0 and g0.
-            // 
+            //
             task = "FG_START";
 
             // c          return to the driver to calculate f and g; reenter at 111.
             goto L1000;
 
-        L111:
+            L111:
 
             nfgv = 1;
 
-            // 
+            //
             // c     Compute the infinity norm of the (-) projected gradient.
-            // 
+            //
             projgr(n, l, _l_offset, u, _u_offset, nbd, _nbd_offset,
                 x, _x_offset, g, _g_offset, ref sbgnrm);
 
@@ -3664,10 +3644,10 @@ namespace Accord.Math.Optimization
                 task = "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL";
                 goto L999;
             }
-        // 
-        // c ----------------- the beginning of the loop --------------------------
-        // 
-        L222:
+            //
+            // c ----------------- the beginning of the loop --------------------------
+            //
+            L222:
             if ((iprint >= 99))
             {
                 // DISPLAY: (iter + 1))); ITERATION ',i5"
@@ -3684,13 +3664,12 @@ namespace Accord.Math.Optimization
                 goto L333;
             }
 
-
             // cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
             // c
             // c     Compute the Generalized Cauchy Point (GCP).
             // c
             // cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-            // 
+            //
 
             cauchy(n, x, _x_offset, l, _l_offset, u, _u_offset, nbd, _nbd_offset,
                 g, _g_offset, indx2, _indx2_offset, iwhere, _iwhere_offset, t, _t_offset,
@@ -3722,26 +3701,25 @@ namespace Accord.Math.Optimization
             cachyt = ((cachyt + cpu2) - cpu1);
             nintol = (nintol + nseg);
 
-            // 
-            // Count the entering and leaving variables for iter > 0; 
+            //
+            // Count the entering and leaving variables for iter > 0;
             // find the index set of free and active variables at the GCP.
-            // 
+            //
             freev(n, ref nfree, index, _index_offset, ref nenter, ref ileave, indx2, _indx2_offset,
                 iwhere, _iwhere_offset, ref wrk, updatd, cnstnd, iprint, iter);
 
             nact = (n - nfree);
-        // 
-        L333:
+            //
+            L333:
 
-            // 
-            // If there are no free variables or B=theta*I, 
+            //
+            // If there are no free variables or B=theta*I,
             // then skip the subspace minimization.
-            // 
+            //
             if (((nfree == 0) || (col == 0)))
             {
                 goto L555;
             }
-
 
             // cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
             // c
@@ -3754,7 +3732,7 @@ namespace Accord.Math.Optimization
             // c                     [L_a -R_z           theta*S'AA'S ]
             // c       where     E = [-I  0]
             // c                     [ 0  I]
-            // 
+            //
             if (wrk)
             {
                 formk(n, nfree, index, _index_offset, nenter,
@@ -3767,7 +3745,7 @@ namespace Accord.Math.Optimization
             {
                 // nonpositive definiteness in Cholesky factorization;
                 // refresh the lbfgs memory and restart the iteration.
-                
+
                 if ((iprint >= 1))
                 {
                     // DISPLAY: ' Nonpositive definiteness in Cholesky factorization in formk;'
@@ -3784,7 +3762,7 @@ namespace Accord.Math.Optimization
                 goto L222;
             }
 
-            // 
+            //
             // compute r=-Z'B(xcp-xk)-Z'g   (using wa(2m+1)=W'(xcp-x) from 'cauchy')
             //
             cmprlb(n, m, x, _x_offset, g, _g_offset, ws, _ws_offset, wy, _wy_offset,
@@ -3796,15 +3774,15 @@ namespace Accord.Math.Optimization
                 goto L444;
             }
 
-            // 
-            // c-jlm-jn   call the direct method. 
-            // 
+            //
+            // c-jlm-jn   call the direct method.
+            //
             subsm(n, m, nfree, index, _index_offset, l, _l_offset, u, _u_offset,
                 nbd, _nbd_offset, z, _z_offset, r, _r_offset, xp, _xp_offset, ws, _ws_offset,
                 wy, _wy_offset, theta, x, _x_offset, g, _g_offset, col, head,
                 ref iword, wa, _wa_offset, wn, _wn_offset, iprint, ref info);
 
-        L444:
+            L444:
 
             if ((info != 0))
             {
@@ -3825,18 +3803,17 @@ namespace Accord.Math.Optimization
 
                 goto L222;
             }
-           
 
-        L555:
-            // 
+            L555:
+            //
             // cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
             // c
             // c     Line search and optimality tests.
             // c
             // cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-            // 
+            //
             // c     Generate the search direction d:=z-x.
-            // 
+            //
             {
                 for (i = 1; i <= n; i++)
                 {
@@ -3844,8 +3821,7 @@ namespace Accord.Math.Optimization
                 }
             }
 
-
-        L666:
+            L666:
             lnsrlb(n, l, _l_offset, u, _u_offset, nbd, _nbd_offset, x, _x_offset,
                 f, ref fold, ref gd, ref gdold, g, _g_offset, d, _d_offset, r, _r_offset, t, _t_offset,
                 z, _z_offset, ref stp, ref dnorm, ref dtd, ref xstep, ref stpmx, iter, ref ifun,
@@ -3880,11 +3856,11 @@ namespace Accord.Math.Optimization
                 else
                 {
                     // refresh the lbfgs memory and restart the iteration.
-                     if ((iprint >= 1))
-                     {
-                         // DISPLAY: Bad direction in the line search;'
-                         //          refresh the lbfgs memory and restart the iteration.
-                     }
+                    if ((iprint >= 1))
+                    {
+                        // DISPLAY: Bad direction in the line search;'
+                        //          refresh the lbfgs memory and restart the iteration.
+                    }
 
                     if ((info == 0))
                     {
@@ -3912,15 +3888,15 @@ namespace Accord.Math.Optimization
 
                 iter = (iter + 1);
 
-                // 
+                //
                 // Compute the infinity norm of the projected (-)gradient.
-                // 
+                //
                 projgr(n, l, _l_offset, u, _u_offset, nbd, _nbd_offset,
                     x, _x_offset, g, _g_offset, ref sbgnrm);
 
-                // 
+                //
                 // Print iteration information.
-                // 
+                //
                 /* Prn2lb.prn2lb(n, x, _x_offset, f, g, _g_offset, iprint, itfile,
                     iter, nfgv, nact, sbgnrm, nseg, ref word,
                     iword, iback, stp, xstep); */
@@ -3928,11 +3904,11 @@ namespace Accord.Math.Optimization
                 goto L1000;
             }
 
-        L777:
+            L777:
 
-            // 
+            //
             // c     Test for termination.
-            // 
+            //
             if ((sbgnrm <= pgtol))
             {
                 // terminate the algorithm.
@@ -3940,7 +3916,7 @@ namespace Accord.Math.Optimization
                 goto L999;
             }
 
-            // 
+            //
             ddum = Accord.Math.Tools.Max(System.Math.Abs(fold), System.Math.Abs(f), 1.0);
 
             if ((((fold - f)) <= (tol * ddum)))
@@ -3957,9 +3933,9 @@ namespace Accord.Math.Optimization
                 goto L999;
             }
 
-            // 
+            //
             // Compute d=newx-oldx, r=newg-oldg, rr=y'y and dr=y's.
-            // 
+            //
             {
                 for (i = 1; i <= n; i++)
                 {
@@ -3987,7 +3963,6 @@ namespace Accord.Math.Optimization
                 nskip = (nskip + 1);
                 updatd = false;
 
-
                 if ((iprint >= 1))
                 {
                     // DISPLAY: dr, ddum
@@ -3997,33 +3972,33 @@ namespace Accord.Math.Optimization
                 goto L888;
             }
 
-            // 
+            //
             // cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
             // c
             // c     Update the L-BFGS matrix.
             // c
             // cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-            // 
+            //
             updatd = true;
             iupdat = (iupdat + 1);
 
-            // 
+            //
             // c     Update matrices WS and WY and form the middle matrix in B.
-            // 
+            //
             matupd(n, m, ws, _ws_offset, wy, _wy_offset, sy, _sy_offset,
                 ss, _ss_offset, d, _d_offset, r, _r_offset, ref itail, iupdat, ref col,
                 ref head, ref theta, rr, dr, stp, dtd);
 
-            // 
+            //
             // c     Form the upper half of the pds T = theta*SS + L*D^(-1)*L';
             // c        Store T in the upper triangular of the array wt;
             // c        Cholesky factorize T to J*J' with
             // c           J' stored in the upper triangular of wt.
-            // 
+            //
             formt(m, wt, _wt_offset, sy, _sy_offset, ss,
                 _ss_offset, col, theta, ref info);
 
-            // 
+            //
             if ((info != 0))
             {
                 // c          nonpositive definiteness in Cholesky factorization;
@@ -4044,35 +4019,35 @@ namespace Accord.Math.Optimization
                 goto L222;
             }
 
-        // 
-        //   Now the inverse of the middle matrix in B is
-        // 
-        //   [  D^(1/2)      O ] [ -D^(1/2)  D^(-1/2)*L' ]
-        //   [ -L*D^(-1/2)   J ] [  0        J'          ]
-        // 
-        L888:
-            // 
+            //
+            //   Now the inverse of the middle matrix in B is
+            //
+            //   [  D^(1/2)      O ] [ -D^(1/2)  D^(-1/2)*L' ]
+            //   [ -L*D^(-1/2)   J ] [  0        J'          ]
+            //
+            L888:
+            //
             // c -------------------- the end of the loop -----------------------------
-            // 
+            //
             goto L222;
 
-        L999:
-        //Timer.timer(time2);
-        //time = (time2 - time1);
+            L999:
+            //Timer.timer(time2);
+            //time = (time2 - time1);
 
             /*Prn3lb.prn3lb(n, x, _x_offset, f, task, iprint, info, itfile,
                 iter, nfgv, nintol, nskip, nact, sbgnrm, time, nseg, word,
                 iback, stp, xstep, k, cachyt, sbtime, lnscht);*/
 
-        L1000:
-            // 
+            L1000:
+            //
             //   Save local variables.
-            // 
+            //
             lsave[(1 - (1)) + _lsave_offset] = prjctd;
             lsave[(2 - (1)) + _lsave_offset] = cnstnd;
             lsave[(3 - (1)) + _lsave_offset] = boxed;
             lsave[(4 - (1)) + _lsave_offset] = updatd;
-            // 
+            //
             isave[(1 - (1)) + _isave_offset] = nintol;
             isave[(3 - (1)) + _isave_offset] = itfile;
             isave[(4 - (1)) + _isave_offset] = iback;
@@ -4091,7 +4066,7 @@ namespace Accord.Math.Optimization
             isave[(18 - (1)) + _isave_offset] = nact;
             isave[(19 - (1)) + _isave_offset] = ileave;
             isave[(20 - (1)) + _isave_offset] = nenter;
-            // 
+            //
             dsave[(1 - (1)) + _dsave_offset] = theta;
             dsave[(2 - (1)) + _dsave_offset] = fold;
             dsave[(3 - (1)) + _dsave_offset] = tol;
@@ -4112,11 +4087,11 @@ namespace Accord.Math.Optimization
             return;
         }
 
-        // 
+        //
         // c======================= The end of lnsrlb =============================
-        // 
-        // 
-        // 
+        //
+        //
+        //
         // c     ************
         // c
         // c     Subroutine matupd
@@ -4126,7 +4101,7 @@ namespace Accord.Math.Optimization
         // c
         // c     Subprograms called:
         // c
-        // c       Linpack ... dcopy, 
+        // c       Linpack ... dcopy,
         // c
         // c
         // c                           *  *  *
@@ -4140,17 +4115,16 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
-        // 
+        //
+        //
         // c     Set pointers for matrices WS and WY.
-        // 
+        //
         internal static void matupd(int n,
             int m, double[] ws, int _ws_offset, double[] wy, int _wy_offset,
             double[] sy, int _sy_offset, double[] ss, int _ss_offset, double[] d, int _d_offset,
             double[] r, int _r_offset, ref int itail, int iupdat, ref int col,
             ref int head, ref double theta, double rr, double dr, double stp, double dtd)
         {
-
             int j = 0;
             int pointr = 0;
 
@@ -4165,19 +4139,19 @@ namespace Accord.Math.Optimization
                 head = ((head) % (m) + 1);
             }
 
-            // 
+            //
             // c     Update matrices WS and WY.
-            // 
+            //
             dcopy(n, d, _d_offset, 1, ws, (1 - (1)) + (itail - (1)) * (n) + _ws_offset, 1);
             dcopy(n, r, _r_offset, 1, wy, (1 - (1)) + (itail - (1)) * (n) + _wy_offset, 1);
 
-            // 
+            //
             // c     Set theta=yy/ys.
-            // 
+            //
             theta = (rr / dr);
-            // 
+            //
             // c     Form the middle matrix in B.
-            // 
+            //
             // c        update the upper triangle of SS,
             // c                                         and the lower triangle of SY:
 
@@ -4227,11 +4201,11 @@ namespace Accord.Math.Optimization
             return;
         }
 
-        // 
+        //
         // c======================= The end of prn3lb =============================
-        // 
-        // 
-        // 
+        //
+        //
+        //
         // c     ************
         // c
         // c     Subroutine projgr
@@ -4251,8 +4225,8 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
-        // 
+        //
+        //
         internal static void projgr(int n,
         double[] l, int _l_offset,
         double[] u, int _u_offset,
@@ -4261,7 +4235,6 @@ namespace Accord.Math.Optimization
         double[] g, int _g_offset,
         ref double sbgnrm)
         {
-
             int i = 0;
             double gi = 0.0d;
             sbgnrm = 0.0;
@@ -4291,38 +4264,38 @@ namespace Accord.Math.Optimization
             }
         }
 
-        // c                                                                       
+        // c
         // c  L-BFGS-B is released under the “New BSD License” (aka “Modified
-        // c  or “3-clause license”)                                           
-        // c  Please read attached file License.txt                                
-        // c                                        
+        // c  or “3-clause license”)
+        // c  Please read attached file License.txt
+        // c
         // c===========   L-BFGS-B (version 3.0.  April 25, 2011  =================
         // c
         // c     This is a modified version of L-BFGS-B. Minor changes in the updat
-        // c     code appear preceded by a line comment as follows 
-        // c  
-        // c     c-jlm-jn 
+        // c     code appear preceded by a line comment as follows
+        // c
+        // c     c-jlm-jn
         // c
         // c     Major changes are described in the accompanying paper:
         // c
         // c         Jorge Nocedal and Jose Luis Morales, Remark on "Algorithm 778:
         // c         L-BFGS-B: Fortran Subroutines for Large-Scale Bound Constraine
-        // c         Optimization"  (2011). To appear in  ACM Transactions on 
+        // c         Optimization"  (2011). To appear in  ACM Transactions on
         // c         Mathematical Software,
         // c
         // c     The paper describes an improvement and a correction to Algorithm 7
-        // c     It is shown that the performance of the algorithm can be improved 
+        // c     It is shown that the performance of the algorithm can be improved
         // c     significantly by making a relatively simple modication to the subs
         // c     minimization phase. The correction concerns an error caused by the
-        // c     of routine dpmeps to estimate machine precision. 
+        // c     of routine dpmeps to estimate machine precision.
         // c
-        // c     The total work space **wa** required by the new version is 
-        // c 
-        // c                  2*m*n + 11m*m + 5*n + 8*m 
+        // c     The total work space **wa** required by the new version is
         // c
-        // c     the old version required 
+        // c                  2*m*n + 11m*m + 5*n + 8*m
         // c
-        // c                  2*m*n + 12m*m + 4*n + 12*m 
+        // c     the old version required
+        // c
+        // c                  2*m*n + 12m*m + 4*n + 12*m
         // c
         // c
         // c            J. Nocedal  Department of Electrical Engineering and
@@ -4330,23 +4303,23 @@ namespace Accord.Math.Optimization
         // c                        Northwestern University. Evanston, IL. USA
         // c
         // c
-        // c           J.L Morales  Departamento de Matematicas, 
+        // c           J.L Morales  Departamento de Matematicas,
         // c                        Instituto Tecnologico Autonomo de Mexico
         // c                        Mexico D.F. Mexico.
         // c
-        // c                        March  2011    
-        // c                                                 
+        // c                        March  2011
+        // c
         // c=======================================================================
-        // 
+        //
         // c
         // c-jlm-jn
-        // 
-        // 
+        //
+        //
         // c     ************
         // c
         // c     Subroutine setulb
         // c
-        // c     This subroutine partitions the working arrays wa and iwa, and 
+        // c     This subroutine partitions the working arrays wa and iwa, and
         // c       then uses the limited memory BFGS method to solve the bound
         // c       constrained optimization problem by calling mainlb.
         // c       (The direct method will be used in the subspace minimization.)
@@ -4408,11 +4381,11 @@ namespace Accord.Math.Optimization
         // c
         // c                 max{|proj g_i | i = 1, ..., n} <= pgtol
         // c
-        // c         where pg_i is the ith component of the projected gradient.   
+        // c         where pg_i is the ith component of the projected gradient.
 
         // c       On exit pgtol is unchanged.
         // c
-        // c     wa is a double precision working array of length 
+        // c     wa is a double precision working array of length
         // c       (2mmax + 5)nmax + 12mmax^2 + 12mmax.
         // c
         // c     iwa is an integer working array of length 3nmax.
@@ -4434,7 +4407,7 @@ namespace Accord.Math.Optimization
         // c     csave is a working string of characters of length 60.
         // c
         // c     lsave is a logical working array of dimension 4.
-        // c       On exit with 'task' = NEW_X, the following information is 
+        // c       On exit with 'task' = NEW_X, the following information is
         // c                                                             available:
         // c         If lsave(1) = .true.  then  the initial X has been replaced by
         // c                                     its projection in the feasible set
@@ -4443,18 +4416,18 @@ namespace Accord.Math.Optimization
         // c                                     bounds;
         // c
         // c     isave is an integer working array of dimension 44.
-        // c       On exit with 'task' = NEW_X, the following information is 
+        // c       On exit with 'task' = NEW_X, the following information is
         // c                                                             available:
-        // c         isave(22) = the total number of intervals explored in the 
+        // c         isave(22) = the total number of intervals explored in the
         // c                         search of Cauchy points;
-        // c         isave(26) = the total number of skipped BFGS updates before 
+        // c         isave(26) = the total number of skipped BFGS updates before
         // c                         the current iteration;
         // c         isave(30) = the number of current iteration;
         // c         isave(31) = the total number of BFGS updates prior the current
         // c                         iteration;
         // c         isave(33) = the number of intervals explored in the search of
         // c                         Cauchy point in the current iteration;
-        // c         isave(34) = the total number of function and gradient 
+        // c         isave(34) = the total number of function and gradient
         // c                         evaluations;
         // c         isave(36) = the number of function value or gradient
         // c                                  evaluations in the current iteration;
@@ -4495,7 +4468,7 @@ namespace Accord.Math.Optimization
         // c
         // c     Subprograms called:
         // c
-        // c       L-BFGS-B Library ... mainlb.    
+        // c       L-BFGS-B Library ... mainlb.
         // c
         // c
         // c     References:
@@ -4523,7 +4496,7 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
+        //
         internal static void setulb(int n,
         int m,
         double[] x, int _x_offset,
@@ -4543,7 +4516,6 @@ namespace Accord.Math.Optimization
         int[] isave, int _isave_offset,
         double[] dsave, int _dsave_offset)
         {
-
             int lws = 0;
             int lr = 0;
             int lz = 0;
@@ -4590,7 +4562,7 @@ namespace Accord.Math.Optimization
             lt = isave[(14 - (1)) + _isave_offset];
             lxp = isave[(15 - (1)) + _isave_offset];
             lwa = isave[(16 - (1)) + _isave_offset];
-            // 
+            //
             mainlb(n, m, x, _x_offset, l, _l_offset, u, _u_offset, nbd,
                 _nbd_offset, ref f, g, _g_offset, factr, pgtol, wa, (lws - (1)) + _wa_offset,
                 wa, (lwy - (1)) + _wa_offset, wa, (lsy - (1)) + _wa_offset, wa,
@@ -4605,10 +4577,10 @@ namespace Accord.Math.Optimization
                 _dsave_offset);
         }
 
-        // 
+        //
         // c======================= The end of projgr =============================
-        // 
-        // 
+        //
+        //
         // c     ******************************************************************
         // c
         // c     This routine contains the major changes in the updated version.
@@ -4618,7 +4590,7 @@ namespace Accord.Math.Optimization
         // c      "Remark On Algorithm 788: L-BFGS-B: Fortran Subroutines for Large
         // c       Bound Constrained Optimization". Decemmber 27, 2010.
         // c
-        // c             J.L. Morales  Departamento de Matematicas, 
+        // c             J.L. Morales  Departamento de Matematicas,
         // c                           Instituto Tecnologico Autonomo de Mexico
         // c                           Mexico D.F.
         // c
@@ -4629,13 +4601,13 @@ namespace Accord.Math.Optimization
         // c                           January 17, 2011
         // c
         // c      *****************************************************************
-        // c                           
+        // c
         // c
         // c     Subroutine subsm
         // c
         // c     Given xcp, l, u, r, an index set that specifies
-        // c       the active set at xcp, and an l-BFGS matrix B 
-        // c       (in terms of WY, WS, SY, WT, head, col, and theta), 
+        // c       the active set at xcp, and an l-BFGS matrix B
+        // c       (in terms of WY, WS, SY, WT, head, col, and theta),
         // c       this subroutine computes an approximate solution
         // c       of the subspace problem
         // c
@@ -4643,21 +4615,21 @@ namespace Accord.Math.Optimization
         // c
         // c             subject to l<=x<=u
         // c                       x_i=xcp_i for all i in A(xcp)
-        // c                     
-        // c       along the subspace unconstrained Newton direction 
-        // c       
+        // c
+        // c       along the subspace unconstrained Newton direction
+        // c
         // c          d = -(Z'BZ)^(-1) r.
         // c
         // c       The formula for the Newton direction, given the L-BFGS matrix
         // c       and the Sherman-Morrison formula, is
         // c
         // c          d = (1/theta)r + (1/theta*2) Z'WK^(-1)W'Z r.
-        // c 
+        // c
         // c       where
         // c                 K = [-D -Y'ZZ'Y/theta     L_a'-R_z'  ]
         // c                     [L_a -R_z           theta*S'AA'S ]
         // c
-        // c     Note that this procedure for computing d differs 
+        // c     Note that this procedure for computing d differs
         // c     from that described in [1]. One can show that the matrix K is
         // c     equal to the matrix M^[-1]N in that paper.
         // c
@@ -4697,21 +4669,21 @@ namespace Accord.Math.Optimization
         // c       On exit nbd is unchanged.
         // c
         // c     x is a double precision array of dimension n.
-        // c       On entry x specifies the Cauchy point xcp. 
+        // c       On entry x specifies the Cauchy point xcp.
         // c       On exit x(i) is the minimizer of Q over the subspace of
         // c                                                        free variables.
         // c
         // c     d is a double precision array of dimension n.
         // c       On entry d is the reduced gradient of Q at xcp.
-        // c       On exit d is the Newton direction of Q. 
+        // c       On exit d is the Newton direction of Q.
         // c
         // c    xp is a double precision array of dimension n.
-        // c       used to safeguard the projected Newton direction 
+        // c       used to safeguard the projected Newton direction
         // c
         // c    xx is a double precision array of dimension n
         // c       On entry it holds the current iterate
         // c       On output it is unchanged
-        // 
+        //
         // c    gg is a double precision array of dimension n
         // c       On entry it holds the gradient at the current iterate
         // c       On output it is unchanged
@@ -4763,12 +4735,12 @@ namespace Accord.Math.Optimization
         // c     info is an integer variable.
         // c       On entry info is unspecified.
         // c       On exit info = 0       for normal return,
-        // c                    = nonzero for abnormal return 
+        // c                    = nonzero for abnormal return
         // c                                  when the matrix K is ill-conditioned.
         // c
         // c     Subprograms called:
         // c
-        // c       Linpack 
+        // c       Linpack
         // c
         // c
         // c     References:
@@ -4790,9 +4762,9 @@ namespace Accord.Math.Optimization
         // c
         // c
         // c     ************
-        // 
+        //
         // c
-        // 
+        //
         internal static void subsm(int n,
         int m, int nsub, int[] ind, int _ind_offset,
         double[] l, int _l_offset, double[] u, int _u_offset,
@@ -4829,9 +4801,9 @@ namespace Accord.Math.Optimization
                 // DISPLAY: "/,'----------------SUBSM entered-----------------'
             }
 
-            // 
+            //
             // Compute wv = W'Zd.
-            // 
+            //
             pointr = head;
             {
                 for (i = 1; i <= col; i++)
@@ -4855,9 +4827,9 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // 
+            //
             // Compute wv:=K^(-1)wv.
-            // 
+            //
             m2 = (2 * m);
             col2 = (2 * col);
 
@@ -4882,9 +4854,9 @@ namespace Accord.Math.Optimization
                 return;
             }
 
-            // 
+            //
             // Compute d = (1/theta)d + (1/theta**2)Z'W wv.
-            // 
+            //
             pointr = head;
             {
                 for (jy = 1; jy <= col; jy++)
@@ -4905,13 +4877,12 @@ namespace Accord.Math.Optimization
                 }
             }
 
-
             dscal(nsub, (1.0 / theta), d, _d_offset, 1);
 
-            //  
+            //
             // ----------------------------------------------------
             // Let us try the projection, d is the Newton direction
-            // 
+            //
             iword = 0;
 
             dcopy(n, x, _x_offset, 1, xp, _xp_offset, 1);
@@ -4965,15 +4936,14 @@ namespace Accord.Math.Optimization
                 }
             }
 
-
             if ((iword == 0))
             {
                 goto L911;
             }
 
-            // 
+            //
             // check sign of the directional derivative
-            // 
+            //
             dd_p = 0.0;
             {
                 for (i = 1; i <= n; i++)
@@ -4995,9 +4965,9 @@ namespace Accord.Math.Optimization
                 goto L911;
             }
 
-            // 
+            //
             // -----------------------------------------------------------------
-            // 
+            //
             alpha = 1.0;
             temp1 = alpha;
             ibd = 0;
@@ -5065,8 +5035,7 @@ namespace Accord.Math.Optimization
                 }
             }
 
-
-        L911:
+            L911:
 
             if ((iprint >= 99))
             {
@@ -5076,11 +5045,11 @@ namespace Accord.Math.Optimization
             return;
         }
 
-        // c                                                                       
+        // c
         // c  L-BFGS-B is released under the “New BSD License” (aka “Modified
-        // c  or “3-clause license”)                                           
-        // c  Please read attached file License.txt                                
-        // c                                        
+        // c  or “3-clause license”)
+        // c  Please read attached file License.txt
+        // c
         // c
         // c     dpofa factors a double precision symmetric positive definite
         // c     matrix.
@@ -5158,7 +5127,7 @@ namespace Accord.Math.Optimization
                         }
                     }
 
-                L20:
+                    L20:
                     s = (a[(j - (1)) + (j - (1)) * (lda) + _a_offset] - s);
                     // c     ......exit
                     if ((s <= 0.0e0))
@@ -5172,7 +5141,7 @@ namespace Accord.Math.Optimization
 
             info = 0;
 
-        L40:
+            L40:
             return;
         }
 
@@ -5197,7 +5166,6 @@ namespace Accord.Math.Optimization
         // *     ..
         private static void dscal(int n, double da, double[] dx, int _dx_offset, int incx)
         {
-
             int i = 0;
             int m = 0;
             int mp1 = 0;
@@ -5225,13 +5193,13 @@ namespace Accord.Math.Optimization
                 }
             }
             return;
-        // *
-        // *        code for increment equal to 1
-        // *
-        // *
-        // *        clean-up loop
-        // *
-        L20:
+            // *
+            // *        code for increment equal to 1
+            // *
+            // *
+            // *        clean-up loop
+            // *
+            L20:
             m = (n) % (5);
 
             if ((m == 0))
@@ -5250,7 +5218,7 @@ namespace Accord.Math.Optimization
                 return;
             }
 
-        L40:
+            L40:
             mp1 = (m + 1);
             {
                 int _i_inc = 5;
@@ -5332,13 +5300,13 @@ namespace Accord.Math.Optimization
             ddot = dtemp;
             return ddot;
 
-        // *
-        // *        code for both increments equal to 1
-        // *
-        // *
-        // *        clean-up loop
-        // *
-        L20:
+            // *
+            // *        code for both increments equal to 1
+            // *
+            // *
+            // *        clean-up loop
+            // *
+            L20:
             m = (n) % (5);
 
             if ((m == 0))
@@ -5358,7 +5326,7 @@ namespace Accord.Math.Optimization
                 goto L60;
             }
 
-        L40:
+            L40:
             mp1 = (m + 1);
             {
                 int _i_inc = 5;
@@ -5371,7 +5339,7 @@ namespace Accord.Math.Optimization
                         + _dy_offset])) + (dx[((i + 4) - (1)) + _dx_offset] * dy[((i + 4) - (1)) + _dy_offset]));
                 }
             }
-        L60:
+            L60:
             ddot = dtemp;
             return ddot;
         }
@@ -5379,7 +5347,6 @@ namespace Accord.Math.Optimization
         private static void dcopy(int n, double[] dx, int _dx_offset, int incx,
            double[] dy, int _dy_offset, int incy)
         {
-
             int i = 0;
             int ix = 0;
             int iy = 0;
@@ -5417,13 +5384,13 @@ namespace Accord.Math.Optimization
                 }
             }
             return;
-        // c
-        // c        code for both increments equal to 1
-        // c
-        // c
-        // c        clean-up loop
-        // c
-        L20:
+            // c
+            // c        code for both increments equal to 1
+            // c
+            // c
+            // c        clean-up loop
+            // c
+            L20:
             m = (n) % (7);
             if ((m == 0))
             {
@@ -5440,7 +5407,7 @@ namespace Accord.Math.Optimization
                 return;
             }
 
-        L40:
+            L40:
             mp1 = (m + 1);
             {
                 int _i_inc = 7;
@@ -5483,7 +5450,6 @@ namespace Accord.Math.Optimization
         private static void daxpy(int n, double da,
              double[] dx, int _dx_offset, int incx, double[] dy, int _dy_offset, int incy)
         {
-
             int i = 0;
             int ix = 0;
             int iy = 0;

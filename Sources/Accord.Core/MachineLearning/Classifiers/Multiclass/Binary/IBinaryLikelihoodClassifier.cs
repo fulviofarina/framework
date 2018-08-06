@@ -22,17 +22,16 @@
 
 namespace Accord.MachineLearning
 {
-
     /// <summary>
     ///   Common interface for generative binary classifiers. A binary classifier can
     ///   predict whether or not an instance belongs to a class, while at the same time
     ///   being able to provide the probability of this sample belonging to the positive
     ///   class.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
-    /// 
-    public interface IBinaryLikelihoodClassifier<TInput> : 
+    ///
+    public interface IBinaryLikelihoodClassifier<TInput> :
         IBinaryScoreClassifier<TInput>,
         IMulticlassOutLikelihoodClassifier<TInput, bool>,
         IMulticlassLikelihoodClassifier<TInput>
@@ -42,12 +41,11 @@ namespace Accord.MachineLearning
         ///   giving access to more advanced methods, such as the prediction
         ///   of integer labels.
         /// </summary>
-        /// 
+        ///
         /// <returns>This instance seen as an <see cref="IMulticlassLikelihoodClassifier{TInput}"/>.</returns>
-        /// 
+        ///
         new IMulticlassLikelihoodClassifier<TInput> ToMulticlass();
 
         //new IMultilabelGenerativeClassifier<TInput> ToMultilabel();
     }
-   
 }

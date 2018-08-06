@@ -23,30 +23,29 @@
 namespace Accord.Math.Distances
 {
     using System;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     ///   Jaccard (Index) distance.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   The Jaccard index, also known as the Jaccard similarity coefficient (originally
     ///   coined coefficient de communauté by Paul Jaccard), is a statistic used for comparing
-    ///   the similarity and diversity of sample sets. The Jaccard coefficient measures 
+    ///   the similarity and diversity of sample sets. The Jaccard coefficient measures
     ///   similarity between finite sample sets, and is defined as the size of the intersection
     ///   divided by the size of the union of the sample sets.</para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description><a href="https://en.wikipedia.org/wiki/Jaccard_index">
     ///       https://en.wikipedia.org/wiki/Jaccard_index </a></description></item>
-    ///   </list></para>  
+    ///   </list></para>
     /// </remarks>
-    /// 
+    ///
     /// <typeparam name="T">The type of the elements in the arrays to be compared.</typeparam>
-    /// 
+    ///
     [Serializable]
     public sealed class Jaccard<T> : ISimilarity<T[]>, IMetric<T[]>
         where T : IEquatable<T>
@@ -54,7 +53,7 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Initializes a new instance of the <see cref="Jaccard{T}"/> class.
         /// </summary>
-        /// 
+        ///
         public Jaccard()
         {
         }
@@ -63,19 +62,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(T[] x, T[] y)
         {
             int inter = 0;
@@ -97,15 +97,16 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Gets a similarity measure between two points.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point to be compared.</param>
         /// <param name="y">The second point to be compared.</param>
-        /// 
+        ///
         /// <returns>A similarity measure between x and y.</returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Similarity(T[] x, T[] y)
         {
             int inter = 0;
@@ -123,6 +124,5 @@ namespace Accord.Math.Distances
 
             return (inter == 0) ? 0 : inter / (double)union;
         }
-
     }
 }

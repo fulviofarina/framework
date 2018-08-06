@@ -23,19 +23,17 @@
 namespace Accord.Math.Geometry
 {
     using System;
-    using AForge;
 
     /// <summary>
     ///   2D circle class.
     /// </summary>
-    /// 
+    ///
     public class Circle
     {
-
         /// <summary>
         ///   Gets the area of the circle (πR²).
         /// </summary>
-        /// 
+        ///
         public double Area
         {
             get { return Radius * Radius * Math.PI; }
@@ -44,7 +42,7 @@ namespace Accord.Math.Geometry
         /// <summary>
         ///   Gets the circumference of the circle (2πR).
         /// </summary>
-        /// 
+        ///
         public double Circumference
         {
             get { return 2 * Radius * Math.PI; }
@@ -53,7 +51,7 @@ namespace Accord.Math.Geometry
         /// <summary>
         ///   Gets the diameter of the circle (2R).
         /// </summary>
-        /// 
+        ///
         public double Diameter
         {
             get { return 2 * Radius; }
@@ -62,35 +60,34 @@ namespace Accord.Math.Geometry
         /// <summary>
         ///   Gets or sets the radius for this circle.
         /// </summary>
-        /// 
+        ///
         public double Radius { get; set; }
 
         /// <summary>
         ///   Gets or sets the origin (center) of this circle.
         /// </summary>
-        /// 
+        ///
         public Point Origin { get; set; }
 
         /// <summary>
         ///   Creates a new unit <see cref="Circle"/> at the origin.
         /// </summary>
-        /// 
+        ///
         public Circle()
         {
             Origin = new Point(0, 0);
             Radius = 1;
         }
 
-
         /// <summary>
-        ///   Creates a new <see cref="Circle"/> with the given radius 
+        ///   Creates a new <see cref="Circle"/> with the given radius
         ///   centered at the given <c>x</c> and <c>y</c> coordinates.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The x-coordinate of the circle's center.</param>
         /// <param name="y">The y-coordinate of the circle's center.</param>
         /// <param name="radius">The circle radius.</param>
-        /// 
+        ///
         public Circle(float x, float y, double radius)
         {
             Origin = new Point(x, y);
@@ -98,14 +95,14 @@ namespace Accord.Math.Geometry
         }
 
         /// <summary>
-        ///   Creates a new <see cref="Circle"/> with the given radius 
+        ///   Creates a new <see cref="Circle"/> with the given radius
         ///   centered at the given <c>x</c> and <c>y</c> coordinates.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The x-coordinate of the circle's center.</param>
         /// <param name="y">The y-coordinate of the circle's center.</param>
         /// <param name="radius">The circle radius.</param>
-        /// 
+        ///
         public Circle(double x, double y, double radius)
         {
             Origin = new Point((float)x, (float)y);
@@ -113,13 +110,13 @@ namespace Accord.Math.Geometry
         }
 
         /// <summary>
-        ///   Creates a new <see cref="Circle"/> with the given radius 
+        ///   Creates a new <see cref="Circle"/> with the given radius
         ///   centered at the given center point coordinates.
         /// </summary>
-        /// 
+        ///
         /// <param name="origin">The point at the circle's center.</param>
         /// <param name="radius">The circle radius.</param>
-        /// 
+        ///
         public Circle(Point origin, double radius)
         {
             Origin = origin;
@@ -129,11 +126,11 @@ namespace Accord.Math.Geometry
         /// <summary>
         ///   Creates a new <see cref="Circle"/> from three non-linear points.
         /// </summary>
-        /// 
+        ///
         /// <param name="p1">The first point.</param>
         /// <param name="p2">The second point.</param>
         /// <param name="p3">The third point.</param>
-        /// 
+        ///
         public Circle(Point p1, Point p2, Point p3)
         {
             // ya = ma * (x - x1) + y1
@@ -157,11 +154,11 @@ namespace Accord.Math.Geometry
         /// <summary>
         ///   Computes the distance from circle to point.
         /// </summary>
-        /// 
+        ///
         /// <param name="point">The point to have its distance from the circle computed.</param>
-        /// 
+        ///
         /// <returns>The distance from <paramref name="point"/> to this circle.</returns>
-        /// 
+        ///
         public double DistanceToPoint(Point point)
         {
             return Math.Abs(Origin.DistanceTo(point) - Radius);

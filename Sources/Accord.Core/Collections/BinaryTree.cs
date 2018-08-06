@@ -28,29 +28,28 @@ namespace Accord.Collections
     /// <summary>
     ///   Base class for binary trees.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TNode">The class type for the nodes of the tree.</typeparam>
-    /// 
+    ///
     [Serializable]
     public class BinaryTree<TNode> : IEnumerable<TNode>
         where TNode : BinaryNode<TNode>, new()
     {
-
         /// <summary>
         ///   Gets the root node of this tree.
         /// </summary>
-        /// 
+        ///
         public TNode Root { get; protected set; }
 
         /// <summary>
         ///   Returns an enumerator that iterates through the tree.
         /// </summary>
-        /// 
+        ///
         /// <returns>
-        ///   An <see cref="T:System.Collections.IEnumerator"/> object 
+        ///   An <see cref="T:System.Collections.IEnumerator"/> object
         ///   that can be used to iterate through the collection.
         /// </returns>
-        /// 
+        ///
         public virtual IEnumerator<TNode> GetEnumerator()
         {
             if (Root == null)
@@ -76,33 +75,30 @@ namespace Accord.Collections
         ///   Traverse the tree using a <see cref="TreeTraversal">tree traversal
         ///   method</see>. Can be iterated with a foreach loop.
         /// </summary>
-        /// 
+        ///
         /// <param name="method">The tree traversal method. Common methods are
         /// available in the <see cref="TreeTraversal"/>static class.</param>
-        /// 
+        ///
         /// <returns>An <see cref="IEnumerable{T}"/> object which can be used to
         /// traverse the tree using the chosen traversal method.</returns>
-        /// 
+        ///
         public IEnumerable<TNode> Traverse(BinaryTraversalMethod<TNode> method)
         {
             return new BinaryTreeTraversal(this, method);
         }
 
-
         /// <summary>
         ///   Returns an enumerator that iterates through the tree.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
         /// </returns>
-        /// 
+        ///
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
-
-
 
         private class BinaryTreeTraversal : IEnumerable<TNode>
         {

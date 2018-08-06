@@ -28,24 +28,23 @@ namespace Accord.Math.Geometry
     /// <summary>
     ///   Convex Hull Defects Extractor.
     /// </summary>
-    /// 
+    ///
     public class ConvexHullDefects
     {
-
         /// <summary>
         /// Gets or sets the minimum depth which characterizes a convexity defect.
         /// </summary>
-        /// 
+        ///
         /// <value>The minimum depth.</value>
-        /// 
+        ///
         public double MinimumDepth { get; set; }
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="ConvexHullDefects"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="minDepth">The minimum depth which characterizes a convexity defect.</param>
-        /// 
+        ///
         public ConvexHullDefects(double minDepth)
         {
             this.MinimumDepth = minDepth;
@@ -54,12 +53,12 @@ namespace Accord.Math.Geometry
         /// <summary>
         ///   Finds the convexity defects in a contour given a convex hull.
         /// </summary>
-        /// 
+        ///
         /// <param name="contour">The contour.</param>
         /// <param name="convexHull">The convex hull of the contour.</param>
         /// <returns>A list of <see cref="ConvexityDefect"/>s containing each of the
         /// defects found considering the convex hull of the contour.</returns>
-        /// 
+        ///
         public List<ConvexityDefect> FindDefects(List<IntPoint> contour, List<IntPoint> convexHull)
         {
             if (contour.Count < 4)
@@ -67,7 +66,6 @@ namespace Accord.Math.Geometry
 
             if (convexHull.Count < 3)
                 throw new ArgumentException("Convex hull must have at least 3 points.");
-
 
             // Find all convex hull points in the contour
             int[] indexes = new int[convexHull.Count];
@@ -78,7 +76,6 @@ namespace Accord.Math.Geometry
                     indexes[j++] = i;
                 }
             }
-
 
             List<ConvexityDefect> defects = new List<ConvexityDefect>();
 
@@ -155,9 +152,5 @@ namespace Accord.Math.Geometry
 
             return new ConvexityDefect(maxIndex, startIndex, endIndex, maxDepth);
         }
-
     }
-
-
-
 }

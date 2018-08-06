@@ -36,173 +36,172 @@
 //    distribute, sublicense, and/or sell copies of the Software, and to
 //    permit persons to whom the Software is furnished to do so, subject to
 //    the following conditions:
-// 
+//
 //    The above copyright notice and this permission notice shall be
 //    included in all copies or substantial portions of the Software.
-// 
+//
 //    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 //    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 //    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
 //    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 //    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 //    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 namespace Accord.Math.Optimization
 {
-    using Accord.Collections;
-    using Accord.Math.Convergence;
     using System;
     using System.Collections.Generic;
+    using Accord.Collections;
+    using Accord.Math.Convergence;
 
     /// <summary>
     ///   <see cref="NelderMead"/> exit codes.
     /// </summary>
-    /// 
+    ///
     public enum NelderMeadStatus
     {
         /// <summary>
         ///   Optimization was canceled by the user.
         /// </summary>
-        /// 
+        ///
         ForcedStop,
 
         /// <summary>
         ///   Optimization ended successfully.
         /// </summary>
-        /// 
+        ///
         Success,
 
         /// <summary>
         ///   The execution time exceeded the established limit.
         /// </summary>
-        /// 
+        ///
         MaximumTimeReached,
 
         /// <summary>
         ///   The minimum desired value has been reached.
         /// </summary>
-        /// 
+        ///
         MinimumAllowedValueReached,
 
         /// <summary>
-        ///   The algorithm had stopped prematurely because 
+        ///   The algorithm had stopped prematurely because
         ///   the maximum number of evaluations was reached.
         /// </summary>
-        /// 
+        ///
         MaximumEvaluationsReached,
 
         /// <summary>
         ///   The algorithm failed internally.
         /// </summary>
-        /// 
+        ///
         Failure,
 
         /// <summary>
         ///   The desired output tolerance (minimum change in the function
         ///   output between two consecutive iterations) has been reached.
         /// </summary>
-        /// 
+        ///
         FunctionToleranceReached,
 
         /// <summary>
-        ///   The desired parameter tolerance (minimum change in the 
+        ///   The desired parameter tolerance (minimum change in the
         ///   solution vector between two iterations) has been reached.
         /// </summary>
-        /// 
+        ///
         SolutionToleranceReached,
     }
 
     /// <summary>
-    ///   Nelder-Mead simplex algorithm with support for bound 
+    ///   Nelder-Mead simplex algorithm with support for bound
     ///   constraints for non-linear, gradient-free optimization.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
-    ///   The Nelder–Mead method or downhill simplex method or amoeba method is a 
-    ///   commonly used nonlinear optimization technique, which is a well-defined 
-    ///   numerical method for problems for which derivatives may not be known. 
+    ///   The Nelder–Mead method or downhill simplex method or amoeba method is a
+    ///   commonly used nonlinear optimization technique, which is a well-defined
+    ///   numerical method for problems for which derivatives may not be known.
     ///   However, the Nelder–Mead technique is a heuristic search method that can
-    ///   converge to non-stationary points on problems that can be solved by 
+    ///   converge to non-stationary points on problems that can be solved by
     ///   alternative methods.</para>
-    ///   
+    ///
     /// <para>
     ///   The Nelder–Mead technique was proposed by John Nelder and Roger Mead (1965)
     ///   and is a technique for minimizing an objective function in a many-dimensional
     ///   space.</para>
-    ///   
+    ///
     /// <para>
     ///   The source code presented in this file has been adapted from the
     ///   Sbplx method (based on Nelder-Mead's Simplex) given in the NLopt
     ///   Numerical Optimization Library, created by Steven G. Johnson.</para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description><a href="http://ab-initio.mit.edu/nlopt">
-    ///       Steven G. Johnson, The NLopt nonlinear-optimization package, 
+    ///       Steven G. Johnson, The NLopt nonlinear-optimization package,
     ///       http://ab-initio.mit.edu/nlopt </a></description></item>
     ///     <item><description><a href="http://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method">
     ///       Wikipedia, The Free Encyclopedia. Nelder Mead method. Available on:
     ///       http://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method </a></description></item>
     ///    </list></para>
     /// </remarks>
-    /// 
+    ///
     public class NelderMead : BaseOptimizationMethod, IOptimizationMethod<NelderMeadStatus>
     {
         private int nmax;
 
-        GeneralConvergence stop;
+        private GeneralConvergence stop;
 
         // heuristic "strategy" constants:
-        const double alpha = 1;
-        const double beta = 0.5;
-        const double gamm = 2;
-        const double delta = 0.5;
+        private const double alpha = 1;
+
+        private const double beta = 0.5;
+        private const double gamm = 2;
+        private const double delta = 0.5;
 
         // bounds
         private double[] lb;
+
         private double[] ub;
 
         private double[] xstep; // initial step sizes
-
 
         private double[][] pts; // simplex points
         private double[] val;   // vertex values
 
         private double[] c; // centroid * n
-        private double[] xcur;  // current point 
+        private double[] xcur;  // current point
 
-        NelderMeadStatus status;
+        private NelderMeadStatus status;
 
         private double minf_max;
 
         private double psi;
         private double fdiff;
 
-
         /// <summary>
         ///   Creates a new <see cref="NelderMead"/> non-linear optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
-        /// 
+        ///
         public NelderMead(int numberOfVariables)
             : base(numberOfVariables)
         {
             init(numberOfVariables);
         }
 
-
         /// <summary>
         ///   Creates a new <see cref="NelderMead"/> non-linear optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
         /// <param name="function">The objective function whose optimum values should be found.</param>
-        /// 
+        ///
         public NelderMead(int numberOfVariables, Func<double[], double> function)
             : base(numberOfVariables, function)
         {
@@ -212,9 +211,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new <see cref="NelderMead"/> non-linear optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The objective function whose optimum values should be found.</param>
-        /// 
+        ///
         public NelderMead(NonlinearObjectiveFunction function)
             : base(function)
         {
@@ -249,23 +248,23 @@ namespace Accord.Math.Optimization
         }
 
         /// <summary>
-        ///   Gets the maximum <see cref="NumberOfVariables">number of 
+        ///   Gets the maximum <see cref="NumberOfVariables">number of
         ///   variables</see> that can be optimized by this instance.
         ///   This is the initial value that has been passed to this
         ///   class constructor at the time the algorithm was created.
         /// </summary>
-        /// 
+        ///
         public int Capacity
         {
             get { return nmax; }
         }
 
         /// <summary>
-        ///   Gets or sets the maximum value that the objective 
+        ///   Gets or sets the maximum value that the objective
         ///   function could produce before the algorithm could
         ///   be terminated as if the solution was good enough.
         /// </summary>
-        /// 
+        ///
         public double MaximumValue
         {
             get { return minf_max; }
@@ -276,7 +275,7 @@ namespace Accord.Math.Optimization
         ///   Gets the step sizes to be used by the optimization
         ///   algorithm. Default is to initialize each with 1e-5.
         /// </summary>
-        /// 
+        ///
         public double[] StepSize
         {
             get { return xstep; }
@@ -287,9 +286,9 @@ namespace Accord.Math.Optimization
         ///   optimization problem. This number can be decreased after the
         ///   algorithm has been created so it can operate on subspaces.
         /// </summary>
-        /// 
+        ///
         /// <exception cref="System.ArgumentOutOfRangeException"/>
-        /// 
+        ///
         public new int NumberOfVariables
         {
             get { return base.NumberOfVariables; }
@@ -308,10 +307,10 @@ namespace Accord.Math.Optimization
         }
 
         /// <summary>
-        ///   Gets or sets multiple convergence options to 
+        ///   Gets or sets multiple convergence options to
         ///   determine when the optimization can terminate.
         /// </summary>
-        /// 
+        ///
         public GeneralConvergence Convergence
         {
             get { return stop; }
@@ -320,32 +319,32 @@ namespace Accord.Math.Optimization
 
         /// <summary>
         ///   Get the exit code returned in the last call to the
-        ///   <see cref="IOptimizationMethod.Maximize()"/> or 
+        ///   <see cref="IOptimizationMethod.Maximize()"/> or
         ///   <see cref="IOptimizationMethod.Minimize()"/> methods.
         /// </summary>
-        /// 
+        ///
         public NelderMeadStatus Status
         {
             get { return status; }
         }
 
         /// <summary>
-        ///   Gets the lower bounds that should be respected in this 
+        ///   Gets the lower bounds that should be respected in this
         ///   optimization problem. Default is to initialize this vector
         ///   with <see cref="Double.NegativeInfinity"/>.
         /// </summary>
-        /// 
+        ///
         public double[] LowerBounds
         {
             get { return lb; }
         }
 
         /// <summary>
-        ///   Gets the upper bounds that should be respected in this 
+        ///   Gets the upper bounds that should be respected in this
         ///   optimization problem. Default is to initialize this vector
         ///   with <see cref="Double.PositiveInfinity"/>.
         /// </summary>
-        /// 
+        ///
         public double[] UpperBounds
         {
             get { return ub; }
@@ -358,7 +357,7 @@ namespace Accord.Math.Optimization
         ///   standard <see cref="Convergence"/> criteria with this condition.
         ///   Default is zero.
         /// </summary>
-        /// 
+        ///
         public double DiameterTolerance
         {
             get { return psi; }
@@ -366,25 +365,24 @@ namespace Accord.Math.Optimization
         }
 
         /// <summary>
-        ///   The difference between the high and low function 
+        ///   The difference between the high and low function
         ///   values of the last simplex in the previous call
         ///   to the optimization function.
         /// </summary>
-        /// 
+        ///
         public double Difference
         {
             get { return fdiff; }
         }
-
 
         /// <summary>
         ///   Finds the minimum value of a function, using the function output at
         ///   the current value, if already known. This overload can be used when
         ///   embedding Nelder-Mead in other algorithms to avoid initial checks.
         /// </summary>
-        /// 
+        ///
         /// <param name="fmin">The function output at the current values, if already known.</param>
-        ///  
+        ///
         public NelderMeadStatus Minimize(double fmin)
         {
             Value = fmin;
@@ -396,7 +394,7 @@ namespace Accord.Math.Optimization
         ///   Implements the actual optimization algorithm. This
         ///   method should try to minimize the objective function.
         /// </summary>
-        /// 
+        ///
         protected override bool Optimize()
         {
             status = NelderMeadStatus.Success;
@@ -423,8 +421,6 @@ namespace Accord.Math.Optimization
                 status == NelderMeadStatus.SolutionToleranceReached);
         }
 
-
-
         private NelderMeadStatus minimize()
         {
             /*
@@ -436,16 +432,15 @@ namespace Accord.Math.Optimization
              re-evaluate f at the starting x).
 
              if psi > 0, then it *replaces* xtol and ftol in stop with the condition
-             that the simplex diameter |xl - xh| must be reduced by a factor of psi 
+             that the simplex diameter |xl - xh| must be reduced by a factor of psi
              ... this is for when nldrmd is used within the subplex method; for
-             ordinary termination tests, set psi = 0. 
+             ordinary termination tests, set psi = 0.
 
              scratch should contain an array of length >= (n+1)*(n+1) + 2*n,
-             used as scratch workspace. 
+             used as scratch workspace.
 
              On output, *fdiff will contain the difference between the high
              and low function values of the last simplex.                   */
-
 
             double[] x = Solution;
             int n = NumberOfVariables;
@@ -517,7 +512,7 @@ namespace Accord.Math.Optimization
                     return ret;
             }
 
-        restart:
+            restart:
             for (int i = 0; i < n + 1; i++)
             {
                 t.Add(new KeyValuePair<double, double[]>(val[i], pts[i]));
@@ -612,7 +607,7 @@ namespace Accord.Math.Optimization
 
                 if (fr < fl)
                 {
-                    // new best point, expand simplex 
+                    // new best point, expand simplex
                     if (!reflectpt(n, xh, c, gamm, xh, lb, ub))
                         return NelderMeadStatus.SolutionToleranceReached;
 
@@ -688,17 +683,12 @@ namespace Accord.Math.Optimization
             }
         }
 
-
-
-
-
-
         /// <summary>
         ///   Performs the reflection <c>xnew = c + scale * (c - xold)</c>,
         ///   returning 0 if <c>xnew == c</c> or <c>xnew == xold</c> (coincident
         ///   points), and 1 otherwise.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   The reflected point xnew is "pinned" to the lower and upper bounds
         ///   (lb and ub), as suggested by J. A. Richardson and J. L. Kuester,
@@ -709,8 +699,8 @@ namespace Accord.Math.Optimization
         ///   lower-dimensional hyperplane; this danger can be ameliorated by
         ///   restarting (as in subplex), however.
         /// </remarks>
-        /// 
-        static bool reflectpt(int n, double[] xnew, double[] c,
+        ///
+        private static bool reflectpt(int n, double[] xnew, double[] c,
             double scale, double[] xold, double[] lb, double[] ub)
         {
             bool equalc = true, equalold = true;
@@ -732,7 +722,6 @@ namespace Accord.Math.Optimization
 
             return !(equalc || equalold);
         }
-
 
         internal NelderMeadStatus checkeval(double[] xc, double fc)
         {
@@ -759,25 +748,15 @@ namespace Accord.Math.Optimization
             return NelderMeadStatus.Success;
         }
 
-
-
         /// <summary>
-        ///   Determines whether two numbers are numerically 
+        ///   Determines whether two numbers are numerically
         ///   close (within current floating-point precision).
         /// </summary>
-        /// 
-        static bool close(double a, double b)
+        ///
+        private static bool close(double a, double b)
         {
             return Math.Abs(a - b) <= 1e-13 * (Math.Abs(a) + Math.Abs(b));
         }
-
-
-
-
-
-
-
-
 
         internal static bool nlopt_stop_ftol(GeneralConvergence stop, double f, double oldf)
         {
@@ -819,7 +798,6 @@ namespace Accord.Math.Optimization
             var start = stop.StartTime;
             return (maxtime > TimeSpan.Zero && DateTime.Now - start >= maxtime);
         }
-
 
         internal static bool relstop(double old, double n, double reltol, double abstol)
         {

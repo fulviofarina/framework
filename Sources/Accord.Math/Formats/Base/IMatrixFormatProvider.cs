@@ -23,16 +23,15 @@
 namespace Accord.Math
 {
     using System;
-    using System.Globalization;
 
     /// <summary>
     ///   Common interface for Matrix format providers.
     /// </summary>
-    /// 
+    ///
     public interface IMatrixFormatProvider : IFormatProvider
     {
-
         #region Formatting specification
+
         /// <summary>A string denoting the start of the matrix to be used in formatting.</summary>
         string FormatMatrixStart { get; }
 
@@ -56,10 +55,11 @@ namespace Accord.Math
 
         /// <summary>A string containing the column delimiter for a matrix to be used in formatting.</summary>
         string FormatColDelimiter { get; }
-        #endregion
 
+        #endregion Formatting specification
 
         #region Parsing specification
+
         /// <summary>A string denoting the start of the matrix to be used in parsing.</summary>
         string ParseMatrixStart { get; }
 
@@ -83,16 +83,13 @@ namespace Accord.Math
 
         /// <summary>A string containing the column delimiter for a matrix to be used in parsing.</summary>
         string ParseColDelimiter { get; }
-        #endregion
 
+        #endregion Parsing specification
 
         /// <summary>
         ///   Gets the culture specific formatting information
         ///   to be used during parsing or formatting.
         /// </summary>
         IFormatProvider InnerProvider { get; }
-        
     }
-
-
 }

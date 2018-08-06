@@ -23,7 +23,7 @@
 //    License along with this library; if not, write to the Free Software
 //    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
-// Contains code distributed by Project Nayuki, available under a MIT license 
+// Contains code distributed by Project Nayuki, available under a MIT license
 // at http://nayuki.eigenstate.org/page/free-small-fft-in-multiple-languages
 //
 // The original license is listed below:
@@ -49,32 +49,29 @@
 
 namespace Accord.Math.Transforms
 {
-    using AForge.Math;
     using System;
     using System.Numerics;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     ///   Fourier Transform (for arbitrary size matrices).
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     ///   This fourier transform accepts arbitrary-length matrices and is not
     ///   restricted only to matrices that have dimensions which are powers of
     ///   two. It also provides results which are more equivalent with other
     ///   mathematical packages, such as MATLAB and Octave.
     /// </remarks>
-    /// 
+    ///
     public static class FourierTransform2
     {
-
         /// <summary>
         ///   1-D Discrete Fourier Transform.
         /// </summary>
-        /// 
+        ///
         /// <param name="data">The data to transform..</param>
         /// <param name="direction">The transformation direction.</param>
-        /// 
+        ///
         public static void DFT(Complex[] data, FourierTransform.Direction direction)
         {
             int n = data.Length;
@@ -120,10 +117,10 @@ namespace Accord.Math.Transforms
         /// <summary>
         ///   2-D Discrete Fourier Transform.
         /// </summary>
-        /// 
+        ///
         /// <param name="data">The data to transform.</param>
         /// <param name="direction">The transformation direction.</param>
-        /// 
+        ///
         public static void DFT2(Complex[][] data, FourierTransform.Direction direction)
         {
             int n = data.Length;
@@ -165,10 +162,10 @@ namespace Accord.Math.Transforms
         /// <summary>
         ///   1-D Fast Fourier Transform.
         /// </summary>
-        /// 
+        ///
         /// <param name="data">The data to transform..</param>
         /// <param name="direction">The transformation direction.</param>
-        /// 
+        ///
         public static void FFT(Complex[] data, FourierTransform.Direction direction)
         {
             int n = data.Length;
@@ -207,11 +204,11 @@ namespace Accord.Math.Transforms
         /// <summary>
         ///   1-D Fast Fourier Transform.
         /// </summary>
-        /// 
+        ///
         /// <param name="real">The real part of the complex numbers to transform.</param>
         /// <param name="imag">The imaginary part of the complex numbers to transform.</param>
         /// <param name="direction">The transformation direction.</param>
-        /// 
+        ///
         public static void FFT(double[] real, double[] imag, FourierTransform.Direction direction)
         {
             if (direction == FourierTransform.Direction.Forward)
@@ -236,10 +233,10 @@ namespace Accord.Math.Transforms
         /// <summary>
         ///   2-D Fast Fourier Transform.
         /// </summary>
-        /// 
+        ///
         /// <param name="data">The data to transform..</param>
         /// <param name="direction">The Transformation direction.</param>
-        /// 
+        ///
         public static void FFT2(Complex[][] data, FourierTransform.Direction direction)
         {
             int n = data.Length;
@@ -270,14 +267,14 @@ namespace Accord.Math.Transforms
         }
 
         /// <summary>
-        ///   Computes the discrete Fourier transform (DFT) of the given complex vector, 
-        ///   storing the result back into the vector. The vector can have any length. 
+        ///   Computes the discrete Fourier transform (DFT) of the given complex vector,
+        ///   storing the result back into the vector. The vector can have any length.
         ///   This is a wrapper function.
         /// </summary>
-        /// 
+        ///
         /// <param name="real">The real.</param>
         /// <param name="imag">The imag.</param>
-        /// 
+        ///
         private static void FFT(double[] real, double[] imag)
         {
             int n = real.Length;
@@ -298,12 +295,12 @@ namespace Accord.Math.Transforms
         }
 
         /// <summary>
-        ///   Computes the inverse discrete Fourier transform (IDFT) of the given complex 
+        ///   Computes the inverse discrete Fourier transform (IDFT) of the given complex
         ///   vector, storing the result back into the vector. The vector can have any length.
-        ///   This is a wrapper function. This transform does not perform scaling, so the 
+        ///   This is a wrapper function. This transform does not perform scaling, so the
         ///   inverse is not a true inverse.
         /// </summary>
-        /// 
+        ///
         private static void IDFT(Complex[] data)
         {
             int n = data.Length;
@@ -333,27 +330,26 @@ namespace Accord.Math.Transforms
             }
         }
 
-
         /// <summary>
-        ///   Computes the inverse discrete Fourier transform (IDFT) of the given complex 
+        ///   Computes the inverse discrete Fourier transform (IDFT) of the given complex
         ///   vector, storing the result back into the vector. The vector can have any length.
-        ///   This is a wrapper function. This transform does not perform scaling, so the 
+        ///   This is a wrapper function. This transform does not perform scaling, so the
         ///   inverse is not a true inverse.
         /// </summary>
-        /// 
+        ///
         private static void IDFT(double[] real, double[] imag)
         {
             FFT(imag, real);
         }
 
         /// <summary>
-        ///   Computes the discrete Fourier transform (DFT) of the given complex vector, storing 
-        ///   the result back into the vector. The vector's length must be a power of 2. Uses the 
+        ///   Computes the discrete Fourier transform (DFT) of the given complex vector, storing
+        ///   the result back into the vector. The vector's length must be a power of 2. Uses the
         ///   Cooley-Tukey decimation-in-time radix-2 algorithm.
         /// </summary>
-        /// 
+        ///
         /// <exception cref="System.ArgumentException">Length is not a power of 2.</exception>
-        /// 
+        ///
         private static void TransformRadix2(double[] real, double[] imag)
         {
             int n = real.Length;
@@ -421,13 +417,13 @@ namespace Accord.Math.Transforms
         }
 
         /// <summary>
-        ///   Computes the discrete Fourier transform (DFT) of the given complex vector, storing 
-        ///   the result back into the vector. The vector's length must be a power of 2. Uses the 
+        ///   Computes the discrete Fourier transform (DFT) of the given complex vector, storing
+        ///   the result back into the vector. The vector's length must be a power of 2. Uses the
         ///   Cooley-Tukey decimation-in-time radix-2 algorithm.
         /// </summary>
-        /// 
+        ///
         /// <exception cref="System.ArgumentException">Length is not a power of 2.</exception>
-        /// 
+        ///
         private static void TransformRadix2(Complex[] complex)
         {
             int n = complex.Length;
@@ -458,7 +454,6 @@ namespace Accord.Math.Transforms
                     complex[j] = temp;
                 }
             }
-
 
             // Cooley-Tukey decimation-in-time radix-2 FFT
             for (int size = 2; size <= n; size *= 2)
@@ -491,14 +486,13 @@ namespace Accord.Math.Transforms
             }
         }
 
-
         /// <summary>
-        ///   Computes the discrete Fourier transform (DFT) of the given complex vector, storing 
-        ///   the result back into the vector. The vector can have any length. This requires the 
-        ///   convolution function, which in turn requires the radix-2 FFT function. Uses 
+        ///   Computes the discrete Fourier transform (DFT) of the given complex vector, storing
+        ///   the result back into the vector. The vector can have any length. This requires the
+        ///   convolution function, which in turn requires the radix-2 FFT function. Uses
         ///   Bluestein's chirp z-transform algorithm.
         /// </summary>
-        /// 
+        ///
         private static void TransformBluestein(double[] real, double[] imag)
         {
             int n = real.Length;
@@ -601,10 +595,10 @@ namespace Accord.Math.Transforms
         }
 
         /// <summary>
-        ///   Computes the circular convolution of the given real 
+        ///   Computes the circular convolution of the given real
         ///   vectors. All vectors must have the same length.
         /// </summary>
-        /// 
+        ///
         public static void Convolve(double[] x, double[] y, double[] result)
         {
             int n = x.Length;
@@ -612,10 +606,10 @@ namespace Accord.Math.Transforms
         }
 
         /// <summary>
-        ///   Computes the circular convolution of the given complex 
+        ///   Computes the circular convolution of the given complex
         ///   vectors. All vectors must have the same length.
         /// </summary>
-        /// 
+        ///
         public static void Convolve(Complex[] x, Complex[] y, Complex[] result)
         {
             FFT(x, FourierTransform.Direction.Forward);
@@ -644,10 +638,10 @@ namespace Accord.Math.Transforms
         }
 
         /// <summary>
-        ///   Computes the circular convolution of the given complex 
+        ///   Computes the circular convolution of the given complex
         ///   vectors. All vectors must have the same length.
         /// </summary>
-        /// 
+        ///
         public static void Convolve(double[] xreal, double[] ximag, double[] yreal, double[] yimag, double[] outreal, double[] outimag)
         {
             int n = xreal.Length;
@@ -691,6 +685,5 @@ namespace Accord.Math.Transforms
                 ((int)((uint)i >> 8) & 0xff00) | (int)((uint)i >> 24);
             return i;
         }
-
     }
 }

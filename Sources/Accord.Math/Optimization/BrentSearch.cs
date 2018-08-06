@@ -27,70 +27,69 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Brent's root finding and minimization algorithms.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
-    ///   In numerical analysis, Brent's method is a complicated but popular root-finding 
+    ///   In numerical analysis, Brent's method is a complicated but popular root-finding
     ///   algorithm combining the bisection method, the secant method and inverse quadratic
     ///   interpolation. It has the reliability of bisection but it can be as quick as some
-    ///   of the less reliable methods. The idea is to use the secant method or inverse quadratic 
+    ///   of the less reliable methods. The idea is to use the secant method or inverse quadratic
     ///   interpolation if possible, because they converge faster, but to fall back to the more
     ///   robust bisection method if necessary. Brent's method is due to Richard Brent (1973)
     ///   and builds on an earlier algorithm of Theodorus Dekker (1969).</para>
-    ///   
+    ///
     /// <para>
     ///   The algorithms implemented in this class are based on the original C source code
     ///   available in Netlib (http://www.netlib.org/c/brent.shar) by Oleg Keselyov, 1991.</para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description>
-    ///       R.P. Brent (1973). Algorithms for Minimization without Derivatives, Chapter 4. 
+    ///       R.P. Brent (1973). Algorithms for Minimization without Derivatives, Chapter 4.
     ///       Prentice-Hall, Englewood Cliffs, NJ. ISBN 0-13-022335-2. </description></item>
     ///     <item><description><a href="http://en.wikipedia.org/wiki/Brent's_method">
     ///       Wikipedia contributors. "Brent's method." Wikipedia, The Free Encyclopedia.
     ///       Wikipedia, The Free Encyclopedia, 11 May. 2012. Web. 22 Jun. 2012. </a></description></item>
     ///   </list>
-    /// </para>   
-    /// 
+    /// </para>
+    ///
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <para>
     ///   The following example shows how to compute the maximum,
     ///   minimum and a single root of a univariate function.</para>
-    ///   
+    ///
     /// <code>
-    /// // Suppose we were given the function x³ + 2x² - 10x and 
-    /// // we have to find its root, maximum and minimum inside 
+    /// // Suppose we were given the function x³ + 2x² - 10x and
+    /// // we have to find its root, maximum and minimum inside
     /// // the interval [-4,3]. First, we express this function
     /// // as a lambda expression:
     /// Func&lt;double, double> function = x => x * x * x + 2 * x * x - 10 * x;
-    /// 
+    ///
     /// // And now we can create the search algorithm:
     /// BrentSearch search = new BrentSearch(function, -4, 3);
-    /// 
+    ///
     /// // Finally, we can query the information we need
     /// double max = search.Maximize();  // occurs at -2.61
     /// double min = search.Minimize();  // occurs at  1.27
     /// double root = search.FindRoot(); // occurs at  0.50
     /// </code>
     /// </example>
-    /// 
-    /// 
+    ///
+    ///
     public sealed class BrentSearch : IOptimizationMethod
     {
-
         /// <summary>
         ///   Gets the number of variables (free parameters)
         ///   in the optimization problem.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   The number of parameters.
         /// </value>
-        /// 
+        ///
         public int NumberOfVariables
         {
             get { return 1; }
@@ -100,19 +99,19 @@ namespace Accord.Math.Optimization
         ///   Gets or sets the tolerance margin when
         ///   looking for an answer. Default is 1e-6.
         /// </summary>
-        /// 
+        ///
         public double Tolerance { get; set; }
 
         /// <summary>
         ///   Gets or sets the lower bound for the search interval <c>a</c>.
         /// </summary>
-        /// 
+        ///
         public double LowerBound { get; set; }
 
         /// <summary>
         ///   Gets or sets the lower bound for the search interval <c>a</c>.
         /// </summary>
-        /// 
+        ///
         public double UpperBound { get; set; }
 
         /// <summary>
@@ -120,7 +119,7 @@ namespace Accord.Math.Optimization
         ///   to <see cref="Minimize()"/>, <see cref="Maximize()"/>
         ///   or <see cref="FindRoot()"/>.
         /// </summary>
-        /// 
+        ///
         public double Solution { get; private set; }
 
         /// <summary>
@@ -128,7 +127,7 @@ namespace Accord.Math.Optimization
         ///   to <see cref="Minimize()"/>, <see cref="Maximize()"/>
         ///   or <see cref="FindRoot()"/>.
         /// </summary>
-        /// 
+        ///
         double[] IOptimizationMethod.Solution
         {
             get { return new double[] { Value }; }
@@ -140,24 +139,23 @@ namespace Accord.Math.Optimization
         ///   to <see cref="Minimize()"/>, <see cref="Maximize()"/>
         ///   or <see cref="FindRoot()"/>.
         /// </summary>
-        /// 
+        ///
         public double Value { get; private set; }
 
         /// <summary>
         ///   Gets the function to be searched.
         /// </summary>
-        /// 
+        ///
         public Func<double, double> Function { get; private set; }
-
 
         /// <summary>
         ///   Constructs a new Brent search algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The function to be searched.</param>
         /// <param name="a">Start of search region.</param>
         /// <param name="b">End of search region.</param>
-        /// 
+        ///
         public BrentSearch(Func<double, double> function, double a, double b)
         {
             this.Function = function;
@@ -166,13 +164,12 @@ namespace Accord.Math.Optimization
             this.Tolerance = 1e-6;
         }
 
-
         /// <summary>
-        ///   Attempts to find a root in the interval [a;b] 
+        ///   Attempts to find a root in the interval [a;b]
         /// </summary>
-        /// 
+        ///
         /// <returns>The location of the zero value in the given interval.</returns>
-        /// 
+        ///
         public bool FindRoot()
         {
             Solution = FindRoot(Function, LowerBound, UpperBound, Tolerance);
@@ -181,11 +178,11 @@ namespace Accord.Math.Optimization
         }
 
         /// <summary>
-        ///   Attempts to find a value in the interval [a;b] 
+        ///   Attempts to find a value in the interval [a;b]
         /// </summary>
-        /// 
+        ///
         /// <returns>The location of the zero value in the given interval.</returns>
-        /// 
+        ///
         public bool Find(double value)
         {
             Solution = Find(Function, value, LowerBound, UpperBound, Tolerance);
@@ -196,9 +193,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Finds the minimum of the function in the interval [a;b]
         /// </summary>
-        /// 
+        ///
         /// <returns>The location of the minimum of the function in the given interval.</returns>
-        /// 
+        ///
         public bool Minimize()
         {
             Solution = Minimize(Function, LowerBound, UpperBound, Tolerance);
@@ -209,9 +206,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Finds the maximum of the function in the interval [a;b]
         /// </summary>
-        /// 
+        ///
         /// <returns>The location of the maximum of the function in the given interval.</returns>
-        /// 
+        ///
         public bool Maximize()
         {
             Solution = Maximize(Function, LowerBound, UpperBound, Tolerance);
@@ -219,18 +216,17 @@ namespace Accord.Math.Optimization
             return true;
         }
 
-
         /// <summary>
         ///   Finds the minimum of a function in the interval [a;b]
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The function to be minimized.</param>
         /// <param name="lowerBound">Start of search region.</param>
         /// <param name="upperBound">End of search region.</param>
         /// <param name="tol">The tolerance for determining the solution.</param>
-        /// 
+        ///
         /// <returns>The location of the minimum of the function in the given interval.</returns>
-        /// 
+        ///
         public static double Minimize(Func<double, double> function,
             double lowerBound, double upperBound, double tol = 1e-6)
         {
@@ -241,11 +237,11 @@ namespace Accord.Math.Optimization
                 throw new ArgumentOutOfRangeException("upperBound");
 
             double x, v, w; // Abscissas
-            double fx;      // f(x)             
+            double fx;      // f(x)
             double fv;      // f(v)
             double fw;      // f(w)
 
-            // Gold section ratio: (3.9 - sqrt(5)) / 2; 
+            // Gold section ratio: (3.9 - sqrt(5)) / 2;
             double r = 0.831966011250105;
 
             if (upperBound < lowerBound)
@@ -261,16 +257,14 @@ namespace Accord.Math.Optimization
             }
 
             // First step - always gold section
-            v = lowerBound + r * (upperBound - lowerBound); 
+            v = lowerBound + r * (upperBound - lowerBound);
             fv = function(v);
             x = v; fx = fv;
             w = v; fw = fv;
 
-
             // Main loop
             while (true)
             {
-
                 double range = upperBound - lowerBound; // Range over which the minimum
 
                 double middle_range = lowerBound / 2.0 + upperBound / 2.0;
@@ -283,7 +277,6 @@ namespace Accord.Math.Optimization
 
                 // Obtain the gold section step
                 new_step = r * (x < middle_range ? upperBound - x : lowerBound - x);
-
 
                 // Decide if the interpolation can be tried:
                 // Check if x and w are distinct.
@@ -302,9 +295,8 @@ namespace Accord.Math.Optimization
                     // make q positive and assign possible minus to p
                     if (q > 0) { p = -p; } else { q = -q; }
 
-
                     if (Math.Abs(p) < Math.Abs(new_step * q) && // If x+p/q falls in [a,b]
-                        p > q * (lowerBound - x + 2 * tol_act) &&        // not too close to a and 
+                        p > q * (lowerBound - x + 2 * tol_act) &&        // not too close to a and
                         p < q * (upperBound - x - 2 * tol_act))          // b, and isn't too large
                     {
                         // It is accepted. Otherwise if p/q is too large then the
@@ -319,10 +311,9 @@ namespace Accord.Math.Optimization
                     new_step = (new_step > 0) ? tol_act : -tol_act;
                 }
 
-                // Now obtain the next approximation to 
+                // Now obtain the next approximation to
                 // min and reduce the enveloping range
                 {
-
                     double t = x + new_step;     // Tentative point for the min
                     double ft = function(t);     // recompute f(tentative point)
 
@@ -367,14 +358,14 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Finds the maximum of a function in the interval [a;b]
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The function to be maximized.</param>
         /// <param name="lowerBound">Start of search region.</param>
         /// <param name="upperBound">End of search region.</param>
         /// <param name="tol">The tolerance for determining the solution.</param>
-        /// 
+        ///
         /// <returns>The location of the maximum of the function in the given interval.</returns>
-        /// 
+        ///
         public static double Maximize(Func<double, double> function,
             double lowerBound, double upperBound, double tol = 1e-6)
         {
@@ -384,14 +375,14 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Finds the root of a function in the interval [a;b]
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The function to have its root computed.</param>
         /// <param name="lowerBound">Start of search region.</param>
         /// <param name="upperBound">End of search region.</param>
         /// <param name="tol">The tolerance for determining the solution.</param>
-        /// 
+        ///
         /// <returns>The location of the zero value in the given interval.</returns>
-        /// 
+        ///
         public static double FindRoot(Func<double, double> function,
             double lowerBound, double upperBound, double tol = 1e-6)
         {
@@ -401,9 +392,8 @@ namespace Accord.Math.Optimization
             if (Double.IsInfinity(upperBound))
                 throw new ArgumentOutOfRangeException("upperBound");
 
-
             double c;               // Abscissas
-            double fa;              // f(a)  
+            double fa;              // f(a)
             double fb;              // f(b)
             double fc;              // f(c)
 
@@ -421,7 +411,6 @@ namespace Accord.Math.Optimization
 
                 // Interpolation step is calculated in the form p/q, but
                 // division operations are delayed until the last moment.
-
 
                 if (Math.Abs(fc) < Math.Abs(fb))
                 {
@@ -442,7 +431,7 @@ namespace Accord.Math.Optimization
                 if (Math.Abs(prev_step) >= tol_act  // If prev_step was large enough
                     && Math.Abs(fa) > Math.Abs(fb)) // and was in the true direction,
                 {
-                    // Then interpolation may be tried   
+                    // Then interpolation may be tried
 
                     double t1, cb, t2;
                     double p, q;
@@ -479,9 +468,8 @@ namespace Accord.Math.Optimization
 
                     // Otherwise if p/q is too large then the bisection
                     // procedure can reduce [b,c] to a further extent
-                    // 
+                    //
                 }
-
 
                 if (Math.Abs(new_step) < tol_act)
                 {
@@ -499,7 +487,6 @@ namespace Accord.Math.Optimization
                 if (Double.IsNaN(fb) || Double.IsInfinity(fb))
                     throw new ConvergenceException("Function evaluation didn't return a finite number.");
 
-
                 // Adjust c to have a sign opposite to that of b
                 if ((fb > 0 && fc > 0) || (fb < 0 && fc < 0))
                 {
@@ -511,20 +498,19 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Finds a value of a function in the interval [a;b]
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The function to have its root computed.</param>
         /// <param name="lowerBound">Start of search region.</param>
         /// <param name="upperBound">End of search region.</param>
         /// <param name="tol">The tolerance for determining the solution.</param>
         /// <param name="value">The value to be looked for in the function.</param>
-        /// 
+        ///
         /// <returns>The location of the zero value in the given interval.</returns>
-        /// 
+        ///
         public static double Find(Func<double, double> function, double value,
             double lowerBound, double upperBound, double tol = 1e-6)
         {
             return FindRoot((x) => function(x) - value, lowerBound, upperBound, tol);
         }
-
     }
 }

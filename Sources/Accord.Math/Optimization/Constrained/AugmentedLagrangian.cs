@@ -23,17 +23,17 @@
 //    distribute, sublicense, and/or sell copies of the Software, and to
 //    permit persons to whom the Software is furnished to do so, subject to
 //    the following conditions:
-// 
+//
 //    The above copyright notice and this permission notice shall be
 //    included in all copies or substantial portions of the Software.
-// 
+//
 //    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 //    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 //    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
 //    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 //    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 //    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 namespace Accord.Math.Optimization
@@ -44,7 +44,7 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Augmented Lagrangian method for constrained non-linear optimization.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   References:
@@ -55,15 +55,15 @@ namespace Accord.Math.Optimization
     ///       E. G. Birgin and J. M. Martinez, "Improving ultimate convergence of an augmented Lagrangian
     ///       method," Optimization Methods and Software vol. 23, no. 2, p. 177-195 (2008). </a></description></item>
     ///   </list>
-    /// </para>   
+    /// </para>
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <para>
     ///   In this framework, it is possible to state a non-linear programming problem
-    ///   using either symbolic processing or vector-valued functions. The following 
+    ///   using either symbolic processing or vector-valued functions. The following
     ///   example demonstrates the former.</para>
-    ///   
+    ///
     /// <code>
     /// // Suppose we would like to minimize the following function:
     /// //
@@ -75,7 +75,7 @@ namespace Accord.Math.Optimization
     /// //    y >= 0  (y must be positive)
     /// //
     ///
-    /// // In this example we will be using some symbolic processing. 
+    /// // In this example we will be using some symbolic processing.
     /// // The following variables could be initialized to any value.
     ///
     /// double x = 0, y = 0;
@@ -88,7 +88,7 @@ namespace Accord.Math.Optimization
     ///     function: () => 100 * Math.Pow(y - x * x, 2) + Math.Pow(1 - x, 2),
     ///
     ///     // The gradient vector:
-    ///     gradient: () => new[] 
+    ///     gradient: () => new[]
     ///     {
     ///         2 * (200 * Math.Pow(x, 3) - 200 * x * y + x - 1), // df/dx = 2(200x³-200xy+x-1)
     ///         200 * (y - x*x)                                   // df/dy = 200(y-x²)
@@ -126,16 +126,14 @@ namespace Accord.Math.Optimization
     /// double minValue = solver.Minimize(f);
     /// </code>
     /// </example>
-    /// 
+    ///
     public class AugmentedLagrangian : BaseGradientOptimizationMethod, IGradientOptimizationMethod
     {
+        private IGradientOptimizationMethod dualSolver;
 
-        IGradientOptimizationMethod dualSolver;
-
-        NonlinearConstraint[] lesserThanConstraints;
-        NonlinearConstraint[] greaterThanConstraints;
-        NonlinearConstraint[] equalityConstraints;
-
+        private NonlinearConstraint[] lesserThanConstraints;
+        private NonlinearConstraint[] greaterThanConstraints;
+        private NonlinearConstraint[] equalityConstraints;
 
         private double rho;
         private double rhoMax = 1e+1;
@@ -145,9 +143,9 @@ namespace Accord.Math.Optimization
         private double[] mu;     // "lesser than"  inequality multipliers
         private double[] nu;     // "greater than" inequality multipliers
 
-
         // Stopping criteria
         private double ftol_abs = 0;
+
         private double ftol_rel = 1e-10;
         private double xtol_rel = 1e-10;
 
@@ -155,17 +153,16 @@ namespace Accord.Math.Optimization
         private int maxEvaluations;
         private int iterations;
 
-
         /// <summary>
         ///   Gets the number of iterations performed in the
         ///   last call to the <see cref="IOptimizationMethod.Minimize()"/> or
         ///   <see cref="IOptimizationMethod.Maximize"/> methods.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   The number of iterations performed
         ///   in the previous optimization.</value>
-        ///   
+        ///
         public int Iterations
         {
             get { return iterations; }
@@ -176,11 +173,11 @@ namespace Accord.Math.Optimization
         ///   in the last call to the <see cref="IOptimizationMethod.Minimize()"/> or
         ///   <see cref="IOptimizationMethod.Maximize"/> methods.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   The number of evaluations performed
         ///   in the previous optimization.</value>
-        ///   
+        ///
         public int Evaluations
         {
             get { return functionEvaluations; }
@@ -191,7 +188,7 @@ namespace Accord.Math.Optimization
         ///   to be performed during optimization. Default
         ///   is 0 (evaluate until convergence).
         /// </summary>
-        /// 
+        ///
         public int MaxEvaluations
         {
             get { return maxEvaluations; }
@@ -205,17 +202,17 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets the inner dual problem optimization algorithm.
         /// </summary>
-        /// 
+        ///
         public IGradientOptimizationMethod Optimizer { get { return dualSolver; } }
 
         /// <summary>
         ///   Creates a new instance of the Augmented Lagrangian algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
         /// <param name="constraints">
         ///   The <see cref="NonlinearConstraint"/>s to which the solution must be subjected.</param>
-        /// 
+        ///
         public AugmentedLagrangian(int numberOfVariables, IEnumerable<NonlinearConstraint> constraints)
             : base(numberOfVariables)
         {
@@ -225,11 +222,11 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new instance of the Augmented Lagrangian algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The objective function to be optimized.</param>
         /// <param name="constraints">
         ///   The <see cref="NonlinearConstraint"/>s to which the solution must be subjected.</param>
-        /// 
+        ///
         public AugmentedLagrangian(NonlinearObjectiveFunction function, IEnumerable<NonlinearConstraint> constraints)
             : base(function.NumberOfVariables)
         {
@@ -239,14 +236,14 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new instance of the Augmented Lagrangian algorithm.
         /// </summary>
-        /// 
-        /// <param name="innerSolver">The <see cref="IGradientOptimizationMethod">unconstrained 
-        ///   optimization method</see> used internally to solve the dual of this optimization 
+        ///
+        /// <param name="innerSolver">The <see cref="IGradientOptimizationMethod">unconstrained
+        ///   optimization method</see> used internally to solve the dual of this optimization
         ///   problem.</param>
         /// <param name="function">The objective function to be optimized.</param>
         /// <param name="constraints">
         ///   The <see cref="NonlinearConstraint"/>s to which the solution must be subjected.</param>
-        /// 
+        ///
         public AugmentedLagrangian(IGradientOptimizationMethod innerSolver,
             NonlinearObjectiveFunction function, IEnumerable<NonlinearConstraint> constraints)
             : base(innerSolver.NumberOfVariables)
@@ -261,19 +258,18 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new instance of the Augmented Lagrangian algorithm.
         /// </summary>
-        /// 
-        /// <param name="innerSolver">The <see cref="IGradientOptimizationMethod">unconstrained 
-        ///   optimization method</see> used internally to solve the dual of this optimization 
+        ///
+        /// <param name="innerSolver">The <see cref="IGradientOptimizationMethod">unconstrained
+        ///   optimization method</see> used internally to solve the dual of this optimization
         ///   problem.</param>
         /// <param name="constraints">
         ///   The <see cref="NonlinearConstraint"/>s to which the solution must be subjected.</param>
-        /// 
+        ///
         public AugmentedLagrangian(IGradientOptimizationMethod innerSolver, IEnumerable<NonlinearConstraint> constraints)
             : base(innerSolver.NumberOfVariables)
         {
             init(null, constraints, innerSolver);
         }
-
 
         private void init(NonlinearObjectiveFunction function,
             IEnumerable<NonlinearConstraint> constraints, IGradientOptimizationMethod innerSolver)
@@ -335,10 +331,8 @@ namespace Accord.Math.Optimization
             dualSolver.Gradient = objectiveGradient;
         }
 
-
-
         // Augmented Lagrangian objective
-        double objectiveFunction(double[] x)
+        private double objectiveFunction(double[] x)
         {
             // Compute
             //
@@ -382,14 +376,13 @@ namespace Accord.Math.Optimization
                 }
             }
 
-
             double phi = Function(x);
 
             return phi + sumOfSquares - weightedSum;
         }
 
-        // Augmented Lagrangian gradient 
-        double[] objectiveGradient(double[] x)
+        // Augmented Lagrangian gradient
+        private double[] objectiveGradient(double[] x)
         {
             // Compute
             //
@@ -462,7 +455,7 @@ namespace Accord.Math.Optimization
         ///   Implements the actual optimization algorithm. This
         ///   method should try to minimize the objective function.
         /// </summary>
-        /// 
+        ///
         protected override bool Optimize()
         {
             double ICM = Double.PositiveInfinity;
@@ -485,7 +478,6 @@ namespace Accord.Math.Optimization
             const double mu_max = 1e20;
             const double nu_max = 1e20;
 
-
             double[] currentSolution = (double[])Solution.Clone();
 
             Array.Clear(lambda, 0, lambda.Length);
@@ -493,8 +485,7 @@ namespace Accord.Math.Optimization
             Array.Clear(nu, 0, nu.Length);
             rho = 1;
 
-
-            // Starting rho suggested by B & M 
+            // Starting rho suggested by B & M
             if (lambda.Length > 0 || mu.Length > 0 || nu.Length > 0)
             {
                 double con2 = 0;
@@ -540,15 +531,12 @@ namespace Accord.Math.Optimization
                 minPenalty = penalty;
                 minFeasible = feasible;
 
-
                 double num = 2.0 * Math.Abs(minValue);
 
                 if (num < 1e-300)
                     rho = rhoMin;
-
                 else if (con2 < 1e-300)
                     rho = rhoMax;
-
                 else
                 {
                     rho = num / con2;
@@ -560,7 +548,6 @@ namespace Accord.Math.Optimization
 
                 Accord.Diagnostics.Debug.Assert(!Double.IsNaN(rho));
             }
-
 
             while (true)
             {
@@ -632,7 +619,6 @@ namespace Accord.Math.Optimization
                     rho *= gam;
                 }
 
-
                 // Check if we should stop
                 if (
                       (feasible &&
@@ -660,7 +646,7 @@ namespace Accord.Math.Optimization
                     minPenalty = penalty;
                     minFeasible = feasible;
 
-                    // Save the current solution 
+                    // Save the current solution
                     for (int i = 0; i < Solution.Length; i++)
                         Solution[i] = currentSolution[i];
 
@@ -677,7 +663,6 @@ namespace Accord.Math.Optimization
                         return true;
                 }
 
-
                 // Go to next iteration
                 iterations++;
 
@@ -686,7 +671,7 @@ namespace Accord.Math.Optimization
             }
         }
 
-        static bool relstop(double vold, double vnew, double reltol, double abstol)
+        private static bool relstop(double vold, double vnew, double reltol, double abstol)
         {
             if (Double.IsInfinity(vold))
                 return false;
@@ -696,8 +681,7 @@ namespace Accord.Math.Optimization
 
             return (Math.Abs(vnew - vold) < abstol
                || Math.Abs(vnew - vold) < reltol * (Math.Abs(vnew) + Math.Abs(vold)) * 0.5
-               || (reltol > 0 && vnew == vold)); // catch vnew == vold == 0 
+               || (reltol > 0 && vnew == vold)); // catch vnew == vold == 0
         }
-
     }
 }

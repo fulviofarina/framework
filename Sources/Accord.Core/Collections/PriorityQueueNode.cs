@@ -24,20 +24,20 @@
 // shared under a free MIT license, as shown below:
 //
 //    The MIT License (MIT)
-//      
+//
 //    Copyright (c) 2013 Daniel "BlueRaja" Pflughoeft
 //    https://github.com/BlueRaja/High-Speed-Priority-Queue-for-C-Sharp
-//      
+//
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
 //    in the Software without restriction, including without limitation the rights
 //    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 //    copies of the Software, and to permit persons to whom the Software is
 //    furnished to do so, subject to the following conditions:
-//    
+//
 //    The above copyright notice and this permission notice shall be included in
 //    all copies or substantial portions of the Software.
-//    
+//
 //    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -45,7 +45,7 @@
 //    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //    THE SOFTWARE.
-// 
+//
 // The modifications contained in this class, are, however, available only under the
 // LGPL license as stated in the beginning of this file.
 //
@@ -57,33 +57,32 @@ namespace Accord.Collections
     /// <summary>
     ///   Represents the node of a priority queue.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="T">The type for the values stored in the queue.</typeparam>
-    /// 
+    ///
     [Serializable]
     public struct PriorityQueueNode<T> : IComparable<PriorityQueueNode<T>>, IEquatable<PriorityQueueNode<T>>
     {
         [Serializable]
-        class Reference
+        private class Reference
         {
             public int Value;
         }
 
-        double priority;
-        T value;
-        long insertionIndex;
-        Reference queueIndex;
-
+        private double priority;
+        private T value;
+        private long insertionIndex;
+        private Reference queueIndex;
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="PriorityQueueNode{T}"/> struct.
         /// </summary>
-        /// 
+        ///
         /// <param name="value">The value to store in the node.</param>
         /// <param name="priority">A double value representing the priority for the node.</param>
         /// <param name="index">The index of the node in the priority queue.</param>
         /// <param name="insertionIndex">The original index of the node in the priority queue, at time of first insertion.</param>
-        /// 
+        ///
         public PriorityQueueNode(T value, double priority, int index, long insertionIndex)
         {
             this.priority = priority;
@@ -92,12 +91,11 @@ namespace Accord.Collections
             this.queueIndex = new Reference() { Value = index };
         }
 
-
         /// <summary>
-        ///   Gets a double-value representing the 
+        ///   Gets a double-value representing the
         ///   current priority for the node.
         /// </summary>
-        /// 
+        ///
         public double Priority
         {
             get { return priority; }
@@ -107,7 +105,7 @@ namespace Accord.Collections
         /// <summary>
         ///   Gets or sets the current value associated with this node.
         /// </summary>
-        /// 
+        ///
         public T Value
         {
             get { return this.value; }
@@ -117,7 +115,7 @@ namespace Accord.Collections
         /// <summary>
         ///   Gets the original position at which this node was inserted.
         /// </summary>
-        /// 
+        ///
         public long InsertionIndex
         {
             get { return insertionIndex; }
@@ -126,7 +124,7 @@ namespace Accord.Collections
         /// <summary>
         ///   Gets the current position of this node in its containing queue.
         /// </summary>
-        /// 
+        ///
         public int QueueIndex
         {
             get { return queueIndex.Value; }
@@ -136,13 +134,13 @@ namespace Accord.Collections
         /// <summary>
         ///   Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>
-        /// 
+        ///
         /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
-        /// 
+        ///
         /// <returns>
         ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
-        /// 
+        ///
         public override bool Equals(object obj)
         {
             if (obj is PriorityQueueNode<T>)
@@ -153,11 +151,11 @@ namespace Accord.Collections
         /// <summary>
         ///   Returns a hash code for this instance.
         /// </summary>
-        /// 
+        ///
         /// <returns>
-        ///   A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        ///   A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
-        /// 
+        ///
         public override int GetHashCode()
         {
             unchecked
@@ -175,7 +173,7 @@ namespace Accord.Collections
         /// <summary>
         ///   Gets a value indicating whether this node is empty (does not belong to any queue).
         /// </summary>
-        /// 
+        ///
         public bool IsEmpty
         {
             get { return queueIndex == null; }
@@ -211,7 +209,7 @@ namespace Accord.Collections
         /// <summary>
         ///   Implements the equals operator.
         /// </summary>
-        /// 
+        ///
         public static bool operator ==(PriorityQueueNode<T> a, PriorityQueueNode<T> b)
         {
             return a.priority == b.priority && a.InsertionIndex == b.InsertionIndex && a.Value.Equals(b.Value);
@@ -220,7 +218,7 @@ namespace Accord.Collections
         /// <summary>
         ///   Implements the not equals operator.
         /// </summary>
-        /// 
+        ///
         public static bool operator !=(PriorityQueueNode<T> a, PriorityQueueNode<T> b)
         {
             return a.priority != b.priority || a.InsertionIndex != b.InsertionIndex || !a.Value.Equals(b.Value);
@@ -229,7 +227,7 @@ namespace Accord.Collections
         /// <summary>
         ///   Implements the greater than operator.
         /// </summary>
-        /// 
+        ///
         public static bool operator >(PriorityQueueNode<T> a, PriorityQueueNode<T> b)
         {
             if (a.Priority == b.Priority)
@@ -240,7 +238,7 @@ namespace Accord.Collections
         /// <summary>
         ///   Implements the less than operator.
         /// </summary>
-        /// 
+        ///
         public static bool operator <(PriorityQueueNode<T> a, PriorityQueueNode<T> b)
         {
             if (a.Priority == b.Priority)
@@ -251,17 +249,17 @@ namespace Accord.Collections
         /// <summary>
         ///   Gets an instance representing an empty node.
         /// </summary>
-        /// 
+        ///
         public static readonly PriorityQueueNode<T> Empty = new PriorityQueueNode<T>();
 
         /// <summary>
         ///   Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        /// 
+        ///
         public override string ToString()
         {
             if (this == Empty)

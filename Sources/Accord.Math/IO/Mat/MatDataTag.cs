@@ -22,13 +22,12 @@
 
 namespace Accord.IO
 {
-
     using System;
     using System.Runtime.InteropServices;
 
     /*
-          
-     0   |   1   |   2   |   3   |   4   |   5   |   6   |   7    
+
+     0   |   1   |   2   |   3   |   4   |   5   |   6   |   7
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |         data type          |          number of bytes         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -39,17 +38,17 @@ namespace Accord.IO
 
                  MAT-file data element format (v5)
                  8 bytes header / variable payload
-         
-          
-     0   |   1   |   2   |   3   |   4   |   5   |   6   |   7    
+
+     0   |   1   |   2   |   3   |   4   |   5   |   6   |   7
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |   number of bytes  |   data type   |           data           |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                 MAT-file small data element format (v5)
                     8 bytes header + fixed payload
-         
+
  */
+
     [StructLayout(LayoutKind.Explicit, Pack = 1, Size = 8)]
     internal unsafe struct MatDataTag
     {
@@ -69,6 +68,5 @@ namespace Accord.IO
         public fixed byte SmallData_Value[4];
 
         public bool IsSmallFormat { get { return SmallData_NumberOfBytes != 0; } }
-
     }
 }

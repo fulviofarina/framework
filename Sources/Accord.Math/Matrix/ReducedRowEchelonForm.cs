@@ -27,10 +27,9 @@ namespace Accord.Math
     /// <summary>
     ///   Reduced row Echelon form
     /// </summary>
-    /// 
+    ///
     public class ReducedRowEchelonForm
     {
-
         private double[,] rref;
         private int rows;
         private int cols;
@@ -41,13 +40,13 @@ namespace Accord.Math
         /// <summary>
         ///   Reduces a matrix to reduced row Echelon form.
         /// </summary>
-        /// 
+        ///
         /// <param name="value">The matrix to be reduced.</param>
         /// <param name="inPlace">
         ///   Pass <see langword="true"/> to perform the reduction in place. The matrix
         ///   <paramref name="value"/> will be destroyed in the process, resulting in less
         ///   memory consumption.</param>
-        ///   
+        ///
         public ReducedRowEchelonForm(double[,] value, bool inPlace = false)
         {
             if (value == null)
@@ -62,7 +61,6 @@ namespace Accord.Math
             pivot = new int[rows];
             for (int i = 0; i < pivot.Length; i++)
                 pivot[i] = i;
-
 
             for (int r = 0; r < rows; r++)
             {
@@ -129,7 +127,7 @@ namespace Accord.Math
         ///   Gets the pivot indicating the position
         ///   of the original rows before the swap.
         /// </summary>
-        /// 
+        ///
         public int[] Pivot { get { return pivot; } }
 
         /// <summary>
@@ -165,8 +163,5 @@ namespace Accord.Math
 
             return 0;
         }
-
-        
-
     }
 }

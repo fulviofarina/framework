@@ -44,12 +44,11 @@
 namespace Accord.Math
 {
     using System;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     ///   Set of special mathematic functions.
     /// </summary>
-    ///  
+    ///
     /// <remarks>
     ///   References:
     ///   <list type="bullet">
@@ -59,10 +58,9 @@ namespace Accord.Math
     ///       John D. Cook, http://www.johndcook.com/ </description></item>
     ///   </list>
     /// </remarks>
-    /// 
+    ///
     public static class Special
     {
-
         private static readonly double[] erfc_P =
         {
             2.46196981473530512524E-10,
@@ -111,11 +109,11 @@ namespace Accord.Math
         /// <summary>
         ///   Complementary error function of the specified value.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   http://mathworld.wolfram.com/Erfc.html
         /// </remarks>
-        /// 
+        ///
         public static double Erfc(double value)
         {
             double x, y, z, p, q;
@@ -188,7 +186,7 @@ namespace Accord.Math
         /// <summary>
         ///   Error function of the specified value.
         /// </summary>
-        /// 
+        ///
         public static double Erf(double x)
         {
             double y, z;
@@ -205,7 +203,7 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse error function (<see cref="Erf(double)"/>.
         /// </summary>
-        /// 
+        ///
         public static double Ierf(double y)
         {
             double s = Normal.Inverse(0.5 * y + 0.5);
@@ -213,11 +211,10 @@ namespace Accord.Math
             return r;
         }
 
-
         /// <summary>
         ///   Inverse complemented error function (<see cref="Erfc(double)"/>.
         /// </summary>
-        /// 
+        ///
         public static double Ierfc(double y)
         {
             double s = Normal.Inverse(-0.5 * y + 1);
@@ -225,12 +222,12 @@ namespace Accord.Math
             return r;
         }
 
-
         #region Polynomial and spline functions
+
         /// <summary>
         ///   Evaluates polynomial of degree N
         /// </summary>
-        /// 
+        ///
         public static double Polevl(double x, double[] coef, int n)
         {
             double ans;
@@ -246,7 +243,7 @@ namespace Accord.Math
         /// <summary>
         ///   Evaluates polynomial of degree N with assumption that coef[N] = 1.0
         /// </summary>
-        /// 
+        ///
         public static double P1evl(double x, double[] coef, int n)
         {
             double ans;
@@ -270,7 +267,6 @@ namespace Accord.Math
             if (n == Int32.MaxValue)
                 throw new ArgumentOutOfRangeException("n");
 
-
             double a = 1.0 / Special.Factorial(n);
             double c;
 
@@ -284,13 +280,15 @@ namespace Accord.Math
 
             return a;
         }
-        #endregion
+
+        #endregion Polynomial and spline functions
 
         #region Factorial and related functions
+
         /// <summary>
         ///   Computes the binomial coefficients C(n,k).
         /// </summary>
-        /// 
+        ///
         public static double Binomial(int n, int k)
         {
             return Math.Round(Math.Exp(LogFactorial(n) - LogFactorial(k) - LogFactorial(n - k)));
@@ -299,7 +297,7 @@ namespace Accord.Math
         /// <summary>
         ///   Computes the binomial coefficients C(n,k).
         /// </summary>
-        /// 
+        ///
         public static double Binomial(double n, double k)
         {
             return Math.Round(Math.Exp(LogFactorial(n) - LogFactorial(k) - LogFactorial(n - k)));
@@ -308,7 +306,7 @@ namespace Accord.Math
         /// <summary>
         ///   Computes the log binomial Coefficients Log[C(n,k)].
         /// </summary>
-        /// 
+        ///
         public static double LogBinomial(int n, int k)
         {
             return LogFactorial(n) - LogFactorial(k) - LogFactorial(n - k);
@@ -317,7 +315,7 @@ namespace Accord.Math
         /// <summary>
         ///   Computes the log binomial Coefficients Log[C(n,k)].
         /// </summary>
-        /// 
+        ///
         public static double LogBinomial(double n, double k)
         {
             return LogFactorial(n) - LogFactorial(k) - LogFactorial(n - k);
@@ -326,7 +324,7 @@ namespace Accord.Math
         /// <summary>
         ///   Returns the extended factorial definition of a real number.
         /// </summary>
-        /// 
+        ///
         public static double Factorial(double n)
         {
             return Gamma.Function(n + 1.0);
@@ -335,7 +333,7 @@ namespace Accord.Math
         /// <summary>
         ///   Returns the log factorial of a number (ln(n!))
         /// </summary>
-        /// 
+        ///
         public static double LogFactorial(double n)
         {
             return Gamma.Log(n + 1.0);
@@ -344,7 +342,7 @@ namespace Accord.Math
         /// <summary>
         ///   Returns the log factorial of a number (ln(n!))
         /// </summary>
-        /// 
+        ///
         public static double LogFactorial(int n)
         {
             if (lnfcache == null)
@@ -416,20 +414,22 @@ namespace Accord.Math
 
         // factorial function caches
         private static int ftop;
+
         private static double[] fcache;
         private static double[] lnfcache;
-        #endregion
 
+        #endregion Factorial and related functions
 
         #region Utility functions
 
         /// <summary>
         ///   Computes log(1-x) without losing precision for small values of x.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Log1m(double x)
         {
             if (x >= 1.0)
@@ -446,15 +446,16 @@ namespace Accord.Math
         /// <summary>
         ///   Computes log(1+x) without losing precision for small values of x.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   References:
         ///   - http://www.johndcook.com/csharp_log_one_plus_x.html
         /// </remarks>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Log1p(double x)
         {
             if (x <= -1.0)
@@ -475,10 +476,11 @@ namespace Accord.Math
         ///   References:
         ///   - http://www.johndcook.com/cpp_expm1.html
         /// </remarks>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Expm1(double x)
         {
             if (Math.Abs(x) < 1e-5)
@@ -493,14 +495,14 @@ namespace Accord.Math
         /// <remarks>
         ///   This is a port of the epslon function from EISPACK.
         /// </remarks>
-        /// 
+        ///
         public static double Epslon(double x)
         {
             double a, b, c, eps;
 
             a = 1.3333333333333333;
 
-        L10:
+            L10:
             b = a - 1.0;
             c = b + b + b;
             eps = System.Math.Abs(c - 1.0);
@@ -512,19 +514,20 @@ namespace Accord.Math
         }
 
         /// <summary>
-        ///   Returns <paramref name="a"/> with the sign of <paramref name="b"/>. 
+        ///   Returns <paramref name="a"/> with the sign of <paramref name="b"/>.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   This is a port of the sign transfer function from EISPACK,
         ///   and is is equivalent to C++'s std::copysign function.
         /// </remarks>
-        /// 
+        ///
         /// <returns>If B > 0 then the result is ABS(A), else it is -ABS(A).</returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Sign(double a, double b)
         {
             double x = (a >= 0 ? a : -a);
@@ -534,10 +537,11 @@ namespace Accord.Math
         /// <summary>
         ///   Computes x + y without losing precision using ln(x) and ln(y).
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double LogDiff(double lna, double lnc)
         {
             if (lna > lnc)
@@ -549,10 +553,11 @@ namespace Accord.Math
         /// <summary>
         ///   Computes x + y without losing precision using ln(x) and ln(y).
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double LogSum(double lna, double lnc)
         {
             if (lna == Double.NegativeInfinity)
@@ -569,10 +574,11 @@ namespace Accord.Math
         /// <summary>
         ///   Computes x + y without losing precision using ln(x) and ln(y).
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double LogSum(float lna, float lnc)
         {
             if (lna == Single.NegativeInfinity)
@@ -589,10 +595,11 @@ namespace Accord.Math
         /// <summary>
         ///   Computes sum(x) without losing precision using ln(x_0) ... ln(x_n).
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double LogSumExp(this double[] array)
         {
             double sum = Double.NegativeInfinity;
@@ -600,10 +607,11 @@ namespace Accord.Math
                 sum = Special.LogSum(array[i], sum);
             return sum;
         }
-        #endregion
 
+        #endregion Utility functions
 
         #region Derived trigonometric functions
+
         //
         // http://msdn.microsoft.com/en-us/library/w3t84e33.aspx
 
@@ -613,6 +621,7 @@ namespace Accord.Math
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Sec(double x)
         {
             return 1 / Math.Cos(x);
@@ -624,6 +633,7 @@ namespace Accord.Math
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Cosec(double x)
         {
             return 1 / Math.Sin(x);
@@ -635,6 +645,7 @@ namespace Accord.Math
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Cotan(double x)
         {
             return 1 / Math.Tan(x);
@@ -643,10 +654,11 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse secant.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Asec(double x)
         {
             double u = x * x - 1;
@@ -656,7 +668,7 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse cosecant.
         /// </summary>
-        /// 
+        ///
         public static double Acosec(double x)
         {
             double u = x * x - 1;
@@ -666,10 +678,11 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse cotangent.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Acotan(double x)
         {
             return 2 * Math.Atan(1) - Math.Atan(x);
@@ -678,10 +691,11 @@ namespace Accord.Math
         /// <summary>
         ///   Hyperbolic secant.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Sech(double x)
         {
             return 2 / (Math.Exp(x) + Math.Exp(-x));
@@ -690,10 +704,11 @@ namespace Accord.Math
         /// <summary>
         ///   Hyperbolic secant.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Cosech(double x)
         {
             return 2 / (Math.Exp(x) - Math.Exp(-x));
@@ -702,10 +717,11 @@ namespace Accord.Math
         /// <summary>
         ///   Hyperbolic cotangent.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Cotanh(double x)
         {
             return (Math.Exp(x) + Math.Exp(-x)) / (Math.Exp(x) - Math.Exp(-x));
@@ -714,10 +730,11 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse hyperbolic sin.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Asinh(double x)
         {
             double u = x * x + 1;
@@ -727,10 +744,11 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse hyperbolic cos.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Acosh(double x)
         {
             double u = x * x - 1;
@@ -740,10 +758,11 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse hyperbolic tangent.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Atanh(double x)
         {
             return Math.Log((1 + x) / (1 - x)) / 2;
@@ -752,10 +771,11 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse hyperbolic secant.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Asech(double x)
         {
             double u = -x * x + 1;
@@ -765,10 +785,11 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse hyperbolic cosecant.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Acosech(double x)
         {
             double u = x * x + 1;
@@ -778,31 +799,33 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse hyperbolic cotangent.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Acotanh(double x)
         {
             return Math.Log((x + 1) / (x - 1)) / 2;
         }
 
-        #endregion
+        #endregion Derived trigonometric functions
 
         /// <summary>
         ///   Computes the Softmax function (also known as normalized Exponencial
-        ///   function) that "squashes"a vector or arbitrary real values into a 
+        ///   function) that "squashes"a vector or arbitrary real values into a
         ///   vector of real values in the range (0, 1) that add up to 1.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The real values to be converted into the unit interval.</param>
-        /// 
+        ///
         /// <returns>A vector with the same number of dimensions as <paramref name="input"/>
         ///   but where values lie between 0 and 1.</returns>
-        ///   
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double[] Softmax(double[] input)
         {
             return Softmax(input, new double[input.Length]);
@@ -810,19 +833,20 @@ namespace Accord.Math
 
         /// <summary>
         ///   Computes the Softmax function (also known as normalized Exponencial
-        ///   function) that "squashes"a vector or arbitrary real values into a 
+        ///   function) that "squashes"a vector or arbitrary real values into a
         ///   vector of real values in the range (0, 1) that add up to 1.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The real values to be converted into the unit interval.</param>
         /// <param name="result">The location where to store the result of this operation.</param>
-        /// 
+        ///
         /// <returns>A vector with the same number of dimensions as <paramref name="input"/>
         ///   but where values lie between 0 and 1.</returns>
-        ///   
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double[] Softmax(double[] input, double[] result)
         {
             double sum = 0;
@@ -845,10 +869,11 @@ namespace Accord.Math
         /// <summary>
         ///   Computes log(1 + exp(x)) without losing precision.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public static double Log1pexp(double x)
         {
             // Computes Math.Log(1.0 / (1.0 + Math.Exp(-sum)));

@@ -45,7 +45,6 @@
 // Copyright (C) 2013, Alan Genz, under the BSD license.
 // See functions below for more details.
 
-
 namespace Accord.Math
 {
     using System;
@@ -53,7 +52,7 @@ namespace Accord.Math
     /// <summary>
     ///   Normal distribution functions.
     /// </summary>
-    ///  
+    ///
     /// <remarks>
     ///   References:
     ///   <list type="bullet">
@@ -64,37 +63,36 @@ namespace Accord.Math
     ///       Available in: http://www.jstatsoft.org/v11/a05/paper </description></item>
     ///   </list>
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <para>
     ///   The following example shows the normal usages for the Normal functions:
     /// </para>
-    /// 
+    ///
     /// <code>
     ///   // Compute standard precision functions
     ///   double phi  = Normal.Function(0.42);     //  0.66275727315175048
     ///   double phic = Normal.Complemented(0.42); //  0.33724272684824952
     ///   double inv  = Normal.Inverse(0.42);      // -0.20189347914185085
-    ///   
+    ///
     ///   // Compute at the limits
     ///   double phi  = Normal.Function(16.6);     //  1.0
     ///   double phic = Normal.Complemented(16.6); //  3.4845465199504055E-62
     /// </code>
-    /// 
+    ///
     /// </example>
-    /// 
+    ///
     public static class Normal
     {
-
         /// <summary>
         ///   Normal cumulative distribution function.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   The area under the Gaussian p.d.f. integrated
         ///   from minus infinity to the given value.
         /// </returns>
-        /// 
+        ///
         public static double Function(double value)
         {
             return 0.5 + 0.5 * Special.Erf(value / Constants.Sqrt2);
@@ -103,12 +101,12 @@ namespace Accord.Math
         /// <summary>
         ///   Normal cumulative distribution function.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   The area under the Gaussian p.d.f. integrated
         ///   from minus infinity to the given value.
         /// </returns>
-        /// 
+        ///
         public static double Log(double value)
         {
             return 0.5 * Special.Log1p(Special.Erf(value / Constants.Sqrt2));
@@ -117,12 +115,12 @@ namespace Accord.Math
         /// <summary>
         ///   Complemented cumulative distribution function.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   The area under the Gaussian p.d.f. integrated
         ///   from the given value to positive infinity.
         /// </returns>
-        /// 
+        ///
         public static double Complemented(double value)
         {
             return 0.5 * Special.Erfc(value / Constants.Sqrt2);
@@ -202,24 +200,24 @@ namespace Accord.Math
         /// <summary>
         ///    Normal (Gaussian) inverse cumulative distribution function.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         /// <para>
         ///    For small arguments <c>0 &lt; y &lt; exp(-2)</c>, the program computes <c>z =
-        ///    sqrt( -2.0 * log(y) )</c>;  then the approximation is <c>x = z - log(z)/z  - 
+        ///    sqrt( -2.0 * log(y) )</c>;  then the approximation is <c>x = z - log(z)/z  -
         ///    (1/z) P(1/z) / Q(1/z)</c>.</para>
         /// <para>
         ///    There are two rational functions P/Q, one for <c>0 &lt; y &lt; exp(-32)</c> and
         ///    the other for <c>y</c> up to <c>exp(-2)</c>. For larger arguments, <c>w = y - 0.5</c>,
         ///    and  <c>x/sqrt(2pi) = w + w^3 * R(w^2)/S(w^2))</c>.</para>
         /// </remarks>
-        /// 
+        ///
         /// <returns>
         ///    Returns the value, <c>x</c>, for which the area under the Normal (Gaussian)
         ///    probability density function (integrated from minus infinity to <c>x</c>) is
         ///    equal to the argument <c>y</c> (assumes mean is zero, variance is one).
         /// </returns>
-        /// 
+        ///
         public static double Inverse(double y0)
         {
             if (y0 <= 0.0)
@@ -236,13 +234,10 @@ namespace Accord.Math
                 throw new ArgumentOutOfRangeException("y0");
             }
 
-
             double s2pi = Math.Sqrt(2.0 * Math.PI);
             int code = 1;
             double y = y0;
             double x;
-
-
 
             if (y > 0.8646647167633873)
             {
@@ -284,7 +279,7 @@ namespace Accord.Math
         /// <summary>
         ///   High-accuracy Normal cumulative distribution function.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         /// <para>
         ///   The following formula provide probabilities with an absolute error
@@ -292,9 +287,9 @@ namespace Accord.Math
         /// <para>
         ///   References:
         ///    - George Marsaglia, Evaluating the Normal Distribution, 2004.
-        ///      Available in: http://www.jstatsoft.org/v11/a05/paper </para>  
+        ///      Available in: http://www.jstatsoft.org/v11/a05/paper </para>
         /// </remarks>
-        /// 
+        ///
         public static double HighAccuracyFunction(double x)
         {
             double sum = x;
@@ -330,7 +325,7 @@ namespace Accord.Math
         /// <summary>
         ///   High-accuracy Complementary normal distribution function.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         /// <para>
         ///   This function uses 9 tabled values to provide tail values of the
@@ -341,12 +336,12 @@ namespace Accord.Math
         ///    - George Marsaglia, Evaluating the Normal Distribution, 2004.
         ///      Available in: http://www.jstatsoft.org/v11/a05/paper
         /// </remarks>
-        /// 
+        ///
         /// <returns>
         ///   The area under the Gaussian p.d.f. integrated
         ///   from the given value to positive infinity.
         /// </returns>
-        /// 
+        ///
         public static double HighAccuracyComplemented(double x)
         {
             int j = (int)(0.5 * (Math.Abs(x) + 1));
@@ -364,7 +359,6 @@ namespace Accord.Math
 
             double sum = a + h * b;
             double term = a;
-
 
             for (int i = 2; sum != term; i += 2)
             {
@@ -385,13 +379,13 @@ namespace Accord.Math
         /// <summary>
         ///   Bivariate normal cumulative distribution function.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The value of the first variate.</param>
         /// <param name="y">The value of the second variate.</param>
         /// <param name="rho">The correlation coefficient between x and y. This can be computed
         /// from a covariance matrix C as  <code>rho = C_12 / (sqrt(C_11) * sqrt(C_22))</code>.</param>
         /// <returns></returns>
-        /// 
+        ///
         public static double Bivariate(double x, double y, double rho)
         {
             return BVND(-x, -y, rho);
@@ -400,63 +394,62 @@ namespace Accord.Math
         /// <summary>
         ///   Complemented bivariate normal cumulative distribution function.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The value of the first variate.</param>
         /// <param name="y">The value of the second variate.</param>
         /// <param name="rho">The correlation coefficient between x and y. This can be computed
         /// from a covariance matrix C as  <code>rho = C_12 / (sqrt(C_11) * sqrt(C_22))</code>.</param>
         /// <returns></returns>
-        /// 
+        ///
         public static double BivariateComplemented(double x, double y, double rho)
         {
             return BVND(x, y, rho);
         }
 
-
         /// <summary>
-        ///   A function for computing bivariate normal probabilities. 
+        ///   A function for computing bivariate normal probabilities.
         ///   BVND calculates the probability that X > DH and Y > DK.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         /// <para>
-        ///   This method is based on the work done by Alan Genz, Department of 
+        ///   This method is based on the work done by Alan Genz, Department of
         ///   Mathematics, Washington State University. Pullman, WA 99164-3113
         ///   Email: alangenz@wsu.edu. This work was shared under a 3-clause BSD
         ///   license. Please see source file for more details and the actual
         ///   license text.</para>
-        ///   
+        ///
         /// <para>
         ///   This function is based on the method described by Drezner, Z and G.O.
         ///   Wesolowsky, (1989), On the computation of the bivariate normal integral,
         ///   Journal of Statist. Comput. Simul. 35, pp. 101-107, with major modifications
         ///   for double precision, and for |R| close to 1.</para>
         /// </remarks>
-        /// 
+        ///
         private static double BVND(double dh, double dk, double r)
         {
-            // Copyright (C) 2013, Alan Genz,  All rights reserved.               
-            // 
+            // Copyright (C) 2013, Alan Genz,  All rights reserved.
+            //
             //  Redistribution and use in source and binary forms, with or without
             //  modification, are permitted provided the following conditions are met:
             //    1. Redistributions of source code must retain the above copyright
             //       notice, this list of conditions and the following disclaimer.
             //    2. Redistributions in binary form must reproduce the above copyright
-            //       notice, this list of conditions and the following disclaimer in 
-            //       the documentation and/or other materials provided with the 
+            //       notice, this list of conditions and the following disclaimer in
+            //       the documentation and/or other materials provided with the
             //       distribution.
-            //    3. The contributor name(s) may not be used to endorse or promote 
-            //       products derived from this software without specific prior 
+            //    3. The contributor name(s) may not be used to endorse or promote
+            //       products derived from this software without specific prior
             //       written permission.
             //  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-            //  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-            //  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
-            //  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
-            //  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
-            //  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
-            //  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS 
-            //  OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
-            //  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR 
+            //  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+            //  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+            //  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+            //  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+            //  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+            //  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+            //  OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+            //  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
             //  TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF USE
             //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
@@ -509,7 +502,6 @@ namespace Accord.Math
 
                 return bvn + Normal.Function(-h) * Normal.Function(-k);
             }
-
 
             if (r < 0)
             {
@@ -619,44 +611,42 @@ namespace Accord.Math
         };
 
         /// <summary>
-        ///   First derivative of <see cref="Function">Normal cumulative 
+        ///   First derivative of <see cref="Function">Normal cumulative
         ///   distribution function</see>, also known as the Normal density
         ///   function.
         /// </summary>
-        /// 
+        ///
         public static double Derivative(double value)
         {
             return Math.Exp(-Constants.LogSqrt2PI - value * value * 0.5);
         }
 
         /// <summary>
-        ///   Log of the first derivative of <see cref="Function">Normal cumulative 
+        ///   Log of the first derivative of <see cref="Function">Normal cumulative
         ///   distribution function</see>, also known as the Normal density function.
         /// </summary>
-        /// 
+        ///
         public static double LogDerivative(double value)
         {
             return -Constants.LogSqrt2PI - value * value * 0.5;
         }
 
-
-
         /// <summary>
         /// 1-D Gaussian function.
         /// </summary>
-        /// 
+        ///
         /// <param name="sigmaSquared">The variance parameter σ² (sigma squared).</param>
         /// <param name="x">x value.</param>
-        /// 
+        ///
         /// <returns>Returns function's value at point <paramref name="x"/>.</returns>
-        /// 
+        ///
         /// <remarks><para>The function calculates 1-D Gaussian function:</para>
-        /// 
+        ///
         /// <code lang="none">
         /// f(x) = exp( x * x / ( -2 * s * s ) ) / ( s * sqrt( 2 * PI ) )
         /// </code>
         /// </remarks>
-        /// 
+        ///
         public static double Gaussian(double sigmaSquared, double x)
         {
             return Math.Exp(x * x / (-2 * sigmaSquared)) / (Math.Sqrt(2 * Math.PI * sigmaSquared));
@@ -665,20 +655,20 @@ namespace Accord.Math
         /// <summary>
         /// 2-D Gaussian function.
         /// </summary>
-        /// 
+        ///
         /// <param name="sigmaSquared">The variance parameter σ² (sigma squared).</param>
         /// <param name="x">x value.</param>
         /// <param name="y">y value.</param>
-        /// 
+        ///
         /// <returns>Returns function's value at point (<paramref name="x"/>, <paramref name="y"/>).</returns>
-        /// 
+        ///
         /// <remarks><para>The function calculates 2-D Gaussian function:</para>
-        /// 
+        ///
         /// <code lang="none">
         /// f(x, y) = exp( x * x + y * y / ( -2 * s * s ) ) / ( s * s * 2 * PI )
         /// </code>
         /// </remarks>
-        /// 
+        ///
         public static double Gaussian2D(double sigmaSquared, double x, double y)
         {
             return Math.Exp((x * x + y * y) / (-2 * sigmaSquared)) / (2 * Math.PI * sigmaSquared);
@@ -687,19 +677,19 @@ namespace Accord.Math
         /// <summary>
         /// 1-D Gaussian kernel.
         /// </summary>
-        /// 
+        ///
         /// <param name="sigmaSquared">The variance parameter σ² (sigma squared).</param>
         /// <param name="size">Kernel size (should be odd), [3, 101].</param>
-        /// 
+        ///
         /// <returns>Returns 1-D Gaussian kernel of the specified size.</returns>
-        /// 
+        ///
         /// <remarks><para>The function calculates 1-D Gaussian kernel, which is array
         /// of Gaussian function's values in the [-r, r] range of x value, where
         /// r=floor(<paramref name="size"/>/2).
         /// </para></remarks>
-        /// 
+        ///
         /// <exception cref="ArgumentException">Wrong kernel size.</exception>
-        /// 
+        ///
         public static double[] Kernel(double sigmaSquared, int size)
         {
             // check for evem size and for out of range
@@ -718,19 +708,19 @@ namespace Accord.Math
         /// <summary>
         /// 2-D Gaussian kernel.
         /// </summary>
-        /// 
+        ///
         /// <param name="sigmaSquared">The variance parameter σ² (sigma squared).</param>
         /// <param name="size">Kernel size (should be odd), [3, 101].</param>
-        /// 
+        ///
         /// <returns>Returns 2-D Gaussian kernel of specified size.</returns>
-        /// 
+        ///
         /// <remarks><para>The function calculates 2-D Gaussian kernel, which is array
         /// of Gaussian function's values in the [-r, r] range of x,y values, where
         /// r=floor(<paramref name="size"/>/2).
         /// </para></remarks>
-        /// 
+        ///
         /// <exception cref="ArgumentException">Wrong kernel size.</exception>
-        /// 
+        ///
         public static double[,] Kernel2D(double sigmaSquared, int size)
         {
             // check for evem size and for out of range

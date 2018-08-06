@@ -31,17 +31,16 @@ namespace Accord
     ///   Minimum AggregateException implementation for .NET 3.5 to
     ///   make Accord.NET work. This is not a complete implementation.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public class AggregateException : Exception
     {
-
         List<Exception> exceptions;
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="AggregateException"/> class.
         /// </summary>
-        /// 
+        ///
         public AggregateException()
         {
             exceptions = new List<Exception>();
@@ -50,9 +49,9 @@ namespace Accord
         /// <summary>
         ///   Initializes a new instance of the <see cref="AggregateException"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="message">Message providing some additional information.</param>
-        /// 
+        ///
         public AggregateException(string message) :
             base(message)
         {
@@ -62,10 +61,10 @@ namespace Accord
         /// <summary>
         ///   Initializes a new instance of the <see cref="AggregateException"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="message">Message providing some additional information.</param>
         /// <param name="innerException">The exception that is the cause of the current exception.</param>
-        /// 
+        ///
         public AggregateException(string message, Exception innerException) :
             base(message, innerException)
         {
@@ -75,22 +74,21 @@ namespace Accord
         /// <summary>
         ///   Initializes a new instance of the <see cref="AggregateException"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="message">Message providing some additional information.</param>
         /// <param name="innerExceptions">The exceptions that are the cause of the current exception.</param>
-        /// 
+        ///
         public AggregateException(string message, IEnumerable<Exception> innerExceptions) :
             base(message, innerExceptions.GetEnumerator().Current)
         {
             exceptions = new List<Exception>(innerExceptions);
         }
 
-
         /// <summary>
         ///   Initializes a new instance of the <see cref="AggregateException"/> class.
         /// </summary>
-        /// 
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> 
+        ///
+        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/>
         ///   that holds the serialized object data about the exception being thrown.</param>
         /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/>
         ///   that contains contextual information about the source or destination.</param>
@@ -100,10 +98,9 @@ namespace Accord
         /// <exception cref="T:System.Runtime.Serialization.SerializationException">
         /// The class name is null or <see cref="P:System.Exception.HResult"/> is zero (0).
         /// </exception>
-        /// 
+        ///
         protected AggregateException(SerializationInfo info, StreamingContext context) :
             base(info, context) { }
-
     }
 }
 #endif

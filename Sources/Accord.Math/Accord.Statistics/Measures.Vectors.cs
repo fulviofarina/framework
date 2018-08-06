@@ -24,27 +24,22 @@ namespace Accord.Statistics
 {
     using System;
     using System.Collections.Generic;
-    using Accord.Math;
-    using Accord.Math.Decompositions;
-    using AForge;
 
     /// <summary>
     ///   Set of statistics measures, such as <see cref="Mean(double[])"/>,
     ///   <see cref="Variance(double[])"/> and <see cref="StandardDeviation(double[], bool)"/>.
     /// </summary>
-    /// 
+    ///
     public static partial class Measures
     {
-
-
         /// <summary>
         ///   Computes the mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
-        /// 
+        ///
         /// <returns>The mean of the given data.</returns>
-        /// 
+        ///
         public static double Mean(this double[] values)
         {
             double sum = 0.0;
@@ -58,11 +53,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An integer array containing the vector members.</param>
-        /// 
+        ///
         /// <returns>The mean of the given data.</returns>
-        /// 
+        ///
         public static double Mean(this int[] values)
         {
             double sum = 0.0;
@@ -73,15 +68,14 @@ namespace Accord.Statistics
             return sum / values.Length;
         }
 
-
         /// <summary>
         ///   Computes the Geometric mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
-        /// 
+        ///
         /// <returns>The geometric mean of the given data.</returns>
-        /// 
+        ///
         public static double GeometricMean(this double[] values)
         {
             double sum = 1.0;
@@ -95,11 +89,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the log geometric mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
-        /// 
+        ///
         /// <returns>The log geometric mean of the given data.</returns>
-        /// 
+        ///
         public static double LogGeometricMean(this double[] values)
         {
             double lnsum = 0;
@@ -113,11 +107,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the geometric mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
-        /// 
+        ///
         /// <returns>The geometric mean of the given data.</returns>
-        /// 
+        ///
         public static double GeometricMean(this int[] values)
         {
             double sum = 1.0;
@@ -131,11 +125,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the log geometric mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
-        /// 
+        ///
         /// <returns>The log geometric mean of the given data.</returns>
-        /// 
+        ///
         public static double LogGeometricMean(this int[] values)
         {
             double lnsum = 0;
@@ -149,12 +143,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the (weighted) grand mean of a set of samples.
         /// </summary>
-        /// 
+        ///
         /// <param name="means">A double array containing the sample means.</param>
         /// <param name="samples">A integer array containing the sample's sizes.</param>
-        /// 
+        ///
         /// <returns>The grand mean of the samples.</returns>
-        /// 
+        ///
         public static double GrandMean(double[] means, int[] samples)
         {
             double sum = 0;
@@ -172,11 +166,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A unsigned short array containing the vector members.</param>
-        /// 
+        ///
         /// <returns>The mean of the given data.</returns>
-        /// 
+        ///
         public static double Mean(this ushort[] values)
         {
             double sum = 0.0;
@@ -190,11 +184,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A float array containing the vector members.</param>
-        /// 
+        ///
         /// <returns>The mean of the given data.</returns>
-        /// 
+        ///
         public static float Mean(this float[] values)
         {
             float sum = 0;
@@ -208,14 +202,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the truncated (trimmed) mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="inPlace">Whether to perform operations in place, overwriting the original vector.</param>
         /// <param name="alreadySorted">A boolean parameter informing if the given values have already been sorted.</param>
         /// <param name="percent">The percentage of observations to drop from the sample.</param>
-        /// 
+        ///
         /// <returns>The mean of the given data.</returns>
-        /// 
+        ///
         public static double TruncatedMean(this double[] values, double percent, bool inPlace = false, bool alreadySorted = false)
         {
             if (!alreadySorted)
@@ -236,12 +230,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the contraharmonic mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A unsigned short array containing the vector members.</param>
         /// <param name="order">The order of the harmonic mean. Default is 1.</param>
-        /// 
+        ///
         /// <returns>The contraharmonic mean of the given data.</returns>
-        /// 
+        ///
         public static double ContraHarmonicMean(double[] values, int order)
         {
             double r1 = 0, r2 = 0;
@@ -257,11 +251,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the contraharmonic mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A unsigned short array containing the vector members.</param>
-        /// 
+        ///
         /// <returns>The contraharmonic mean of the given data.</returns>
-        /// 
+        ///
         public static double ContraHarmonicMean(double[] values)
         {
             double r1 = 0, r2 = 0;
@@ -277,7 +271,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Standard Deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="unbiased">
         ///   Pass true to compute the standard deviation using the sample variance.
@@ -285,8 +279,8 @@ namespace Accord.Statistics
         ///   for more details.</param>
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the standard deviation σ using the sample variance, which is an unbiased 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the standard deviation σ using the sample variance, which is an unbiased
         ///     estimator of the true population variance. Setting this parameter to true will
         ///     thus compute σ using the following formula:</para>
         ///     <code>
@@ -304,9 +298,9 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        ///   
+        ///
         /// <returns>The standard deviation of the given data.</returns>
-        /// 
+        ///
         public static double StandardDeviation(this double[] values, bool unbiased = true)
         {
             return StandardDeviation(values, Mean(values), unbiased);
@@ -315,11 +309,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Standard Deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
-        /// 
+        ///
         /// <returns>The standard deviation of the given data.</returns>
-        /// 
+        ///
         public static double StandardDeviation(this float[] values)
         {
             return StandardDeviation(values, Mean(values));
@@ -328,7 +322,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Standard Deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="mean">The mean of the vector, if already known.</param>
         /// <param name="unbiased">
@@ -337,8 +331,8 @@ namespace Accord.Statistics
         ///   for more details.</param>
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the standard deviation σ using the sample variance, which is an unbiased 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the standard deviation σ using the sample variance, which is an unbiased
         ///     estimator of the true population variance. Setting this parameter to true will
         ///     thus compute σ using the following formula:</para>
         ///     <code>
@@ -356,9 +350,9 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        ///   
+        ///
         /// <returns>The standard deviation of the given data.</returns>
-        /// 
+        ///
         public static double StandardDeviation(this double[] values, double mean, bool unbiased = true)
         {
             return System.Math.Sqrt(Variance(values, mean, unbiased));
@@ -432,11 +426,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Median of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An integer array containing the vector members.</param>
         /// <param name="alreadySorted">A boolean parameter informing if the given values have already been sorted.</param>
         /// <returns>The median of the given data.</returns>
-        /// 
+        ///
         public static double Median(this double[] values, bool alreadySorted)
         {
             return Median(values, 0, values.Length, alreadySorted);
@@ -445,11 +439,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Median of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An integer array containing the vector members.</param>
         /// <param name="alreadySorted">A boolean parameter informing if the given values have already been sorted.</param>
         /// <returns>The median of the given data.</returns>
-        /// 
+        ///
         public static double Median(this int[] values, bool alreadySorted)
         {
             return Median(values, 0, values.Length, alreadySorted);
@@ -458,14 +452,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Median of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An integer array containing the vector members.</param>
         /// <param name="alreadySorted">A boolean parameter informing if the given values have already been sorted.</param>
         /// <param name="length">The length of the subarray, starting at <paramref name="startIndex"/>.</param>
         /// <param name="startIndex">The starting index of the array.</param>
-        /// 
+        ///
         /// <returns>The median of the given data.</returns>
-        /// 
+        ///
         public static double Median(this double[] values, int startIndex, int length, bool alreadySorted)
         {
             if (values.Length == 1)
@@ -480,21 +474,21 @@ namespace Accord.Statistics
             int half = startIndex + length / 2;
 
             if (length % 2 == 0)
-                return (values[half - 1] + values[half]) * 0.5; // N is even 
+                return (values[half - 1] + values[half]) * 0.5; // N is even
             else return values[half];                           // N is odd
         }
 
         /// <summary>
         ///   Computes the Median of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An integer array containing the vector members.</param>
         /// <param name="alreadySorted">A boolean parameter informing if the given values have already been sorted.</param>
         /// <param name="length">The length of the subarray, starting at <paramref name="startIndex"/>.</param>
         /// <param name="startIndex">The starting index of the array.</param>
-        /// 
+        ///
         /// <returns>The median of the given data.</returns>
-        /// 
+        ///
         public static double Median(this int[] values, int startIndex, int length, bool alreadySorted)
         {
             // TODO: Re-implement using nth_element
@@ -510,19 +504,19 @@ namespace Accord.Statistics
             int half = startIndex + length / 2;
 
             if (length % 2 == 0)
-                return (values[half - 1] + values[half]) * 0.5; // N is even 
+                return (values[half - 1] + values[half]) * 0.5; // N is even
             else return values[half];                           // N is odd
         }
 
         /// <summary>
         ///   Computes the Quartiles of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An integer array containing the vector members.</param>
         /// <param name="alreadySorted">A boolean parameter informing if the given values have already been sorted.</param>
         /// <param name="range">The inter-quartile range for the values.</param>
         /// <returns>The second quartile, the median of the given data.</returns>
-        /// 
+        ///
         public static double Quartiles(this double[] values, out DoubleRange range, bool alreadySorted)
         {
             double q1, q3;
@@ -534,13 +528,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Quartiles of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An integer array containing the vector members.</param>
         /// <param name="q1">The first quartile.</param>
         /// <param name="q3">The third quartile.</param>
         /// <param name="alreadySorted">A boolean parameter informing if the given values have already been sorted.</param>
         /// <returns>The second quartile, the median of the given data.</returns>
-        /// 
+        ///
         public static double Quartiles(this double[] values, out double q1, out double q3, bool alreadySorted)
         {
             // TODO: Re-implement using nth_element
@@ -568,14 +562,13 @@ namespace Accord.Statistics
             int N = values.Length;
             int half = N / 2;
 
-
             if (N % 2 == 0)
             {
-                // N is even 
+                // N is even
                 median = (values[half - 1] + values[half]) * 0.5;
 
                 // Separate data in half. Do not include data[half]
-                // and data[half - 1] in the halves. 
+                // and data[half - 1] in the halves.
 
                 int lowerStart = 0;
                 int lowerLength = half - 1;
@@ -591,7 +584,7 @@ namespace Accord.Statistics
                 median = values[N / 2];
 
                 // Separate data in half. Do not include data[half]
-                // in the halves. 
+                // in the halves.
 
                 int lowerStart = 0;
                 int lowerLength = half;
@@ -608,10 +601,10 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double precision number array containing the vector members.</param>
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double Variance(this double[] values)
         {
             return Variance(values, Mean(values));
@@ -620,16 +613,16 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double precision number array containing the vector members.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute 
+        ///   Pass true to compute the sample variance; or pass false to compute
         ///   the population variance. See remarks for more details.</param>
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the variance σ² using the sample variance, which is an unbiased 
-        ///     estimator of the true population variance. Setting this parameter to true 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the variance σ² using the sample variance, which is an unbiased
+        ///     estimator of the true population variance. Setting this parameter to true
         ///     will thus compute σ² using the following formula:</para>
         ///     <code>
         ///                           N
@@ -646,9 +639,9 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double Variance(this double[] values, bool unbiased)
         {
             return Variance(values, Mean(values), unbiased);
@@ -657,11 +650,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An integer number array containing the vector members.</param>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double Variance(this int[] values)
         {
             return Variance(values, Mean(values));
@@ -670,17 +663,17 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An integer number array containing the vector members.</param>
-        /// 
+        ///
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute 
+        ///   Pass true to compute the sample variance; or pass false to compute
         ///   the population variance. See remarks for more details.</param>
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the variance σ² using the sample variance, which is an unbiased 
-        ///     estimator of the true population variance. Setting this parameter to true 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the variance σ² using the sample variance, which is an unbiased
+        ///     estimator of the true population variance. Setting this parameter to true
         ///     will thus compute σ² using the following formula:</para>
         ///     <code>
         ///                           N
@@ -697,9 +690,9 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double Variance(this int[] values, bool unbiased)
         {
             return Variance(values, Mean(values), unbiased);
@@ -710,7 +703,7 @@ namespace Accord.Statistics
         /// </summary>
         /// <param name="values">A single precision number array containing the vector members.</param>
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double Variance(this float[] values)
         {
             return Variance(values, Mean(values));
@@ -719,12 +712,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="mean">The mean of the array, if already known.</param>
-        ///   
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double Variance(this double[] values, double mean)
         {
             return Variance(values, mean, true);
@@ -733,17 +726,17 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="mean">The mean of the array, if already known.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute 
+        ///   Pass true to compute the sample variance; or pass false to compute
         ///   the population variance. See remarks for more details.</param>
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the variance σ² using the sample variance, which is an unbiased 
-        ///     estimator of the true population variance. Setting this parameter to true 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the variance σ² using the sample variance, which is an unbiased
+        ///     estimator of the true population variance. Setting this parameter to true
         ///     will thus compute σ² using the following formula:</para>
         ///     <code>
         ///                           N
@@ -760,10 +753,10 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        /// 
-        ///   
+        ///
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double Variance(this double[] values, double mean, bool unbiased = true)
         {
             double variance = 0.0;
@@ -789,17 +782,17 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="mean">The mean of the array, if already known.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute 
+        ///   Pass true to compute the sample variance; or pass false to compute
         ///   the population variance. See remarks for more details.</param>
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the variance σ² using the sample variance, which is an unbiased 
-        ///     estimator of the true population variance. Setting this parameter to true 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the variance σ² using the sample variance, which is an unbiased
+        ///     estimator of the true population variance. Setting this parameter to true
         ///     will thus compute σ² using the following formula:</para>
         ///     <code>
         ///                           N
@@ -816,10 +809,10 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        /// 
-        ///   
+        ///
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double Variance(this int[] values, double mean, bool unbiased = true)
         {
             double variance = 0.0;
@@ -845,11 +838,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="mean">The mean of the array, if already known.</param>
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static float Variance(this float[] values, float mean)
         {
             float variance = 0;
@@ -867,12 +860,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the pooled standard deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="samples">The grouped samples.</param>
         /// <param name="unbiased">
         ///   True to compute a pooled standard deviation using unbiased estimates
         ///   of the population variance; false otherwise. Default is true.</param>
-        /// 
+        ///
         public static double PooledStandardDeviation(bool unbiased, params double[][] samples)
         {
             return Math.Sqrt(PooledVariance(unbiased, samples));
@@ -881,9 +874,9 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the pooled standard deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="samples">The grouped samples.</param>
-        /// 
+        ///
         public static double PooledStandardDeviation(params double[][] samples)
         {
             return Math.Sqrt(PooledVariance(true, samples));
@@ -892,13 +885,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the pooled standard deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="sizes">The number of samples used to compute the <paramref name="variances"/>.</param>
         /// <param name="variances">The unbiased variances for the samples.</param>
         /// <param name="unbiased">
         ///   True to compute a pooled standard deviation using unbiased estimates
         ///   of the population variance; false otherwise. Default is true.</param>
-        /// 
+        ///
         public static double PooledStandardDeviation(int[] sizes, double[] variances, bool unbiased = true)
         {
             return Math.Sqrt(PooledVariance(sizes, variances, unbiased));
@@ -907,9 +900,9 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the pooled variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="samples">The grouped samples.</param>
-        /// 
+        ///
         public static double PooledVariance(params double[][] samples)
         {
             return PooledVariance(true, samples);
@@ -918,13 +911,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the pooled variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="unbiased">
         ///   True to obtain an unbiased estimate of the population
         ///   variance; false otherwise. Default is true.</param>
-        /// 
+        ///
         /// <param name="samples">The grouped samples.</param>
-        /// 
+        ///
         public static double PooledVariance(bool unbiased, params double[][] samples)
         {
             if (samples == null)
@@ -956,13 +949,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the pooled variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="sizes">The number of samples used to compute the <paramref name="variances"/>.</param>
         /// <param name="variances">The unbiased variances for the samples.</param>
         /// <param name="unbiased">
         ///   True to obtain an unbiased estimate of the population
         ///   variance; false otherwise. Default is true.</param>
-        /// 
+        ///
         public static double PooledVariance(int[] sizes, double[] variances, bool unbiased = true)
         {
             if (sizes == null)
@@ -999,11 +992,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Mode of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
-        /// 
+        ///
         /// <returns>The most common value in the given data.</returns>
-        /// 
+        ///
         public static T Mode<T>(this T[] values)
         {
             int bestCount;
@@ -1013,12 +1006,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Mode of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="count">Returns how many times the detected mode happens in the values.</param>
-        /// 
+        ///
         /// <returns>The most common value in the given data.</returns>
-        /// 
+        ///
         public static T Mode<T>(this T[] values, out int count)
         {
             return Mode<T>(values, out count, inPlace: false, alreadySorted: false);
@@ -1027,13 +1020,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Mode of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="inPlace">True to perform the operation in place, altering the original input vector.</param>
         /// <param name="alreadySorted">Pass true if the list of values is already sorted.</param>
-        /// 
+        ///
         /// <returns>The most common value in the given data.</returns>
-        /// 
+        ///
         public static T Mode<T>(this T[] values,
             bool inPlace, bool alreadySorted = false)
         {
@@ -1044,14 +1037,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Mode of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="inPlace">True to perform the operation in place, altering the original input vector.</param>
         /// <param name="alreadySorted">Pass true if the list of values is already sorted.</param>
         /// <param name="count">Returns how many times the detected mode happens in the values.</param>
-        /// 
+        ///
         /// <returns>The most common value in the given data.</returns>
-        /// 
+        ///
         public static T Mode<T>(this T[] values, out int count,
             bool inPlace, bool alreadySorted = false)
         {
@@ -1106,7 +1099,6 @@ namespace Accord.Statistics
             var bestValue = currentValue;
             bestCount = currentCount;
 
-
             for (int i = 1; i < values.Length; i++)
             {
                 if (currentValue.Equals(values[i]))
@@ -1132,17 +1124,17 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Covariance between two arrays of values.
         /// </summary>
-        /// 
+        ///
         /// <param name="vector1">A number array containing the first vector elements.</param>
         /// <param name="vector2">A number array containing the second vector elements.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute 
+        ///   Pass true to compute the sample variance; or pass false to compute
         ///   the population variance. See remarks for more details.</param>
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the variance σ² using the sample variance, which is an unbiased 
-        ///     estimator of the true population variance. Setting this parameter to true 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the variance σ² using the sample variance, which is an unbiased
+        ///     estimator of the true population variance. Setting this parameter to true
         ///     will thus compute σ² using the following formula:</para>
         ///     <code>
         ///                           N
@@ -1159,9 +1151,9 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double Covariance(this double[] vector1, double[] vector2, bool unbiased = true)
         {
             return Covariance(vector1, Mean(vector1), vector2, Mean(vector2), unbiased);
@@ -1170,19 +1162,19 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Covariance between two arrays of values.
         /// </summary>
-        /// 
+        ///
         /// <param name="vector1">A number array containing the first vector elements.</param>
         /// <param name="vector2">A number array containing the second vector elements.</param>
         /// <param name="mean1">The mean value of <paramref name="vector1"/>, if known.</param>
         /// <param name="mean2">The mean value of <paramref name="vector2"/>, if known.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute 
+        ///   Pass true to compute the sample variance; or pass false to compute
         ///   the population variance. See remarks for more details.</param>
         /// <remarks>
         ///   <para>
-        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method 
-        ///     compute the variance σ² using the sample variance, which is an unbiased 
-        ///     estimator of the true population variance. Setting this parameter to true 
+        ///     Setting <paramref name="unbiased"/> to <c>true</c> will make this method
+        ///     compute the variance σ² using the sample variance, which is an unbiased
+        ///     estimator of the true population variance. Setting this parameter to true
         ///     will thus compute σ² using the following formula:</para>
         ///     <code>
         ///                           N
@@ -1199,9 +1191,9 @@ namespace Accord.Statistics
         ///                           i=1
         ///     </code>
         /// </remarks>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double Covariance(this double[] vector1, double mean1, double[] vector2, double mean2, bool unbiased = true)
         {
             if (vector1 == null)
@@ -1237,7 +1229,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Skewness for the given values.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   Skewness characterizes the degree of asymmetry of a distribution
         ///   around its mean. Positive skewness indicates a distribution with
@@ -1245,16 +1237,16 @@ namespace Accord.Statistics
         ///   skewness indicates a distribution with an asymmetric tail extending
         ///   towards more negative values.
         /// </remarks>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
-        /// 
+        ///
         /// <param name="unbiased">
         ///   True to compute the unbiased estimate of the population
-        ///   skewness, false otherwise. Default is true (compute the 
+        ///   skewness, false otherwise. Default is true (compute the
         ///   unbiased estimator).</param>
-        ///   
+        ///
         /// <returns>The skewness of the given data.</returns>
-        /// 
+        ///
         public static double Skewness(this double[] values, bool unbiased = true)
         {
             double mean = Mean(values);
@@ -1264,7 +1256,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Skewness for the given values.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   Skewness characterizes the degree of asymmetry of a distribution
         ///   around its mean. Positive skewness indicates a distribution with
@@ -1272,16 +1264,16 @@ namespace Accord.Statistics
         ///   skewness indicates a distribution with an asymmetric tail extending
         ///   towards more negative values.
         /// </remarks>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="mean">The values' mean, if already known.</param>
         /// <param name="unbiased">
         ///   True to compute the unbiased estimate of the population
-        ///   skewness, false otherwise. Default is true (compute the 
+        ///   skewness, false otherwise. Default is true (compute the
         ///   unbiased estimator).</param>
-        /// 
+        ///
         /// <returns>The skewness of the given data.</returns>
-        /// 
+        ///
         public static double Skewness(this double[] values, double mean, bool unbiased = true)
         {
             double n = values.Length;
@@ -1315,7 +1307,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Kurtosis for the given values.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   The framework uses the same definition used by default in SAS and SPSS.
         /// </remarks>
@@ -1323,11 +1315,11 @@ namespace Accord.Statistics
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="unbiased">
         ///   True to compute the unbiased estimate of the population
-        ///   kurtosis, false otherwise. Default is true (compute the 
+        ///   kurtosis, false otherwise. Default is true (compute the
         ///   unbiased estimator).</param>
-        /// 
+        ///
         /// <returns>The kurtosis of the given data.</returns>
-        /// 
+        ///
         public static double Kurtosis(this double[] values, bool unbiased = true)
         {
             double mean = Mean(values);
@@ -1337,7 +1329,7 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Kurtosis for the given values.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   The framework uses the same definition used by default in SAS and SPSS.
         /// </remarks>
@@ -1346,11 +1338,11 @@ namespace Accord.Statistics
         /// <param name="mean">The values' mean, if already known.</param>
         /// <param name="unbiased">
         ///   True to compute the unbiased estimate of the population
-        ///   kurtosis, false otherwise. Default is true (compute the 
+        ///   kurtosis, false otherwise. Default is true (compute the
         ///   unbiased estimator).</param>
-        /// 
+        ///
         /// <returns>The kurtosis of the given data.</returns>
-        /// 
+        ///
         public static double Kurtosis(this double[] values, double mean, bool unbiased = true)
         {
             // http://www.ats.ucla.edu/stat/mult_pkg/faq/general/kurtosis.htm
@@ -1388,15 +1380,15 @@ namespace Accord.Statistics
         }
 
         /// <summary>
-        ///   Computes the entropy function for a set of numerical values in a 
+        ///   Computes the entropy function for a set of numerical values in a
         ///   given Probability Density Function (pdf).
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="pdf">A probability distribution function.</param>
-        /// 
+        ///
         /// <returns>The distribution's entropy for the given values.</returns>
-        /// 
+        ///
         public static double Entropy(this double[] values, Func<double, double> pdf)
         {
             double sum = 0;
@@ -1410,16 +1402,16 @@ namespace Accord.Statistics
         }
 
         /// <summary>
-        ///   Computes the entropy function for a set of numerical values in a 
+        ///   Computes the entropy function for a set of numerical values in a
         ///   given Probability Density Function (pdf).
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="pdf">A probability distribution function.</param>
         /// <param name="weights">The importance for each sample.</param>
-        /// 
+        ///
         /// <returns>The distribution's entropy for the given values.</returns>
-        /// 
+        ///
         public static double WeightedEntropy(this double[] values, double[] weights, Func<double, double> pdf)
         {
             double sum = 0;
@@ -1433,16 +1425,16 @@ namespace Accord.Statistics
         }
 
         /// <summary>
-        ///   Computes the entropy function for a set of numerical values in a 
+        ///   Computes the entropy function for a set of numerical values in a
         ///   given Probability Density Function (pdf).
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="pdf">A probability distribution function.</param>
         /// <param name="weights">The repetition counts for each sample.</param>
-        /// 
+        ///
         /// <returns>The distribution's entropy for the given values.</returns>
-        /// 
+        ///
         public static double WeightedEntropy(this double[] values, int[] weights, Func<double, double> pdf)
         {
             double sum = 0;
@@ -1455,16 +1447,14 @@ namespace Accord.Statistics
             return sum;
         }
 
-
-
         /// <summary>
         ///   Computes the entropy for the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
-        /// 
+        ///
         /// <returns>The calculated entropy for the given values.</returns>
-        /// 
+        ///
         public static double Entropy(this double[] values)
         {
             double sum = 0;
@@ -1476,13 +1466,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the entropy for the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="eps">A small constant to avoid <see cref="Double.NaN"/>s in
         ///   case the there is a zero between the given <paramref name="values"/>.</param>
-        /// 
+        ///
         /// <returns>The calculated entropy for the given values.</returns>
-        /// 
+        ///
         public static double Entropy(this double[] values, double eps = 0)
         {
             double sum = 0;
@@ -1494,13 +1484,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the entropy for the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number matrix containing the matrix values.</param>
         /// <param name="eps">A small constant to avoid <see cref="Double.NaN"/>s in
         ///   case the there is a zero between the given <paramref name="values"/>.</param>
-        /// 
+        ///
         /// <returns>The calculated entropy for the given values.</returns>
-        /// 
+        ///
         public static double Entropy(this double[,] values, double eps = 0)
         {
             double sum = 0;
@@ -1512,11 +1502,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the entropy for the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number matrix containing the matrix values.</param>
-        /// 
+        ///
         /// <returns>The calculated entropy for the given values.</returns>
-        /// 
+        ///
         public static double Entropy(this double[,] values)
         {
             double sum = 0;
@@ -1528,12 +1518,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the entropy for the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An array of integer symbols.</param>
         /// <param name="startValue">The starting symbol.</param>
         /// <param name="endValue">The ending symbol.</param>
         /// <returns>The evaluated entropy.</returns>
-        /// 
+        ///
         public static double Entropy(int[] values, int startValue, int endValue)
         {
             double entropy = 0;
@@ -1563,12 +1553,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the entropy for the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An array of integer symbols.</param>
         /// <param name="startValue">The starting symbol.</param>
         /// <param name="endValue">The ending symbol.</param>
         /// <returns>The evaluated entropy.</returns>
-        /// 
+        ///
         public static double Entropy(IList<int> values, int startValue, int endValue)
         {
             double entropy = 0;
@@ -1599,11 +1589,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the entropy for the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An array of integer symbols.</param>
         /// <param name="valueRange">The range of symbols.</param>
         /// <returns>The evaluated entropy.</returns>
-        /// 
+        ///
         public static double Entropy(int[] values, IntRange valueRange)
         {
             return Entropy(values, valueRange.Min, valueRange.Max);
@@ -1612,11 +1602,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the entropy for the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An array of integer symbols.</param>
         /// <param name="classes">The number of distinct classes.</param>
         /// <returns>The evaluated entropy.</returns>
-        /// 
+        ///
         public static double Entropy(int[] values, int classes)
         {
             return Entropy(values, 0, classes - 1);
@@ -1625,16 +1615,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the entropy for the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">An array of integer symbols.</param>
         /// <param name="classes">The number of distinct classes.</param>
         /// <returns>The evaluated entropy.</returns>
-        /// 
+        ///
         public static double Entropy(IList<int> values, int classes)
         {
             return Entropy(values, 0, classes - 1);
         }
-
     }
 }
-

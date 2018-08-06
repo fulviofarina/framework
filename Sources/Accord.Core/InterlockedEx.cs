@@ -22,30 +22,25 @@
 
 namespace Accord
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///   An extension of <see cref="System.Threading.Interlocked"/> providing
     ///   atomic operations such as Add and Increment to floating point numbers.
     /// </summary>
-    /// 
+    ///
     public class InterlockedEx
     {
         /// <summary>
         ///   Adds two 32-bit floating point values and replaces the first
         ///   double value with their sum, as an atomic operation.
         /// </summary>
-        /// 
+        ///
         /// <param name="location1">The first variable to be added.</param>
         /// <param name="value">The second variable to be added.</param>
-        /// 
+        ///
         /// <returns>The updated value of the first variable.</returns>
-        /// 
+        ///
         public static double Add(ref double location1, double value)
         {
             double newCurrentValue = 0;
@@ -62,11 +57,11 @@ namespace Accord
         /// <summary>
         ///   Increments a specified variable and stores the result, as an atomic operation.
         /// </summary>
-        /// 
+        ///
         /// <param name="location1">The variable to be incremented.</param>
-        /// 
+        ///
         /// <returns>The updated value of the variable.</returns>
-        /// 
+        ///
         public static double Increment(ref double location1)
         {
             double newCurrentValue = 0;

@@ -7,7 +7,7 @@
 //
 // Copyright © Gregoire Pau, 2006
 // gregoire.pau at ebi.ac.uk
-// 
+//
 // Based on the original C implementation by Gregoire Pau,
 //   redistributed with modifications under the LGPL with
 //   authorization of original author.
@@ -29,30 +29,28 @@
 
 namespace Accord.Math.Wavelets
 {
-    using System;
-
     /// <summary>
     ///   Cohen-Daubechies-Feauveau Wavelet Transform
     /// </summary>
-    /// 
+    ///
     public class CDF97 : IWavelet
     {
-
         // Constants as used by Gregoire P.
-        const double alpha = -1.586134342;
-        const double beta = -0.05298011854;
-        const double gamma = 0.8829110762;
-        const double delta = 0.4435068522;
-        const double zeta = 1.149604398;
+        private const double alpha = -1.586134342;
+
+        private const double beta = -0.05298011854;
+        private const double gamma = 0.8829110762;
+        private const double delta = 0.4435068522;
+        private const double zeta = 1.149604398;
 
         private int levels;
 
         /// <summary>
         ///   Constructs a new Cohen-Daubechies-Feauveau Wavelet Transform.
         /// </summary>
-        /// 
+        ///
         /// <param name="levels">The number of iterations for the 2D transform.</param>
-        /// 
+        ///
         public CDF97(int levels)
         {
             this.levels = levels;
@@ -61,7 +59,7 @@ namespace Accord.Math.Wavelets
         /// <summary>
         ///   1-D Forward Discrete Wavelet Transform.
         /// </summary>
-        /// 
+        ///
         public void Forward(double[] data)
         {
             FWT97(data);
@@ -70,7 +68,7 @@ namespace Accord.Math.Wavelets
         /// <summary>
         ///   2-D Forward Discrete Wavelet Transform.
         /// </summary>
-        /// 
+        ///
         public void Forward(double[,] data)
         {
             FWT97(data, levels);
@@ -79,7 +77,7 @@ namespace Accord.Math.Wavelets
         /// <summary>
         ///   1-D Backward (Inverse) Discrete Wavelet Transform.
         /// </summary>
-        /// 
+        ///
         public void Backward(double[] data)
         {
             IWT97(data);
@@ -92,8 +90,6 @@ namespace Accord.Math.Wavelets
         {
             IWT97(data, levels);
         }
-
-
 
         /// <summary>
         ///   Forward biorthogonal 9/7 wavelet transform
@@ -146,7 +142,7 @@ namespace Accord.Math.Wavelets
         /// <summary>
         ///   Inverse biorthogonal 9/7 wavelet transform
         /// </summary>
-        /// 
+        ///
         public static void IWT97(double[] x)
         {
             int n = x.Length;
@@ -189,13 +185,12 @@ namespace Accord.Math.Wavelets
             for (int i = 1; i < n - 2; i += 2)
                 x[i] -= alpha * (x[i - 1] + x[i + 1]);
             x[n - 1] -= 2.0 * alpha * x[n - 2];
-
         }
 
         /// <summary>
         ///   Forward biorthogonal 9/7 2D wavelet transform
         /// </summary>
-        /// 
+        ///
         public static double[,] FWT97(double[,] data, int levels)
         {
             int w = data.GetLength(0);
@@ -215,7 +210,7 @@ namespace Accord.Math.Wavelets
         /// <summary>
         ///   Inverse biorthogonal 9/7 2D wavelet transform
         /// </summary>
-        /// 
+        ///
         public static double[,] IWT97(double[,] data, int levels)
         {
             int w = data.GetLength(0);
@@ -237,8 +232,6 @@ namespace Accord.Math.Wavelets
 
             return data;
         }
-
-
 
         private static double[,] fwt2d(double[,] x, int width, int height)
         {
@@ -302,7 +295,6 @@ namespace Accord.Math.Wavelets
                 for (int j = 0; j < height; j++)
                     x[i, j] = tempbank[i, j];
 
-
             for (int j = 0; j < width; j++)
             {
                 // Undo update 2
@@ -328,6 +320,5 @@ namespace Accord.Math.Wavelets
 
             return x;
         }
-
     }
 }

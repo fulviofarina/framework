@@ -30,9 +30,9 @@ namespace Accord
         /// <summary>
         /// Initializes a new instance of the <see cref="CommunicationBufferEventArgs"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="message">Message being transfered during communication process.</param>
-        /// 
+        ///
         public CommunicationBufferEventArgs(byte[] message)
         {
             this.message = message;
@@ -58,9 +58,9 @@ namespace Accord
         /// <summary>
         /// Get the transfered message.
         /// </summary>
-        /// 
+        ///
         /// <returns>Returns copy of the transfered message.</returns>
-        /// 
+        ///
         public byte[] GetMessage()
         {
             byte[] ret = new byte[length];
@@ -71,7 +71,7 @@ namespace Accord
         /// <summary>
         /// Get the transferred message as string.
         /// </summary>
-        /// 
+        ///
         /// <returns>Returns string encoding the transferred message.</returns>
         ///
         public string GetMessageString()

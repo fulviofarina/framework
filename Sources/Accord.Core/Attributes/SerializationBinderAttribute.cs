@@ -22,37 +22,33 @@
 
 namespace Accord
 {
-    using Accord.IO;
     using System;
-    using System.ComponentModel.DataAnnotations;
     using System.Runtime.Serialization;
 
     /// <summary>
-    ///   Specifies a serialization binder to be used whenever a class is 
-    ///   being deserialized by the framework. This can be used to ensure 
+    ///   Specifies a serialization binder to be used whenever a class is
+    ///   being deserialized by the framework. This can be used to ensure
     ///   binary compatibility when the framework code changes.
     /// </summary>
-    /// 
+    ///
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class SerializationBinderAttribute : Attribute
     {
-
         /// <summary>
         ///   The binder to be used for the class marked with this attribute.
         /// </summary>
-        /// 
+        ///
         public SerializationBinder Binder { get; private set; }
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="SerializationBinderAttribute"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="binderType">The binder to be used to deserialize objects of this type.</param>
-        /// 
+        ///
         public SerializationBinderAttribute(Type binderType)
         {
             Binder = (SerializationBinder)Activator.CreateInstance(binderType);
         }
-
     }
 }

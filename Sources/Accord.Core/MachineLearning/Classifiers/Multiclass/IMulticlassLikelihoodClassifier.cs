@@ -26,10 +26,10 @@ namespace Accord.MachineLearning
     ///   Common interface for generative multi-class classifiers. A multi-class
     ///   classifier can predicts a class label based on an input instance vector.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
     /// <typeparam name="TClasses">The data type for the class labels. Default is int.</typeparam>
-    /// 
+    ///
     public interface IMulticlassLikelihoodClassifier<TInput, TClasses> :
         IMulticlassScoreClassifier<TInput, TClasses>
     {
@@ -37,53 +37,52 @@ namespace Accord.MachineLearning
         ///   Predicts a class label for each input vector, returning the
         ///   probability that each vector belongs to its predicted class.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">A set of input vectors.</param>
         /// <param name="decision">The class labels associated with each input
         ///   vector, as predicted by the classifier. If passed as null, the classifier
         ///   will create a new array.</param>
-        /// 
+        ///
         double[] Probability(TInput[] input, ref TClasses[] decision);
 
         /// <summary>
         ///   Predicts a class label for each input vector, returning the
         ///   probability that each vector belongs to its predicted class.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">A set of input vectors.</param>
         /// <param name="decision">The class labels associated with each input
         ///   vector, as predicted by the classifier. If passed as null, the classifier
         ///   will create a new array.</param>
         /// <param name="result">An array where the probabilities will be stored,
         ///   avoiding unnecessary memory allocations.</param>
-        /// 
+        ///
         double[] Probability(TInput[] input, ref TClasses[] decision, double[] result);
-
 
         /// <summary>
         ///   Predicts a class label for each input vector, returning the
         ///   log-likelihood that each vector belongs to its predicted class.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">A set of input vectors.</param>
         /// <param name="decision">The class labels associated with each input
         ///   vector, as predicted by the classifier. If passed as null, the classifier
         ///   will create a new array.</param>
-        /// 
+        ///
         double[] LogLikelihood(TInput[] input, ref TClasses[] decision);
 
         /// <summary>
         ///   Predicts a class label for each input vector, returning the
         ///   log-likelihood that each vector belongs to its predicted class.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">A set of input vectors.</param>
         /// <param name="decision">The class labels associated with each input
         ///   vector, as predicted by the classifier. If passed as null, the classifier
         ///   will create a new array.</param>
         /// <param name="result">An array where the log-likelihoods will be stored,
         ///   avoiding unnecessary memory allocations.</param>
-        /// 
+        ///
         double[] LogLikelihood(TInput[] input, ref TClasses[] decision, double[] result);
     }
 
@@ -91,10 +90,10 @@ namespace Accord.MachineLearning
     ///   Common interface for generative multi-class classifiers. A multi-class
     ///   classifier can predicts a class label based on an input instance vector.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
     /// <typeparam name="TClasses">The data type for the class labels. Default is int.</typeparam>
-    /// 
+    ///
     public interface IMulticlassOutLikelihoodClassifier<TInput, TClasses> :
         IMulticlassOutScoreClassifier<TInput, TClasses>,
         IMultilabelOutLikelihoodClassifier<TInput, TClasses>,
@@ -104,7 +103,7 @@ namespace Accord.MachineLearning
         ///   Predicts a class label for the given input vector, returning the
         ///   probability that the input vector belongs to its predicted class.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The input vector.</param>
         /// <param name="decision">The class label predicted by the classifier.</param>
         ///
@@ -119,37 +118,36 @@ namespace Accord.MachineLearning
         /// <param name="decision">The class label predicted by the classifier.</param>
         ///
         double LogLikelihood(TInput input, out TClasses decision);
-
     }
 
     /// <summary>
     ///   Common interface for generative multi-class classifiers. A multi-class
     ///   classifier can predicts a class label based on an input instance vector.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
     /// <typeparam name="TClasses">The data type for the class labels. Default is int.</typeparam>
-    /// 
+    ///
     public interface IMulticlassRefLikelihoodClassifier<TInput, TClasses> :
         IMulticlassRefScoreClassifier<TInput, TClasses>,
         IMultilabelRefLikelihoodClassifier<TInput, TClasses>
-        //IMulticlassGenerativeClassifier<TInput, TClasses>
+    //IMulticlassGenerativeClassifier<TInput, TClasses>
     {
         ///// <summary>
         /////   Predicts a class label for the given input vector, returning the
         /////   probability that the input vector belongs to its predicted class.
         ///// </summary>
-        ///// 
+        /////
         ///// <param name="input">The input vector.</param>
         ///// <param name="decision">The class label predicted by the classifier.</param>
-        ///// 
+        /////
         //double Probability(TInput input, ref TClasses decision);
 
         ///// <summary>
         /////   Predicts a class label vector for the given input vector, returning the
         /////   log-likelihood that the input vector belongs to its predicted class.
         ///// </summary>
-        ///// 
+        /////
         ///// <param name="input">The input vector.</param>
         ///// <param name="decision">The class label predicted by the classifier.</param>
         /////
@@ -160,9 +158,9 @@ namespace Accord.MachineLearning
     ///   Common interface for generative multi-class classifiers. A multi-class
     ///   classifier can predicts a class label based on an input instance vector.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
-    /// 
+    ///
     public interface IMulticlassLikelihoodClassifier<TInput> :
         IMulticlassOutLikelihoodClassifier<TInput, int>,
         IMulticlassOutLikelihoodClassifier<TInput, double>,
@@ -172,12 +170,11 @@ namespace Accord.MachineLearning
         IMulticlassScoreClassifier<TInput>,
         IMultilabelLikelihoodClassifier<TInput>
     {
-
         /// <summary>
         ///   Predicts a class label for the given input vector, returning the
         ///   probability that the input vector belongs to its predicted class.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The input vector.</param>
         ///
         double Probability(TInput input);
@@ -186,7 +183,7 @@ namespace Accord.MachineLearning
         ///   Predicts a class label for the given input vectors, returning the
         ///   probability that the input vector belongs to its predicted class.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The input vector.</param>
         ///
         double[] Probability(TInput[] input);
@@ -195,7 +192,7 @@ namespace Accord.MachineLearning
         ///   Predicts a class label for the given input vectors, returning the
         ///   probability that the input vector belongs to its predicted class.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The input vector.</param>
         /// <param name="result">An array where the probabilities will be stored,
         ///   avoiding unnecessary memory allocations.</param>
@@ -231,16 +228,14 @@ namespace Accord.MachineLearning
         ///
         double[] LogLikelihood(TInput[] input, double[] result);
 
-
         /// <summary>
         ///   Views this instance as a multi-label generative classifier,
         ///   giving access to more advanced methods, such as the prediction
         ///   of one-hot vectors.
         /// </summary>
-        /// 
+        ///
         /// <returns>This instance seen as an <see cref="IMultilabelLikelihoodClassifier{TInput}"/>.</returns>
-        /// 
+        ///
         new IMultilabelLikelihoodClassifier<TInput> ToMultilabel();
     }
-
 }

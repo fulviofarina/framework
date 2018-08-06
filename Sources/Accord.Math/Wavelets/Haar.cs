@@ -22,13 +22,10 @@
 
 namespace Accord.Math.Wavelets
 {
-    using System;
-    using Accord.Math;
-
     /// <summary>
     ///   Haar Wavelet Transform.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   References:
@@ -39,11 +36,10 @@ namespace Accord.Math.Wavelets
     ///   </list>
     /// </para>
     /// </remarks>
-    /// 
+    ///
     public class Haar : IWavelet
     {
         private const double SQRT2 = Accord.Math.Constants.Sqrt2;
-
 
         private const double w0 = 0.5;
         private const double w1 = -0.5;
@@ -56,7 +52,7 @@ namespace Accord.Math.Wavelets
         ///   Constructs a new Haar Wavelet Transform.
         /// </summary>
         /// <param name="levels">The number of iterations for the 2D transform.</param>
-        /// 
+        ///
         public Haar(int levels)
         {
             this.levels = levels;
@@ -65,7 +61,7 @@ namespace Accord.Math.Wavelets
         /// <summary>
         ///   1-D Forward Discrete Wavelet Transform.
         /// </summary>
-        /// 
+        ///
         public void Forward(double[] data)
         {
             FWT(data);
@@ -74,7 +70,7 @@ namespace Accord.Math.Wavelets
         /// <summary>
         ///   1-D Backward (Inverse) Discrete Wavelet Transform.
         /// </summary>
-        /// 
+        ///
         public void Backward(double[] data)
         {
             IWT(data);
@@ -83,7 +79,7 @@ namespace Accord.Math.Wavelets
         /// <summary>
         ///   2-D Forward Discrete Wavelet Transform.
         /// </summary>
-        /// 
+        ///
         public void Forward(double[,] data)
         {
             FWT(data, levels);
@@ -92,19 +88,16 @@ namespace Accord.Math.Wavelets
         /// <summary>
         ///   2-D Backward (Inverse) Discrete Wavelet Transform.
         /// </summary>
-        /// 
+        ///
         public void Backward(double[,] data)
         {
             IWT(data, levels);
         }
 
-
-
-
         /// <summary>
         ///   Discrete Haar Wavelet Transform
         /// </summary>
-        /// 
+        ///
         public static void FWT(double[] data)
         {
             double[] temp = new double[data.Length];
@@ -124,7 +117,7 @@ namespace Accord.Math.Wavelets
         /// <summary>
         ///   Inverse Haar Wavelet Transform
         /// </summary>
-        /// 
+        ///
         public static void IWT(double[] data)
         {
             double[] temp = new double[data.Length];
@@ -141,11 +134,10 @@ namespace Accord.Math.Wavelets
                 data[i] = temp[i];
         }
 
-
         /// <summary>
         ///   Discrete Haar Wavelet 2D Transform
         /// </summary>
-        /// 
+        ///
         public static void FWT(double[,] data, int iterations)
         {
             int rows = data.GetLength(0);
@@ -173,7 +165,6 @@ namespace Accord.Math.Wavelets
                         data[i, j] = row[j];
                 }
 
-
                 col = new double[levRows];
                 for (int j = 0; j < levCols; j++)
                 {
@@ -191,7 +182,7 @@ namespace Accord.Math.Wavelets
         /// <summary>
         ///   Inverse Haar Wavelet 2D Transform
         /// </summary>
-        /// 
+        ///
         public static void IWT(double[,] data, int iterations)
         {
             int rows = data.GetLength(0);
@@ -232,7 +223,5 @@ namespace Accord.Math.Wavelets
                 }
             }
         }
-
-
     }
 }

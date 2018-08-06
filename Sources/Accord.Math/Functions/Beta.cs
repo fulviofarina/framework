@@ -48,31 +48,31 @@ namespace Accord.Math
     /// <summary>
     ///   Beta functions.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   This class offers implementations for the many Beta functions,
-    ///   such as the <see cref="Function">Beta function itself</see>, 
+    ///   such as the <see cref="Function">Beta function itself</see>,
     ///   <see cref="Log">its logarithm</see>, the <see cref="Incomplete"/>
     ///   incomplete regularized functions and others</para>
-    ///   
+    ///
     /// <para>
     ///   The beta function was studied by Euler and Legendre and was given
     ///   its name by Jacques Binet; its symbol Β is a Greek capital β rather
     ///   than the similar Latin capital B.</para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description>
     ///       Cephes Math Library, http://www.netlib.org/cephes/ </description></item>
     ///     <item><description>
-    ///       Wikipedia contributors, "Beta function,". Wikipedia, The Free 
-    ///       Encyclopedia. Available at: http://en.wikipedia.org/wiki/Beta_function 
+    ///       Wikipedia contributors, "Beta function,". Wikipedia, The Free
+    ///       Encyclopedia. Available at: http://en.wikipedia.org/wiki/Beta_function
     ///       </description></item>
     ///   </list></para>
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <code>
     ///   Beta.Function(4, 0.42);       // 1.2155480852832423
@@ -80,24 +80,23 @@ namespace Accord.Math
     ///   Beta.Incbcf(4, 2, 4.2);       // -0.23046874999999992
     ///   Beta.Incbd(4, 2, 4.2);        // 0.7375
     ///   Beta.PowerSeries(4, 2, 4.2);  // -3671.801280000001
-    ///   
+    ///
     ///   Beta.Incomplete(a: 5, b: 4, x: 0.5);   // 0.36328125
     ///   Beta.IncompleteInverse(0.5, 0.6, 0.1); // 0.019145979066925722
     ///   Beta.Multinomial(0.42, 0.5, 5.2 );     // 0.82641912952987062
     /// </code>
     /// </example>
-    /// 
+    ///
     public static class Beta
     {
-
         /// <summary>
         ///   Beta function as gamma(a) * gamma(b) / gamma(a+b).
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   Please see <see cref="Beta"/>
         /// </example>
-        /// 
+        ///
         public static double Function(double a, double b)
         {
             return Math.Exp(Log(a, b));
@@ -106,11 +105,11 @@ namespace Accord.Math
         /// <summary>
         ///   Natural logarithm of the Beta function.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   Please see <see cref="Beta"/>
         /// </example>
-        /// 
+        ///
         public static double Log(double a, double b)
         {
             return Gamma.Log(a) + Gamma.Log(b) - Gamma.Log(a + b);
@@ -119,11 +118,11 @@ namespace Accord.Math
         /// <summary>
         ///   Incomplete (regularized) Beta function Ix(a, b).
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   Please see <see cref="Beta"/>
         /// </example>
-        /// 
+        ///
         public static double Incomplete(double a, double b, double x)
         {
             double aa, bb, t, xx, xc, w, y;
@@ -136,9 +135,9 @@ namespace Accord.Math
 
             if ((x <= 0.0) || (x >= 1.0))
             {
-                if (x == 0.0) 
+                if (x == 0.0)
                     return 0.0;
-                if (x == 1.0) 
+                if (x == 1.0)
                     return 1.0;
                 throw new ArgumentOutOfRangeException("x", "Value must be between 0 and 1.");
             }
@@ -182,7 +181,6 @@ namespace Accord.Math
             else
                 w = Incbd(aa, bb, xx) / xc;
 
-
             y = aa * System.Math.Log(xx);
             t = bb * System.Math.Log(xc);
             if ((aa + bb) < Gamma.GammaMax && System.Math.Abs(y) < Constants.LogMax && System.Math.Abs(t) < Constants.LogMax)
@@ -218,11 +216,11 @@ namespace Accord.Math
         /// <summary>
         ///   Continued fraction expansion #1 for incomplete beta integral.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   Please see <see cref="Beta"/>
         /// </example>
-        /// 
+        ///
         public static double Incbcf(double a, double b, double x)
         {
             double xk, pk, pkm1, pkm2, qk, qkm1, qkm2;
@@ -310,11 +308,11 @@ namespace Accord.Math
         /// <summary>
         ///   Continued fraction expansion #2 for incomplete beta integral.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   Please see <see cref="Beta"/>
         /// </example>
-        /// 
+        ///
         public static double Incbd(double a, double b, double x)
         {
             double xk, pk, pkm1, pkm2, qk, qkm1, qkm2;
@@ -403,11 +401,11 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse of incomplete beta integral.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   Please see <see cref="Beta"/>
         /// </example>
-        /// 
+        ///
         public static double IncompleteInverse(double aa, double bb, double yy0)
         {
             double a, b, y0, d, y, x, x0, x1, lgm, yp, di, dithresh, yl, yh;
@@ -415,7 +413,6 @@ namespace Accord.Math
 
             bool nflg;
             bool rflg;
-
 
             if (yy0 <= 0)
                 return (0.0);
@@ -480,7 +477,7 @@ namespace Accord.Math
             if (Math.Abs(yp) < 1.0e-2)
                 goto newt;
 
-        ihalve:
+            ihalve:
 
             /* Resort to interval halving if not close enough */
             x0 = 0.0;
@@ -572,7 +569,7 @@ namespace Accord.Math
             if (x == 0.0)
                 throw new ArithmeticException("underflow");
 
-        newt:
+            newt:
 
             if (nflg)
                 goto done;
@@ -612,7 +609,7 @@ namespace Accord.Math
                     goto done;
             }
 
-        done:
+            done:
             if (rflg)
             {
                 if (x0 <= Double.Epsilon)
@@ -627,11 +624,11 @@ namespace Accord.Math
         ///   Power series for incomplete beta integral. Use when b*x
         ///   is small and x not too close to 1.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   Please see <see cref="Beta"/>
         /// </example>
-        /// 
+        ///
         public static double PowerSeries(double a, double b, double x)
         {
             double s, t, u, v, n, t1, z, ai;
@@ -673,11 +670,11 @@ namespace Accord.Math
         /// <summary>
         ///   Multinomial Beta function.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   Please see <see cref="Beta"/>
         /// </example>
-        /// 
+        ///
         public static double Multinomial(params double[] x)
         {
             double sum = 0;

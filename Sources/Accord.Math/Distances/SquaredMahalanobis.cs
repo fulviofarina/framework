@@ -22,25 +22,24 @@
 
 namespace Accord.Math.Distances
 {
-    using Accord.Math.Decompositions;
     using System;
-    using System.Runtime.CompilerServices;
+    using Accord.Math.Decompositions;
 
     /// <summary>
     ///   Squared Mahalanobis distance.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public sealed class SquareMahalanobis : IMetric<double[]>
     {
-        CholeskyDecomposition chol;
-        SingularValueDecomposition svd;
-        double[,] precision;
+        private CholeskyDecomposition chol;
+        private SingularValueDecomposition svd;
+        private double[,] precision;
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="SquareMahalanobis"/> class.
         /// </summary>
-        /// 
+        ///
         public SquareMahalanobis()
         {
         }
@@ -48,9 +47,9 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Initializes a new instance of the <see cref="Mahalanobis"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="chol">A Cholesky decomposition of the covariance matrix.</param>
-        /// 
+        ///
         public SquareMahalanobis(CholeskyDecomposition chol)
         {
             this.chol = chol;
@@ -59,9 +58,9 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Initializes a new instance of the <see cref="Mahalanobis"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="svd">A Singular Value decomposition of the covariance matrix.</param>
-        /// 
+        ///
         public SquareMahalanobis(SingularValueDecomposition svd)
         {
             this.svd = svd;
@@ -70,9 +69,9 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Initializes a new instance of the <see cref="Mahalanobis"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="precision">The precision matrix (the inverse of the covariance matrix).</param>
-        /// 
+        ///
         public SquareMahalanobis(double[,] precision)
         {
             this.precision = precision;
@@ -81,14 +80,14 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Creates a new Square-Mahalanobis distance from a covariance matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="covariance">A covariance matrix.</param>
-        /// 
+        ///
         /// <returns>
         ///   A square Mahalanobis distance using the <see cref="SingularValueDecomposition"/>
         ///   of the given covariance matrix.
         /// </returns>
-        /// 
+        ///
         public static SquareMahalanobis FromCovarianceMatrix(double[,] covariance)
         {
             return new SquareMahalanobis(new CholeskyDecomposition(covariance));
@@ -97,13 +96,13 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Creates a new Square-Mahalanobis distance from a precision matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="precision">A precision matrix.</param>
-        /// 
+        ///
         /// <returns>
         ///   A square Mahalanobis distance using the given precision matrix.
         /// </returns>
-        /// 
+        ///
         public static SquareMahalanobis FromPrecisionMatrix(double[,] precision)
         {
             return new SquareMahalanobis(precision);
@@ -113,19 +112,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(double[] x, double[] y)
         {
             double[] d = new double[x.Length];
@@ -145,6 +145,5 @@ namespace Accord.Math.Distances
                 sum += d[i] * z[i];
             return Math.Abs(sum);
         }
-
     }
 }

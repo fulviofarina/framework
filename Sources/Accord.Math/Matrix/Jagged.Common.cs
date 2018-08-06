@@ -24,45 +24,37 @@ namespace Accord.Math
 {
     using System;
     using Accord.Math.Decompositions;
-    using Accord.Math.Comparers;
-    using System.Collections.Generic;
-    using System.Collections;
-    using System.Runtime.CompilerServices;
 
     public static partial class Matrix
     {
-
         // TODO: Use T4 templates for the equality comparisons
-
 
         #region Transpose
 
         /// <summary>
         ///   Gets the transpose of a matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix.</param>
-        /// 
+        ///
         /// <returns>The transpose of the given matrix.</returns>
-        /// 
+        ///
         public static T[][] Transpose<T>(this T[][] matrix)
         {
             return Transpose(matrix, false);
         }
 
-
-
         /// <summary>
         ///   Gets the transpose of a matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix.</param>
-        /// 
+        ///
         /// <param name="inPlace">True to store the transpose over the same input
         ///   <paramref name="matrix"/>, false otherwise. Default is false.</param>
-        ///   
+        ///
         /// <returns>The transpose of the given matrix.</returns>
-        /// 
+        ///
         public static T[][] Transpose<T>(this T[][] matrix, bool inPlace)
         {
             int rows = matrix.Length;
@@ -100,17 +92,15 @@ namespace Accord.Math
             }
         }
 
-
-
         /// <summary>
         ///   Gets the transpose of a row vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="rowVector">A row vector.</param>
         /// <param name="result">The matrix where to store the transpose.</param>
-        /// 
+        ///
         /// <returns>The transpose of the given vector.</returns>
-        /// 
+        ///
         public static T[][] Transpose<T>(this T[] rowVector, out T[][] result)
         {
             result = new T[rowVector.Length][];
@@ -122,12 +112,12 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the transpose of a row vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="rowVector">A row vector.</param>
         /// <param name="result">The matrix where to store the transpose.</param>
-        /// 
+        ///
         /// <returns>The transpose of the given vector.</returns>
-        /// 
+        ///
         public static T[][] Transpose<T>(this T[] rowVector, T[][] result)
         {
             for (int i = 0; i < rowVector.Length; i++)
@@ -135,24 +125,19 @@ namespace Accord.Math
             return result;
         }
 
-
-
-        #endregion
-
+        #endregion Transpose
 
         #region Matrix Characteristics
-
-
 
         /// <summary>
         ///   Gets the number of rows in a jagged matrix.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements in the matrix.</typeparam>
         /// <param name="matrix">The matrix whose number of rows must be computed.</param>
-        /// 
+        ///
         /// <returns>The number of rows in the matrix.</returns>
-        /// 
+        ///
         public static int Rows<T>(this T[][] matrix)
         {
             return matrix.Length;
@@ -161,12 +146,12 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the number of columns in a jagged matrix.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements in the matrix.</typeparam>
         /// <param name="matrix">The matrix whose number of columns must be computed.</param>
-        /// 
+        ///
         /// <returns>The number of columns in the matrix.</returns>
-        /// 
+        ///
         public static int Columns<T>(this T[][] matrix)
         {
             if (matrix.Length == 0)
@@ -177,14 +162,14 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the number of columns in a jagged matrix.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements in the matrix.</typeparam>
         /// <param name="matrix">The matrix whose number of columns must be computed.</param>
         /// <param name="max">Whether to compute the maximum length across all rows (because
         ///   rows can have different lengths in jagged matrices). Default is false.</param>
-        /// 
+        ///
         /// <returns>The number of columns in the matrix.</returns>
-        /// 
+        ///
         public static int Columns<T>(this T[][] matrix, bool max = false)
         {
             if (matrix.Length == 0)
@@ -241,7 +226,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the lower triangular part of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[][] GetLowerTriangle<T>(this T[][] matrix, bool includeDiagonal = true)
         {
             int s = includeDiagonal ? 1 : 0;
@@ -255,7 +240,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the upper triangular part of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[][] GetUpperTriangle<T>(this T[][] matrix, bool includeDiagonal = false)
         {
             int s = includeDiagonal ? 0 : 1;
@@ -270,7 +255,7 @@ namespace Accord.Math
         ///   Transforms a triangular matrix in a symmetric matrix by copying
         ///   its elements to the other, unfilled part of the matrix.
         /// </summary>
-        /// 
+        ///
         public static T[][] GetSymmetric<T>(this T[][] matrix, MatrixType type, T[][] result = null)
         {
             if (result == null)
@@ -283,11 +268,13 @@ namespace Accord.Math
                         for (int j = 0; j <= i; j++)
                             result[i][j] = result[j][i] = matrix[i][j];
                     break;
+
                 case MatrixType.UpperTriangular:
                     for (int i = 0; i < matrix.Rows(); i++)
                         for (int j = i; j <= matrix.Columns(); j++)
                             result[i][j] = result[j][i] = matrix[i][j];
                     break;
+
                 default:
                     throw new Exception("Matrix type can be either LowerTriangular or UpperTrianguler.");
             }
@@ -298,7 +285,7 @@ namespace Accord.Math
         /// <summary>
         ///   Returns true if a matrix is diagonal.
         /// </summary>
-        /// 
+        ///
         public static bool IsDiagonal<T>(this T[][] matrix) where T : IComparable
         {
             if (matrix == null) throw new ArgumentNullException("matrix");
@@ -319,7 +306,7 @@ namespace Accord.Math
         /// <summary>
         ///   Returns true if a matrix is symmetric.
         /// </summary>
-        /// 
+        ///
         public static bool IsSymmetric<T>(this T[][] matrix) where T : IComparable
         {
             if (matrix == null) throw new ArgumentNullException("matrix");
@@ -342,13 +329,13 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the trace of a matrix.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   The trace of an n-by-n square matrix A is defined to be the sum of the
         ///   elements on the main diagonal (the diagonal from the upper left to the
         ///   lower right) of A.
         /// </remarks>
-        /// 
+        ///
         public static float Trace(this float[][] matrix)
         {
             float trace = 0.0f;
@@ -360,11 +347,11 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the diagonal vector from a matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix.</param>
-        /// 
+        ///
         /// <returns>The diagonal vector from the given matrix.</returns>
-        /// 
+        ///
         public static T[] Diagonal<T>(this T[][] matrix)
         {
             T[] r = new T[matrix.Length];
@@ -377,22 +364,20 @@ namespace Accord.Math
         /// <summary>
         ///    Gets whether a matrix is positive definite.
         /// </summary>
-        /// 
+        ///
         public static bool IsPositiveDefinite(this double[][] matrix)
         {
             return new JaggedCholeskyDecomposition(matrix).IsPositiveDefinite;
         }
-        #endregion
 
-
-
+        #endregion Matrix Characteristics
 
         #region Operation Mapping (Apply)
 
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[][] Apply<TInput, TResult>(this TInput[][] matrix, Func<TInput, int, int, TResult> func)
         {
             return Apply(matrix, func, Jagged.CreateAs<TInput, TResult>(matrix));
@@ -401,7 +386,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[][] Apply<TInput, TResult>(this TInput[][] matrix, Func<TInput, TResult> func, TResult[][] result)
         {
             for (int i = 0; i < matrix.Length; i++)
@@ -413,7 +398,7 @@ namespace Accord.Math
         /// <summary>
         ///   Applies a function to every element of the array.
         /// </summary>
-        /// 
+        ///
         public static TResult[][] Apply<TInput, TResult>(this TInput[][] matrix, Func<TInput, int, int, TResult> func, TResult[][] result)
         {
             for (int i = 0; i < matrix.Length; i++)
@@ -421,14 +406,14 @@ namespace Accord.Math
                     result[i][j] = func(matrix[i][j], i, j);
             return result;
         }
-        #endregion
 
+        #endregion Operation Mapping (Apply)
 
         /// <summary>
         ///   Creates a member-wise copy of a jagged matrix. Matrix elements
         ///   themselves are copied only in a shallowed manner (i.e. not cloned).
         /// </summary>
-        /// 
+        ///
         public static T[][] MemberwiseClone<T>(this T[][] a)
         {
             T[][] clone = new T[a.Length][];
@@ -441,7 +426,7 @@ namespace Accord.Math
         ///   Creates a member-wise copy of a jagged matrix. Matrix elements
         ///   themselves are copied only in a shallowed manner (i.e. not cloned).
         /// </summary>
-        /// 
+        ///
         public static T[][] Copy<T>(this T[][] a)
         {
             T[][] clone = new T[a.Length][];
@@ -450,17 +435,16 @@ namespace Accord.Math
             return clone;
         }
 
-
         /// <summary>
         ///   Copies the content of an array to another array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="matrix">The source matrix to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
         /// <param name="transpose">Whether to transpose the matrix when copying or not. Default is false.</param>
-        /// 
+        ///
         public static void CopyTo<T>(this T[][] matrix, T[][] destination, bool transpose = false)
         {
             if (matrix == destination)
@@ -492,12 +476,12 @@ namespace Accord.Math
         /// <summary>
         ///   Copies the content of an array to another array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="vector">The source vector to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
-        /// 
+        ///
         public static void CopyTo<T>(this T[] vector, T[] destination)
         {
             if (vector != destination)
@@ -508,22 +492,17 @@ namespace Accord.Math
         /// <summary>
         ///   Copies the content of an array to another array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the elements to be copied.</typeparam>
-        /// 
+        ///
         /// <param name="matrix">The source matrix to be copied.</param>
         /// <param name="destination">The matrix where the elements should be copied to.</param>
-        /// 
+        ///
         public static void CopyTo<T>(this T[][] matrix, T[,] destination)
         {
             for (int i = 0; i < matrix.Length; i++)
                 for (int j = 0; j < matrix[i].Length; j++)
                     destination[i, j] = matrix[i][j];
         }
-
-
-
-
     }
 }
-

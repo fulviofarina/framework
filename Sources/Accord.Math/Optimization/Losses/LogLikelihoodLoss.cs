@@ -25,18 +25,16 @@ namespace Accord.Math.Optimization.Losses
     using System;
 
     /// <summary>
-    ///   Negative log-likelihood loss. 
+    ///   Negative log-likelihood loss.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public class LogLikelihoodLoss : ILoss<double[][]>, ILoss<double[]>
     {
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LogLikelihoodLoss"/> class.
         /// </summary>
-        /// 
+        ///
         public LogLikelihoodLoss()
         {
         }
@@ -45,14 +43,14 @@ namespace Accord.Math.Optimization.Losses
         ///   Computes the loss between the expected values (ground truth)
         ///   and the given actual values that have been predicted.
         /// </summary>
-        /// 
+        ///
         /// <param name="actual">The actual values that have been predicted.</param>
-        /// 
+        ///
         /// <returns>
         ///   The loss value between the expected values and
         ///   the actual predicted values.
         /// </returns>
-        /// 
+        ///
         public double Loss(double[][] actual)
         {
             double error = 0;
@@ -61,7 +59,6 @@ namespace Accord.Math.Optimization.Losses
                     error += actual[i][j];
             return error;
         }
-
 
         /// <summary>
         /// Computes the loss between the expected values (ground truth)
@@ -79,7 +76,5 @@ namespace Accord.Math.Optimization.Losses
                 error += actual[i];
             return error;
         }
-
-
     }
 }

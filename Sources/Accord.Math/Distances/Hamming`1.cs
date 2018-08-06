@@ -23,15 +23,13 @@
 namespace Accord.Math.Distances
 {
     using System;
-    using System.Collections;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     ///   Hamming distance.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="T">The type of the elements to be compared.</typeparam>
-    /// 
+    ///
     [Serializable]
     public sealed class Hamming<T> : IMetric<T[]>
         where T : IEquatable<T>
@@ -39,7 +37,7 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Initializes a new instance of the <see cref="Hamming"/> class.
         /// </summary>
-        /// 
+        ///
         public Hamming()
         {
         }
@@ -48,27 +46,27 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(T[] x, T[] y)
         {
             int sum = 0;
             for (int i = 0; i < x.Length; i++)
-                if (!x[i].Equals(y[i])) 
+                if (!x[i].Equals(y[i]))
                     sum++;
             return sum;
         }
-
     }
 }

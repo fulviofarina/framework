@@ -20,7 +20,6 @@
 //    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-
 namespace Accord.Math.Optimization.Losses
 {
     using System;
@@ -28,11 +27,10 @@ namespace Accord.Math.Optimization.Losses
     /// <summary>
     ///   Logistic loss.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public class LogisticLoss : LossBase<double[][]>, ILoss<double[]>
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LogisticLoss"/> class.
         /// </summary>

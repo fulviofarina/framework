@@ -22,21 +22,20 @@
 
 namespace Accord.Math
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
     ///   Static class for combinatorics functions.
     /// </summary>
-    /// 
+    ///
     public static class Combinatorics
     {
         /// <summary>
         ///   Generates all possible two symbol ordered
         ///   permutations with repetitions allowed (a truth table).
         /// </summary>
-        /// 
+        ///
         /// <param name="length">The length of the sequence to generate.</param>
         ///
         /// <example>
@@ -44,14 +43,14 @@ namespace Accord.Math
         ///   Suppose we would like to generate a truth table for a binary
         ///   problem. In this case, we are only interested in two symbols:
         ///   0 and 1. Let's then generate the table for three binary values</para>
-        /// 
+        ///
         /// <code>
-        /// int length = 3;  // The number of variables; or number 
+        /// int length = 3;  // The number of variables; or number
         ///                  // of columns in the generated table.
-        /// 
+        ///
         /// // Generate the table using Combinatorics.TruthTable(3)
         /// int[][] table = Combinatorics.TruthTable(length);
-        /// 
+        ///
         /// // The generated table will be:
         /// {
         ///     new int[] { 0, 0, 0 },
@@ -65,7 +64,7 @@ namespace Accord.Math
         /// };
         /// </code>
         /// </example>
-        /// 
+        ///
         public static int[][] TruthTable(int length)
         {
             return TruthTable(2, length);
@@ -75,7 +74,7 @@ namespace Accord.Math
         ///   Generates all possible ordered permutations
         ///   with repetitions allowed (a truth table).
         /// </summary>
-        /// 
+        ///
         /// <param name="symbols">The number of symbols.</param>
         /// <param name="length">The length of the sequence to generate.</param>
         ///
@@ -84,15 +83,15 @@ namespace Accord.Math
         ///   Suppose we would like to generate a truth table for a binary
         ///   problem. In this case, we are only interested in two symbols:
         ///   0 and 1. Let's then generate the table for three binary values</para>
-        /// 
+        ///
         /// <code>
         /// int symbols = 2; // Binary variables: either 0 or 1
-        /// int length = 3;  // The number of variables; or number 
+        /// int length = 3;  // The number of variables; or number
         ///                  // of columns in the generated table.
-        /// 
+        ///
         /// // Generate the table using Combinatorics.TruthTable(2,3)
         /// int[][] table = Combinatorics.TruthTable(symbols, length);
-        /// 
+        ///
         /// // The generated table will be:
         /// {
         ///     new int[] { 0, 0, 0 },
@@ -106,7 +105,7 @@ namespace Accord.Math
         /// };
         /// </code>
         /// </example>
-        /// 
+        ///
         public static int[][] TruthTable(int symbols, int length)
         {
             int[] sym = new int[length];
@@ -120,25 +119,25 @@ namespace Accord.Math
         ///   Generates all possible ordered permutations
         ///   with repetitions allowed (a truth table).
         /// </summary>
-        /// 
+        ///
         /// <param name="symbols">The number of symbols for each variable.</param>
-        /// 
+        ///
         /// <example>
         /// <para>
         ///   Suppose we would like to generate a truth table (i.e. all possible
         ///   combinations of a set of discrete symbols) for variables that contain
-        ///   different numbers symbols. Let's say, for example, that the first 
+        ///   different numbers symbols. Let's say, for example, that the first
         ///   variable may contain symbols 0 and 1, the second could contain either
         ///   0, 1, or 2, and the last one again could contain only 0 and 1. Thus
         ///   we can generate the truth table in the following way: </para>
-        /// 
+        ///
         /// <code>
         /// // Number of symbols for each variable
         /// int[] symbols = { 2, 3, 2 };
-        /// 
+        ///
         /// // Generate the truth table for the given symbols
         /// int[][] table = Combinatorics.TruthTable(symbols);
-        /// 
+        ///
         /// // The generated table will be:
         /// {
         ///     new int[] { 0, 0, 0 },
@@ -189,16 +188,16 @@ namespace Accord.Math
         ///   with repetitions allowed (i.e. a truth table), without using
         ///   many memory allocations.
         /// </summary>
-        /// 
+        ///
         /// <param name="symbols">The number of symbols.</param>
         /// <param name="length">The length of the sequence to generate.</param>
         /// <param name="inPlace">
-        ///   If set to true, the different generated sequences will be stored in 
+        ///   If set to true, the different generated sequences will be stored in
         ///   the same array, thus preserving memory. However, this may prevent the
         ///   samples from being stored in other locations without having to clone
         ///   them. If set to false, a new memory block will be allocated for each
         ///   new object in the sequence.</param>
-        ///   
+        ///
         /// <example>
         /// <para>
         ///   Suppose we would like to generate the same sequences shown
@@ -207,12 +206,12 @@ namespace Accord.Math
         ///   in an array. In order to iterate over all possible combinations
         ///   efficiently, we can use:
         /// </para>
-        /// 
+        ///
         /// <code>
         /// int symbols = 2; // Binary variables: either 0 or 1
-        /// int length = 3;  // The number of variables; or number 
+        /// int length = 3;  // The number of variables; or number
         ///                  // of columns in the generated table.
-        /// 
+        ///
         /// foreach (int[] row in Combinatorics.Sequences(symbols, length))
         /// {
         ///     // The following sequences will be generated in order:
@@ -228,7 +227,7 @@ namespace Accord.Math
         /// }
         /// </code>
         /// </example>
-        /// 
+        ///
         public static IEnumerable<int[]> Sequences(int symbols, int length, bool inPlace = false)
         {
             int[] sym = new int[length];
@@ -243,15 +242,15 @@ namespace Accord.Math
         ///   with repetitions allowed (i.e. a truth table), without using
         ///   many memory allocations.
         /// </summary>
-        /// 
+        ///
         /// <param name="symbols">The number of symbols for each variable.</param>
         /// <param name="inPlace">
-        ///   If set to true, the different generated permutations will be stored in 
+        ///   If set to true, the different generated permutations will be stored in
         ///   the same array, thus preserving memory. However, this may prevent the
         ///   samples from being stored in other locations without having to clone
         ///   them. If set to false, a new memory block will be allocated for each
         ///   new object in the sequence.</param>
-        /// 
+        ///
         /// <example>
         /// <para>
         ///   Suppose we would like to generate the same sequences shown
@@ -260,7 +259,7 @@ namespace Accord.Math
         ///   in an array. In order to iterate over all possible combinations
         ///   efficiently, we can use:
         /// </para>
-        /// 
+        ///
         /// <code>
         /// foreach (int[] row in Combinatorics.Sequences(new[] { 2, 2 }))
         /// {
@@ -277,7 +276,7 @@ namespace Accord.Math
         /// }
         /// </code>
         /// </example>
-        /// 
+        ///
         public static IEnumerable<int[]> Sequences(this int[] symbols, bool inPlace = false)
         {
             var current = new int[symbols.Length];
@@ -305,30 +304,29 @@ namespace Accord.Math
 
                     current[j] = 0;
                 }
-
             }
         }
 
         /// <summary>
         ///   Enumerates all possible value combinations for a given array.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">The array whose combinations need to be generated.</param>
         /// <param name="inPlace">
-        ///   If set to true, the different generated combinations will be stored in 
+        ///   If set to true, the different generated combinations will be stored in
         ///   the same array, thus preserving memory. However, this may prevent the
         ///   samples from being stored in other locations without having to clone
         ///   them. If set to false, a new memory block will be allocated for each
         ///   new object in the sequence.</param>
-        ///   
+        ///
         /// <example>
         /// <code>
         ///   // Let's say we would like to generate all possible combinations
-        ///   // of the elements (1, 2, 3). In order to enumerate all those 
+        ///   // of the elements (1, 2, 3). In order to enumerate all those
         ///   // combinations, we can use:
-        /// 
+        ///
         ///   int[] values = { 1, 2, 3 };
-        ///   
+        ///
         ///   foreach (int[] combination in Combinatorics.Combinations(values))
         ///   {
         ///       // The combinations will be generated in the following order:
@@ -344,7 +342,7 @@ namespace Accord.Math
         ///   }
         /// </code>
         /// </example>
-        /// 
+        ///
         public static IEnumerable<T[]> Combinations<T>(this T[] values, bool inPlace = false)
         {
             // TODO: Test
@@ -356,24 +354,24 @@ namespace Accord.Math
         /// <summary>
         ///   Enumerates all possible value combinations for a given array.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">The array whose combinations need to be generated.</param>
         /// <param name="k">The length of the combinations to be generated.</param>
         /// <param name="inPlace">
-        ///   If set to true, the different generated combinations will be stored in 
+        ///   If set to true, the different generated combinations will be stored in
         ///   the same array, thus preserving memory. However, this may prevent the
         ///   samples from being stored in other locations without having to clone
         ///   them. If set to false, a new memory block will be allocated for each
         ///   new object in the sequence.</param>
-        ///   
+        ///
         /// <example>
         /// <code>
         ///   // Let's say we would like to generate all possible combinations
-        ///   // of size 2 of the elements (1, 2, 3). In order to enumerate all 
+        ///   // of size 2 of the elements (1, 2, 3). In order to enumerate all
         ///   // those combinations, we can use:
-        /// 
+        ///
         ///   int[] values = { 1, 2, 3 };
-        ///   
+        ///
         ///   foreach (int[] combination in Combinatorics.Combinations(values, 2))
         ///   {
         ///       // The combinations will be generated in the following order:
@@ -385,7 +383,7 @@ namespace Accord.Math
         ///   }
         /// </code>
         /// </example>
-        /// 
+        ///
         public static IEnumerable<T[]> Combinations<T>(this T[] values, int k, bool inPlace = false)
         {
             // Based on the Knuth algorithm implementation by
@@ -447,7 +445,7 @@ namespace Accord.Math
         /// <summary>
         ///   Generates all possibles subsets of the given set.
         /// </summary>
-        /// 
+        ///
         public static IEnumerable<SortedSet<T>> Subsets<T>(this ISet<T> set, bool inPlace = false)
         {
             // TODO: Optimize
@@ -460,7 +458,7 @@ namespace Accord.Math
         /// <summary>
         ///   Generates all possibles subsets of size k of the given set.
         /// </summary>
-        /// 
+        ///
         public static IEnumerable<SortedSet<T>> Subsets<T>(this ISet<T> set, int k, bool inPlace = false)
         {
             // TODO: Optimize
@@ -472,23 +470,23 @@ namespace Accord.Math
         /// <summary>
         ///   Enumerates all possible value permutations for a given array.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">The array whose permutations need to be generated</param>.
         /// <param name="inPlace">
-        ///   If set to true, the different generated permutations will be stored in 
+        ///   If set to true, the different generated permutations will be stored in
         ///   the same array, thus preserving memory. However, this may prevent the
         ///   samples from being stored in other locations without having to clone
         ///   them. If set to false, a new memory block will be allocated for each
         ///   new object in the sequence.</param>
-        /// 
+        ///
         /// <example>
         /// <code>
         ///   // Let's say we would like to generate all possible permutations
         ///   // of the elements (1, 2, 3). In order to enumerate all those
         ///   // permutations, we can use:
-        /// 
+        ///
         ///   int[] values = { 1, 2, 3 };
-        ///   
+        ///
         ///   foreach (int[] permutation in Combinatorics.Permutations(values))
         ///   {
         ///       // The permutations will be generated in the following order:
@@ -502,7 +500,7 @@ namespace Accord.Math
         ///   }
         /// </code>
         /// </example>
-        /// 
+        ///
         public static IEnumerable<T[]> Permutations<T>(T[] values, bool inPlace = false)
         {
             T[] current = new T[values.Length];
@@ -540,8 +538,6 @@ namespace Accord.Math
 
                 yield return (inPlace ? current : (T[])current.Clone());
             }
-
         }
-
     }
 }

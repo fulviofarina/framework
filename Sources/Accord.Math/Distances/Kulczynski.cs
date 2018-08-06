@@ -23,23 +23,18 @@
 namespace Accord.Math.Distances
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.CompilerServices;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///   Kulczynski dissimilarity.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public sealed class Kulczynski : IDistance<double[]>, IDistance<int[]>
     {
         /// <summary>
         ///   Initializes a new instance of the <see cref="Kulczynski"/> class.
         /// </summary>
-        /// 
+        ///
         public Kulczynski()
         {
         }
@@ -48,19 +43,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(int[] x, int[] y)
         {
             int tf = 0;
@@ -83,19 +79,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(double[] x, double[] y)
         {
             // TODO: Rewrite the integer dissimilarities (Yule, Russel-Rao,...)
@@ -115,7 +112,5 @@ namespace Accord.Math.Distances
             double den = ft + tf + x.Length;
             return num / den;
         }
-
-
     }
 }

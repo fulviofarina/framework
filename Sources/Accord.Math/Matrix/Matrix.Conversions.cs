@@ -31,11 +31,10 @@ namespace Accord.Math
 
     public static partial class Matrix
     {
-
         /// <summary>
         ///   Converts a jagged-array into a multidimensional array.
         /// </summary>
-        /// 
+        ///
         public static T[,] ToMatrix<T>(this T[][] array, bool transpose = false)
         {
             int rows = array.Length;
@@ -65,7 +64,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts an array into a multidimensional array.
         /// </summary>
-        /// 
+        ///
         public static T[][] ToJagged<T>(this T[] array, bool asColumnVector = true)
         {
             if (asColumnVector)
@@ -93,7 +92,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts an array into a multidimensional array.
         /// </summary>
-        /// 
+        ///
         public static T[,] ToMatrix<T>(this T[] array, bool asColumnVector = false)
         {
             if (asColumnVector)
@@ -115,7 +114,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a multidimensional array into a jagged array.
         /// </summary>
-        /// 
+        ///
         public static T[][] ToJagged<T>(this T[,] matrix, bool transpose = false)
         {
             T[][] array;
@@ -143,14 +142,12 @@ namespace Accord.Math
         /// <summary>
         ///   Obsolete.
         /// </summary>
-        /// 
+        ///
         [Obsolete("Please use ToJagged() instead.")]
         public static T[][] ToArray<T>(this T[,] matrix, bool transpose = false)
         {
             return ToJagged(matrix, transpose);
         }
-
-
 
         #region Type conversions
 
@@ -160,7 +157,7 @@ namespace Accord.Math
         /// <typeparam name="TInput">The type of the input.</typeparam>
         /// <typeparam name="TOutput">The type of the output.</typeparam>
         /// <param name="vector">The vector to be converted.</param>
-        /// 
+        ///
         public static TOutput[] Convert<TInput, TOutput>(this TInput[] vector)
             where TOutput : TInput
         {
@@ -177,7 +174,7 @@ namespace Accord.Math
         /// <typeparam name="TOutput">The type of the output.</typeparam>
         /// <param name="vector">The vector to be converted.</param>
         /// <param name="converter">The converter function.</param>
-        /// 
+        ///
         public static TOutput[] Convert<TInput, TOutput>(this TInput[] vector, Converter<TInput, TOutput> converter)
         {
             return Array.ConvertAll(vector, converter);
@@ -190,7 +187,7 @@ namespace Accord.Math
         /// <typeparam name="TOutput">The type of the output.</typeparam>
         /// <param name="matrix">The matrix to be converted.</param>
         /// <param name="converter">The converter function.</param>
-        /// 
+        ///
         public static TOutput[][] Convert<TInput, TOutput>(this TInput[][] matrix, Converter<TInput, TOutput> converter)
         {
             TOutput[][] result = new TOutput[matrix.Length][];
@@ -212,7 +209,7 @@ namespace Accord.Math
         /// <typeparam name="TOutput">The type of the output.</typeparam>
         /// <param name="matrix">The vector to be converted.</param>
         /// <param name="converter">The converter function.</param>
-        /// 
+        ///
         public static TOutput[,] Convert<TInput, TOutput>(this TInput[,] matrix, Converter<TInput, TOutput> converter)
         {
             int rows = matrix.GetLength(0);
@@ -231,13 +228,13 @@ namespace Accord.Math
         ///   the conversion can be done at compile time or not. This can be
         ///   used to convert generic types to numeric types during runtime.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The destination type.</typeparam>
-        /// 
+        ///
         /// <param name="value">The value to be converted.</param>
-        /// 
+        ///
         /// <returns>The result of the conversion.</returns>
-        /// 
+        ///
         public static T To<T>(this object value)
         {
             return (T)System.Convert.ChangeType(value, typeof(T));
@@ -248,11 +245,11 @@ namespace Accord.Math
         ///   the conversion can be done at compile time or not. This can be
         ///   used to convert generic types to numeric types during runtime.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="TOutput">The type of the output.</typeparam>
-        /// 
+        ///
         /// <param name="array">The vector or array to be converted.</param>
-        /// 
+        ///
         public static TOutput To<TOutput>(this Array array)
             where TOutput : class, ICloneable, IList, ICollection, IEnumerable
 #if !NET35
@@ -267,10 +264,10 @@ namespace Accord.Math
         ///   the conversion can be done at compile time or not. This can be
         ///   used to convert generic types to numeric types during runtime.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">The vector or array to be converted.</param>
         /// <param name="outputType">The type of the output.</param>
-        /// 
+        ///
         public static object To(this Array array, Type outputType)
         {
             Type inputType = array.GetType();
@@ -324,12 +321,12 @@ namespace Accord.Math
         ///  Gets the value at the specified position in the multidimensional System.Array.
         ///  The indexes are specified as an array of 32-bit integers.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">A jagged or multidimensional array.</param>
         /// <param name="deep">If set to true, internal arrays in jagged arrays will be followed.</param>
         /// <param name="indices">A one-dimensional array of 32-bit integers that represent the
         ///   indexes specifying the position of the System.Array element to get.</param>
-        ///   
+        ///
         public static object GetValue(this Array array, bool deep, int[] indices)
         {
             if (array.IsVector())
@@ -351,13 +348,13 @@ namespace Accord.Math
         ///   Sets a value to the element at the specified position in the multidimensional
         ///   or jagged System.Array. The indexes are specified as an array of 32-bit integers.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">A jagged or multidimensional array.</param>
         /// <param name="value">The new value for the specified element.</param>
         /// <param name="deep">If set to true, internal arrays in jagged arrays will be followed.</param>
         /// <param name="indices">A one-dimensional array of 32-bit integers that represent
         ///   the indexes specifying the position of the element to set.</param>
-        ///   
+        ///
         public static void SetValue(this Array array, object value, bool deep, int[] indices)
         {
             if (deep && array.IsJagged())
@@ -393,30 +390,30 @@ namespace Accord.Math
             return outputValue;
         }
 
-        #endregion
+        #endregion Type conversions
 
         /// <summary>
         ///   Creates a vector containing every index that can be used to
         ///   address a given <paramref name="array"/>, in order.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">The array whose indices will be returned.</param>
         /// <param name="deep">Pass true to retrieve all dimensions of the array,
         ///   even if it contains nested arrays (as in jagged matrices)</param>
-        /// 
+        ///
         /// <returns>
         ///   An enumerable object that can be used to iterate over all
         ///   positions of the given <paramref name="array">System.Array</paramref>.
         /// </returns>
-        /// 
+        ///
         /// <example>
         /// <code>
-        ///   double[,] a = 
-        ///   { 
+        ///   double[,] a =
+        ///   {
         ///      { 5.3, 2.3 },
         ///      { 4.2, 9.2 }
         ///   };
-        ///   
+        ///
         ///   foreach (int[] idx in a.GetIndices())
         ///   {
         ///      // Get the current element
@@ -424,22 +421,20 @@ namespace Accord.Math
         ///   }
         /// </code>
         /// </example>
-        /// 
+        ///
         /// <seealso cref="Accord.Math.Vector.GetIndices{T}(T[])"/>
-        /// 
+        ///
         public static IEnumerable<int[]> GetIndices(this Array array, bool deep = false)
         {
             return Combinatorics.Sequences(array.GetLength(deep));
         }
-
-
 
         #region DataTable Conversions
 
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static double[,] ToMatrix(this DataTable table)
         {
             return ToMatrix<double>(table);
@@ -448,7 +443,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static double[,] ToMatrix(this DataTable table, out string[] columnNames)
         {
             return ToMatrix<double>(table, out columnNames);
@@ -457,7 +452,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static double[,] ToMatrix(this DataTable table, IFormatProvider provider)
         {
             return ToMatrix<double>(table, provider);
@@ -466,7 +461,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static double[,] ToMatrix(this DataTable table, params string[] columnNames)
         {
             return ToMatrix<double>(table, columnNames);
@@ -475,7 +470,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static T[,] ToMatrix<T>(this DataTable table, IFormatProvider provider)
         {
             String[] names;
@@ -485,7 +480,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static T[,] ToMatrix<T>(this DataTable table)
         {
             String[] names;
@@ -495,7 +490,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static T[,] ToMatrix<T>(this DataTable table, out string[] columnNames)
         {
             T[,] m = new T[table.Rows.Count, table.Columns.Count];
@@ -515,7 +510,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static T[,] ToMatrix<T>(this DataTable table, out string[] columnNames, IFormatProvider provider)
         {
             T[,] m = new T[table.Rows.Count, table.Columns.Count];
@@ -535,7 +530,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static T[,] ToMatrix<T>(this DataTable table, params string[] columnNames)
         {
             T[,] m = new T[table.Rows.Count, columnNames.Length];
@@ -552,7 +547,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static T[,] ToMatrix<T>(this DataTable table, IFormatProvider provider, params string[] columnNames)
         {
             T[,] m = new T[table.Rows.Count, columnNames.Length];
@@ -569,7 +564,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static DataTable ToTable(this double[,] matrix)
         {
             int cols = matrix.GetLength(1);
@@ -583,7 +578,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static DataTable ToTable(this double[,] matrix, params string[] columnNames)
         {
             DataTable table = new DataTable();
@@ -604,7 +599,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static DataTable ToTable(this double[][] matrix)
         {
             int cols = matrix[0].Length;
@@ -618,7 +613,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[,] array.
         /// </summary>
-        /// 
+        ///
         public static DataTable ToTable(this double[][] matrix, params string[] columnNames)
         {
             DataTable table = new DataTable();
@@ -637,16 +632,16 @@ namespace Accord.Math
         ///   Converts an array of values into a <see cref="DataTable"/>,
         ///   attempting to guess column types by inspecting the data.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">The values to be converted.</param>
-        /// 
+        ///
         /// <returns>A <see cref="DataTable"/> containing the given values.</returns>
-        /// 
+        ///
         /// <example>
         /// <code>
         /// // Specify some data in a table format
         /// //
-        /// object[,] data = 
+        /// object[,] data =
         /// {
         ///     { "Id", "IsSmoker", "Age" },
         ///     {   0,       1,        10  },
@@ -656,12 +651,12 @@ namespace Accord.Math
         ///     {   4,       0,        70  },
         ///     {   5,       0,        55  },
         /// };
-        /// 
+        ///
         /// // Create a new table with the data
         /// DataTable dataTable = data.ToTable();
         /// </code>
         /// </example>
-        /// 
+        ///
         public static DataTable ToTable(this object[,] values)
         {
             DataTable table = new DataTable();
@@ -705,12 +700,10 @@ namespace Accord.Math
             return table;
         }
 
-
-
         /// <summary>
         ///   Converts a DataTable to a double[][] array.
         /// </summary>
-        /// 
+        ///
         public static double[][] ToArray(this DataTable table)
         {
             return ToArray<double>(table);
@@ -719,7 +712,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[][] array.
         /// </summary>
-        /// 
+        ///
         public static double[][] ToArray(this DataTable table, IFormatProvider provider)
         {
             return ToArray<double>(table, provider);
@@ -728,7 +721,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[][] array.
         /// </summary>
-        /// 
+        ///
         public static double[][] ToArray(this DataTable table, out string[] columnNames)
         {
             return ToArray<double>(table, out columnNames);
@@ -737,7 +730,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[][] array.
         /// </summary>
-        /// 
+        ///
         public static double[][] ToArray(this DataTable table, IFormatProvider provider, out string[] columnNames)
         {
             return ToArray<double>(table, provider, out columnNames);
@@ -746,7 +739,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[][] array.
         /// </summary>
-        /// 
+        ///
         public static double[][] ToArray(this DataTable table, params string[] columnNames)
         {
             return ToArray<double>(table, columnNames);
@@ -755,7 +748,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[][] array.
         /// </summary>
-        /// 
+        ///
         public static T[][] ToArray<T>(this DataTable table)
         {
             String[] names;
@@ -765,7 +758,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[][] array.
         /// </summary>
-        /// 
+        ///
         public static T[][] ToArray<T>(this DataTable table, IFormatProvider provider)
         {
             String[] names;
@@ -775,7 +768,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[][] array.
         /// </summary>
-        /// 
+        ///
         public static T[][] ToArray<T>(this DataTable table, out string[] columnNames)
         {
             T[][] m = new T[table.Rows.Count][];
@@ -801,7 +794,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[][] array.
         /// </summary>
-        /// 
+        ///
         public static T[][] ToArray<T>(this DataTable table, IFormatProvider provider, out string[] columnNames)
         {
             T[][] m = new T[table.Rows.Count][];
@@ -824,7 +817,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a double[][] array.
         /// </summary>
-        /// 
+        ///
         public static T[][] ToArray<T>(this DataTable table, params string[] columnNames)
         {
             T[][] m = new T[table.Rows.Count][];
@@ -846,7 +839,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataColumn to a double[] array.
         /// </summary>
-        /// 
+        ///
         public static double[] ToArray(this DataColumn column)
         {
             return ToArray<double>(column);
@@ -855,7 +848,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataColumn to a double[] array.
         /// </summary>
-        /// 
+        ///
         public static double[] ToArray(this DataColumn column, IFormatProvider provider)
         {
             return ToArray<double>(column, provider);
@@ -864,7 +857,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataColumn to a double[] array.
         /// </summary>
-        /// 
+        ///
         public static double[] ToArray(this DataRow row, IFormatProvider provider, params string[] colNames)
         {
             return ToArray<double>(row, provider, colNames);
@@ -873,7 +866,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataColumn to a double[] array.
         /// </summary>
-        /// 
+        ///
         public static double[] ToArray(this DataRow row, params string[] colNames)
         {
             return ToArray<double>(row, colNames);
@@ -882,7 +875,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataColumn to a double[] array.
         /// </summary>
-        /// 
+        ///
         public static T[] ToArray<T>(this DataColumn column)
         {
             T[] m = new T[column.Table.Rows.Count];
@@ -896,7 +889,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataColumn to a double[] array.
         /// </summary>
-        /// 
+        ///
         public static T[] ToArray<T>(this DataColumn column, IFormatProvider provider)
         {
             T[] m = new T[column.Table.Rows.Count];
@@ -910,7 +903,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataColumn to a generic array.
         /// </summary>
-        /// 
+        ///
         public static T[] ToArray<T>(this DataRow row, params string[] colNames)
         {
             T[] m = new T[colNames.Length];
@@ -924,7 +917,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataColumn to a generic array.
         /// </summary>
-        /// 
+        ///
         public static T[] ToArray<T>(this DataRow row, IFormatProvider provider, params string[] colNames)
         {
             T[] m = new T[colNames.Length];
@@ -938,7 +931,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a generic array.
         /// </summary>
-        /// 
+        ///
         public static T[] ToArray<T>(this DataTable table, string columnName)
         {
             T[] m = new T[table.Rows.Count];
@@ -953,7 +946,7 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a generic array.
         /// </summary>
-        /// 
+        ///
         public static T[] ToArray<T>(this DataTable table, IFormatProvider provider, string columnName)
         {
             T[] m = new T[table.Rows.Count];
@@ -965,16 +958,14 @@ namespace Accord.Math
             return m;
         }
 
-        #endregion
-
-
-
+        #endregion DataTable Conversions
 
         #region Obsolete
+
         /// <summary>
         ///   Converts a DataColumn to a int[] array.
         /// </summary>
-        /// 
+        ///
         [Obsolete("Use ToArray<T> instead.")]
         public static int[] ToInt32Array(this DataColumn column)
         {
@@ -984,14 +975,13 @@ namespace Accord.Math
         /// <summary>
         ///   Converts a DataTable to a int[][] array.
         /// </summary>
-        /// 
+        ///
         [Obsolete("Use ToArray<T> instead.")]
         public static int[][] ToIntArray(this DataTable table, params string[] columnNames)
         {
             return ToArray<int>(table, columnNames);
         }
-        #endregion
 
-
+        #endregion Obsolete
     }
 }

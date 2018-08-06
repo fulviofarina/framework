@@ -22,19 +22,14 @@
 
 namespace Accord.Math
 {
-    using Accord.Math.Comparers;
-    using AForge;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public static partial class Matrix
     {
-
         /// <summary>
         ///   Gets the indices that sort a vector.
         /// </summary>
-        /// 
+        ///
         public static int[] ArgSort<T>(this T[] values)
             where T : IComparable<T>
         {
@@ -48,7 +43,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the maximum element in a vector.
         /// </summary>
-        /// 
+        ///
         public static int ArgMax<T>(this T[] values)
             where T : IComparable<T>
         {
@@ -69,7 +64,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the maximum element in a vector.
         /// </summary>
-        /// 
+        ///
         public static int ArgMax<T>(this T[] values, out T max)
             where T : IComparable<T>
         {
@@ -90,7 +85,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the minimum element in a vector.
         /// </summary>
-        /// 
+        ///
         public static int ArgMin<T>(this T[] values)
             where T : IComparable<T>
         {
@@ -111,7 +106,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the minimum element in a vector.
         /// </summary>
-        /// 
+        ///
         public static int ArgMin<T>(this T[] values, out T min)
             where T : IComparable<T>
         {
@@ -128,16 +123,15 @@ namespace Accord.Math
 
             return imin;
         }
-      
-        #endregion
 
-
+        #endregion Vector ArgMin/ArgMax
 
         #region Vector Min/Max
+
         /// <summary>
         ///   Gets the maximum non-null element in a vector.
         /// </summary>
-        /// 
+        ///
         public static Nullable<T> Max<T>(this Nullable<T>[] values, out int imax)
             where T : struct, IComparable<T>
         {
@@ -162,7 +156,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the minimum non-null element in a vector.
         /// </summary>
-        /// 
+        ///
         public static Nullable<T> Min<T>(this Nullable<T>[] values, out int imin)
             where T : struct, IComparable<T>
         {
@@ -184,12 +178,10 @@ namespace Accord.Math
             return min;
         }
 
-
-
         /// <summary>
         ///   Gets the maximum element in a vector.
         /// </summary>
-        /// 
+        ///
         public static T Max<T>(this T[] values, out int imax)
             where T : IComparable<T>
         {
@@ -209,7 +201,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the maximum element in a vector.
         /// </summary>
-        /// 
+        ///
         public static T Max<T>(this T[] values, out int imax, bool alreadySorted)
             where T : IComparable<T>
         {
@@ -225,7 +217,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the maximum element in a vector.
         /// </summary>
-        /// 
+        ///
         public static T Max<T>(this T[] values)
             where T : IComparable<T>
         {
@@ -233,12 +225,10 @@ namespace Accord.Math
             return Max(values, out imax);
         }
 
-
-
         /// <summary>
         ///   Gets the minimum element in a vector.
         /// </summary>
-        /// 
+        ///
         public static T Min<T>(this T[] values, out int imin)
             where T : IComparable<T>
         {
@@ -258,22 +248,22 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the minimum element in a vector.
         /// </summary>
-        /// 
-        public static T Min<T>(this T[] values) 
+        ///
+        public static T Min<T>(this T[] values)
             where T : IComparable<T>
         {
             int imin;
             return Min(values, out imin);
         }
-        #endregion
 
-
+        #endregion Vector Min/Max
 
         #region limited length
+
         /// <summary>
         ///   Gets the maximum element in a vector up to a fixed length.
         /// </summary>
-        /// 
+        ///
         public static T Max<T>(this T[] values, int length, out int imax)
             where T : IComparable<T>
         {
@@ -293,7 +283,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the maximum element in a vector up to a fixed length.
         /// </summary>
-        /// 
+        ///
         public static T Max<T>(this T[] values, int length)
             where T : IComparable<T>
         {
@@ -301,11 +291,10 @@ namespace Accord.Math
             return Max(values, length, out imax);
         }
 
-
         /// <summary>
         ///   Gets the minimum element in a vector up to a fixed length.
         /// </summary>
-        /// 
+        ///
         public static T Min<T>(this T[] values, int length, out int imax)
             where T : IComparable<T>
         {
@@ -325,14 +314,14 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the minimum element in a vector up to a fixed length.
         /// </summary>
-        /// 
+        ///
         public static T Min<T>(this T[] values, int length)
             where T : IComparable<T>
         {
             int imin;
             return Min(values, length, out imin);
         }
-        #endregion
 
+        #endregion limited length
     }
 }

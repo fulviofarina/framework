@@ -29,21 +29,19 @@
 
 namespace Accord.Statistics
 {
-    using Accord;
-    using Accord.Math;
     using System;
-
+    using Accord;
 
     public static partial class Measures
     {
         /// <summary>
         ///   Gets the minimum value in the histogram.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">Histogram array.</param>
-        /// 
+        ///
         /// <returns>The minimum value in the histogram.</returns>
-        /// 
+        ///
         public static int HistogramMin(this int[] values)
         {
             int min = values.Length;
@@ -58,11 +56,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Gets the maximum value in the histogram.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">Histogram array.</param>
-        /// 
+        ///
         /// <returns>The maximum value in the histogram.</returns>
-        /// 
+        ///
         public static int HistogramMax(this int[] values)
         {
             int max = 0;
@@ -77,11 +75,11 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the total number of samples in a histogram.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">The histogram array.</param>
-        /// 
+        ///
         /// <returns>The total number of samples in the histogram.</returns>
-        /// 
+        ///
         public static long HistogramSum(this int[] values)
         {
             long sum = 0;
@@ -90,21 +88,20 @@ namespace Accord.Statistics
             return sum;
         }
 
-
         /// <summary>
         /// Calculate mean value of an histogram.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">Histogram array.</param>
-        /// 
+        ///
         /// <returns>Returns mean value.</returns>
-        /// 
+        ///
         /// <remarks><para>The input array is treated as histogram, i.e. its
         /// indexes are treated as values of stochastic function, but
         /// array values are treated as "probabilities" (total amount of
         /// hits).</para>
         /// </remarks>
-        /// 
+        ///
         public static double HistogramMean(this int[] values)
         {
             double total = 0;
@@ -123,17 +120,17 @@ namespace Accord.Statistics
         /// <summary>
         /// Calculate standard deviation of an histogram.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">Histogram array.</param>
-        /// 
+        ///
         /// <returns>Returns value of standard deviation.</returns>
-        /// 
+        ///
         /// <remarks><para>The input array is treated as histogram, i.e. its
         /// indexes are treated as values of stochastic function, but
         /// array values are treated as "probabilities" (total amount of
         /// hits).</para>
         /// </remarks>
-        /// 
+        ///
         public static double HistogramStandardDeviation(this int[] values)
         {
             return StandardDeviation(values, Mean(values));
@@ -142,22 +139,22 @@ namespace Accord.Statistics
         /// <summary>
         /// Calculate standard deviation of an histogram.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">Histogram array.</param>
         /// <param name="mean">Mean value of the histogram.</param>
-        /// 
+        ///
         /// <returns>Returns value of standard deviation.</returns>
-        /// 
+        ///
         /// <remarks><para>The input array is treated as histogram, i.e. its
         /// indexes are treated as values of stochastic function, but
         /// array values are treated as "probabilities" (total amount of
         /// hits).</para>
-        /// 
+        ///
         /// <para>The method is an equivalent to the <see cref="HistogramStandardDeviation(int[])"/> method,
         /// but it relies on the passed mean value, which is previously calculated
         /// using <see cref="HistogramMean"/> method.</para>
         /// </remarks>
-        /// 
+        ///
         public static double HistogramStandardDeviation(this int[] values, double mean)
         {
             double stddev = 0;
@@ -178,22 +175,22 @@ namespace Accord.Statistics
         /// <summary>
         /// Calculate median value of an histogram.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">Histogram array.</param>
-        /// 
+        ///
         /// <returns>Returns value of median.</returns>
-        /// 
+        ///
         /// <remarks>
         /// <para>The input array is treated as histogram, i.e. its
         /// indexes are treated as values of stochastic function, but
         /// array values are treated as "probabilities" (total amount of
         /// hits).</para>
-        /// 
+        ///
         /// <para><note>The median value is calculated accumulating histogram's
         /// values starting from the <b>left</b> point until the sum reaches 50% of
         /// histogram's sum.</note></para>
         /// </remarks>
-        /// 
+        ///
         public static int HistogramMedian(this int[] values)
         {
             int total = 0;
@@ -223,23 +220,23 @@ namespace Accord.Statistics
         /// <summary>
         /// Get range around median of an histogram containing specified percentage of values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">Histogram array.</param>
         /// <param name="percent">Values percentage around median.</param>
-        /// 
+        ///
         /// <returns>Returns the range which contains specified percentage
         /// of values.</returns>
-        /// 
+        ///
         /// <remarks>
         /// <para>The input array is treated as histogram, i.e. its
         /// indexes are treated as values of stochastic function, but
         /// array values are treated as "probabilities" (total amount of
         /// hits).</para>
-        /// 
+        ///
         /// <para>The method calculates range of stochastic variable, which summary probability
         /// comprises the specified percentage of histogram's hits.</para>
         /// </remarks>
-        /// 
+        ///
         public static IntRange GetHistogramRange(this int[] values, double percent)
         {
             int total = 0;
@@ -276,17 +273,17 @@ namespace Accord.Statistics
         /// <summary>
         /// Calculate entropy value of an histogram.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">Histogram array.</param>
-        /// 
+        ///
         /// <returns>Returns entropy value of the specified histogram array.</returns>
-        /// 
+        ///
         /// <remarks><para>The input array is treated as histogram, i.e. its
         /// indexes are treated as values of stochastic function, but
         /// array values are treated as "probabilities" (total amount of
         /// hits).</para>
         /// </remarks>
-        /// 
+        ///
         public static double HistogramEntropy(this int[] values)
         {
             int total = 0;
@@ -316,20 +313,20 @@ namespace Accord.Statistics
         /// <summary>
         /// Calculate mode value of an histogram.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">Histogram array.</param>
-        /// 
+        ///
         /// <returns>Returns mode value of the histogram array.</returns>
-        /// 
+        ///
         /// <remarks>
         /// <para>The input array is treated as histogram, i.e. its
         /// indexes are treated as values of stochastic function, but
         /// array values are treated as "probabilities" (total amount of
         /// hits).</para>
-        /// 
+        ///
         /// <para><note>Returns the minimum mode value if the specified histogram is multimodal.</note></para>
         /// </remarks>
-        /// 
+        ///
         public static int HistogramMode(this int[] values)
         {
             int mode = 0, curMax = 0;

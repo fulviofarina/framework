@@ -22,28 +22,23 @@
 
 namespace Accord.Math.Decompositions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Accord;
 
     /// <summary>
     ///   Gram-Schmidt Orthogonalization.
     /// </summary>
-    /// 
+    ///
     public class GramSchmidtOrthogonalization
     {
         private double[,] q;
         private double[,] r;
 
-
         /// <summary>
         ///   Initializes a new instance of the <see cref="GramSchmidtOrthogonalization"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="value">The matrix <c>A</c> to be decomposed.</param>
-        /// 
+        ///
         public GramSchmidtOrthogonalization(double[,] value)
             : this(value, true)
         {
@@ -52,11 +47,11 @@ namespace Accord.Math.Decompositions
         /// <summary>
         ///   Initializes a new instance of the <see cref="GramSchmidtOrthogonalization"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="value">The matrix <c>A</c> to be decomposed.</param>
         /// <param name="modified">True to use modified Gram-Schmidt; false
         ///   otherwise. Default is true (and is the recommended setup).</param>
-        /// 
+        ///
         public GramSchmidtOrthogonalization(double[,] value, bool modified)
         {
             if (value.GetLength(0) != value.GetLength(1))
@@ -84,7 +79,6 @@ namespace Accord.Math.Decompositions
                     q.SetColumn(j, v.Divide(r[j, j]));
                 }
             }
-
             else
             {
                 for (int j = 0; j < size; j++)
@@ -104,11 +98,10 @@ namespace Accord.Math.Decompositions
             }
         }
 
-
         /// <summary>
         ///   Returns the orthogonal factor matrix <c>Q</c>.
         /// </summary>
-        /// 
+        ///
         public double[,] OrthogonalFactor
         {
             get { return q; }
@@ -117,7 +110,7 @@ namespace Accord.Math.Decompositions
         /// <summary>
         ///   Returns the upper triangular factor matrix <c>R</c>.
         /// </summary>
-        /// 
+        ///
         public double[,] UpperTriangularFactor
         {
             get { return r; }

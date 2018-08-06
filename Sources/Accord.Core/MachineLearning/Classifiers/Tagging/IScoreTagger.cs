@@ -22,21 +22,19 @@
 
 namespace Accord.MachineLearning
 {
-
     /// <summary>
     /// Common interface for observation sequence taggers.
     /// </summary>
-    /// 
+    ///
     public interface IScoreTagger<in TInput> :
-        ITagger<TInput> 
+        ITagger<TInput>
     {
-
         /// <summary>
         ///   Computes numerical scores measuring the association between
         ///   each of the given <paramref name="sequence"/> vectors and each
         ///   possible class.
         /// </summary>
-        /// 
+        ///
         double[][] Scores(TInput[] sequence);
 
         /// <summary>
@@ -44,7 +42,7 @@ namespace Accord.MachineLearning
         ///   each of the given <paramref name="sequence"/> vectors and each
         ///   possible class.
         /// </summary>
-        /// 
+        ///
         double[][] Scores(TInput[] sequence, double[][] result);
 
         /// <summary>
@@ -52,7 +50,7 @@ namespace Accord.MachineLearning
         ///   each of the given <paramref name="sequence"/> vectors and each
         ///   possible class.
         /// </summary>
-        /// 
+        ///
         double[][] Scores(TInput[] sequence, ref int[] decision);
 
         /// <summary>
@@ -60,16 +58,15 @@ namespace Accord.MachineLearning
         ///   each of the given <paramref name="sequence"/> vectors and each
         ///   possible class.
         /// </summary>
-        /// 
+        ///
         double[][] Scores(TInput[] sequence, ref int[] decision, double[][] result);
-
 
         /// <summary>
         ///   Computes numerical scores measuring the association between
         ///   each of the given <paramref name="sequences"/> vectors and each
         ///   possible class.
         /// </summary>
-        /// 
+        ///
         double[][][] Scores(TInput[][] sequences);
 
         /// <summary>
@@ -77,7 +74,7 @@ namespace Accord.MachineLearning
         ///   each of the given <paramref name="sequences"/> vectors and each
         ///   possible class.
         /// </summary>
-        /// 
+        ///
         double[][][] Scores(TInput[][] sequences, double[][][] result);
 
         /// <summary>
@@ -85,7 +82,7 @@ namespace Accord.MachineLearning
         ///   each of the given <paramref name="sequences"/> vectors and each
         ///   possible class.
         /// </summary>
-        /// 
+        ///
         double[][][] Scores(TInput[][] sequences, ref int[][] decision);
 
         /// <summary>
@@ -93,11 +90,7 @@ namespace Accord.MachineLearning
         ///   each of the given <paramref name="sequences"/> vectors and each
         ///   possible class.
         /// </summary>
-        /// 
+        ///
         double[][][] Scores(TInput[][] sequences, ref int[][] decision, double[][][] result);
-
-
-
     }
-    
 }

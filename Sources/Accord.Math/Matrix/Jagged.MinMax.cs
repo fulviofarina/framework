@@ -22,15 +22,10 @@
 
 namespace Accord.Math
 {
-    using Accord.Math.Comparers;
-    using AForge;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public static partial class Matrix
     {
-
         internal static int GetLength<T>(T[][] values, int dimension)
         {
             if (dimension == 1)
@@ -45,14 +40,12 @@ namespace Accord.Math
             return values.GetLength(1);
         }
 
-
-
         #region Matrix ArgMin/ArgMax
 
         /// <summary>
         ///   Gets the index of the maximum element in a matrix.
         /// </summary>
-        /// 
+        ///
         public static Tuple<int, int> ArgMax<T>(this T[][] matrix)
             where T : IComparable<T>
         {
@@ -64,7 +57,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the index of the maximum element in a matrix across a given dimension.
         /// </summary>
-        /// 
+        ///
         public static int[] ArgMax<T>(this T[][] matrix, int dimension)
             where T : IComparable<T>
         {
@@ -78,7 +71,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the index of the maximum element in a matrix across a given dimension.
         /// </summary>
-        /// 
+        ///
         public static int[] ArgMax<T>(this T[][] matrix, int dimension, int[] result)
             where T : IComparable<T>
         {
@@ -88,11 +81,10 @@ namespace Accord.Math
             return result;
         }
 
-
         /// <summary>
         ///   Gets the index of the minimum element in a matrix.
         /// </summary>
-        /// 
+        ///
         public static Tuple<int, int> ArgMin<T>(this T[][] matrix)
             where T : IComparable<T>
         {
@@ -104,7 +96,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the index of the minimum element in a matrix across a given dimension.
         /// </summary>
-        /// 
+        ///
         public static int[] ArgMin<T>(this T[][] matrix, int dimension)
             where T : IComparable<T>
         {
@@ -118,7 +110,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the index of the minimum element in a matrix across a given dimension.
         /// </summary>
-        /// 
+        ///
         public static int[] ArgMin<T>(this T[][] matrix, int dimension, int[] result)
             where T : IComparable<T>
         {
@@ -128,16 +120,14 @@ namespace Accord.Math
             return result;
         }
 
-
-        #endregion
-
+        #endregion Matrix ArgMin/ArgMax
 
         #region Matrix Min/Max
 
         /// <summary>
         ///   Gets the maximum value of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T Max<T>(this T[][] matrix)
             where T : IComparable<T>
         {
@@ -153,7 +143,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the minimum value of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T Min<T>(this T[][] matrix)
             where T : IComparable<T>
         {
@@ -161,13 +151,10 @@ namespace Accord.Math
             return Min(matrix, out index);
         }
 
-
-
-
         /// <summary>
         ///   Gets the minimum values across one dimension of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[] Min<T>(this T[][] matrix, int dimension)
             where T : IComparable<T>
         {
@@ -180,7 +167,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the maximum values across one dimension of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[] Max<T>(this T[][] matrix, int dimension)
             where T : IComparable<T>
         {
@@ -193,7 +180,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the maximum values across one dimension of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[] Max<T>(this T[][] matrix, int dimension, T[] result)
             where T : IComparable<T>
         {
@@ -205,7 +192,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the minimum values across one dimension of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[] Min<T>(this T[][] matrix, int dimension, T[] result)
             where T : IComparable<T>
         {
@@ -214,13 +201,10 @@ namespace Accord.Math
             return Min(matrix, dimension, indices, result);
         }
 
-
-
-
         /// <summary>
         ///   Gets the minimum values across one dimension of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[] Min<T>(this T[][] matrix, int dimension, out int[] indices)
             where T : IComparable<T>
         {
@@ -233,7 +217,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the maximum values across one dimension of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[] Max<T>(this T[][] matrix, int dimension, out int[] indices)
             where T : IComparable<T>
         {
@@ -246,7 +230,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the maximum values across one dimension of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[] Max<T>(this T[][] matrix, int dimension, out int[] indices, T[] result)
             where T : IComparable<T>
         {
@@ -258,7 +242,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the minimum values across one dimension of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[] Min<T>(this T[][] matrix, int dimension, out int[] indices, T[] result)
             where T : IComparable<T>
         {
@@ -267,19 +251,14 @@ namespace Accord.Math
             return Min(matrix, dimension, indices, result);
         }
 
-        #endregion
-
-
-
-
-
-
+        #endregion Matrix Min/Max
 
         #region Core implementations
+
         /// <summary>
         ///   Gets the maximum value of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T Max<T>(this T[][] matrix, out Tuple<int, int> imax)
             where T : IComparable<T>
         {
@@ -304,7 +283,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the minimum value of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T Min<T>(this T[][] matrix, out Tuple<int, int> imin)
             where T : IComparable<T>
         {
@@ -329,7 +308,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the maximum values across one dimension of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[] Max<T>(this T[][] matrix, int dimension, int[] indices, T[] result)
             where T : IComparable<T>
         {
@@ -367,11 +346,10 @@ namespace Accord.Math
             return result;
         }
 
-
         /// <summary>
         ///   Gets the minimum values across one dimension of a matrix.
         /// </summary>
-        /// 
+        ///
         public static T[] Min<T>(this T[][] matrix, int dimension, int[] indices, T[] result)
             where T : IComparable<T>
         {
@@ -408,20 +386,19 @@ namespace Accord.Math
 
             return result;
         }
-        #endregion
 
-
+        #endregion Core implementations
 
         /// <summary>
         ///   Gets the maximum and minimum values in a matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">The vector whose min and max should be computed.</param>
         /// <param name="min">The minimum value in the vector.</param>
         /// <param name="max">The maximum value in the vector.</param>
-        /// 
+        ///
         /// <exception cref="System.ArgumentException">Raised if the array is empty.</exception>
-        /// 
+        ///
         public static void GetRange<T>(this T[][] values, out T min, out T max)
             where T : IComparable<T>
         {
@@ -444,18 +421,16 @@ namespace Accord.Math
             }
         }
 
-
-
         /// <summary>
         ///   Gets the range of the values across the columns of a matrix.
         /// </summary>
-        /// 
+        ///
         /// <param name="value">The matrix whose ranges should be computed.</param>
         /// <param name="dimension">
         ///   Pass 0 if the range should be computed for each of the columns. Pass 1
         ///   if the range should be computed for each row. Default is 0.
         /// </param>
-        /// 
+        ///
         public static DoubleRange[] GetRange(this double[][] value, int dimension)
         {
             int rows = value.Length;
@@ -506,18 +481,14 @@ namespace Accord.Math
             return ranges;
         }
 
-
         /// <summary>
         ///   Deprecated.
         /// </summary>
         ///
         [Obsolete("Please use GetRange instead.")]
-
         public static DoubleRange[] Range(this double[][] value, int dimension)
         {
             return GetRange(value, dimension);
         }
-
-
     }
 }

@@ -20,7 +20,6 @@
 //    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-
 namespace Accord.Math.Optimization.Losses
 {
     using System;
@@ -30,7 +29,7 @@ namespace Accord.Math.Optimization.Losses
     /// <summary>
     ///   R² (r-squared) loss.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     ///   <para>
     ///    The coefficient of determination is used in the context of statistical models
@@ -41,33 +40,32 @@ namespace Accord.Math.Optimization.Losses
     ///   <para>
     ///    The R² coefficient of determination is a statistical measure of how well the
     ///    regression line approximates the real data points. An R² of 1.0 indicates
-    ///    that the regression line perfectly fits the data.</para> 
+    ///    that the regression line perfectly fits the data.</para>
     /// </remarks>
-    /// 
+    ///
     [Serializable]
     public class RSquaredLoss : LossBase<double[][], double[]>, ILoss<double[]>
     {
-
         /// <summary>
         ///   Gets or sets the number of variables being fit in the problem.
         /// </summary>
-        /// 
+        ///
         public int NumberOfInputs { get; set; }
 
         /// <summary>
-        ///   Gets whether the adjusted version of the R² 
+        ///   Gets whether the adjusted version of the R²
         ///   measure should be computed instead.
         /// </summary>
-        /// 
+        ///
         public bool Adjust { get; set; }
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="RSquaredLoss"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="expected">The expected outputs (ground truth).</param>
         /// <param name="numberOfInputs">The number if variables being fit.</param>
-        /// 
+        ///
         public RSquaredLoss(int numberOfInputs, double[] expected)
             : base(Jagged.ColumnVector(expected))
         {
@@ -77,10 +75,10 @@ namespace Accord.Math.Optimization.Losses
         /// <summary>
         ///   Initializes a new instance of the <see cref="RSquaredLoss"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="expected">The expected outputs (ground truth).</param>
         /// <param name="numberOfInputs">The number if variables being fit.</param>
-        /// 
+        ///
         public RSquaredLoss(int numberOfInputs, double[][] expected)
             : base(expected)
         {

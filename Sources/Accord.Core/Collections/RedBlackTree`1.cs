@@ -24,7 +24,7 @@
 //
 //
 // The source code presented in this file has been adapted from the
-// Red Black tree implementation presented in the NLopt Numerical 
+// Red Black tree implementation presented in the NLopt Numerical
 // Optimization Library. Original license details are given below.
 //
 //    Copyright (c) 2007-2011 Massachusetts Institute of Technology
@@ -36,17 +36,17 @@
 //    distribute, sublicense, and/or sell copies of the Software, and to
 //    permit persons to whom the Software is furnished to do so, subject to
 //    the following conditions:
-// 
+//
 //    The above copyright notice and this permission notice shall be
 //    included in all copies or substantial portions of the Software.
-// 
+//
 //    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 //    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 //    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
 //    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 //    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 //    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 namespace Accord.Collections
@@ -57,72 +57,71 @@ namespace Accord.Collections
     /// <summary>
     ///   Red-black tree.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
-    ///   A red–black tree is a data structure which is a type of self-balancing binary 
+    ///   A red–black tree is a data structure which is a type of self-balancing binary
     ///   search tree. Balance is preserved by painting each node of the tree with one of
-    ///   two colors (typically called 'red' and 'black') in a way that satisfies certain 
-    ///   properties, which collectively constrain how unbalanced the tree can become in 
+    ///   two colors (typically called 'red' and 'black') in a way that satisfies certain
+    ///   properties, which collectively constrain how unbalanced the tree can become in
     ///   the worst case. When the tree is modified, the new tree is subsequently rearranged
-    ///   and repainted to restore the coloring properties. The properties are designed in 
+    ///   and repainted to restore the coloring properties. The properties are designed in
     ///   such a way that this rearranging and recoloring can be performed efficiently.</para>
-    ///   
+    ///
     /// <para>
-    ///   The balancing of the tree is not perfect but it is good enough to allow it to 
-    ///   guarantee searching in O(log n) time, where n is the total number of elements 
-    ///   in the tree. The insertion and deletion operations, along with the tree rearrangement 
+    ///   The balancing of the tree is not perfect but it is good enough to allow it to
+    ///   guarantee searching in O(log n) time, where n is the total number of elements
+    ///   in the tree. The insertion and deletion operations, along with the tree rearrangement
     ///   and recoloring, are also performed in O(log n) time. </para>
-    ///   
+    ///
     /// <para>
     ///   Tracking the color of each node requires only 1 bit of information per node because
     ///   there are only two colors. The tree does not contain any other data specific to its
-    ///   being a red–black tree so its memory footprint is almost identical to a classic 
+    ///   being a red–black tree so its memory footprint is almost identical to a classic
     ///   (uncolored) binary search tree. </para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description><a href="http://ab-initio.mit.edu/nlopt">
-    ///       Steven G. Johnson, The NLopt nonlinear-optimization package, 
+    ///       Steven G. Johnson, The NLopt nonlinear-optimization package,
     ///       http://ab-initio.mit.edu/nlopt </a></description></item>
     ///     <item><description><a href="http://en.wikipedia.org/wiki/Red%E2%80%93black_tree">
     ///       Wikipedia, The Free Encyclopedia. Red-black tree. Available on:
     ///       http://en.wikipedia.org/wiki/Red%E2%80%93black_tree </a></description></item>
     ///    </list></para>
     /// </remarks>
-    /// 
+    ///
     /// <typeparam name="T">The type of the value to be stored.</typeparam>
-    /// 
+    ///
     [Serializable]
-    public class RedBlackTree<T> : BinaryTree<RedBlackTreeNode<T>>, 
+    public class RedBlackTree<T> : BinaryTree<RedBlackTreeNode<T>>,
         ICollection<RedBlackTreeNode<T>>, ICollection<T>
     {
+        private IComparer<T> compare;
+        private RedBlackTreeNode<T> root;
+        private int count;
 
-        IComparer<T> compare;
-        RedBlackTreeNode<T> root;
-        int count;
-
-        bool duplicates = false;
+        private bool duplicates = false;
 
         /// <summary>
         ///   Constructs a new <see cref="RedBlackTree&lt;T&gt;"/> using the
         ///   default <see cref="IComparer{T}"/> for type <typeparamref name="T"/>.
         /// </summary>
-        /// 
+        ///
         public RedBlackTree()
         {
             this.compare = Comparer<T>.Default;
         }
 
         /// <summary>
-        ///   Constructs a new <see cref="RedBlackTree&lt;T&gt;"/> using 
+        ///   Constructs a new <see cref="RedBlackTree&lt;T&gt;"/> using
         ///   the provided <see cref="IComparer{T}"/> implementation.
         /// </summary>
-        /// 
+        ///
         /// <param name="comparer">
         ///   The element comparer to be used to order elements in the tree.</param>
-        /// 
+        ///
         public RedBlackTree(IComparer<T> comparer)
         {
             this.compare = comparer;
@@ -132,11 +131,11 @@ namespace Accord.Collections
         ///   Constructs a new <see cref="RedBlackTree&lt;T&gt;"/> using the
         ///   default <see cref="IComparer{T}"/> for type <typeparamref name="T"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="allowDuplicates">
-        ///   Pass <c>true</c> to allow duplicate elements 
+        ///   Pass <c>true</c> to allow duplicate elements
         ///   in the tree; <c>false</c> otherwise.</param>
-        /// 
+        ///
         public RedBlackTree(bool allowDuplicates)
         {
             this.compare = Comparer<T>.Default;
@@ -144,16 +143,16 @@ namespace Accord.Collections
         }
 
         /// <summary>
-        ///   Constructs a new <see cref="RedBlackTree&lt;T&gt;"/> using 
+        ///   Constructs a new <see cref="RedBlackTree&lt;T&gt;"/> using
         ///   the provided <see cref="IComparer{T}"/> implementation.
         /// </summary>
-        /// 
+        ///
         /// <param name="comparer">
         ///   The element comparer to be used to order elements in the tree.</param>
         /// <param name="allowDuplicates">
-        ///   Pass <c>true</c> to allow duplicate elements 
+        ///   Pass <c>true</c> to allow duplicate elements
         ///   in the tree; <c>false</c> otherwise.</param>
-        /// 
+        ///
         public RedBlackTree(IComparer<T> comparer, bool allowDuplicates)
         {
             this.compare = comparer;
@@ -163,13 +162,13 @@ namespace Accord.Collections
         /// <summary>
         ///   Gets the number of nodes contained in this red-black tree.
         /// </summary>
-        /// 
+        ///
         public int Count { get { return count; } }
 
         /// <summary>
         ///   Gets the <see cref="IComparer{T}"/> for this red black tree.
         /// </summary>
-        /// 
+        ///
         public IComparer<T> Comparer
         {
             get { return compare; }
@@ -178,7 +177,7 @@ namespace Accord.Collections
         /// <summary>
         ///   Removes all nodes from the tree.
         /// </summary>
-        /// 
+        ///
         public void Clear()
         {
             this.root = null;
@@ -189,11 +188,11 @@ namespace Accord.Collections
         ///   Adds a new item to the tree. If the element already
         ///   belongs to this tree, no new element will be added.
         /// </summary>
-        /// 
+        ///
         /// <param name="item">The item to be added.</param>
-        /// 
+        ///
         /// <returns>The node containing the added item.</returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> Add(T item)
         {
             var n = new RedBlackTreeNode<T>(item);
@@ -210,9 +209,9 @@ namespace Accord.Collections
         ///   Adds a new item to the tree. If the element already
         ///   belongs to this tree, no new element will be added.
         /// </summary>
-        /// 
+        ///
         /// <param name="item">The node to be added to the tree.</param>
-        /// 
+        ///
         public void Add(RedBlackTreeNode<T> item)
         {
             var k = item.Value;
@@ -266,7 +265,7 @@ namespace Accord.Collections
                 }
             }
 
-        fixtree:
+            fixtree:
 
             if (item.Parent.Color == RedBlackTreeNodeType.Red)
             {
@@ -314,13 +313,13 @@ namespace Accord.Collections
         /// <summary>
         ///   Attempts to remove an element from the tree.
         /// </summary>
-        /// 
+        ///
         /// <param name="item">The item to be removed.</param>
-        /// 
+        ///
         /// <returns>
         ///   <c>True</c> if the element was in the tree and was removed; false otherwise.
         /// </returns>
-        /// 
+        ///
         bool ICollection<T>.Remove(T item)
         {
             var node = Find(item);
@@ -334,13 +333,13 @@ namespace Accord.Collections
         /// <summary>
         ///   Removes a node from the tree.
         /// </summary>
-        /// 
+        ///
         /// <param name="item">The node to be removed.</param>
-        /// 
+        ///
         /// <returns>
         ///   <c>True</c> if the element was in the tree and was removed; false otherwise.
         /// </returns>
-        /// 
+        ///
         bool ICollection<RedBlackTreeNode<T>>.Remove(RedBlackTreeNode<T> item)
         {
             return Remove(item) != null;
@@ -349,13 +348,13 @@ namespace Accord.Collections
         /// <summary>
         ///   Removes a node from the tree.
         /// </summary>
-        /// 
+        ///
         /// <param name="item">The key of the node to be removed.</param>
-        /// 
+        ///
         /// <returns>
         ///   A reference to the removed node, if the item was in the tree; otherwise, <c>null</c>.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> Remove(T item)
         {
             var node = Find(item);
@@ -366,19 +365,16 @@ namespace Accord.Collections
             return Remove(node);
         }
 
-       
-
-       
         /// <summary>
         ///   Removes a node from the tree.
         /// </summary>
-        /// 
+        ///
         /// <param name="node">The node to be removed.</param>
-        /// 
+        ///
         /// <returns>
         ///   A reference to the removed node.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> Remove(RedBlackTreeNode<T> node)
         {
             var k = node.Value;
@@ -421,8 +417,7 @@ namespace Accord.Collections
                 }
                 else
                 {
-
-                deleteblack:
+                    deleteblack:
                     if (mp != null)
                     {
                         var s = m == mp.Left ? mp.Right : mp.Left;
@@ -439,9 +434,9 @@ namespace Accord.Collections
                             s = m == mp.Left ? mp.Right : mp.Left;
                         }
 
-                        if (mp.Color == RedBlackTreeNodeType.Black 
-                          && s.Color == RedBlackTreeNodeType.Black 
-                          && (s.Left == null || s.Left.Color == RedBlackTreeNodeType.Black) 
+                        if (mp.Color == RedBlackTreeNodeType.Black
+                          && s.Color == RedBlackTreeNodeType.Black
+                          && (s.Left == null || s.Left.Color == RedBlackTreeNodeType.Black)
                           && (s.Right == null || s.Right.Color == RedBlackTreeNodeType.Black))
                         {
                             if (s != null)
@@ -452,9 +447,9 @@ namespace Accord.Collections
 
                             goto deleteblack;
                         }
-                        else if (mp.Color == RedBlackTreeNodeType.Red 
-                            && s.Color == RedBlackTreeNodeType.Black 
-                            && (s.Left == null || s.Left.Color == RedBlackTreeNodeType.Black) 
+                        else if (mp.Color == RedBlackTreeNodeType.Red
+                            && s.Color == RedBlackTreeNodeType.Black
+                            && (s.Left == null || s.Left.Color == RedBlackTreeNodeType.Black)
                             && (s.Right == null || s.Right.Color == RedBlackTreeNodeType.Black))
                         {
                             if (s != null)
@@ -464,8 +459,8 @@ namespace Accord.Collections
                         }
                         else
                         {
-                            if (m == mp.Left && s.Color == RedBlackTreeNodeType.Black 
-                                && (s.Left != null && s.Left.Color == RedBlackTreeNodeType.Red) 
+                            if (m == mp.Left && s.Color == RedBlackTreeNodeType.Black
+                                && (s.Left != null && s.Left.Color == RedBlackTreeNodeType.Red)
                                 && (s.Right == null || s.Right.Color == RedBlackTreeNodeType.Black))
                             {
                                 s.Color = RedBlackTreeNodeType.Red;
@@ -475,8 +470,8 @@ namespace Accord.Collections
 
                                 s = m == mp.Left ? mp.Right : mp.Left;
                             }
-                            else if (m == mp.Right && s.Color == RedBlackTreeNodeType.Black 
-                                && (s.Right != null && s.Right.Color == RedBlackTreeNodeType.Red) 
+                            else if (m == mp.Right && s.Color == RedBlackTreeNodeType.Black
+                                && (s.Right != null && s.Right.Color == RedBlackTreeNodeType.Red)
                                 && (s.Left == null || s.Left.Color == RedBlackTreeNodeType.Black))
                             {
                                 s.Color = RedBlackTreeNodeType.Red;
@@ -508,23 +503,20 @@ namespace Accord.Collections
             return node; // the node that was deleted may be different from initial n
         }
 
-
-
-
         /// <summary>
         ///   Copies the nodes of this tree to an array, starting at a
         ///   particular <paramref name="arrayIndex">array index</paramref>.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">
         ///   The one-dimensional array that is the destination of the elements
         ///   copied from this tree. The array must have zero-based indexing.
         /// </param>
-        /// 
+        ///
         /// <param name="arrayIndex">
         ///   The zero-based index in <paramref name="array"/> at which copying begins.
         /// </param>
-        /// 
+        ///
         public void CopyTo(RedBlackTreeNode<T>[] array, int arrayIndex)
         {
             foreach (var node in this)
@@ -535,16 +527,16 @@ namespace Accord.Collections
         ///   Copies the elements of this tree to an array, starting at a
         ///   particular <paramref name="arrayIndex">array index</paramref>.
         /// </summary>
-        /// 
+        ///
         /// <param name="array">
         ///   The one-dimensional array that is the destination of the elements
         ///   copied from this tree. The array must have zero-based indexing.
         /// </param>
-        /// 
+        ///
         /// <param name="arrayIndex">
         ///   The zero-based index in <paramref name="array"/> at which copying begins.
         /// </param>
-        /// 
+        ///
         public void CopyTo(T[] array, int arrayIndex)
         {
             foreach (var node in this)
@@ -552,14 +544,14 @@ namespace Accord.Collections
         }
 
         /// <summary>
-        ///   Gets a value indicating whether this instance is read only. 
+        ///   Gets a value indicating whether this instance is read only.
         ///   In a <see cref="RedBlackTree{T}"/>, this returns false.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///    Returns <c>false</c>.
         /// </value>
-        /// 
+        ///
         public bool IsReadOnly
         {
             get { return false; }
@@ -568,12 +560,12 @@ namespace Accord.Collections
         /// <summary>
         ///   Returns an enumerator that iterates through this tree in-order.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   An <see cref="T:System.Collections.IEnumerator"/> object that can
         ///   be used to traverse through this tree using in-order traversal.
         /// </returns>
-        /// 
+        ///
         public override IEnumerator<RedBlackTreeNode<T>> GetEnumerator()
         {
             RedBlackTreeNode<T> node = root;
@@ -618,16 +610,16 @@ namespace Accord.Collections
                 }
             }
         }
-        
+
         /// <summary>
         ///   Returns an enumerator that iterates through this tree in-order.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   An <see cref="T:System.Collections.IEnumerator"/> object that can
         ///   be used to traverse through this tree using in-order traversal.
         /// </returns>
-        /// 
+        ///
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
@@ -642,13 +634,13 @@ namespace Accord.Collections
         /// <summary>
         ///   Determines whether this tree contains the specified item.
         /// </summary>
-        /// 
+        ///
         /// <param name="item">The item to be looked for.</param>
-        /// 
+        ///
         /// <returns>
         ///   <c>true</c> if the element was found inside the tree; otherwise, <c>false</c>.
         /// </returns>
-        /// 
+        ///
         public bool Contains(T item)
         {
             return Find(item) != null;
@@ -657,13 +649,13 @@ namespace Accord.Collections
         /// <summary>
         ///   Determines whether this tree contains the specified item.
         /// </summary>
-        /// 
+        ///
         /// <param name="item">The item to be looked for.</param>
-        /// 
+        ///
         /// <returns>
         ///   <c>true</c> if the element was found inside the tree; otherwise, <c>false</c>.
         /// </returns>
-        /// 
+        ///
         public bool Contains(RedBlackTreeNode<T> item)
         {
             return Find(item.Value) != null;
@@ -672,14 +664,14 @@ namespace Accord.Collections
         /// <summary>
         ///   Attempts to find a node that contains the specified key.
         /// </summary>
-        /// 
+        ///
         /// <param name="item">The key whose node is to be found.</param>
-        /// 
+        ///
         /// <returns>
         ///   A <see cref="RedBlackTreeNode{T}"/> containing the desired <paramref name="item"/>
         ///   if it is present in the dictionary; otherwise, returns <c>null</c>.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> Find(T item)
         {
             var p = root;
@@ -702,21 +694,21 @@ namespace Accord.Collections
         ///  that is less than or equal to (&lt;=) <c>k</c>. In other words, finds either
         ///  <c>k</c> or a number immediately below it.
         /// </summary>
-        /// 
+        ///
         /// <param name="node">The subtree where search will take place.</param>
         /// <param name="value">A reference value to be found.</param>
-        /// 
+        ///
         /// <returns>
-        ///   The node containing the given value <paramref name="value"/> or 
+        ///   The node containing the given value <paramref name="value"/> or
         ///   its immediately smaller neighboring number present in the tree.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> FindLessThanOrEqualTo(RedBlackTreeNode<T> node, T value)
         {
             while (node != null)
             {
                 if (compare.Compare(node.Value, value) <= 0)
-                { 
+                {
                     // p.k <= k
                     var r = FindLessThanOrEqualTo(node.Right, value);
 
@@ -739,14 +731,14 @@ namespace Accord.Collections
         ///  In other words, finds either <c>k</c> or a number immediately
         ///  below it.
         /// </summary>
-        /// 
+        ///
         /// <param name="value">A reference for the value to be found.</param>
-        /// 
+        ///
         /// <returns>
-        ///   The node containing the given value <paramref name="value"/> or 
+        ///   The node containing the given value <paramref name="value"/> or
         ///   its immediately smaller neighboring number present in the tree.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> FindLessThanOrEqualTo(T value)
         {
             return FindLessThanOrEqualTo(this.root, value);
@@ -757,14 +749,14 @@ namespace Accord.Collections
         ///  that is less than (&lt;) <c>k</c>. In other words, finds a number stored in
         ///  the tree that is immediately below <c>k</c>.
         /// </summary>
-        /// 
+        ///
         /// <param name="node">The subtree where search will take place.</param>
         /// <param name="value">A reference value to be found.</param>
-        /// 
+        ///
         /// <returns>
         ///   The node containing an element that is immediately below <paramref name="value"/>.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> FindLessThan(RedBlackTreeNode<T> node, T value)
         {
             while (node != null)
@@ -791,13 +783,13 @@ namespace Accord.Collections
         ///  tree</see> that is less than (&lt;) <c>k</c>. In other words, finds
         ///  a number stored in the tree that is immediately below <c>k</c>.
         /// </summary>
-        /// 
+        ///
         /// <param name="value">A reference value to be found.</param>
-        /// 
+        ///
         /// <returns>
         ///   The node containing an element that is immediately below <paramref name="value"/>.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> FindLessThan(T value)
         {
             return FindLessThan(this.root, value);
@@ -808,14 +800,14 @@ namespace Accord.Collections
         ///  that is greater than (>) <c>k</c>. In other words, finds a number stored in
         ///  the tree that is immediately above <c>k</c>.
         /// </summary>
-        /// 
+        ///
         /// <param name="node">The subtree where search will take place.</param>
         /// <param name="value">A reference value to be found.</param>
-        /// 
+        ///
         /// <returns>
         ///   The node containing an element that is immediately below <paramref name="value"/>.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> FindGreaterThan(RedBlackTreeNode<T> node, T value)
         {
             while (node != null)
@@ -843,13 +835,13 @@ namespace Accord.Collections
         ///  tree</see> that is greater than (>) <c>k</c>. In other words, finds a
         ///  number stored in the tree that is immediately above <c>k</c>.
         /// </summary>
-        /// 
+        ///
         /// <param name="value">A reference value to be found.</param>
-        /// 
+        ///
         /// <returns>
         ///   The node containing an element that is immediately below <paramref name="value"/>.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> FindGreaterThan(T value)
         {
             return FindGreaterThan(this.root, value);
@@ -858,12 +850,12 @@ namespace Accord.Collections
         /// <summary>
         ///   Finds the minimum element stored in the tree.
         /// </summary>
-        /// 
+        ///
         /// <returns>
-        ///   The <see cref="RedBlackTreeNode{T}"/> that 
+        ///   The <see cref="RedBlackTreeNode{T}"/> that
         ///   holds the minimum element in the tree.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> Min()
         {
             var n = this.root;
@@ -879,12 +871,12 @@ namespace Accord.Collections
         /// <summary>
         ///   Finds the maximum element stored in the tree.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   The <see cref="RedBlackTreeNode{T}"/> that
         ///   holds the maximum element in the tree.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> Max()
         {
             var n = this.root;
@@ -898,17 +890,17 @@ namespace Accord.Collections
         }
 
         /// <summary>
-        ///   Gets the node that contains the next in-order value coming 
+        ///   Gets the node that contains the next in-order value coming
         ///   after the value contained in the given <paramref name="node"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="node">The current node.</param>
-        /// 
+        ///
         /// <returns>
         ///   The node that contains a value that is immediately greater than
         ///   the current value contained in the given <paramref name="node"/>.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> GetNextNode(RedBlackTreeNode<T> node)
         {
             if (node == null)
@@ -937,14 +929,14 @@ namespace Accord.Collections
         ///   Gets the node that contains the previous in-order value coming
         ///   before the value contained in the given <paramref name="node"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="node">The current node.</param>
-        /// 
+        ///
         /// <returns>
         ///   The node that contains a value that is immediately less than
         ///   the current value contained in the given <paramref name="node"/>.
         /// </returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> GetPreviousNode(RedBlackTreeNode<T> node)
         {
             if (node == null)
@@ -973,19 +965,17 @@ namespace Accord.Collections
         /// <summary>
         ///   Forces a re-balance of the tree by removing and inserting the same node.
         /// </summary>
-        /// 
+        ///
         /// <param name="node">The node to be re-balanced.</param>
-        /// 
+        ///
         /// <returns>The same node, or a new one if it had to be recreated.</returns>
-        /// 
+        ///
         public RedBlackTreeNode<T> Resort(RedBlackTreeNode<T> node)
         {
             node = Remove(node);
             Add(node);
             return node;
         }
-
-
 
         private void rotate_left(RedBlackTreeNode<T> p)
         {
@@ -1035,8 +1025,6 @@ namespace Accord.Collections
             if (p.Left != null)
                 p.Left.Parent = p;
         }
-
-
 
         internal bool check_node(RedBlackTreeNode<T> n, ref int nblack)
         {
@@ -1093,7 +1081,5 @@ namespace Accord.Collections
 
             return check_node(root, ref nblack);
         }
-
-
     }
 }

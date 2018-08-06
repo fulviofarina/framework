@@ -35,7 +35,6 @@ namespace Accord.Math
     ///
     public class MatrixFormatter : ICustomFormatter
     {
-
         /// <summary>
         ///   Converts the value of a specified object to an equivalent string
         ///   representation using specified formatting information.
@@ -69,9 +68,8 @@ namespace Accord.Math
             }
         }
 
-
-
         #region Static methods for output formatting
+
         /// <summary>
         ///   Converts a jagged or multidimensional array into a <a cref="System.String">System.String</a> representation.
         /// </summary>
@@ -93,17 +91,14 @@ namespace Accord.Math
 
             IFormatProvider culture = formatProvider.InnerProvider;
 
-
             // Retrieve matrix dimensions. If the matrix is a jagged array,
             //  we will compute the columns for each of the rows.
             int rows = matrix.GetLength(0);
             int cols = (matrix.Rank == 2) ? matrix.GetLength(1) : 0;
 
-
             // Initialize the matrix construction
             StringBuilder sb = new StringBuilder();
             sb.Append(formatProvider.FormatMatrixStart);
-
 
             // For each row
             for (int i = 0; i < rows; i++)
@@ -124,6 +119,7 @@ namespace Accord.Math
                     else
                     {
                         #region Process row for jagged arrays
+
                         cols = row.Length;
 
                         // For each column
@@ -133,7 +129,8 @@ namespace Accord.Math
 
                             if (j < cols - 1) sb.Append(formatProvider.FormatColDelimiter);
                         }
-                        #endregion
+
+                        #endregion Process row for jagged arrays
                     }
                 }
                 else
@@ -147,7 +144,8 @@ namespace Accord.Math
 
                         if (j < cols - 1) sb.Append(formatProvider.FormatColDelimiter);
                     }
-                    #endregion
+
+                    #endregion Process row for multidimensional arrays
                 }
 
                 // Finalize constructing the row
@@ -159,7 +157,6 @@ namespace Accord.Math
 
             // Finalize constructing the matrix
             sb.Append(formatProvider.FormatMatrixEnd);
-
 
             // Finally, perform post-processing such as replacing user
             // selected newlines or presenting the output in just one line.
@@ -277,11 +274,10 @@ namespace Accord.Math
             return String.Empty;
         }
 
-        #endregion
-
-
+        #endregion Static methods for output formatting
 
         #region Static methods for input parsing
+
         /// <summary>
         ///   Converts a matrix represented in a System.String into a jagged array.
         /// </summary>
@@ -342,8 +338,6 @@ namespace Accord.Math
             return Matrix.ToMatrix(ParseJagged(str, provider));
         }
 
-        #endregion
-
-
+        #endregion Static methods for input parsing
     }
 }

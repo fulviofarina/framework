@@ -22,20 +22,16 @@
 
 namespace Accord.MachineLearning
 {
-
     /// <summary>
     ///   Common interface for generative observation sequence taggers. A sequence
-    ///   tagger can predict the class label of each individual observation in a 
+    ///   tagger can predict the class label of each individual observation in a
     ///   input sequence vector.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
-    /// 
+    ///
     public interface ITagger<in TInput> :
         IMultilabelClassifier<TInput[], int[]>
     {
-        
     }
-
-    
 }

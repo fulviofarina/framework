@@ -26,110 +26,109 @@
 namespace Accord.Math.Optimization
 {
     using System;
-    using System.Threading;
 
     /// <summary>
     ///   Conjugate gradient direction update formula.
     /// </summary>
-    /// 
+    ///
     public enum ConjugateGradientMethod
     {
         /// <summary>
         ///   Fletcher-Reeves formula.
         /// </summary>
-        /// 
+        ///
         FletcherReeves = 1,
 
         /// <summary>
         ///   Polak-Ribière formula.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   The Polak-Ribière is known to perform better for non-quadratic functions.
         /// </remarks>
-        /// 
+        ///
         PolakRibiere = 2,
 
         /// <summary>
         ///   Polak-Ribière formula.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   The Polak-Ribière is known to perform better for non-quadratic functions.
         ///   The positive version B=max(0,Bpr) provides a direction reset automatically.
         /// </remarks>
-        /// 
+        ///
         PositivePolakRibiere = 3,
     }
 
     /// <summary>
     ///   Conjugate Gradient exit codes.
     /// </summary>
-    /// 
+    ///
     public enum ConjugateGradientCode
     {
         /// <summary>
         ///   Success.
         /// </summary>
-        /// 
+        ///
         Success,
 
         /// <summary>
         ///   Invalid step size.
         /// </summary>
-        /// 
+        ///
         StepSize = 1,
 
         /// <summary>
         ///   Descent direction was not obtained.
         /// </summary>
-        /// 
+        ///
         DescentNotObtained = -2,
 
         /// <summary>
-        ///   Rounding errors prevent further progress. There may not be a step 
-        ///   which satisfies the sufficient decrease and curvature conditions. 
+        ///   Rounding errors prevent further progress. There may not be a step
+        ///   which satisfies the sufficient decrease and curvature conditions.
         ///   Tolerances may be too small.
         /// </summary>
-        /// 
+        ///
         RoundingErrors = 6,
 
         /// <summary>
         ///   The step size has reached the upper bound.
         /// </summary>
-        /// 
+        ///
         StepHigh = 5,
 
         /// <summary>
         ///   The step size has reached the lower bound.
         /// </summary>
-        /// 
+        ///
         StepLow = 4,
 
         /// <summary>
         ///   Maximum number of function evaluations has been reached.
         /// </summary>
-        /// 
+        ///
         MaximumEvaluations = 3,
 
         /// <summary>
         ///   Relative width of the interval of uncertainty is at machine precision.
         /// </summary>
-        /// 
+        ///
         Precision = 2,
     }
 
     /// <summary>
     ///   Conjugate Gradient (CG) optimization method.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   In mathematics, the conjugate gradient method is an algorithm for the numerical solution of
     ///   particular systems of linear equations, namely those whose matrix is symmetric and positive-
     ///   definite. The conjugate gradient method is an iterative method, so it can be applied to sparse
     ///   systems that are too large to be handled by direct methods. Such systems often arise when
-    ///   numerically solving partial differential equations. The nonlinear conjugate gradient method 
+    ///   numerically solving partial differential equations. The nonlinear conjugate gradient method
     ///   generalizes the conjugate gradient method to nonlinear optimization (Wikipedia, 2011).</para>
     /// <para>
     ///   T</para>
@@ -140,7 +139,7 @@ namespace Accord.Math.Optimization
     ///   and had been made freely available for educational or commercial use. The original authors
     ///   expect that all publications describing work using this software quote the (Gilbert and Nocedal, 1992)
     ///   reference given below.</para>
-    /// 
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
@@ -148,25 +147,24 @@ namespace Accord.Math.Optimization
     ///        J. C. Gilbert and J. Nocedal. Global Convergence Properties of Conjugate Gradient
     ///        Methods for Optimization, (1992) SIAM J. on Optimization, 2, 1.</a></description></item>
     ///     <item><description>
-    ///        Wikipedia contributors, "Nonlinear conjugate gradient method," Wikipedia, The Free 
+    ///        Wikipedia contributors, "Nonlinear conjugate gradient method," Wikipedia, The Free
     ///        Encyclopedia, http://en.wikipedia.org/w/index.php?title=Nonlinear_conjugate_gradient_method
     ///        (accessed December 22, 2011).</description></item>
     ///     <item><description>
     ///        Wikipedia contributors, "Conjugate gradient method," Wikipedia, The Free Encyclopedia,
-    ///        http://en.wikipedia.org/w/index.php?title=Conjugate_gradient_method 
+    ///        http://en.wikipedia.org/w/index.php?title=Conjugate_gradient_method
     ///        (accessed December 22, 2011).</description></item>
     ///    </list></para>
     /// </remarks>
-    /// 
+    ///
     /// <seealso cref="BroydenFletcherGoldfarbShanno"/>
     /// <seealso cref="ResilientBackpropagation"/>
     /// <seealso cref="BoundedBroydenFletcherGoldfarbShanno"/>
     /// <seealso cref="TrustRegionNewtonMethod"/>
-    /// 
+    ///
     public class ConjugateGradient : BaseGradientOptimizationMethod,
         IGradientOptimizationMethod, IOptimizationMethod<ConjugateGradientCode>
     {
-
         private double[] g; // gradient at current solution
 
         private double[] d;
@@ -186,13 +184,12 @@ namespace Accord.Math.Optimization
         private int maxIterations;
         private double tolerance = 0;
 
-
         /// <summary>
         ///   Gets or sets the relative difference threshold
         ///   to be used as stopping criteria between two
-        ///   iterations. Default is 0 (iterate until convergence). 
+        ///   iterations. Default is 0 (iterate until convergence).
         /// </summary>
-        /// 
+        ///
         public double Tolerance
         {
             get { return tolerance; }
@@ -204,7 +201,7 @@ namespace Accord.Math.Optimization
         ///   to be performed during optimization. Default
         ///   is 0 (iterate until convergence).
         /// </summary>
-        /// 
+        ///
         public int MaxIterations
         {
             get { return maxIterations; }
@@ -212,21 +209,21 @@ namespace Accord.Math.Optimization
         }
 
         /// <summary>
-        ///   Gets or sets the conjugate gradient update 
+        ///   Gets or sets the conjugate gradient update
         ///   method to be used during optimization.
         /// </summary>
-        /// 
+        ///
         public ConjugateGradientMethod Method { get; set; }
 
         /// <summary>
-        ///   Gets the number of iterations performed 
+        ///   Gets the number of iterations performed
         ///   in the last call to <see cref="IOptimizationMethod.Minimize()"/>.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   The number of iterations performed
         ///   in the previous optimization.</value>
-        ///   
+        ///
         public int Iterations
         {
             get { return iterations; }
@@ -236,11 +233,11 @@ namespace Accord.Math.Optimization
         ///   Gets the number of function evaluations performed
         ///   in the last call to <see cref="IOptimizationMethod.Minimize()"/>.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   The number of evaluations performed
         ///   in the previous optimization.</value>
-        ///   
+        ///
         public int Evaluations
         {
             get { return evaluations; }
@@ -250,7 +247,7 @@ namespace Accord.Math.Optimization
         ///   Gets the number of linear searches performed
         ///   in the last call to <see cref="IOptimizationMethod.Minimize()"/>.
         /// </summary>
-        /// 
+        ///
         public int Searches
         {
             get { return searches; }
@@ -258,24 +255,24 @@ namespace Accord.Math.Optimization
 
         /// <summary>
         ///   Get the exit code returned in the last call to the
-        ///   <see cref="IOptimizationMethod.Maximize()"/> or 
+        ///   <see cref="IOptimizationMethod.Maximize()"/> or
         ///   <see cref="IOptimizationMethod.Minimize()"/> methods.
         /// </summary>
-        /// 
+        ///
         public ConjugateGradientCode Status { get; private set; }
 
         /// <summary>
         ///   Occurs when progress is made during the optimization.
         /// </summary>
-        /// 
+        ///
         public event EventHandler<OptimizationProgressEventArgs> Progress;
 
         /// <summary>
         ///   Creates a new instance of the CG optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
-        /// 
+        ///
         public ConjugateGradient(int numberOfVariables)
             : base(numberOfVariables)
         {
@@ -284,15 +281,14 @@ namespace Accord.Math.Optimization
             w = new double[numberOfVariables];
         }
 
-
         /// <summary>
         ///   Creates a new instance of the CG optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the function to be optimized.</param>
         /// <param name="function">The function to be optimized.</param>
         /// <param name="gradient">The gradient of the function.</param>
-        /// 
+        ///
         public ConjugateGradient(int numberOfVariables,
             Func<double[], double> function, Func<double[], double[]> gradient)
             : base(numberOfVariables, function, gradient)
@@ -302,12 +298,11 @@ namespace Accord.Math.Optimization
             w = new double[numberOfVariables];
         }
 
-
         /// <summary>
         ///   Implements the actual optimization algorithm. This
         ///   method should try to minimize the objective function.
         /// </summary>
-        /// 
+        ///
         protected override bool Optimize()
         {
             // This code has been adapted from the original
@@ -338,13 +333,11 @@ namespace Accord.Math.Optimization
             double stp1 = 1.0 / gnorm;
             double f_old = f;
 
-
             bool finish = false;
 
             // Make initial progress report with initialization parameters
             if (Progress != null) Progress(this, new OptimizationProgressEventArgs
                 (iterations, evaluations, g, gnorm, Solution, xnorm, f, stp1, finish));
-
 
             // Main iteration
             while (!finish)
@@ -356,12 +349,12 @@ namespace Accord.Math.Optimization
                 nrst++;
 
                 // Call the line search routine of Mor'e and Thuente
-                // (modified for Nocedal's CG method) 
-                // ------------------------------------------------- 
+                // (modified for Nocedal's CG method)
+                // -------------------------------------------------
                 //
-                //  J.J. Mor'e and D. Thuente, "Linesearch Algorithms with Guaranteed 
-                //  Sufficient Decrease". ACM Transactions on Mathematical 
-                //  Software 20 (1994), pp 286-307. 
+                //  J.J. Mor'e and D. Thuente, "Linesearch Algorithms with Guaranteed
+                //  Sufficient Decrease". ACM Transactions on Mathematical
+                //  Software 20 (1994), pp 286-307.
                 //
 
                 int nfev = 0;
@@ -385,7 +378,7 @@ namespace Accord.Math.Optimization
                 int ides = 0;
                 bnew = false;
 
-            L72:
+                L72:
 
                 // Call to the line search subroutine
                 Status = cvsmod(ref f, d, ref stp, ref info, ref nfev, w, ref dg, ref dgout);
@@ -498,28 +491,26 @@ namespace Accord.Math.Optimization
             return Status == ConjugateGradientCode.Success;
         }
 
-
-
         // TODO: Move to separate classes
 
-        bool brackt;
-        bool stage1;
-        double finit;
-        double dgtest;
-        double width;
-        double width1;
+        private bool brackt;
+        private bool stage1;
+        private double finit;
+        private double dgtest;
+        private double width;
+        private double width1;
 
-        double stmin;
-        double stmax;
-        double dg2;
-        double dgx;
-        double dgy;
-        int infoc;
-        double stx;
-        double fx;
-        double sty;
-        double fy;
-        double ftest1;
+        private double stmin;
+        private double stmax;
+        private double dg2;
+        private double dgx;
+        private double dgy;
+        private int infoc;
+        private double stx;
+        private double fx;
+        private double sty;
+        private double fy;
+        private double ftest1;
 
         private unsafe ConjugateGradientCode cvsmod(ref double f, double[] s, ref double stp, ref int info,
              ref int nfev, double[] wa, ref double dginit, ref double dgout)
@@ -569,8 +560,7 @@ namespace Accord.Math.Optimization
             fy = finit;
             dgy = dginit;
 
-
-        L30: // Start of iteration.
+            L30: // Start of iteration.
 
             // Set the minimum and maximum steps to correspond
             // to the present interval of uncertainty.
@@ -592,7 +582,7 @@ namespace Accord.Math.Optimization
             stp = Math.Max(stp, stpmin);
             stp = Math.Min(stp, stpmax);
 
-            // If an unusual termination is to occur then 
+            // If an unusual termination is to occur then
             // let STP be the lowest point obtained so far.
 
             if (brackt && (stp <= stmin || stp >= stmax) || nfev >= maxfev - 1 ||
@@ -635,11 +625,10 @@ namespace Accord.Math.Optimization
             if (brackt && stmax - stmin <= xtol * stmax)
                 return ConjugateGradientCode.Precision;
 
-
-            // More's code has been modified so that at least one new 
-            //  function value is computed during the line search (enforcing 
-            //  at least one interpolation is not easy, since the code may 
-            //  override an interpolation) 
+            // More's code has been modified so that at least one new
+            //  function value is computed during the line search (enforcing
+            //  at least one interpolation is not easy, since the code may
+            //  override an interpolation)
 
             if (f <= ftest1 && Math.Abs(dg2) <= gtol * (-dginit) && nfev > 1)
             {
@@ -648,8 +637,7 @@ namespace Accord.Math.Optimization
                 return ConjugateGradientCode.Success;
             }
 
-
-        L321:
+            L321:
 
             // In the first stage we seek a step for which the modified
             // function has a nonpositive value and nonnegative derivative.
@@ -661,12 +649,11 @@ namespace Accord.Math.Optimization
             // A modified function is used to predict the step only if
             // we have not obtained a step for which the modified function
             // has a nonpositive function value and nonnegative derivative,
-            // and if a lower function value has been obtained but the 
+            // and if a lower function value has been obtained but the
             // decrease is not sufficient.
 
             if (stage1 && f <= fx && f > ftest1)
             {
-
                 // Define the modified function and derivative values
                 double fm = f - stp * dgtest;
                 double fxm = fx - stx * dgtest;
@@ -695,7 +682,7 @@ namespace Accord.Math.Optimization
                     ref sty, ref fy, ref dgy, ref stp, f, dg2, ref brackt, stpmin, stpmax);
             }
 
-            // Force a sufficient decrease in the 
+            // Force a sufficient decrease in the
             // size of the interval of uncertainty.
 
             if (brackt)
@@ -709,6 +696,5 @@ namespace Accord.Math.Optimization
 
             goto L30;
         }
-
     }
 }

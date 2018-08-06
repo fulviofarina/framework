@@ -29,19 +29,19 @@ namespace Accord.Math.Optimization
     ///   having both an objective function and a gradient function definition
     ///   available.
     /// </summary>
-    /// 
+    ///
     /// <seealso cref="BroydenFletcherGoldfarbShanno"/>
     /// <seealso cref="ConjugateGradient"/>
     /// <seealso cref="ResilientBackpropagation"/>
-    /// 
+    ///
     public interface IGradientOptimizationMethod : IOptimizationMethod
     {
         /// <summary>
         ///   Gets or sets the function to be optimized.
         /// </summary>
-        /// 
+        ///
         /// <value>The function to be optimized.</value>
-        /// 
+        ///
         Func<double[], double> Function { get; set; }
 
         /// <summary>
@@ -49,10 +49,9 @@ namespace Accord.Math.Optimization
         ///   vector of the function to be optimized for a
         ///   given value of its free parameters.
         /// </summary>
-        /// 
+        ///
         /// <value>The gradient function.</value>
-        /// 
+        ///
         Func<double[], double[]> Gradient { get; set; }
-
     }
 }

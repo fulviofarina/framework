@@ -23,13 +23,12 @@
 namespace Accord.Math.Distances
 {
     using System;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     ///   Square-Euclidean distance and similarity. Please note that this
     ///   distance is not a metric as it doesn't obey the triangle inequality.
     /// </summary>
-    /// 
+    ///
     /// <seealso cref="Euclidean"/>
     ///
     [Serializable]
@@ -38,7 +37,7 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Initializes a new instance of the <see cref="SquareEuclidean"/> class.
         /// </summary>
-        /// 
+        ///
         public SquareEuclidean()
         {
         }
@@ -47,19 +46,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(double[] x, double[] y)
         {
             double sum = 0.0;
@@ -76,17 +76,18 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Gets the Square Euclidean distance between two points.
         /// </summary>
-        /// 
+        ///
         /// <param name="x1">The first coordinate of first point in space.</param>
         /// <param name="y1">The second coordinate of first point in space.</param>
         /// <param name="x2">The first coordinate of second point in space.</param>
         /// <param name="y2">The second coordinate of second point in space.</param>
-        /// 
+        ///
         /// <returns>The Square Euclidean distance between x and y.</returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(double x1, double y1, double x2, double y2)
         {
             double dx = x1 - x2;
@@ -97,15 +98,16 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Gets a similarity measure between two points.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point to be compared.</param>
         /// <param name="y">The second point to be compared.</param>
-        /// 
+        ///
         /// <returns>A similarity measure between x and y.</returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Similarity(double[] x, double[] y)
         {
             double sum = 0.0;
@@ -118,6 +120,5 @@ namespace Accord.Math.Distances
 
             return 1.0 / (1.0 + sum);
         }
-
     }
 }

@@ -23,15 +23,13 @@
 namespace Accord
 {
     using System;
-    using System.Collections.Generic;
-    using Accord.Math;
     using Accord.Diagnostics;
-    using System.Runtime.CompilerServices;
+    using Accord.Math;
 
     /// <summary>
     ///   Extension methods for sorting operations.
     /// </summary>
-    /// 
+    ///
     public static partial class Sort
     {
 #if DEBUG
@@ -43,7 +41,7 @@ namespace Accord
         /// <summary>
         ///   Insertion sort.
         /// </summary>
-        /// 
+        ///
         public static int Insertion<T>(T[] keys, bool asc = true)
             where T : IComparable<T>
         {
@@ -53,7 +51,7 @@ namespace Accord
         /// <summary>
         ///   Insertion sort.
         /// </summary>
-        /// 
+        ///
         public static int Insertion<T, U>(T[] keys, U[] items, bool asc = true)
             where T : IComparable<T>
         {
@@ -63,7 +61,7 @@ namespace Accord
         /// <summary>
         ///   Insertion sort.
         /// </summary>
-        /// 
+        ///
         public static int Insertion<T>(T[] keys, Func<T, T, int> comparer, bool asc = true)
         {
             return Insertion(keys, 0, keys.Length, comparer, asc);
@@ -72,7 +70,7 @@ namespace Accord
         /// <summary>
         ///   Insertion sort.
         /// </summary>
-        /// 
+        ///
         public static int Insertion<TKey, TValue>(TKey[] keys, TValue[] items, Func<TKey, TKey, int> comparer, bool asc = true)
         {
             return Insertion(keys, items, 0, keys.Length, comparer, asc);
@@ -81,7 +79,7 @@ namespace Accord
         /// <summary>
         ///   Insertion sort.
         /// </summary>
-        /// 
+        ///
         public static int Insertion<T>(T[] keys, int first, int last, bool asc = true)
             where T : IComparable<T>
         {
@@ -139,7 +137,7 @@ namespace Accord
         /// <summary>
         ///   Insertion sort.
         /// </summary>
-        /// 
+        ///
         public static int Insertion<TKey, TValue>(TKey[] keys, TValue[] items, int first, int last, bool asc = true)
             where TKey : IComparable<TKey>
         {
@@ -213,7 +211,7 @@ namespace Accord
         /// <summary>
         ///   Insertion sort.
         /// </summary>
-        /// 
+        ///
         public static int Insertion<T>(T[] keys, int first, int last, Func<T, T, int> comparer, bool asc = true)
         {
             Debug.Assert(last >= first);
@@ -267,11 +265,10 @@ namespace Accord
             return last;
         }
 
-
         /// <summary>
         ///   Insertion sort.
         /// </summary>
-        /// 
+        ///
         public static int Insertion<TKeys, TValue>(TKeys[] keys, TValue[] items, int first, int last, Func<TKeys, TKeys, int> comparer, bool asc = true)
         {
             Debug.Assert(last >= first);
@@ -341,26 +338,20 @@ namespace Accord
             return last;
         }
 
-
-
-
-
-
-
         /// <summary>
         ///   Reorders the elements in the range [left, right) in such a way that all elements that
-        ///   are smaller than the pivot precede those that are greater than the pivot. Relative order 
+        ///   are smaller than the pivot precede those that are greater than the pivot. Relative order
         ///   of the elements is not preserved. This function should be equivalent to C++'s std::partition.
         /// </summary>
-        /// 
+        ///
         /// <param name="keys">The list to be reordered.</param>
         /// <param name="items">An array of keys associated with each element in the list.</param>
         /// <param name="first">The beginning of the range to be reordered.</param>
         /// <param name="last">The end of the range to be reordered.</param>
         /// <param name="asc">Whether to sort in ascending or descending order.</param>
-        /// 
+        ///
         /// <returns>The index of the new pivot.</returns>
-        /// 
+        ///
         public static int Partition<TKey, TValue>(this TKey[] keys, TValue[] items, int first, int last, bool asc = true)
             where TKey : IComparable<TKey>
         {
@@ -408,17 +399,17 @@ namespace Accord
 
         /// <summary>
         ///   Reorders the elements in the range [left, right) in such a way that all elements that
-        ///   are smaller than the pivot precede those that are greater than the pivot. Relative order 
+        ///   are smaller than the pivot precede those that are greater than the pivot. Relative order
         ///   of the elements is not preserved. This function should be equivalent to C++'s std::partition.
         /// </summary>
-        /// 
+        ///
         /// <param name="keys">The list to be reordered.</param>
         /// <param name="first">The beginning of the range to be reordered.</param>
         /// <param name="last">The end of the range to be reordered.</param>
         /// <param name="asc">Whether to sort in ascending or descending order.</param>
-        /// 
+        ///
         /// <returns>The index of the new pivot.</returns>
-        /// 
+        ///
         public static int Partition<T>(this T[] keys, int first, int last, bool asc = true)
             where T : IComparable<T>
         {
@@ -460,24 +451,22 @@ namespace Accord
             return storeIndex;
         }
 
-
-
         /// <summary>
-        ///   Reorders the elements in the range [left, right) in such a way that all elements for which 
+        ///   Reorders the elements in the range [left, right) in such a way that all elements for which
         ///   the function <paramref name="compare"/> returns true precede the elements for which <paramref name="compare"/>
-        ///   returns false. Relative order of the elements is not preserved. This function should be equivalent 
+        ///   returns false. Relative order of the elements is not preserved. This function should be equivalent
         ///   to C++'s std::partition.
         /// </summary>
-        /// 
+        ///
         /// <param name="keys">The list to be reordered.</param>
         /// <param name="items">An array of keys associated with each element in the list.</param>
         /// <param name="first">The beginning of the range to be reordered.</param>
         /// <param name="last">The end of the range to be reordered.</param>
         /// <param name="compare">Function to use in the comparison.</param>
         /// <param name="asc">Whether to sort in ascending or descending order.</param>
-        /// 
+        ///
         /// <returns>The index of the new pivot.</returns>
-        /// 
+        ///
         public static int Partition<TKey, TValue>(this TKey[] keys, TValue[] items, int first, int last, Func<TKey, TKey, int> compare, bool asc = true)
         {
             if (first >= last)
@@ -520,24 +509,23 @@ namespace Accord
             keys.Swap(last - 1, storeIndex);
             items.Swap(last - 1, storeIndex);
             return storeIndex;
-
         }
 
         /// <summary>
-        ///   Reorders the elements in the range [left, right) in such a way that all elements for which 
+        ///   Reorders the elements in the range [left, right) in such a way that all elements for which
         ///   the function <paramref name="compare"/> returns true precede the elements for which <paramref name="compare"/>
         ///   returns false. Relative order of the elements is not preserved. This function should be equivalent
         ///   to C++'s std::partition.
         /// </summary>
-        /// 
+        ///
         /// <param name="items">The list to be reordered.</param>
         /// <param name="first">The beginning of the range to be reordered.</param>
         /// <param name="last">The end of the range to be reordered.</param>
         /// <param name="compare">Function to use in the comparison.</param>
         /// <param name="asc">Whether to sort in ascending or descending order.</param>
-        /// 
+        ///
         /// <returns>The index of the new pivot.</returns>
-        /// 
+        ///
         public static int Partition<T>(this T[] items, int first, int last, Func<T, T, int> compare, bool asc = true)
         {
             if (first >= last)
@@ -578,17 +566,15 @@ namespace Accord
             return storeIndex;
         }
 
-
-
         /// <summary>
         ///   Retrieves the n-th smallest element in an array. As a side-effect, partially orders
         ///   the collection, making sure every element smaller than the n-th smaller element are
         ///   in the beginning of the array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="TKey">The type for the keys associated with each value in the items array.</typeparam>
         /// <typeparam name="TValue">The type for the items in the array.</typeparam>
-        /// 
+        ///
         /// <param name="keys">The keys that will be used to determine the order of elements in <paramref name="items"/>.</param>
         /// <param name="items">The array of elements from which the n-th element should be extracted.</param>
         /// <param name="first">The beginning of the search interval.</param>
@@ -597,10 +583,10 @@ namespace Accord
         /// <param name="asc">Whether to take the smallest or the largest element. If set to false, instead
         ///   of returning the smallest, the method will return the largest elements.</param>
         /// <param name="compare">The comparison function to be used to sort elements.</param>
-        /// 
-        /// <returns>If <paramref name="asc"/> is true, returns the n-th smallest element in 
+        ///
+        /// <returns>If <paramref name="asc"/> is true, returns the n-th smallest element in
         ///   the array. Otherwise, returns the n-th largest.</returns>
-        /// 
+        ///
         public static TKey NthElement<TKey, TValue>(this TKey[] keys, TValue[] items, int first, int last,
             int n, Func<TKey, TKey, int> compare, bool asc = true)
         {
@@ -626,7 +612,7 @@ namespace Accord
         ///   the collection, making sure every element smaller than the n-th smaller element are
         ///   in the beginning of the array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type for the items in the array.</typeparam>
         /// <param name="items">The array of elements from which the n-th element should be extracted.</param>
         /// <param name="first">The beginning of the search interval.</param>
@@ -635,10 +621,10 @@ namespace Accord
         /// <param name="asc">Whether to take the smallest or the largest element. If set to false, instead
         ///   of returning the smallest, the method will return the largest elements.</param>
         /// <param name="compare">The comparison function to be used to sort elements.</param>
-        /// 
-        /// <returns>If <paramref name="asc"/> is true, returns the n-th smallest element in 
+        ///
+        /// <returns>If <paramref name="asc"/> is true, returns the n-th smallest element in
         ///   the array. Otherwise, returns the n-th largest.</returns>
-        /// 
+        ///
         public static T NthElement<T>(this T[] items, int first, int last,
             int n, Func<T, T, int> compare, bool asc = true)
         {
@@ -664,10 +650,10 @@ namespace Accord
         ///   the collection, making sure every element smaller than the n-th smaller element are
         ///   in the beginning of the array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="TKey">The type for the keys associated with each value in the items array.</typeparam>
         /// <typeparam name="TValue">The type for the items in the array.</typeparam>
-        /// 
+        ///
         /// <param name="keys">The keys that will be used to determine the order of elements in <paramref name="items"/>.</param>
         /// <param name="items">The array of elements from which the n-th element should be extracted.</param>
         /// <param name="first">The beginning of the search interval.</param>
@@ -675,10 +661,10 @@ namespace Accord
         /// <param name="n">The position to look for (0 returns the smallest element, 1 the second smallest, and so on).</param>
         /// <param name="asc">Whether to take the smallest or the largest element. If set to false, instead
         ///   of returning the smallest, the method will return the largest elements.</param>
-        /// 
-        /// <returns>If <paramref name="asc"/> is true, returns the n-th smallest element in 
+        ///
+        /// <returns>If <paramref name="asc"/> is true, returns the n-th smallest element in
         ///   the array. Otherwise, returns the n-th largest.</returns>
-        /// 
+        ///
         public static TKey NthElement<TKey, TValue>(this TKey[] keys, TValue[] items, int first, int last, int n, bool asc = true)
             where TKey : IComparable<TKey>
         {
@@ -704,16 +690,16 @@ namespace Accord
         ///   the collection, making sure every element smaller than the n-th smaller element are
         ///   in the beginning of the array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type for the items in the array.</typeparam>
         /// <param name="items">The array of elements from which the n-th element should be extracted.</param>
         /// <param name="n">The position to look for (0 returns the smallest element, 1 the second smallest, and so on).</param>
         /// <param name="asc">Whether to take the smallest or the largest element. If set to false, instead
         ///   of returning the smallest, the method will return the largest elements.</param>
-        /// 
-        /// <returns>If <paramref name="asc"/> is true, returns the n-th smallest element in 
+        ///
+        /// <returns>If <paramref name="asc"/> is true, returns the n-th smallest element in
         ///   the array. Otherwise, returns the n-th largest.</returns>
-        /// 
+        ///
         public static T NthElement<T>(this T[] items, int n, bool asc = true)
             where T : IComparable<T>
         {
@@ -725,7 +711,7 @@ namespace Accord
         ///   the collection, making sure every element smaller than the n-th smaller element are
         ///   in the beginning of the array.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type for the items in the array.</typeparam>
         /// <param name="items">The array of elements from which the n-th element should be extracted.</param>
         /// <param name="first">The beginning of the search interval.</param>
@@ -733,10 +719,10 @@ namespace Accord
         /// <param name="n">The position to look for (0 returns the smallest element, 1 the second smallest, and so on).</param>
         /// <param name="asc">Whether to take the smallest or the largest element. If set to false, instead
         ///   of returning the smallest, the method will return the largest elements.</param>
-        /// 
-        /// <returns>If <paramref name="asc"/> is true, returns the n-th smallest element in 
+        ///
+        /// <returns>If <paramref name="asc"/> is true, returns the n-th smallest element in
         ///   the array. Otherwise, returns the n-th largest.</returns>
-        /// 
+        ///
         public static T NthElement<T>(this T[] items, int first, int last, int n, bool asc = true)
             where T : IComparable<T>
         {
@@ -757,19 +743,6 @@ namespace Accord
             return items[n];
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         // To get the full effect of median-of-three, we have to actually
         // sort the first, middle and last elements to prevent cases that
         // would trigger worst-case performance in the sorting algorithm.
@@ -777,6 +750,7 @@ namespace Accord
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         private static int pivot<T, U>(T[] keys, U[] items, int first, int last, bool asc)
             where T : IComparable<T>
         {
@@ -805,6 +779,7 @@ namespace Accord
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         private static int pivot<T>(T[] keys, int first, int last, bool asc)
             where T : IComparable<T>
         {
@@ -823,10 +798,10 @@ namespace Accord
             return middle;
         }
 
-
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         private static int pivot<T, U>(T[] keys, U[] items, int first, int last, Func<T, T, int> comparer, bool asc)
         {
             int dir = asc ? 1 : -1;
@@ -855,6 +830,7 @@ namespace Accord
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         private static int pivot<T>(T[] keys, int first, int last, Func<T, T, int> comparer, bool asc)
         {
             int dir = asc ? 1 : -1;

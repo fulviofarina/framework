@@ -36,65 +36,64 @@
 //    distribute, sublicense, and/or sell copies of the Software, and to
 //    permit persons to whom the Software is furnished to do so, subject to
 //    the following conditions:
-// 
+//
 //    The above copyright notice and this permission notice shall be
 //    included in all copies or substantial portions of the Software.
-// 
+//
 //    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 //    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 //    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
 //    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 //    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 //    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+//    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 namespace Accord.Math.Optimization
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using Accord.Math.Convergence;
 
     /// <summary>
     ///   Subplex
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   The source code presented in this file has been adapted from the
     ///   Sbplx method (based on Nelder-Mead's Simplex) given in the NLopt
     ///   Numerical Optimization Library, created by Steven G. Johnson.</para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description><a href="http://ab-initio.mit.edu/nlopt">
-    ///       Steven G. Johnson, The NLopt nonlinear-optimization package, 
+    ///       Steven G. Johnson, The NLopt nonlinear-optimization package,
     ///       http://ab-initio.mit.edu/nlopt </a></description></item>
     ///     <item><description><a href="http://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method">
     ///       Wikipedia, The Free Encyclopedia. Nelder Mead method. Available on:
     ///       http://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method </a></description></item>
     ///    </list></para>
     /// </remarks>
-    /// 
+    ///
     public class Subplex : BaseOptimizationMethod, IOptimizationMethod<NelderMeadStatus>
     {
-
         private int n;
 
         private double minf_max;
         private GeneralConvergence stop;
 
-
         // subplex strategy constants:
-        const double psi = 0.25;
-        const double omega = 0.1;
-        const int nsmin = 2;
-        const int nsmax = 5;
+        private const double psi = 0.25;
+
+        private const double omega = 0.1;
+        private const int nsmin = 2;
+        private const int nsmax = 5;
 
         // bounds
         private double[] lb;
+
         private double[] ub;
 
         private double[] xprev;
@@ -104,21 +103,18 @@ namespace Accord.Math.Optimization
         private double[] xstep; // initial step sizes
         private double[] xstep0;
 
-
         private int[] p; // subspace index permutation
         private int sindex; // starting index for this subspace
 
-
-        NelderMead nelderMead;
-        NelderMeadStatus status;
-
+        private NelderMead nelderMead;
+        private NelderMeadStatus status;
 
         /// <summary>
         ///   Creates a new <see cref="Subplex"/> optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
-        /// 
+        ///
         public Subplex(int numberOfVariables)
             : base(numberOfVariables)
         {
@@ -128,10 +124,10 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new <see cref="Subplex"/> optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
         /// <param name="function">The objective function whose optimum values should be found.</param>
-        /// 
+        ///
         public Subplex(int numberOfVariables, Func<double[], double> function)
             : base(numberOfVariables, function)
         {
@@ -141,9 +137,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new <see cref="Subplex"/> optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The objective function whose optimum values should be found.</param>
-        /// 
+        ///
         public Subplex(NonlinearObjectiveFunction function)
             : base(function)
         {
@@ -179,21 +175,21 @@ namespace Accord.Math.Optimization
 
         /// <summary>
         ///   Get the exit code returned in the last call to the
-        ///   <see cref="IOptimizationMethod.Maximize()"/> or 
+        ///   <see cref="IOptimizationMethod.Maximize()"/> or
         ///   <see cref="IOptimizationMethod.Minimize()"/> methods.
         /// </summary>
-        /// 
+        ///
         public NelderMeadStatus Status
         {
             get { return status; }
         }
 
         /// <summary>
-        ///   Gets or sets the maximum value that the objective 
+        ///   Gets or sets the maximum value that the objective
         ///   function could produce before the algorithm could
         ///   be terminated as if the solution was good enough.
         /// </summary>
-        /// 
+        ///
         public double MaximumValue
         {
             get { return minf_max; }
@@ -204,17 +200,17 @@ namespace Accord.Math.Optimization
         ///   Gets the step sizes to be used by the optimization
         ///   algorithm. Default is to initialize each with 1e-5.
         /// </summary>
-        /// 
+        ///
         public double[] StepSize
         {
             get { return xstep0; }
         }
 
         /// <summary>
-        ///   Gets or sets multiple convergence options to 
+        ///   Gets or sets multiple convergence options to
         ///   determine when the optimization can terminate.
         /// </summary>
-        /// 
+        ///
         public GeneralConvergence Convergence
         {
             get { return stop; }
@@ -222,34 +218,32 @@ namespace Accord.Math.Optimization
         }
 
         /// <summary>
-        ///   Gets the lower bounds that should be respected in this 
+        ///   Gets the lower bounds that should be respected in this
         ///   optimization problem. Default is to initialize this vector
         ///   with <see cref="Double.NegativeInfinity"/>.
         /// </summary>
-        /// 
+        ///
         public double[] LowerBounds
         {
             get { return lb; }
         }
 
         /// <summary>
-        ///   Gets the upper bounds that should be respected in this 
+        ///   Gets the upper bounds that should be respected in this
         ///   optimization problem. Default is to initialize this vector
         ///   with <see cref="Double.PositiveInfinity"/>.
         /// </summary>
-        /// 
+        ///
         public double[] UpperBounds
         {
             get { return ub; }
         }
 
-
-
         /// <summary>
         ///   Implements the actual optimization algorithm. This
         ///   method should try to minimize the objective function.
         /// </summary>
-        /// 
+        ///
         protected override bool Optimize()
         {
             status = sbplx_minimize();
@@ -259,7 +253,7 @@ namespace Accord.Math.Optimization
                 status == NelderMeadStatus.SolutionToleranceReached);
         }
 
-        NelderMeadStatus sbplx_minimize()
+        private NelderMeadStatus sbplx_minimize()
         {
             var ret = NelderMeadStatus.Success;
 
@@ -276,9 +270,7 @@ namespace Accord.Math.Optimization
             if (NelderMead.nlopt_stop_time(stop))
                 return NelderMeadStatus.MaximumTimeReached;
 
-
             Array.Copy(xstep0, xstep, xstep.Length);
-
 
             while (true)
             {
@@ -302,7 +294,6 @@ namespace Accord.Math.Optimization
                     absdx[j] = Math.Abs(dx[j]);
 
                 Array.Sort(p, absdx);
-
 
                 // find the subspaces, and perform nelder-mead on each one
                 for (int i = 0; i < absdx.Length; i++)
@@ -353,7 +344,7 @@ namespace Accord.Math.Optimization
                     for (int k = i; k < i + ns; ++k)
                         normi += absdx[p[k]];
 
-                    // do nelder-mead on subspace of dimension ns starting w/i 
+                    // do nelder-mead on subspace of dimension ns starting w/i
                     sindex = i;
                     for (int k = i; k < i + ns; ++k)
                     {
@@ -389,7 +380,7 @@ namespace Accord.Math.Optimization
                         return ret;
                 }
 
-                // nelder-mead on last subspace 
+                // nelder-mead on last subspace
                 ns = n - last;
                 sindex = last;
                 for (int i = last; i < n; i++)
@@ -416,7 +407,6 @@ namespace Accord.Math.Optimization
                 Trace.WriteLine(String.Format("sbplx: {0} NM iterations for ({1},{2}) subspace",
                    this.stop.Evaluations - nevals, sindex, ns));
 
-
                 for (int i = sindex; i < p.Length; i++)
                     x[p[i]] = nelderMead.Solution[i - sindex];
 
@@ -437,7 +427,7 @@ namespace Accord.Math.Optimization
                     // as explained in Rowan's thesis, it is important
                     // to check |xstep| as well as |x-xprev|, since if
                     // the step size is too large (in early iterations),
-                    // the inner Nelder-Mead may not make much progress 
+                    // the inner Nelder-Mead may not make much progress
                     //
                     for (j = 0; j < xstep.Length; j++)
                     {
@@ -481,9 +471,7 @@ namespace Accord.Math.Optimization
                             scale = 1 / omega;
                     }
 
-
                     Trace.WriteLine("sbplx: stepsize scale factor = " + scale);
-
 
                     for (int i = 0; i < xstep.Length; i++)
                     {
@@ -494,12 +482,11 @@ namespace Accord.Math.Optimization
             }
         }
 
-
         /// <summary>
         ///   Wrapper around objective function for subspace optimization.
         /// </summary>
-        /// 
-        double subspace_func(double[] xs)
+        ///
+        private double subspace_func(double[] xs)
         {
             double[] x = Solution;
 
@@ -508,6 +495,5 @@ namespace Accord.Math.Optimization
 
             return Function(x);
         }
-
     }
 }

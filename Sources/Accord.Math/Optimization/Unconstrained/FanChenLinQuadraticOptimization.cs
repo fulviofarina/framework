@@ -20,29 +20,29 @@
 //    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 //
-// The source code presented in this file has been adapted from LibSVM - 
+// The source code presented in this file has been adapted from LibSVM -
 // A Library for Support Vector Machines, created by Chih-Chung Chang and
 // Chih-Jen Lin. Original license is given below.
 //
 //    Copyright (c) 2000-2014 Chih-Chung Chang and Chih-Jen Lin
 //    All rights reserved.
-//    
+//
 //    Redistribution and use in source and binary forms, with or without
 //    modification, are permitted provided that the following conditions
 //    are met:
-// 
+//
 //      1. Redistributions of source code must retain the above copyright
 //      notice, this list of conditions and the following disclaimer.
 //
 //      2. Redistributions in binary form must reproduce the above copyright
 //      notice, this list of conditions and the following disclaimer in the
 //      documentation and/or other materials provided with the distribution.
-// 
+//
 //      3. Neither name of copyright holders nor the names of its contributors
 //      may be used to endorse or promote products derived from this software
 //      without specific prior written permission.
-// 
-// 
+//
+//
 //    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 //    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 //    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -65,17 +65,17 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   General Sequential Minimal Optimization algorithm for Quadratic Programming problems.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///  This class implements the same optimization method found in LibSVM. It can be used
     ///  to solve quadratic programming problems where the quadratic matrix Q may be too large
     ///  to fit in memory.</para>
-    ///  
+    ///
     /// <para>
     ///  The method is described in Fan et al., JMLR 6(2005), p. 1889--1918. It solves the
     ///  minimization problem:</para>
-    ///  
+    ///
     /// <code>
     ///    min 0.5(\alpha^T Q \alpha) + p^T \alpha
     ///
@@ -83,7 +83,7 @@ namespace Accord.Math.Optimization
     ///      y_i = +1 or -1
     ///      0 &lt;= alpha_i &lt;= C_i
     /// </code>
-    /// 
+    ///
     /// <para>
     /// Given Q, p, y, C, and an initial feasible point \alpha, where l is
     /// the size of vectors and matrices and eps is the stopping tolerance.
@@ -92,49 +92,49 @@ namespace Accord.Math.Optimization
     ///
     public class FanChenLinQuadraticOptimization : IOptimizationMethod
     {
+        private const double TAU = 1e-12;
 
-        const double TAU = 1e-12;
+        private int active_size;
+        private int[] y;
+        private double[] G; // gradient of objective function
 
-        int active_size;
-        int[] y;
-        double[] G; // gradient of objective function
+        private enum Status
+        { LOWER_BOUND, UPPER_BOUND, FREE };
 
-        enum Status { LOWER_BOUND, UPPER_BOUND, FREE };
-        Status[] alpha_status;
-        double[] alpha;
-        Func<int, int, double> Q;
-        double[] QD; // diagonal
-        double eps = 0.001;
-        double[] C;
-        double[] p;
-        int[] active_set;
-        int[] indices;
-        double[] G_bar; // gradient, if we treat free variables as 0
-        int l;
-        bool unshrink;
+        private Status[] alpha_status;
+        private double[] alpha;
+        private Func<int, int, double> Q;
+        private double[] QD; // diagonal
+        private double eps = 0.001;
+        private double[] C;
+        private double[] p;
+        private int[] active_set;
+        private int[] indices;
+        private double[] G_bar; // gradient, if we treat free variables as 0
+        private int l;
+        private bool unshrink;
 
-        bool shrinking;
-        double rho;
-        double obj;
-
+        private bool shrinking;
+        private double rho;
+        private double obj;
 
         /// <summary>
-        ///   Gets the number of variables (free parameters) in the optimization 
+        ///   Gets the number of variables (free parameters) in the optimization
         ///   problem. In a SVM learning problem, this is the number of samples in
         ///   the learning dataset.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   The number of parameters for the optimization problem.
         /// </value>
-        /// 
+        ///
         public int NumberOfVariables { get { return l; } }
 
         /// <summary>
         ///   Gets the current solution found, the values of
         ///   the parameters which optimizes the function.
         /// </summary>
-        /// 
+        ///
         public double[] Solution
         {
             get { return alpha; }
@@ -145,26 +145,26 @@ namespace Accord.Math.Optimization
         ///   Gets or sets a cancellation token that can be used to
         ///   stop the learning algorithm while it is running.
         /// </summary>
-        /// 
+        ///
         public CancellationToken Token { get; set; }
 
         /// <summary>
         ///   Gets the output of the function at the current <see cref="Solution" />.
         /// </summary>
-        /// 
+        ///
         public double Value { get { return obj; } }
 
         /// <summary>
         ///   Gets the threshold (bias) value for a SVM trained using this method.
         /// </summary>
-        /// 
+        ///
         public double Rho { get { return rho; } }
 
         /// <summary>
         ///   Gets or sets the precision tolerance before
         ///   the method stops. Default is 0.001.
         /// </summary>
-        /// 
+        ///
         public double Tolerance
         {
             get { return eps; }
@@ -175,11 +175,11 @@ namespace Accord.Math.Optimization
         ///   Gets or sets a value indicating whether shrinking
         ///   heuristics should be used.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   <c>true</c> to use shrinking heuristics; otherwise, <c>false</c>.
         /// </value>
-        /// 
+        ///
         public bool Shrinking
         {
             get { return shrinking; }
@@ -192,18 +192,18 @@ namespace Accord.Math.Optimization
         ///   for each Lagrange multiplier (alpha) in the machine. The
         ///   default is to use a vector filled with 1's.
         /// </summary>
-        /// 
+        ///
         public double[] UpperBounds { get { return C; } }
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="FanChenLinQuadraticOptimization"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
         /// <param name="Q">
-        ///   The quadratic matrix Q. It should be specified as a lambda 
+        ///   The quadratic matrix Q. It should be specified as a lambda
         ///   function so Q doesn't need to be always kept in memory.</param>
-        /// 
+        ///
         public FanChenLinQuadraticOptimization(int numberOfVariables, Func<int, int, double> Q)
         {
             var zeros = new double[numberOfVariables];
@@ -212,20 +212,19 @@ namespace Accord.Math.Optimization
                 ones[i] = 1;
 
             initialize(numberOfVariables, Q, zeros, ones);
-
         }
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="FanChenLinQuadraticOptimization"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
         /// <param name="Q">
-        ///   The quadratic matrix Q. It should be specified as a lambda 
+        ///   The quadratic matrix Q. It should be specified as a lambda
         ///   function so Q doesn't need to be always kept in memory.</param>
         /// <param name="p">The vector of linear terms p. Default is a zero vector.</param>
         /// <param name="y">The class labels y. Default is a unit vector.</param>
-        /// 
+        ///
         public FanChenLinQuadraticOptimization(int numberOfVariables, Func<int, int, double> Q, double[] p, int[] y)
         {
             initialize(numberOfVariables, Q, p, y);
@@ -253,13 +252,13 @@ namespace Accord.Math.Optimization
         ///   Finds the minimum value of a function. The solution vector
         ///   will be made available at the <see cref="Solution" /> property.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   Returns <c>true</c> if the method converged to a <see cref="Solution" />.
         ///   In this case, the found value will also be available at the <see cref="Value" />
         ///   property.
         /// </returns>
-        /// 
+        ///
         public bool Minimize()
         {
             QD = new double[l];
@@ -546,7 +545,6 @@ namespace Accord.Math.Optimization
                         // or Q.swap_index(i,active_set[i]);
             }*/
 
-
             Trace.WriteLine("optimization finished, #iter = " + iter);
 
             return (iter < max_iter);
@@ -555,15 +553,13 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Not supported.
         /// </summary>
-        /// 
+        ///
         public bool Maximize()
         {
             throw new NotSupportedException();
         }
 
-
-
-        void update_alpha_status(int i)
+        private void update_alpha_status(int i)
         {
             if (alpha[i] >= C[i])
                 alpha_status[i] = Status.UPPER_BOUND;
@@ -572,15 +568,16 @@ namespace Accord.Math.Optimization
             else alpha_status[i] = Status.FREE;
         }
 
-        bool is_upper_bound(int i) { return alpha_status[i] == Status.UPPER_BOUND; }
+        private bool is_upper_bound(int i)
+        { return alpha_status[i] == Status.UPPER_BOUND; }
 
-        bool is_lower_bound(int i) { return alpha_status[i] == Status.LOWER_BOUND; }
+        private bool is_lower_bound(int i)
+        { return alpha_status[i] == Status.LOWER_BOUND; }
 
-        bool is_free(int i) { return alpha_status[i] == Status.FREE; }
+        private bool is_free(int i)
+        { return alpha_status[i] == Status.FREE; }
 
-
-
-        void reconstruct_gradient()
+        private void reconstruct_gradient()
         {
             // reconstruct inactive elements of G from G_bar and free variables
             if (active_size == l)
@@ -626,7 +623,7 @@ namespace Accord.Math.Optimization
         }
 
         // return 1 if already optimal, return 0 otherwise
-        int select_working_set(ref int out_i, ref int out_j)
+        private int select_working_set(ref int out_i, ref int out_j)
         {
             // return i,j such that
             // i: maximizes -y_i * grad(f)_i, i in I_up(\alpha)
@@ -739,7 +736,7 @@ namespace Accord.Math.Optimization
             return 0;
         }
 
-        double calculate_rho()
+        private double calculate_rho()
         {
             double r;
             int nr_free = 0;
@@ -780,7 +777,7 @@ namespace Accord.Math.Optimization
             return r;
         }
 
-        void do_shrinking()
+        private void do_shrinking()
         {
             double Gmax1 = Double.NegativeInfinity;		// max { -y_i * grad(f)_i | i in I_up(\alpha) }
             double Gmax2 = Double.NegativeInfinity;		// max { y_i * grad(f)_i | i in I_low(\alpha) }
@@ -842,7 +839,7 @@ namespace Accord.Math.Optimization
             }
         }
 
-        bool be_shrunk(int i, double Gmax1, double Gmax2)
+        private bool be_shrunk(int i, double Gmax1, double Gmax2)
         {
             if (is_upper_bound(i))
             {
@@ -860,14 +857,14 @@ namespace Accord.Math.Optimization
             return false;
         }
 
-        void row(int i, int length, double[] row)
+        private void row(int i, int length, double[] row)
         {
             int ii = indices[i];
             for (int j = 0; j < length; j++)
                 row[j] = Q(ii, indices[j]);
         }
 
-        void swap_index(int i, int j)
+        private void swap_index(int i, int j)
         {
             swap(ref indices[i], ref indices[j]);
             swap(ref y[i], ref y[j]);
@@ -879,12 +876,11 @@ namespace Accord.Math.Optimization
             swap(ref G_bar[i], ref G_bar[j]);
         }
 
-        static void swap<T>(ref T a, ref T b)
+        private static void swap<T>(ref T a, ref T b)
         {
             T t = a;
             a = b;
             b = t;
         }
-
     }
 }

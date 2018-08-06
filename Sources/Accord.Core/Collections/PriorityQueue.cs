@@ -24,20 +24,20 @@
 // shared under a free MIT license, as shown below:
 //
 //    The MIT License (MIT)
-//      
+//
 //    Copyright (c) 2013 Daniel "BlueRaja" Pflughoeft
 //    https://github.com/BlueRaja/High-Speed-Priority-Queue-for-C-Sharp
-//      
+//
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
 //    in the Software without restriction, including without limitation the rights
 //    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 //    copies of the Software, and to permit persons to whom the Software is
 //    furnished to do so, subject to the following conditions:
-//    
+//
 //    The above copyright notice and this permission notice shall be included in
 //    all copies or substantial portions of the Software.
-//    
+//
 //    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -45,7 +45,7 @@
 //    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //    THE SOFTWARE.
-// 
+//
 // The modifications contained in this class, are, however, available under the
 // free software LGPL license as stated in the beginning of this file.
 //
@@ -56,13 +56,12 @@ namespace Accord.Collections
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Runtime.CompilerServices;
     using System.Text;
 
     /// <summary>
     ///   Priority order for <see cref="PriorityQueue{T}"/>.
     /// </summary>
-    /// 
+    ///
     public enum PriorityOrder
     {
         /// <summary>
@@ -70,7 +69,7 @@ namespace Accord.Collections
         ///   priority numbers receive higher priority and are the ones that will
         ///   be dequeued first (i.e. similar to NICE number in UNIX systems).
         /// </summary>
-        /// 
+        ///
         Minimum,
 
         /// <summary>
@@ -78,36 +77,36 @@ namespace Accord.Collections
         ///   priority numbers receive higher priority and are the ones that will
         ///   be dequeued first.
         /// </summary>
-        /// 
+        ///
         Maximum
     }
 
     /// <summary>
     ///   Priority queue.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="T">The values in the queue.</typeparam>
-    /// 
+    ///
     /// <remarks>
     ///   The code for this class has been based on the original "High-speed Priority Queue"
     ///   project originally developed by Daniel "Blue Raja" Pflughoeft. It was originally
     ///   shared under a free MIT license, as shown below:
     ///   <code>
     ///      The MIT License (MIT)
-    ///        
+    ///
     ///      Copyright (c) 2013 Daniel "BlueRaja" Pflughoeft
     ///      https://github.com/BlueRaja/High-Speed-Priority-Queue-for-C-Sharp
-    ///        
+    ///
     ///      Permission is hereby granted, free of charge, to any person obtaining a copy
     ///      of this software and associated documentation files (the "Software"), to deal
     ///      in the Software without restriction, including without limitation the rights
     ///      to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
     ///      copies of the Software, and to permit persons to whom the Software is
     ///      furnished to do so, subject to the following conditions:
-    ///      
+    ///
     ///      The above copyright notice and this permission notice shall be included in
     ///      all copies or substantial portions of the Software.
-    ///      
+    ///
     ///      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
     ///      IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
     ///      FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -117,7 +116,7 @@ namespace Accord.Collections
     ///      THE SOFTWARE.
     ///   </code>
     /// </remarks>
-    /// 
+    ///
     [Serializable]
     public sealed class PriorityQueue<T> : IEnumerable<PriorityQueueNode<T>>
     {
@@ -125,20 +124,20 @@ namespace Accord.Collections
         private PriorityQueueNode<T>[] nodes;
         private long counter;
 
-        PriorityOrder order = PriorityOrder.Minimum;
+        private PriorityOrder order = PriorityOrder.Minimum;
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="PriorityQueue{T}"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="capacity">The initial capacity for the queue.</param>
-        /// <param name="order">The sort order for the queue. If set to <see cref="PriorityOrder.Minimum"/>, 
-        ///   items that have a smaller priority number are the next to be dequeued. If set to 
+        /// <param name="order">The sort order for the queue. If set to <see cref="PriorityOrder.Minimum"/>,
+        ///   items that have a smaller priority number are the next to be dequeued. If set to
         ///   <see cref="PriorityOrder.Maximum"/>, items with larger priority numbers are the ones
         ///   with higher priority and will be the next to be dequeued. Default is <see cref="PriorityOrder.Minimum"/>.</param>
-        /// 
+        ///
         /// <exception cref="System.InvalidOperationException">New queue size cannot be smaller than 1.</exception>
-        /// 
+        ///
         public PriorityQueue(int capacity = 10, PriorityOrder order = PriorityOrder.Minimum)
         {
 #if DEBUG
@@ -154,7 +153,7 @@ namespace Accord.Collections
         /// <summary>
         ///   Gets the number of nodes in the queue. This is an O(1) operation.
         /// </summary>
-        /// 
+        ///
         public int Count
         {
             get { return numberOfNodes; }
@@ -163,16 +162,16 @@ namespace Accord.Collections
         /// <summary>
         ///   Gets the current capacity of this queue.
         /// </summary>
-        /// 
+        ///
         public int Capacity
         {
             get { return nodes.Length - 1; }
         }
 
         /// <summary>
-        ///   Gets or sets the <see cref="PriorityOrder">ordering of this priority queue</see>. 
+        ///   Gets or sets the <see cref="PriorityOrder">ordering of this priority queue</see>.
         /// </summary>
-        /// 
+        ///
         public PriorityOrder Order
         {
             get { return order; }
@@ -185,6 +184,7 @@ namespace Accord.Collections
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public void Clear()
         {
             numberOfNodes = 0;
@@ -193,10 +193,11 @@ namespace Accord.Collections
         /// <summary>
         ///     Returns whether the given node is in the queue. This is an O(1) operation.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public bool Contains(PriorityQueueNode<T> node)
         {
 #if DEBUG
@@ -210,10 +211,11 @@ namespace Accord.Collections
         ///   Enqueue a node to the priority queue. Lower values are placed in front.
         ///   Ties are broken by first-in-first-out. This is an O(log n) operation.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public PriorityQueueNode<T> Enqueue(T value, double priority)
         {
             CheckQueue();
@@ -243,6 +245,7 @@ namespace Accord.Collections
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         private void swap(int i, int j)
         {
             // Swap the nodes
@@ -275,6 +278,7 @@ namespace Accord.Collections
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         private void cascadeDown(ref PriorityQueueNode<T> node)
         {
             // aka Heapify-down
@@ -321,6 +325,7 @@ namespace Accord.Collections
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         private bool HasHigherPriority(int i, int j)
         {
             var a = nodes[i];
@@ -331,12 +336,11 @@ namespace Accord.Collections
             return a.Priority > b.Priority || (a.Priority == b.Priority && a.InsertionIndex < b.InsertionIndex);
         }
 
-
         /// <summary>
         ///   Removes the head of the queue (node with minimum priority; ties are broken by order
         ///   of insertion), and returns it. This is an O(log n) operation.
         /// </summary>
-        /// 
+        ///
         public PriorityQueueNode<T> Dequeue()
         {
 #if DEBUG
@@ -356,7 +360,7 @@ namespace Accord.Collections
         ///   Attempting to decrease the queue size to a size too small to hold the existing nodes
         ///   results in undefined behavior. This is an O(n) operation.
         /// </summary>
-        /// 
+        ///
         public void Resize(int capacity)
         {
 #if DEBUG
@@ -379,7 +383,7 @@ namespace Accord.Collections
         ///   Returns the head of the queue, without removing it (use Dequeue() for that).
         ///   If the queue is empty, behavior is undefined. This is an O(1) operation.
         /// </summary>
-        /// 
+        ///
         public PriorityQueueNode<T> First
         {
             get
@@ -396,23 +400,24 @@ namespace Accord.Collections
         /// <summary>
         ///   Gets a value indicating whether this instance is read only (returns false).
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   Returns <c>false</c>, as instances of this class are not read only.
         /// </value>
-        /// 
+        ///
         public bool IsReadOnly
         {
             get { return false; }
         }
 
         /// <summary>
-        ///   This method must be called on a node every time its priority changes while it is in the queue.  
+        ///   This method must be called on a node every time its priority changes while it is in the queue.
         ///   <b>Forgetting to call this method will result in a corrupted queue!</b>. This is an O(log n) operation.
         /// </summary>
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public void UpdatePriority(ref PriorityQueueNode<T> node, double priority)
         {
 #if DEBUG
@@ -442,7 +447,7 @@ namespace Accord.Collections
         ///   Removes a node from the queue. The node does not need to be the head of the
         ///   queue. This is an O(log n) operation.
         /// </summary>
-        /// 
+        ///
         public void Remove(PriorityQueueNode<T> node)
         {
 #if DEBUG
@@ -474,11 +479,11 @@ namespace Accord.Collections
         /// <summary>
         ///   Returns an enumerator that iterates through the collection.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
         /// </returns>
-        /// 
+        ///
         public IEnumerator<PriorityQueueNode<T>> GetEnumerator()
         {
             for (int i = 1; i <= numberOfNodes; i++)
@@ -491,12 +496,12 @@ namespace Accord.Collections
         }
 
         /// <summary>
-        ///   Returns an array containing the items in this list, 
+        ///   Returns an array containing the items in this list,
         ///   optionally in in priority order.
         /// </summary>
-        /// 
+        ///
         /// <param name="sorted">Whether to return the items in priority order.</param>
-        /// 
+        ///
         public PriorityQueueNode<T>[] ToArray(bool sorted = true)
         {
             var result = new PriorityQueueNode<T>[numberOfNodes];
@@ -507,11 +512,10 @@ namespace Accord.Collections
             return result;
         }
 
-
         /// <summary>
         ///   Checks to make sure the queue is still in a valid state.
         /// </summary>
-        /// 
+        ///
         public bool IsValidQueue()
         {
             for (int i = 1; i < nodes.Length; i++)

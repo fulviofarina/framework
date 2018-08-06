@@ -23,14 +23,13 @@
 namespace Accord.Math.Distances
 {
     using System;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     ///   Euclidean distance metric.
     /// </summary>
-    /// 
+    ///
     /// <seealso cref="SquareEuclidean"/>
-    /// 
+    ///
     [Serializable]
     public sealed class Euclidean :
         IMetric<double>, ISimilarity<double>,
@@ -40,7 +39,7 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Initializes a new instance of the <see cref="Euclidean"/> class.
         /// </summary>
-        /// 
+        ///
         public Euclidean()
         {
         }
@@ -49,19 +48,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(double x, double y)
         {
             return Math.Abs(x - y);
@@ -71,19 +71,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(double[] x, double[] y)
         {
             double sum = 0.0;
@@ -95,23 +96,23 @@ namespace Accord.Math.Distances
             return Math.Sqrt(sum);
         }
 
- 
         /// <summary>
-        ///   Gets the Euclidean distance between two points. Note: this function 
-        ///   is dangerous as it is too easy to invert its arguments by mistake. 
+        ///   Gets the Euclidean distance between two points. Note: this function
+        ///   is dangerous as it is too easy to invert its arguments by mistake.
         ///   Please consider using the Tuple&lt;double, double> overload instead.
         /// </summary>
-        /// 
+        ///
         /// <param name="vector1x">The first coordinate of first point in space.</param>
         /// <param name="vector1y">The second coordinate of first point in space.</param>
         /// <param name="vector2x">The first coordinate of second point in space.</param>
         /// <param name="vector2y">The second coordinate of second point in space.</param>
-        /// 
+        ///
         /// <returns>The Euclidean distance between x and y.</returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(double vector1x, double vector1y, double vector2x, double vector2y)
         {
             double dx = vector1x - vector2x;
@@ -122,15 +123,16 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Gets the Euclidean distance between two points.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point in space.</param>
         /// <param name="y">The second point in space.</param>
-        /// 
+        ///
         /// <returns>The Euclidean distance between x and y.</returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(Tuple<double, double> x, Tuple<double, double> y)
         {
             double dx = x.Item1 - y.Item1;
@@ -141,12 +143,12 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Gets a similarity measure between two points.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point to be compared.</param>
         /// <param name="y">The second point to be compared.</param>
-        /// 
+        ///
         /// <returns>A similarity measure between x and y.</returns>
-        /// 
+        ///
         public double Similarity(double x, double y)
         {
             return 1.0 / (1.0 + Math.Abs(x - y));
@@ -155,12 +157,12 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Gets a similarity measure between two points.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point to be compared.</param>
         /// <param name="y">The second point to be compared.</param>
-        /// 
+        ///
         /// <returns>A similarity measure between x and y.</returns>
-        /// 
+        ///
         public double Similarity(double[] x, double[] y)
         {
             double sum = 0.0;
@@ -177,12 +179,12 @@ namespace Accord.Math.Distances
         /// <summary>
         ///   Gets a similarity measure between two points.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point to be compared.</param>
         /// <param name="y">The second point to be compared.</param>
-        /// 
+        ///
         /// <returns>A similarity measure between x and y.</returns>
-        /// 
+        ///
         public double Similarity(Tuple<double, double> x, Tuple<double, double> y)
         {
             double dx = x.Item1 - y.Item1;

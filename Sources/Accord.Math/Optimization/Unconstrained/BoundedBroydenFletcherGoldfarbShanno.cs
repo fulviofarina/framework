@@ -32,28 +32,28 @@ namespace Accord.Math.Optimization
     ///   Status codes for the <see cref="BoundedBroydenFletcherGoldfarbShanno"/>
     ///   function optimizer.
     /// </summary>
-    /// 
+    ///
     public enum BoundedBroydenFletcherGoldfarbShannoStatus
     {
         /// <summary>
-        ///   The function output converged to a static 
+        ///   The function output converged to a static
         ///   value within the desired precision.
         /// </summary>
-        /// 
+        ///
         FunctionConvergence,
 
         /// <summary>
         ///   The function gradient converged to a minimum
         ///   value within the desired precision.
         /// </summary>
-        /// 
+        ///
         GradientConvergence,
 
         /// <summary>
-        ///   The inner line search function failed. This could be an indication 
+        ///   The inner line search function failed. This could be an indication
         ///   that there might be something wrong with the gradient function.
         /// </summary>
-        /// 
+        ///
         [Description("ABNORMAL_TERMINATION_IN_LNSRCH")]
         LineSearchFailed = -1,
     }
@@ -61,7 +61,7 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Limited-memory Broyden–Fletcher–Goldfarb–Shanno (L-BFGS) optimization method.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   The L-BFGS algorithm is a member of the broad family of quasi-Newton optimization
@@ -76,13 +76,13 @@ namespace Accord.Math.Optimization
     ///   <c>m</c> updates of the position <c>x</c> and gradient <c>g</c>, where generally the history
     ///   <c>m</c>can be short, often less than 10. These updates are used to implicitly do operations
     ///   requiring the Hk-vector product.</para>
-    ///   
+    ///
     /// <para>
     ///   The framework implementation of this method is based on the original FORTRAN source code
     ///   by Jorge Nocedal (see references below). The original FORTRAN source code of L-BFGS (for
     ///   unconstrained problems) is available at http://www.netlib.org/opt/lbfgs_um.shar and had
     ///   been made available under the public domain. </para>
-    /// 
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
@@ -96,74 +96,74 @@ namespace Accord.Math.Optimization
     ///        Dong C. Liu, Jorge Nocedal. On the limited memory BFGS method for large scale optimization.</description></item>
     ///    </list></para>
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <para>
     ///   The following example shows the basic usage of the L-BFGS solver
     ///   to find the minimum of a function specifying its function and
     ///   gradient. </para>
-    ///   
+    ///
     /// <code>
     /// // Suppose we would like to find the minimum of the function
-    /// // 
+    /// //
     /// //   f(x,y)  =  -exp{-(x-1)²} - exp{-(y-2)²/2}
     /// //
-    /// 
+    ///
     /// // First we need write down the function either as a named
     /// // method, an anonymous method or as a lambda function:
-    /// 
+    ///
     /// Func&lt;double[], double> f = (x) =>
     ///     -Math.Exp(-Math.Pow(x[0] - 1, 2)) - Math.Exp(-0.5 * Math.Pow(x[1] - 2, 2));
-    /// 
+    ///
     /// // Now, we need to write its gradient, which is just the
     /// // vector of first partial derivatives del_f / del_x, as:
     /// //
     /// //   g(x,y)  =  { del f / del x, del f / del y }
-    /// // 
-    /// 
-    /// Func&lt;double[], double[]> g = (x) => new double[] 
+    /// //
+    ///
+    /// Func&lt;double[], double[]> g = (x) => new double[]
     /// {
     ///     // df/dx = {-2 e^(-    (x-1)^2) (x-1)}
     ///     2 * Math.Exp(-Math.Pow(x[0] - 1, 2)) * (x[0] - 1),
-    /// 
+    ///
     ///     // df/dy = {-  e^(-1/2 (y-2)^2) (y-2)}
     ///     Math.Exp(-0.5 * Math.Pow(x[1] - 2, 2)) * (x[1] - 2)
     /// };
-    /// 
+    ///
     /// // Finally, we can create the L-BFGS solver, passing the functions as arguments
     /// var lbfgs = new BroydenFletcherGoldfarbShanno(numberOfVariables: 2, function: f, gradient: g);
-    /// 
+    ///
     /// // And then minimize the function:
     /// bool success = lbfgs.Minimize();
     /// double minValue = lbfgs.Value;
     /// double[] solution = lbfgs.Solution;
-    /// 
+    ///
     /// // The resultant minimum value should be -2, and the solution
     /// // vector should be { 1.0, 2.0 }. The answer can be checked on
     /// // Wolfram Alpha by clicking the following the link:
-    /// 
+    ///
     /// // http://www.wolframalpha.com/input/?i=maximize+%28exp%28-%28x-1%29%C2%B2%29+%2B+exp%28-%28y-2%29%C2%B2%2F2%29%29
-    /// 
+    ///
     /// </code>
     /// </example>
-    /// 
+    ///
     /// <seealso cref="ConjugateGradient"/>
     /// <seealso cref="ResilientBackpropagation"/>
     /// <seealso cref="BroydenFletcherGoldfarbShanno"/>
     /// <seealso cref="TrustRegionNewtonMethod"/>
-    /// 
+    ///
     public partial class BoundedBroydenFletcherGoldfarbShanno
         : BaseGradientOptimizationMethod, IGradientOptimizationMethod,
         IOptimizationMethod<BoundedBroydenFletcherGoldfarbShannoStatus>
     {
-
-
         // those values need not be modified
         private const double stpmin = 1e-20;
+
         private const double stpmax = 1e20;
 
         // Line search parameters
         private int iterations;
+
         private int evaluations;
 
         private int corrections = 5;
@@ -173,29 +173,27 @@ namespace Accord.Math.Optimization
 
         private double[] work;
 
-        double factr = 1e+5;
-        double pgtol = 0.0;
-
+        private double factr = 1e+5;
+        private double pgtol = 0.0;
 
         #region Properties
 
         /// <summary>
         ///   Occurs when progress is made during the optimization.
         /// </summary>
-        /// 
+        ///
         public event EventHandler<OptimizationProgressEventArgs> Progress;
-
 
         /// <summary>
         ///   Gets the number of iterations performed in the last
         ///   call to <see cref="IOptimizationMethod.Minimize()"/>
         ///   or <see cref="IOptimizationMethod.Maximize()"/>.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   The number of iterations performed
         ///   in the previous optimization.</value>
-        ///   
+        ///
         public int Iterations
         {
             get { return iterations; }
@@ -206,7 +204,7 @@ namespace Accord.Math.Optimization
         ///   to be performed during optimization. Default
         ///   is 0 (iterate until convergence).
         /// </summary>
-        /// 
+        ///
         public int MaxIterations { get; set; }
 
         /// <summary>
@@ -214,11 +212,11 @@ namespace Accord.Math.Optimization
         ///   in the last call to <see cref="IOptimizationMethod.Minimize()"/>
         ///   or <see cref="IOptimizationMethod.Maximize()"/>.
         /// </summary>
-        /// 
+        ///
         /// <value>
         ///   The number of evaluations performed
         ///   in the previous optimization.</value>
-        ///   
+        ///
         public int Evaluations
         {
             get { return evaluations; }
@@ -228,7 +226,7 @@ namespace Accord.Math.Optimization
         ///   Gets or sets the number of corrections used in the L-BFGS
         ///   update. Recommended values are between 3 and 7. Default is 5.
         /// </summary>
-        /// 
+        ///
         public int Corrections
         {
             get { return corrections; }
@@ -246,7 +244,7 @@ namespace Accord.Math.Optimization
         ///   Gets or sets the upper bounds of the interval
         ///   in which the solution must be found.
         /// </summary>
-        /// 
+        ///
         public double[] UpperBounds
         {
             get { return upperBound; }
@@ -256,7 +254,7 @@ namespace Accord.Math.Optimization
         ///   Gets or sets the lower bounds of the interval
         ///   in which the solution must be found.
         /// </summary>
-        /// 
+        ///
         public double[] LowerBounds
         {
             get { return lowerBound; }
@@ -265,9 +263,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets or sets the accuracy with which the solution
         ///   is to be found. Default value is 1e5. Smaller values
-        ///   up until zero result in higher accuracy. 
+        ///   up until zero result in higher accuracy.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         /// <para>
         ///   The iteration will stop when</para>
@@ -279,7 +277,7 @@ namespace Accord.Math.Optimization
         ///   1e12 for low accuracy; 1e7 for moderate accuracy; 1e1 for extremely
         ///   high accuracy.</para>
         /// </remarks>
-        /// 
+        ///
         public double FunctionTolerance
         {
             get { return factr; }
@@ -296,10 +294,10 @@ namespace Accord.Math.Optimization
         }
 
         /// <summary>
-        ///   Gets or sets a tolerance value when detecting convergence 
+        ///   Gets or sets a tolerance value when detecting convergence
         ///   of the gradient vector steps. Default is 0.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   On entry pgtol >= 0 is specified by the user.  The iteration
         ///   will stop when
@@ -309,7 +307,7 @@ namespace Accord.Math.Optimization
         /// <para>
         ///   where pg_i is the ith component of the projected gradient. </para>
         /// </remarks>
-        /// 
+        ///
         public double GradientTolerance
         {
             get { return pgtol; }
@@ -318,22 +316,22 @@ namespace Accord.Math.Optimization
 
         /// <summary>
         ///   Get the exit code returned in the last call to the
-        ///   <see cref="IOptimizationMethod.Maximize()"/> or 
+        ///   <see cref="IOptimizationMethod.Maximize()"/> or
         ///   <see cref="IOptimizationMethod.Minimize()"/> methods.
         /// </summary>
-        /// 
+        ///
         public BoundedBroydenFletcherGoldfarbShannoStatus Status { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region Constructors
 
         /// <summary>
         ///   Creates a new instance of the L-BFGS optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the optimization problem.</param>
-        /// 
+        ///
         public BoundedBroydenFletcherGoldfarbShanno(int numberOfVariables)
             : base(numberOfVariables)
         {
@@ -350,11 +348,11 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new instance of the L-BFGS optimization algorithm.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the function to be optimized.</param>
         /// <param name="function">The function to be optimized.</param>
         /// <param name="gradient">The gradient of the function.</param>
-        /// 
+        ///
         public BoundedBroydenFletcherGoldfarbShanno(int numberOfVariables,
             Func<double[], double> function, Func<double[], double[]> gradient)
             : this(numberOfVariables)
@@ -369,8 +367,7 @@ namespace Accord.Math.Optimization
             this.Gradient = gradient;
         }
 
-        #endregion
-
+        #endregion Constructors
 
         /// <summary>
         ///   Implements the actual optimization algorithm. This
@@ -385,7 +382,6 @@ namespace Accord.Math.Optimization
                 throw new InvalidOperationException("gradient");
 
             NonlinearObjectiveFunction.CheckGradient(Gradient, Solution);
-
 
             int n = NumberOfVariables;
             int m = corrections;
@@ -432,7 +428,6 @@ namespace Accord.Math.Optimization
                 }
             }
 
-
             // We now define the starting point.
             {
                 for (i = 0; i < n; i++)
@@ -447,24 +442,23 @@ namespace Accord.Math.Optimization
 
             iterations = 0;
 
-        // 
-        // c        ------- the beginning of the loop ----------
-        // 
-        L111:
+            //
+            // c        ------- the beginning of the loop ----------
+            //
+            L111:
             if (Token.IsCancellationRequested)
                 return false;
 
             iterations++;
 
-            // 
+            //
             // c     This is the call to the L-BFGS-B code.
-            // 
+            //
             setulb(n, m, x, 0, l, 0, u, 0, nbd, 0, ref f, g, 0,
                 factr, pgtol, work, 0, iwa, 0, ref task, iprint, ref csave,
                 lsave, 0, isave, 0, dsave, 0);
 
-
-            // 
+            //
             if ((task.StartsWith("FG", StringComparison.OrdinalIgnoreCase)))
             {
                 newF = Function(x);
@@ -480,7 +474,6 @@ namespace Accord.Math.Optimization
             // c
             else if ((task.StartsWith("NEW_X", StringComparison.OrdinalIgnoreCase)))
             {
-
             }
             else
             {
@@ -511,7 +504,6 @@ namespace Accord.Math.Optimization
                 return true;
             }
 
-
             if (Progress != null)
             {
                 Progress(this, new OptimizationProgressEventArgs(iterations, 0, newG, 0, null, 0, f, 0, false)
@@ -523,9 +515,5 @@ namespace Accord.Math.Optimization
 
             goto L111;
         }
-
-
-
-
     }
 }

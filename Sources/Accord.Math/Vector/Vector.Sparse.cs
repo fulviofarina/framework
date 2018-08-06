@@ -22,25 +22,17 @@
 
 namespace Accord.Math
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
     public static partial class Vector
     {
-
         /// <summary>
         ///   Gets the inner product (scalar product) between two vectors (a'*b).
         /// </summary>
-        /// 
+        ///
         /// <param name="a">A vector.</param>
         /// <param name="b">A vector.</param>
-        /// 
+        ///
         /// <returns>The inner product of the multiplication of the vectors.</returns>
-        /// 
+        ///
         public static double Dot(this Sparse<double> a, Sparse<double> b)
         {
             double sum = 0;
@@ -74,12 +66,12 @@ namespace Accord.Math
         /// <summary>
         ///   Gets the inner product (scalar product) between two vectors (a'*b).
         /// </summary>
-        /// 
+        ///
         /// <param name="a">A vector.</param>
         /// <param name="b">A vector.</param>
-        /// 
+        ///
         /// <returns>The inner product of the multiplication of the vectors.</returns>
-        /// 
+        ///
         public static double Dot(this Sparse<double> a, double[] b)
         {
             double sum = 0;
@@ -109,6 +101,5 @@ namespace Accord.Math
 
             return sum;
         }
-
     }
 }

@@ -43,16 +43,15 @@
 
 namespace Accord.Math
 {
-    using Accord.Math.Random;
     using System;
 
     /// <summary>
     ///   Gamma Γ(x) functions.
     /// </summary>
-    ///  
+    ///
     /// <remarks>
     /// <para>
-    ///   In mathematics, the gamma function (represented by the capital Greek 
+    ///   In mathematics, the gamma function (represented by the capital Greek
     ///   letter Γ) is an extension of the factorial function, with its argument
     ///   shifted down by 1, to real and complex numbers. That is, if <c>n</c> is
     ///   a positive integer:</para>
@@ -60,39 +59,39 @@ namespace Accord.Math
     ///   Γ(n) = (n-1)!</code>
     /// <para>
     ///   The gamma function is defined for all complex numbers except the negative
-    ///   integers and zero. For complex numbers with a positive real part, it is 
+    ///   integers and zero. For complex numbers with a positive real part, it is
     ///   defined via an improper integral that converges:</para>
     /// <code>
     ///          ∞
     ///   Γ(z) = ∫  t^(z-1)e^(-t) dt
     ///          0
-    /// </code>     
+    /// </code>
     /// <para>
-    ///   This integral function is extended by analytic continuation to all 
-    ///   complex numbers except the non-positive integers (where the function 
+    ///   This integral function is extended by analytic continuation to all
+    ///   complex numbers except the non-positive integers (where the function
     ///   has simple poles), yielding the meromorphic function we call the gamma
     ///   function.</para>
     /// <para>
-    ///   The gamma function is a component in various probability-distribution 
-    ///   functions, and as such it is applicable in the fields of probability 
+    ///   The gamma function is a component in various probability-distribution
+    ///   functions, and as such it is applicable in the fields of probability
     ///   and statistics, as well as combinatorics.</para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description>
-    ///       Wikipedia contributors, "Gamma function,". Wikipedia, The Free 
-    ///       Encyclopedia. Available at: http://en.wikipedia.org/wiki/Gamma_function 
+    ///       Wikipedia contributors, "Gamma function,". Wikipedia, The Free
+    ///       Encyclopedia. Available at: http://en.wikipedia.org/wiki/Gamma_function
     ///       </description></item>
     ///     <item><description>
     ///       Cephes Math Library, http://www.netlib.org/cephes/ </description></item>
     ///   </list></para>
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <code>
     ///   double x = 0.17;
-    ///   
+    ///
     ///   // Compute main Gamma function and variants
     ///   double gamma = Gamma.Function(x); // 5.4511741801042106
     ///   double gammap = Gamma.Function(x, p: 2); // -39.473585841300675
@@ -103,16 +102,15 @@ namespace Accord.Math
     ///   double tri = Gamma.Trigamma(x);   // 35.915302055854525
     ///
     ///   double a = 4.2;
-    ///   
+    ///
     ///   // Compute the incomplete regularized Gamma functions P and Q:
     ///   double lower = Gamma.LowerIncomplete(a, x); // 0.000015685073063633753
     ///   double upper = Gamma.UpperIncomplete(a, x); // 0.9999843149269364
     /// </code>
     /// </example>
-    /// 
+    ///
     public static class Gamma
     {
-
         /// <summary>Maximum gamma on the machine.</summary>
         public const double GammaMax = 171.624376956302725; // TODO: Rename to Max
 
@@ -142,7 +140,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gamma function of the specified value.
         /// </summary>
-        /// 
+        ///
         public static double Function(double x)
         {
             double p, z;
@@ -223,13 +221,12 @@ namespace Accord.Math
             p = Special.Polevl(x, gamma_P, 6);
             q = Special.Polevl(x, gamma_Q, 7);
             return z * p / q;
-
         }
 
         /// <summary>
         ///   Multivariate Gamma function
         /// </summary>
-        /// 
+        ///
         public static double Multivariate(double x, int p)
         {
             if (p < 1)
@@ -238,7 +235,6 @@ namespace Accord.Math
 
             if (p == 1)
                 return Function(x);
-
 
             double prod = Math.Pow(Math.PI, (1 / 4.0) * p * (p - 1));
 
@@ -251,7 +247,7 @@ namespace Accord.Math
         /// <summary>
         ///   Digamma function.
         /// </summary>
-        /// 
+        ///
         public static double Digamma(double x)
         {
             if (x == 0)
@@ -346,13 +342,13 @@ namespace Accord.Math
         /// <summary>
         ///   Trigamma function.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   This code has been adapted from the FORTRAN77 and subsequent
         ///   C code by B. E. Schneider and John Burkardt. The code had been
         ///   made public under the GNU LGPL license.
         /// </remarks>
-        /// 
+        ///
         public static double Trigamma(double x)
         {
             double a = 0.0001;
@@ -414,7 +410,7 @@ namespace Accord.Math
         /// <summary>
         ///   Gamma function as computed by Stirling's formula.
         /// </summary>
-        /// 
+        ///
         public static double Stirling(double x)
         {
             double MAXSTIR = 143.01608;
@@ -451,11 +447,11 @@ namespace Accord.Math
         ///   Upper incomplete regularized Gamma function Q
         ///   (a.k.a the incomplete complemented Gamma function)
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   This function is equivalent to Q(x) = Γ(s, x) / Γ(s).
         /// </remarks>
-        /// 
+        ///
         public static double UpperIncomplete(double a, double x)
         {
             const double big = 4.503599627370496e15;
@@ -526,11 +522,11 @@ namespace Accord.Math
         ///   Lower incomplete regularized gamma function P
         ///   (a.k.a. the incomplete Gamma function).
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         ///   This function is equivalent to P(x) = γ(s, x) / Γ(s).
         /// </remarks>
-        /// 
+        ///
         public static double LowerIncomplete(double a, double x)
         {
             if (a <= 0)
@@ -595,7 +591,7 @@ namespace Accord.Math
         /// <summary>
         ///   Natural logarithm of the gamma function.
         /// </summary>
-        /// 
+        ///
         public static double Log(double x)
         {
             if (x == 0)
@@ -684,7 +680,7 @@ namespace Accord.Math
         /// <summary>
         ///   Natural logarithm of the multivariate Gamma function.
         /// </summary>
-        /// 
+        ///
         public static double Log(double x, int p)
         {
             if (p < 1)
@@ -701,30 +697,30 @@ namespace Accord.Math
         }
 
         /// <summary>
-        ///   Inverse of the <see cref="LowerIncomplete"> 
+        ///   Inverse of the <see cref="LowerIncomplete">
         ///   incomplete Gamma integral (LowerIncomplete, P)</see>.
         /// </summary>
-        /// 
+        ///
         public static double InverseLowerIncomplete(double a, double y)
         {
             return inverse(a, 1 - y);
         }
 
         /// <summary>
-        ///   Inverse of the <see cref="UpperIncomplete">complemented 
+        ///   Inverse of the <see cref="UpperIncomplete">complemented
         ///   incomplete Gamma integral (UpperIncomplete, Q)</see>.
         /// </summary>
-        /// 
+        ///
         public static double InverseUpperIncomplete(double a, double y)
         {
             return inverse(a, y);
         }
 
         /// <summary>
-        ///   Inverse of the <see cref="UpperIncomplete">complemented 
+        ///   Inverse of the <see cref="UpperIncomplete">complemented
         ///   incomplete Gamma integral (UpperIncomplete, Q)</see>.
         /// </summary>
-        /// 
+        ///
         //[Obsolete("Please use InverseUpperIncomplete instead.")]
         public static double Inverse(double a, double y)
         {
@@ -780,8 +776,8 @@ namespace Accord.Math
                 x = x - d;
             }
 
-                // Resort to interval halving if Newton iteration did not converge. 
-        ihalve:
+            // Resort to interval halving if Newton iteration did not converge.
+            ihalve:
 
             d = 0.0625;
             if (x0 == Double.MaxValue)
@@ -865,7 +861,5 @@ namespace Accord.Math
 
             return x;
         }
-
-        
     }
 }

@@ -31,16 +31,16 @@ namespace Accord.IO
     using Accord.Math;
 
     /// <summary>
-    ///   Node object contained in <see cref="MatReader">.MAT file</see>. 
+    ///   Node object contained in <see cref="MatReader">.MAT file</see>.
     ///   A node can contain a matrix object, a string, or another nodes.
     /// </summary>
-    /// 
+    ///
     public class MatNode : IEnumerable<MatNode>
     {
-        long startOffset;
-        long matrixOffset;
+        private long startOffset;
+        private long matrixOffset;
 
-        Dictionary<string, MatNode> contents;
+        private Dictionary<string, MatNode> contents;
 
         private BinaryReader reader;
         private MatReader matReader;
@@ -59,24 +59,24 @@ namespace Accord.IO
         /// <summary>
         ///   Gets the name of this node.
         /// </summary>
-        /// 
+        ///
         public string Name { get; private set; }
 
         /// <summary>
         ///   Gets the child nodes contained at this node.
         /// </summary>
-        /// 
+        ///
         public Dictionary<string, MatNode> Fields
         {
             get { return contents; }
         }
 
         /// <summary>
-        ///   Gets the object value contained at this node, if any. 
+        ///   Gets the object value contained at this node, if any.
         ///   Its type can be known by checking the <see cref="Type"/>
         ///   property of this node.
         /// </summary>
-        /// 
+        ///
         public Object Value
         {
             get
@@ -90,22 +90,22 @@ namespace Accord.IO
         /// <summary>
         ///   Gets the type of the object value contained in this node.
         /// </summary>
-        /// 
+        ///
         public Type ValueType
         {
             get { return Value.GetType(); }
         }
 
         /// <summary>
-        ///   Gets the object value contained at this node, if any. 
+        ///   Gets the object value contained at this node, if any.
         ///   Its type can be known by checking the <see cref="Type"/>
         ///   property of this node.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The object type, if known.</typeparam>
-        /// 
+        ///
         /// <returns>The object stored at this node.</returns>
-        /// 
+        ///
         public T GetValue<T>()
         {
             if (Value is T)
@@ -129,7 +129,7 @@ namespace Accord.IO
         /// <summary>
         ///   Gets the number of child objects contained in this node.
         /// </summary>
-        /// 
+        ///
         public int Count
         {
             get { return contents.Count; }
@@ -138,9 +138,9 @@ namespace Accord.IO
         /// <summary>
         ///   Gets the child fields contained under the given name.
         /// </summary>
-        /// 
+        ///
         /// <param name="name">The name of the field to be retrieved.</param>
-        /// 
+        ///
         public MatNode this[string name]
         {
             get { return contents[name]; }
@@ -149,14 +149,13 @@ namespace Accord.IO
         /// <summary>
         ///   Gets the child fields contained under the given name.
         /// </summary>
-        /// 
+        ///
         /// <param name="name">The name of the field to be retrieved.</param>
-        /// 
+        ///
         public MatNode this[int name]
         {
             get { return contents[name.ToString()]; }
         }
-
 
         internal unsafe MatNode(MatReader matReader, BinaryReader reader, long offset, MatDataTag tag, bool lazy)
         {
@@ -205,8 +204,6 @@ namespace Accord.IO
 
             if (flagsElement.Class == MatArrayType.mxOBJECT_CLASS)
                 throw new NotSupportedException("Unexpected object class flag at position " + readBytes + ".");
-
-
 
             readBytes += 8;
             MatDataTag dimensionsTag;
@@ -267,7 +264,6 @@ namespace Accord.IO
                 for (int i = 0; i < ic.Length; i++)
                     ic[i] = reader.ReadInt32();
                 align(reader, icTag.NumberOfBytes);
-
 
                 // read values
                 readBytes += 8;
@@ -494,16 +490,14 @@ namespace Accord.IO
             return array;
         }
 
-
-
         /// <summary>
         ///   Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
         /// </returns>
-        /// 
+        ///
         public IEnumerator<MatNode> GetEnumerator()
         {
             return contents.Values.GetEnumerator();
@@ -512,15 +506,14 @@ namespace Accord.IO
         /// <summary>
         ///   Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
         /// </returns>
-        /// 
+        ///
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return contents.Values.GetEnumerator();
         }
-
     }
 }

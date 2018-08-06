@@ -26,7 +26,6 @@ namespace Accord.Math
 
     public static partial class Matrix
     {
-
         /// <summary>
         ///   Elementwise absolute value.
         /// </summary>
@@ -117,7 +116,6 @@ namespace Accord.Math
             return Elementwise.Exp(value);
         }
 
-
         /// <summary>
         ///   Elementwise Log operation.
         /// </summary>
@@ -127,7 +125,6 @@ namespace Accord.Math
             return Elementwise.Log(value);
         }
 
-
         /// <summary>
         ///   Elementwise Log operation.
         /// </summary>
@@ -136,7 +133,6 @@ namespace Accord.Math
         {
             return Elementwise.Log(value);
         }
-
 
         /// <summary>
         ///   Elementwise power operation.
@@ -155,7 +151,6 @@ namespace Accord.Math
         {
             return Elementwise.Pow(x, y);
         }
-
 
         /// <summary>
         ///   Elementwise divide operation.
@@ -195,8 +190,6 @@ namespace Accord.Math
             return Elementwise.Divide(a, b, dimension);
         }
 
-
-
         /// <summary>
         ///   Elementwise division.
         /// </summary>
@@ -205,7 +198,6 @@ namespace Accord.Math
         {
             return Elementwise.Divide(a, b, dimension);
         }
-
 
         /// <summary>
         ///   Elementwise multiply operation.
@@ -228,7 +220,7 @@ namespace Accord.Math
         /// <summary>
         ///   Elementwise multiply operation.
         /// </summary>
-        /// 
+        ///
         public static double[,] ElementwiseMultiply(double[,] a, double[,] b)
         {
             return Elementwise.Multiply(a, b);
@@ -269,6 +261,5 @@ namespace Accord.Math
         {
             return Elementwise.Multiply(a, b, dimension, r);
         }
-
     }
 }

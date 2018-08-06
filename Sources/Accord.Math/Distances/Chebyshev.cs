@@ -23,19 +23,18 @@
 namespace Accord.Math.Distances
 {
     using System;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     ///   Chebyshev distance.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public sealed class Chebyshev : IMetric<double[]>
     {
         /// <summary>
         ///   Initializes a new instance of the <see cref="Chebyshev"/> class.
         /// </summary>
-        /// 
+        ///
         public Chebyshev()
         {
         }
@@ -44,19 +43,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(double[] x, double[] y)
         {
             double max = System.Math.Abs(x[0] - y[0]);
@@ -64,12 +64,11 @@ namespace Accord.Math.Distances
             for (int i = 1; i < x.Length; i++)
             {
                 double abs = System.Math.Abs(x[i] - y[i]);
-                if (abs > max) 
+                if (abs > max)
                     max = abs;
             }
 
             return max;
         }
-
     }
 }

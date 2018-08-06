@@ -26,26 +26,25 @@ namespace Accord.Math.Decompositions
     ///   Common interface for matrix decompositions which
     ///   can be used to solve linear systems of equations.
     /// </summary>
-    /// 
-    public interface ISolverMatrixDecomposition<T>  where T : struct
+    ///
+    public interface ISolverMatrixDecomposition<T> where T : struct
     {
-
         /// <summary>
         ///   Solves a set of equation systems of type <c>A * X = B</c>.
         /// </summary>
-        /// 
+        ///
         T[,] Solve(T[,] value);
 
         /// <summary>
         ///   Solves a set of equation systems of type <c>A * X = B</c>.
         /// </summary>
-        /// 
+        ///
         T[] Solve(T[] value);
 
         /// <summary>
         ///   Solves a set of equation systems of type <c>A * X = I</c>.
         /// </summary>
-        /// 
+        ///
         T[,] Inverse();
 
         /// <summary>
@@ -54,14 +53,13 @@ namespace Accord.Math.Decompositions
         ///   solving a linear set of equations through any of the <see cref="Solve(T[,])"/>
         ///   methods.
         /// </summary>
-        /// 
+        ///
         T[,] GetInformationMatrix();
 
         /// <summary>
         ///   Reverses the decomposition, reconstructing the original matrix <c>X</c>.
         /// </summary>
-        /// 
+        ///
         T[,] Reverse();
     }
-
 }

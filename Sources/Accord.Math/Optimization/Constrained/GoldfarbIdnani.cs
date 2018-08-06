@@ -36,32 +36,32 @@ namespace Accord.Math.Optimization
     ///   Status codes for the <see cref="GoldfarbIdnani"/>
     ///   constrained quadratic programming solver.
     /// </summary>
-    /// 
+    ///
     public enum GoldfarbIdnaniStatus
     {
         /// <summary>
         ///   Convergence was attained.
         /// </summary>
-        /// 
+        ///
         Success,
 
         /// <summary>
         ///   The quadratic problem matrix is not positive definite.
         /// </summary>
-        /// 
+        ///
         NonPositiveDefinite,
 
         /// <summary>
         ///   The posed constraints cannot be fulfilled.
         /// </summary>
-        /// 
+        ///
         NoPossibleSolution
     }
 
     /// <summary>
     ///   Goldfarb-Idnani Quadratic Programming Solver.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   References:
@@ -73,13 +73,13 @@ namespace Accord.Math.Optimization
     ///       Berwin A Turlach. QuadProg, Quadratic Programming Solver (implementation in Fortran).
     ///       Available on:  http://school.maths.uwa.edu.au/~berwin/software/quadprog.html .</a></description></item>
     ///   </list>
-    /// </para>   
+    /// </para>
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <para>
     ///   There are three ways to state a quadratic programming problem in this framework.</para>
-    ///   
+    ///
     /// <list type="bullet">
     ///   <item><description>
     ///   The first is to state the problem in its canonical form, explicitly stating the
@@ -90,23 +90,23 @@ namespace Accord.Math.Optimization
     ///   <item><description>
     ///   The third is to state the problem using text strings.</description></item>
     /// </list>
-    ///   
-    /// <para>  
-    ///   In the following section we will provide examples for those ways. 
+    ///
+    /// <para>
+    ///   In the following section we will provide examples for those ways.
     /// </para>
-    /// 
+    ///
     /// <para>
     ///   This is an example stating the problem using lambdas:</para>
     /// <code>
     /// // Solve the following optimization problem:
     /// //
     /// //  min f(x) = 2x² - xy + 4y² - 5x - 6y
-    /// // 
+    /// //
     /// //  s.t.   x - y  ==   5  (x minus y should be equal to 5)
     /// //             x  >=  10  (x should be greater than or equal to 10)
     /// //
     ///
-    /// // In this example we will be using some symbolic processing. 
+    /// // In this example we will be using some symbolic processing.
     /// // The following variables could be initialized to any value.
     /// double x = 0, y = 0;
     ///
@@ -124,14 +124,14 @@ namespace Accord.Math.Optimization
     /// // And attempt to solve it.
     /// double minimumValue = solver.Minimize();
     /// </code>
-    /// 
+    ///
     /// <para>
     ///   This is an example stating the problem using strings:</para>
     /// <code>
     /// // Solve the following optimization problem:
     /// //
     /// //  max f(x) = -2x² + xy - y² + 5y
-    /// // 
+    /// //
     /// //  s.t.   x - y  ==   5  (x minus y should be equal to 5)
     /// //             x  >=  10  (x should be greater than or equal to 10)
     /// //
@@ -151,27 +151,27 @@ namespace Accord.Math.Optimization
     /// // And attempt to solve it.
     /// double maxValue = solver.Maximize();
     /// </code>
-    ///   
+    ///
     /// <para>
     ///   And finally, an example stating the problem using matrices:</para>
     /// <code>
     /// // Solve the following optimization problem:
     /// //
     /// //  min f(x) = 2x² - xy + 4y² - 5x - 6y
-    /// // 
+    /// //
     /// //  s.t.   x - y  ==   5  (x minus y should be equal to 5)
     /// //             x  >=  10  (x should be greater than or equal to 10)
     /// //
-    /// 
+    ///
     /// // Lets first group the quadratic and linear terms. The
-    /// // quadratic terms are +2x², +3y² and -4xy. The linear 
+    /// // quadratic terms are +2x², +3y² and -4xy. The linear
     /// // terms are -2x and +1y. So our matrix of quadratic
     /// // terms can be expressed as:
     ///
     /// double[,] Q = // 2x² -1xy +4y²
-    /// {   
+    /// {
     ///     /*           x              y      */
-    ///     /*x*/ { +2 /*xx*/ *2,  -1 /*xy*/    }, 
+    ///     /*x*/ { +2 /*xx*/ *2,  -1 /*xy*/    },
     ///     /*y*/ { -1 /*xy*/   ,  +4 /*yy*/ *2 },
     /// };
     ///
@@ -185,13 +185,13 @@ namespace Accord.Math.Optimization
     /// // relationship between the different variables in the
     /// // constraint, like this:
     ///
-    /// double[,] A = 
+    /// double[,] A =
     /// {
     ///     { 1, -1 }, // This line says that x + (-y) ... (a)
     ///     { 1,  0 }, // This line says that x alone  ... (b)
     /// };
     ///
-    /// double[] b = 
+    /// double[] b =
     /// {
     ///      5, // (a) ... should be equal to 5.
     ///     10, // (b) ... should be greater than or equal to 10.
@@ -223,8 +223,8 @@ namespace Accord.Math.Optimization
     ///     {
     ///         // x is the first variable, located at index 0, and y is
     ///         // the second, thus located at 1. We are specifying that
-    ///         // x - y = 5 by saying that the variable at position 0 
-    ///         // times 1 plus the variable at position 1 times -1 
+    ///         // x - y = 5 by saying that the variable at position 0
+    ///         // times 1 plus the variable at position 1 times -1
     ///         // should be equal to 5.
     ///
     ///         VariablesAtIndices = new int[] { 0, 1 }, // index 0 (x) and index 1 (y)
@@ -241,7 +241,7 @@ namespace Accord.Math.Optimization
     /// double minimumValue = target.Minimize();
     /// </code>
     /// </example>
-    /// 
+    ///
     public class GoldfarbIdnani : BaseGradientOptimizationMethod,
         IOptimizationMethod, IOptimizationMethod<GoldfarbIdnaniStatus>
     {
@@ -254,6 +254,7 @@ namespace Accord.Math.Optimization
 
         //private double[] work;
         private int r;
+
         private double[] work;
         private double[] iwrv;
         private double[] iwzv;
@@ -262,62 +263,60 @@ namespace Accord.Math.Optimization
         private double[] iwsv;
         private double[] iwnbv;
 
-
         /// <summary>
         ///   Gets the total number of constraints in the problem.
         /// </summary>
-        /// 
+        ///
         public int NumberOfConstraints { get; private set; }
 
         /// <summary>
         ///   Gets how many constraints are inequality constraints.
         /// </summary>
-        /// 
+        ///
         public int NumberOfEqualities { get; private set; }
 
         /// <summary>
         ///   Gets the total number of iterations performed on the
         ///   last call to the <see cref="Minimize"/> or <see cref="Maximize"/> methods.
         /// </summary>
-        /// 
+        ///
         public int Iterations { get; set; }
 
         /// <summary>
-        ///   Gets or sets the maximum number of iterations that should be 
-        ///   performed before the method terminates. If set to zero, the 
+        ///   Gets or sets the maximum number of iterations that should be
+        ///   performed before the method terminates. If set to zero, the
         ///   method will run to completion. Default is 0.
         /// </summary>
-        /// 
+        ///
         public int MaxIterations { get; set; }
 
         /// <summary>
         ///   Gets the total number of constraint removals performed
         ///   on the last call to the <see cref="Minimize"/> or <see cref="Maximize"/> methods.
         /// </summary>
-        /// 
+        ///
         public int Deletions { get; set; }
 
         /// <summary>
         ///   Gets the Lagrangian multipliers for the
         ///   last solution found.
         /// </summary>
-        /// 
+        ///
         public double[] Lagrangian { get; private set; }
-
 
         /// <summary>
         ///   Gets the indices of the active constraints
-        ///   found during the last call of the 
+        ///   found during the last call of the
         ///   <see cref="Minimize"/> or <see cref="Maximize"/>
         ///   methods.
         /// </summary>
-        /// 
+        ///
         public int[] ActiveConstraints { get; private set; }
 
         /// <summary>
         ///   Gets the constraint matrix <c>A</c> for the problem.
         /// </summary>
-        /// 
+        ///
         public double[,] ConstraintMatrix
         {
             get { return constraintMatrix; }
@@ -326,7 +325,7 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets the constraint values <c>b</c> for the problem.
         /// </summary>
-        /// 
+        ///
         public double[] ConstraintValues
         {
             get { return constraintValues; }
@@ -335,7 +334,7 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets the constraint tolerances <c>b</c> for the problem.
         /// </summary>
-        /// 
+        ///
         public double[] ConstraintTolerances
         {
             get { return constraintTolerances; }
@@ -345,44 +344,43 @@ namespace Accord.Math.Optimization
         ///   Gets the matrix of quadratic terms of
         ///   the quadratic optimization problem.
         /// </summary>
-        /// 
+        ///
         public double[,] QuadraticTerms { get { return hessian; } }
 
         /// <summary>
         ///   Gets the vector of linear terms of the
         ///   quadratic optimization problem.
         /// </summary>
-        /// 
+        ///
         public double[] LinearTerms { get { return linearTerms; } }
 
         /// <summary>
         ///   Get the exit code returned in the last call to the
-        ///   <see cref="IOptimizationMethod.Maximize()"/> or 
+        ///   <see cref="IOptimizationMethod.Maximize()"/> or
         ///   <see cref="IOptimizationMethod.Minimize()"/> methods.
         /// </summary>
-        /// 
+        ///
         public GoldfarbIdnaniStatus Status { get; private set; }
 
         /// <summary>
         ///   Constructs a new <see cref="GoldfarbIdnani"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The objective function to be optimized.</param>
         /// <param name="constraints">The problem's constraints.</param>
-        /// 
+        ///
         public GoldfarbIdnani(QuadraticObjectiveFunction function, IEnumerable<LinearConstraint> constraints)
             : this(function, new LinearConstraintCollection(constraints))
         {
-
         }
 
         /// <summary>
         ///   Constructs a new <see cref="GoldfarbIdnani"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The objective function to be optimized.</param>
         /// <param name="constraints">The problem's constraints.</param>
-        /// 
+        ///
         public GoldfarbIdnani(QuadraticObjectiveFunction function, LinearConstraintCollection constraints)
             : base(function.NumberOfVariables, function.Function, function.Gradient)
         {
@@ -399,16 +397,15 @@ namespace Accord.Math.Optimization
                 A, constraintValues, equalities);
         }
 
-
         /// <summary>
         ///   Constructs a new instance of the <see cref="GoldfarbIdnani"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The objective function to be optimized.</param>
         /// <param name="constraintMatrix">The constraints matrix <c>A</c>.</param>
         /// <param name="constraintValues">The constraints values <c>b</c>.</param>
         /// <param name="numberOfEqualities">The number of equalities in the constraints.</param>
-        /// 
+        ///
         public GoldfarbIdnani(QuadraticObjectiveFunction function, double[,] constraintMatrix,
             double[] constraintValues, int numberOfEqualities = 0)
             : base(function.NumberOfVariables, function.Function, function.Gradient)
@@ -434,13 +431,13 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Constructs a new instance of the <see cref="GoldfarbIdnani"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="quadratic">The symmetric matrix of quadratic terms defining the objective function.</param>
         /// <param name="linear">The vector of linear terms defining the objective function.</param>
         /// <param name="constraintMatrix">The constraints matrix <c>A</c>.</param>
         /// <param name="constraintValues">The constraints values <c>b</c>.</param>
         /// <param name="numberOfEqualities">The number of equalities in the constraints.</param>
-        /// 
+        ///
         public GoldfarbIdnani(double[,] quadratic, double[] linear,
             double[,] constraintMatrix, double[] constraintValues, int numberOfEqualities = 0)
             : this(new QuadraticObjectiveFunction(quadratic, linear), constraintMatrix, constraintValues, numberOfEqualities)
@@ -475,18 +472,17 @@ namespace Accord.Math.Optimization
             this.iwnbv = new double[NumberOfConstraints];
         }
 
-
         /// <summary>
         ///   Finds the minimum value of a function. The solution vector
         ///   will be made available at the <see cref="IOptimizationMethod.Solution"/> property.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   Returns <c>true</c> if the method converged to a <see cref="IOptimizationMethod.Solution"/>.
         ///   In this case, the found value will also be available at the <see cref="IOptimizationMethod.Value"/>
         ///   property.
         /// </returns>
-        /// 
+        ///
         public override bool Minimize()
         {
             double[,] h = new double[NumberOfVariables, NumberOfVariables];
@@ -507,7 +503,6 @@ namespace Accord.Math.Optimization
             return (Status == GoldfarbIdnaniStatus.Success);
         }
 
-
         /// <summary>
         ///   Finds the maximum value of a function. The solution vector
         ///   will be made available at the <see cref="IOptimizationMethod.Solution"/> property.
@@ -517,7 +512,7 @@ namespace Accord.Math.Optimization
         ///   In this case, the found value will also be available at the <see cref="IOptimizationMethod.Value"/>
         ///   property.
         /// </returns>
-        /// 
+        ///
         public override bool Maximize()
         {
             double[,] h = new double[NumberOfVariables, NumberOfVariables];
@@ -541,7 +536,7 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Not available.
         /// </summary>
-        /// 
+        ///
         protected override bool Optimize()
         {
             throw new NotImplementedException();
@@ -577,8 +572,6 @@ namespace Accord.Math.Optimization
             return GoldfarbIdnaniStatus.Success;
         }
 
-
-
         //
         // This routine uses the Goldfarb/Idnani algorithm to solve the
         // following minimization problem:
@@ -590,7 +583,7 @@ namespace Accord.Math.Optimization
         // the matrix D is assumed to be positive definite.  Especially,
         // w.l.o.g. D is assumed to be symmetric. This is slightly different
         // from the original implementation by Berwin A. Turlach.
-        // 
+        //
         // Input parameter:
         // dmat   nxn matrix, the matrix D from above (dp)
         //        *** WILL BE DESTROYED ON EXIT ***
@@ -614,7 +607,7 @@ namespace Accord.Math.Optimization
         //        [ b = (b1^T b2^T)^T ]
         //        *** ENTRIES CORRESPONDING TO EQUALITY CONSTRAINTS MAY HAVE
         //            CHANGED SIGNES ON EXIT ***
-        // fdamat the first dimension of amat as declared in the calling program. 
+        // fdamat the first dimension of amat as declared in the calling program.
         //        fdamat >= n !!
         // q      int, the number of constraints.
         // meq    int, the number of equality constraints, 0 <= meq <= q.
@@ -625,11 +618,11 @@ namespace Accord.Math.Optimization
         //
         // Output parameter:
         // sol   nx1 the final solution (x in the notation above)
-        // crval scalar, the value of the criterion at the minimum      
+        // crval scalar, the value of the criterion at the minimum
         // iact  qx1 vector, the constraints which are active in the final
         //       fit (int)
         // nact  scalar, the number of constraints active in the final fit (int)
-        // iter  2x1 vector, first component gives the number of "main" 
+        // iter  2x1 vector, first component gives the number of "main"
         //       iterations, the second one says how many constraints were
         //        deleted after they became active
         //  ierr  int, error code on exit, if
@@ -644,7 +637,6 @@ namespace Accord.Math.Optimization
         //
         private void qpgen2(double[,] dmat, double[] dvec, int[] iact, out int nact, ref int ierr)
         {
-
             int n = NumberOfVariables;
             int q = NumberOfConstraints;
             int meq = NumberOfEqualities;
@@ -657,7 +649,6 @@ namespace Accord.Math.Optimization
 
             double f = 0;
             nact = 0;
-
 
             // Store the initial dvec to calculate below the
             //  unconstrained minima of the critical value.
@@ -674,7 +665,6 @@ namespace Accord.Math.Optimization
 
             for (int i = 0; i < iact.Length; i++)
                 iact[i] = -1;
-
 
             // Get the initial solution
             if (ierr == 0)
@@ -696,9 +686,9 @@ namespace Accord.Math.Optimization
             }
             else
             {
-                // Matrix D is already factorized, so we have to multiply d first with 
-                // R^-T and then with R^-1.  R^-1 is stored in the upper half of the 
-                // array dmat. 
+                // Matrix D is already factorized, so we have to multiply d first with
+                // R^-T and then with R^-1.  R^-1 is stored in the upper half of the
+                // array dmat.
 
                 for (int j = 0; j < sol.Length; j++)
                 {
@@ -717,13 +707,13 @@ namespace Accord.Math.Optimization
                 }
             }
 
-            // Set upper triangular of dmat to zero, store dvec in sol and 
+            // Set upper triangular of dmat to zero, store dvec in sol and
             //   calculate value of the criterion at unconstrained minima
 
             f = 0.0;
 
-            // calculate some constants, i.e., from which index on 
-            // the different quantities are stored in the work matrix 
+            // calculate some constants, i.e., from which index on
+            // the different quantities are stored in the work matrix
 
             for (int j = 0; j < sol.Length; j++)
             {
@@ -738,8 +728,7 @@ namespace Accord.Math.Optimization
             f = -f / 2.0;
             ierr = 0;
 
-
-            // calculate the norm of each column of the A matrix 
+            // calculate the norm of each column of the A matrix
 
             for (int i = 0; i < iwnbv.Length; i++)
             {
@@ -754,8 +743,7 @@ namespace Accord.Math.Optimization
             Iterations = 0;
             Deletions = 0;
 
-
-        L50: // start a new iteration 
+            L50: // start a new iteration
 
             if (Token.IsCancellationRequested)
                 return;
@@ -765,9 +753,9 @@ namespace Accord.Math.Optimization
             if (MaxIterations > 0 && Iterations > MaxIterations)
                 return;
 
-            // calculate all constraints and check which are still violated 
-            // for the equality constraints we have to check whether the normal 
-            // vector has to be negated (as well as bvec in that case) 
+            // calculate all constraints and check which are still violated
+            // for the equality constraints we have to check whether the normal
+            // vector has to be negated (as well as bvec in that case)
 
             int l = 0;
 
@@ -805,17 +793,17 @@ namespace Accord.Math.Optimization
                 l++;
             }
 
-            // as safeguard against rounding errors set 
-            // already active constraints explicitly to zero 
+            // as safeguard against rounding errors set
+            // already active constraints explicitly to zero
 
             for (int i = 0; i < nact; i++)
                 iwsv[iact[i]] = 0.0;
 
-            // We weight each violation by the number of non-zero elements in the 
-            // corresponding row of A. then we choose the violated constraint which 
+            // We weight each violation by the number of non-zero elements in the
+            // corresponding row of A. then we choose the violated constraint which
             // has maximal absolute value, i.e., the minimum. By obvious commenting
             // and uncommenting we can choose the strategy to take always the first
-            // constraint which is violated. ;-) 
+            // constraint which is violated. ;-)
 
             int nvl = -1;
             double temp = 0.0;
@@ -830,21 +818,20 @@ namespace Accord.Math.Optimization
                     temp = iwsv[i] / iwnbv[i];
                 }
 
-                // if (work(iwsv+i) .LT. 0.d0) then 
-                //     nvl = i 
-                //     goto 72 
-                // endif 
+                // if (work(iwsv+i) .LT. 0.d0) then
+                //     nvl = i
+                //     goto 72
+                // endif
             }
 
             if (nvl == -1)
                 return;
 
+            L55:
 
-        L55:
-
-            // calculate d=J^Tn^+ where n^+ is the normal vector of the violated 
-            // constraint. J is stored in dmat in this implementation!! 
-            // if we drop a constraint, we have to jump back here. 
+            // calculate d=J^Tn^+ where n^+ is the normal vector of the violated
+            // constraint. J is stored in dmat in this implementation!!
+            // if we drop a constraint, we have to jump back here.
 
             for (int i = 0; i < work.Length; i++)
             {
@@ -865,7 +852,7 @@ namespace Accord.Math.Optimization
                     iwzv[i] += dmat[j, i] * work[j];
 
             // ... and r = R^{-1} d_1, check also if r has positive elements
-            // (among the entries corresponding to inequalities constraints). 
+            // (among the entries corresponding to inequalities constraints).
 
             l1 = 0;
             int it1 = 0;
@@ -901,10 +888,9 @@ namespace Accord.Math.Optimization
                 it1 = i + 1;
             }
 
-
-            // if r has positive elements, find the partial step length t1, which is 
-            // the maximum step in dual space without violating dual feasibility. 
-            // it1 stores in which component t1, the min of u/r, occurs. 
+            // if r has positive elements, find the partial step length t1, which is
+            // the maximum step in dual space without violating dual feasibility.
+            // it1 stores in which component t1, the min of u/r, occurs.
 
             if (!t1inf)
             {
@@ -928,8 +914,7 @@ namespace Accord.Math.Optimization
                 }
             }
 
-
-            // test if the z vector is equal to zero 
+            // test if the z vector is equal to zero
 
             sum = 0.0;
             for (int i = 0; i < iwzv.Length; i++)
@@ -937,21 +922,21 @@ namespace Accord.Math.Optimization
 
             if (Math.Abs(sum) <= Constants.DoubleEpsilon)
             {
-                // No step in primal space such that the new constraint becomes 
-                // feasible. Take step in dual space and drop a constant. 
+                // No step in primal space such that the new constraint becomes
+                // feasible. Take step in dual space and drop a constant.
 
                 if (t1inf)
                 {
-                    // No step in dual space possible 
+                    // No step in dual space possible
                     // either, problem is not solvable
                     ierr = 1;
                     return;
                 }
                 else
                 {
-                    // we take a partial step in dual space and drop constraint it1, 
-                    // that is, we drop the it1-th active constraint. 
-                    // then we continue at step 2(a) (marked by label 55) 
+                    // we take a partial step in dual space and drop constraint it1,
+                    // that is, we drop the it1-th active constraint.
+                    // then we continue at step 2(a) (marked by label 55)
 
                     for (int i = 0; i < nact; i++)
                         iwuv[i] -= t1 * iwrv[i];
@@ -962,9 +947,9 @@ namespace Accord.Math.Optimization
             }
             else
             {
-                // compute full step length t2, minimum step in primal space such that 
-                // the constraint becomes feasible. 
-                // keep sum (which is z^Tn^+) to update crval below! 
+                // compute full step length t2, minimum step in primal space such that
+                // the constraint becomes feasible.
+                // keep sum (which is z^Tn^+) to update crval below!
 
                 sum = 0.0;
                 for (int i = 0; i < iwzv.Length; i++)
@@ -982,7 +967,7 @@ namespace Accord.Math.Optimization
                     }
                 }
 
-                // take step in primal and dual space 
+                // take step in primal and dual space
                 for (int i = 0; i < sol.Length; i++)
                     sol[i] += tt * iwzv[i];
 
@@ -993,32 +978,31 @@ namespace Accord.Math.Optimization
 
                 iwuv[nact] += tt;
 
-                // if it was a full step, then we check whether further constraints are 
-                // violated otherwise we can drop the current constraint and iterate once 
-                // more 
+                // if it was a full step, then we check whether further constraints are
+                // violated otherwise we can drop the current constraint and iterate once
+                // more
 
                 if (t2min)
                 {
-                    // we took a full step. Thus add constraint nvl to the list of active 
-                    // constraints and update J and R 
+                    // we took a full step. Thus add constraint nvl to the list of active
+                    // constraints and update J and R
 
                     iact[nact++] = nvl;
 
-
-                    // to update R we have to put the first nact-1 components of the d vector 
-                    // into column (nact) of R 
+                    // to update R we have to put the first nact-1 components of the d vector
+                    // into column (nact) of R
 
                     l = ((nact - 1) * (nact)) / 2;
                     for (int i = 0; i < nact - 1; i++, l++)
                         iwrm[l] = work[i];
 
-                    // if now nact=n, then we just have to add the last element to the new 
-                    // row of R. 
+                    // if now nact=n, then we just have to add the last element to the new
+                    // row of R.
 
-                    // Otherwise we use Givens transformations to turn the vector d(nact:n) 
-                    // into a multiple of the first unit vector. That multiple goes into the 
-                    // last element of the new row of R and J is accordingly updated by the 
-                    // Givens transformations. 
+                    // Otherwise we use Givens transformations to turn the vector d(nact:n)
+                    // into a multiple of the first unit vector. That multiple goes into the
+                    // last element of the new row of R and J is accordingly updated by the
+                    // Givens transformations.
 
                     if (nact == n)
                     {
@@ -1028,9 +1012,9 @@ namespace Accord.Math.Optimization
                     {
                         for (int i = n - 1; i >= nact; i--)
                         {
-                            // We have to find the Givens rotation which will reduce the element 
+                            // We have to find the Givens rotation which will reduce the element
                             // (l1) of d to zero. If it is already zero we don't have to do anything,
-                            // except of decreasing l1 
+                            // except of decreasing l1
 
                             if (work[i] == 0.0)
                                 continue;
@@ -1042,13 +1026,13 @@ namespace Accord.Math.Optimization
                             gs = work[i] / temp;
 
                             // The Givens rotation is done with the matrix (gc gs, gs -gc). If
-                            // gc is one, then element (i) of d is zero compared with element 
+                            // gc is one, then element (i) of d is zero compared with element
                             // (l1-1). Hence we don't have to do anything. If gc is zero, then
-                            // we just have to switch column (i) and column (i-1) of J. Since 
+                            // we just have to switch column (i) and column (i-1) of J. Since
                             // we only switch columns in J, we have to be careful how we update
                             // d depending on the sign of gs. Otherwise we have to apply the
                             // Givens rotation to these columns. The i-1 element of d has to be
-                            // updated to temp. 
+                            // updated to temp.
 
                             if (gc == 1.0)
                                 continue;
@@ -1079,18 +1063,17 @@ namespace Accord.Math.Optimization
                         }
 
                         // l is still pointing to element (nact,nact) of
-                        // the matrix R. So store d(nact) in R(nact,nact) 
+                        // the matrix R. So store d(nact) in R(nact,nact)
                         iwrm[l] = work[nact - 1];
                     }
                 }
                 else
                 {
-
-                    // We took a partial step in dual space. Thus drop constraint it1, 
+                    // We took a partial step in dual space. Thus drop constraint it1,
                     // that is, we drop the it1-th active constraint. Then we continue
                     // at step 2(a) (marked by label 55) but since the fit changed, we
                     // have to recalculate now "how much" the fit violates the chosen
-                    // constraint now. 
+                    // constraint now.
 
                     sum = -bvec[nvl];
 
@@ -1120,8 +1103,7 @@ namespace Accord.Math.Optimization
 
             goto L50;
 
-
-        L700: // Drop constraint it1 
+            L700: // Drop constraint it1
 
             // if it1 = nact it is only necessary
             // to update the vector u and nact
@@ -1129,13 +1111,12 @@ namespace Accord.Math.Optimization
             if (it1 == nact)
                 goto L799;
 
-
-        L797: // After updating one row of R (column of J) we will also come back here
+            L797: // After updating one row of R (column of J) we will also come back here
 
             // We have to find the Givens rotation which will reduce the element
             // (it1+1,it1+1) of R to zero. If it is already zero we don't have to
             // do anything except of updating u, iact, and shifting column (it1+1)
-            // of R to column (it1). Then l  will point to element (1,it1+1) of R 
+            // of R to column (it1). Then l  will point to element (1,it1+1) of R
             // and l1 will point to element (it1+1,it1+1) of R.
 
             l = it1 * (it1 + 1) / 2;
@@ -1150,14 +1131,13 @@ namespace Accord.Math.Optimization
             gc = iwrm[l1 - 1] / temp;
             gs = iwrm[l1] / temp;
 
-
             // The Givens rotation is done with the matrix (gc gs, gs -gc). If gc is
-            // one, then element (it1+1,it1+1) of R is zero compared with element 
+            // one, then element (it1+1,it1+1) of R is zero compared with element
             // (it1,it1+1). Hence we don't have to do anything. if gc is zero, then
             // we just have to switch row (it1) and row (it1+1) of R and column (it1)
             // and column (it1+1) of J. Since we switch rows in R and columns in J,
-            // we can ignore the sign of gs. Otherwise we have to apply the Givens 
-            // rotation to these rows/columns. 
+            // we can ignore the sign of gs. Otherwise we have to apply the Givens
+            // rotation to these rows/columns.
 
             if (gc == 1.0)
                 goto L798;
@@ -1199,11 +1179,11 @@ namespace Accord.Math.Optimization
                 }
             }
 
-        L798:
+            L798:
 
-            // shift column (it1+1) of R to column (it1) (that is, the first it1 
-            // elements). The position of element (1,it1+1) of R was calculated 
-            // above and stored in l. 
+            // shift column (it1+1) of R to column (it1) (that is, the first it1
+            // elements). The position of element (1,it1+1) of R was calculated
+            // above and stored in l.
 
             l1 = l - it1;
             for (int i = 0; i < it1; i++, l++, l1++)
@@ -1211,8 +1191,8 @@ namespace Accord.Math.Optimization
                 iwrm[l1] = iwrm[l];
             }
 
-            // update vector u and iact as necessary 
-            // Continue with updating the matrices J and R 
+            // update vector u and iact as necessary
+            // Continue with updating the matrices J and R
 
             iwuv[it1 - 1] = iwuv[it1];
             iact[it1 - 1] = iact[it1];
@@ -1221,7 +1201,7 @@ namespace Accord.Math.Optimization
             if (it1 < nact)
                 goto L797;
 
-        L799:
+            L799:
 
             iwuv[nact - 1] = iwuv[nact];
             iwuv[nact] = 0.0;
@@ -1306,7 +1286,5 @@ namespace Accord.Math.Optimization
 
             return true;
         }
-
-
     }
 }

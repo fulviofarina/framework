@@ -23,11 +23,8 @@
 namespace Accord.IO
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Runtime.InteropServices;
     using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.InteropServices;
 
     [StructLayout(LayoutKind.Explicit, Pack = 1, Size = 8)]
     internal struct ArrayFlags
@@ -52,5 +49,4 @@ namespace Accord.IO
         Global = 4,
         Complex = 8,
     }
-
 }

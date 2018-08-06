@@ -31,14 +31,12 @@ namespace Accord
     ///   Minimum SortedSet implementation for .NET 3.5 to
     ///   make Accord.NET work. This is not a complete implementation.
     /// </summary>
-    /// 
+    ///
     [Serializable, System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
     public class SortedSet<T> : ISet<T>, IEnumerable<T>
     {
-
         private SortedList<T, int> list;
-
 
         /// <summary>
         /// Gets the maximum.
@@ -59,7 +57,7 @@ namespace Accord
         /// <summary>
         ///   Initializes a new instance of the <see cref="SortedSet&lt;T&gt;"/> class.
         /// </summary>
-        /// 
+        ///
         public SortedSet()
         {
             list = new SortedList<T, int>();
@@ -68,7 +66,7 @@ namespace Accord
         /// <summary>
         ///   Initializes a new instance of the <see cref="SortedSet&lt;T&gt;"/> class.
         /// </summary>
-        /// 
+        ///
         public SortedSet(IEnumerable<T> collection)
         {
             list = new SortedList<T, int>();
@@ -79,9 +77,9 @@ namespace Accord
         /// <summary>
         ///   Adds the specified value.
         /// </summary>
-        /// 
+        ///
         /// <param name="value">The value.</param>
-        /// 
+        ///
         public override void Add(T value)
         {
             if (!list.ContainsKey(value))
@@ -120,7 +118,6 @@ namespace Accord
             return false;
         }
 
-
         /// <summary>
         ///   Modifies this set to contain all elements both sets.
         /// </summary>
@@ -147,7 +144,6 @@ namespace Accord
                 Add(v);
         }
 
-
         /// <summary>
         /// Clears this instance.
         /// </summary>
@@ -162,7 +158,7 @@ namespace Accord
         /// <summary>
         ///   Gets the enumerator.
         /// </summary>
-        /// 
+        ///
         public override IEnumerator<T> GetEnumerator()
         {
             foreach (var item in list)

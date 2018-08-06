@@ -22,55 +22,47 @@
 
 namespace Accord.MachineLearning
 {
-    using Accord.MachineLearning;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
     /// <summary>
     ///   Common interface for regression models. Regression models
     ///   learn how to produce a real value (or a set of real values) <c>y</c>
     ///   from an input vector <c>x</c>.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
     /// <typeparam name="TOutput">The data type for the predicted variables. Default is double.</typeparam>
-    /// 
+    ///
     public interface IRegression<TInput, TOutput> :
         ITransform<TInput, TOutput>
     {
         /// <summary>
         ///   Computes an output value for a given <paramref name="input"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The input vector whose associated output
         ///   value should be computed.</param>
-        /// 
+        ///
         TOutput Regress(TInput input);
 
         /// <summary>
         ///   Computes output values for each vector in the given set of
         ///   <paramref name="input"/> vectors.
         /// </summary>
-        /// 
-        /// <param name="input">The input vectors whose output values 
+        ///
+        /// <param name="input">The input vectors whose output values
         ///   should be computed.</param>
-        /// 
+        ///
         TOutput[] Regress(TInput[] input);
 
         /// <summary>
         ///   Computes output values for each vector in the given set of
         ///   <paramref name="input"/> vectors.
         /// </summary>
-        /// 
-        /// <param name="input">The input vectors whose output values 
+        ///
+        /// <param name="input">The input vectors whose output values
         ///   should be computed.</param>
         /// <param name="result">The location where to store the output values.</param>
-        /// 
+        ///
         TOutput[] Regress(TInput[] input, TOutput[] result);
-
     }
 
     /// <summary>
@@ -78,9 +70,9 @@ namespace Accord.MachineLearning
     ///   learn how to produce a real value (or a set of real values) <c>y</c>
     ///   from an input vector <c>x</c>.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
-    /// 
+    ///
     public interface IRegression<TInput> :
         IRegression<TInput, double>,
         IRegression<TInput, float>

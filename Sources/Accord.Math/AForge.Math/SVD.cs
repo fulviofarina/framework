@@ -30,7 +30,6 @@ namespace Accord.Math
             w = new double[n];
             v = new double[n, n];
 
-
             int flag, i, its, j, jj, k, l = 0, nm = 0;
             double anorm, c, f, g, h, s, scale, x, y, z;
 

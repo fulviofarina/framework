@@ -20,8 +20,8 @@
 //    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 //
-// The source code presented in this file has been adapted from LIBLINEAR - 
-// A Library for Large Linear Classification, leaded by Chih-Jen Lin. Its 
+// The source code presented in this file has been adapted from LIBLINEAR -
+// A Library for Large Linear Classification, leaded by Chih-Jen Lin. Its
 // original license is given below.
 //
 //    Copyright (c) 2007-2011 The LIBLINEAR Project.
@@ -60,38 +60,37 @@ namespace Accord.Math.Optimization
 {
     using System;
     using System.Diagnostics;
-    using System.Threading;
 
     /// <summary>
     ///   Simplified Trust Region Newton Method (TRON) for non-linear optimization.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
-    ///   Trust region is a term used in mathematical optimization to denote the subset 
-    ///   of the region of the objective function to be optimized that is approximated 
+    ///   Trust region is a term used in mathematical optimization to denote the subset
+    ///   of the region of the objective function to be optimized that is approximated
     ///   using a model function (often a quadratic). If an adequate model of the objective
     ///   function is found within the trust region then the region is expanded; conversely,
-    ///   if the approximation is poor then the region is contracted. Trust region methods 
+    ///   if the approximation is poor then the region is contracted. Trust region methods
     ///   are also known as restricted step methods.</para>
     /// <para>
     ///   The fit is evaluated by comparing the ratio of expected improvement from the model
     ///   approximation with the actual improvement observed in the objective function. Simple
     ///   thresholding of the ratio is used as the criteria for expansion and contraction—a
-    ///   model function is "trusted" only in the region where it provides a reasonable 
+    ///   model function is "trusted" only in the region where it provides a reasonable
     ///   approximation. </para>
-    ///   
+    ///
     /// <para>
-    ///   Trust region methods are in some sense dual to line search methods: trust region 
-    ///   methods first choose a step size (the size of the trust region) and then a step 
+    ///   Trust region methods are in some sense dual to line search methods: trust region
+    ///   methods first choose a step size (the size of the trust region) and then a step
     ///   direction while line search methods first choose a step direction and then a step
     ///   size.</para>
-    ///   
+    ///
     /// <para>
     ///   This class implements a simplified version of Chih-Jen Lin and Jorge Moré's TRON,
-    ///   a trust region Newton method for the solution of large bound-constrained optimization 
+    ///   a trust region Newton method for the solution of large bound-constrained optimization
     ///   problems. This version was based upon liblinear's implementation.</para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
@@ -105,7 +104,7 @@ namespace Accord.Math.Optimization
     ///       </a></description></item>
     ///     <item><description>
     ///       <a href="http://www.cs.iastate.edu/~honavar/keerthi-svm.pdf">
-    ///       Chih-Jen Lin and Jorge J. Moré. 1999. Newton's Method for Large Bound-Constrained 
+    ///       Chih-Jen Lin and Jorge J. Moré. 1999. Newton's Method for Large Bound-Constrained
     ///       Optimization Problems. SIAM J. on Optimization 9, 4 (April 1999), 1100-1127. </a>
     ///       </description></item>
     ///     <item><description>
@@ -113,24 +112,24 @@ namespace Accord.Math.Optimization
     ///       Machine Learning Group. LIBLINEAR -- A Library for Large Linear Classification.
     ///       National Taiwan University. Available at: http://www.csie.ntu.edu.tw/~cjlin/liblinear/
     ///       </a></description></item>
-    ///     </list></para>  
+    ///     </list></para>
     /// </remarks>
-    /// 
+    ///
     /// <seealso cref="ConjugateGradient"/>
     /// <seealso cref="BoundedBroydenFletcherGoldfarbShanno"/>
     /// <seealso cref="BroydenFletcherGoldfarbShanno"/>
     /// <seealso cref="ResilientBackpropagation"/>
-    /// 
+    ///
     public class TrustRegionNewtonMethod : BaseGradientOptimizationMethod
     {
-        double eps = 0.1;
-        int max_iter = 1000;
+        private double eps = 0.1;
+        private int max_iter = 1000;
 
         /// <summary>
         ///   Gets or sets the tolerance under which the
         ///   solution should be found. Default is 0.1.
         /// </summary>
-        /// 
+        ///
         public double Tolerance
         {
             get { return eps; }
@@ -141,7 +140,7 @@ namespace Accord.Math.Optimization
         ///   Gets or sets the maximum number of iterations that should
         ///    be performed until the algorithm stops. Default is 1000.
         /// </summary>
-        /// 
+        ///
         public int MaxIterations
         {
             get { return max_iter; }
@@ -151,15 +150,15 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets or sets the Hessian estimation function.
         /// </summary>
-        /// 
+        ///
         public Func<double[], double[]> Hessian { get; set; }
 
         /// <summary>
         ///   Creates a new <see cref="ResilientBackpropagation"/> function optimizer.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of parameters in the function to be optimized.</param>
-        /// 
+        ///
         public TrustRegionNewtonMethod(int numberOfVariables)
             : base(numberOfVariables)
         {
@@ -168,12 +167,12 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new <see cref="ResilientBackpropagation"/> function optimizer.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of free parameters in the function to be optimized.</param>
         /// <param name="function">The function to be optimized.</param>
         /// <param name="gradient">The gradient of the function.</param>
         /// <param name="hessian">The hessian of the function.</param>
-        /// 
+        ///
         public TrustRegionNewtonMethod(int numberOfVariables, Func<double[], double> function,
             Func<double[], double[]> gradient, Func<double[], double[]> hessian)
             : base(numberOfVariables, function, gradient)
@@ -185,7 +184,7 @@ namespace Accord.Math.Optimization
         ///   Implements the actual optimization algorithm. This
         ///   method should try to minimize the objective function.
         /// </summary>
-        /// 
+        ///
         protected override bool Optimize()
         {
             tron(Solution);
@@ -193,7 +192,7 @@ namespace Accord.Math.Optimization
             return true;
         }
 
-        void tron(double[] w)
+        private void tron(double[] w)
         {
             // Parameters for updating the iterates.
             double eta0 = 1e-4, eta1 = 0.25, eta2 = 0.75;
@@ -208,7 +207,6 @@ namespace Accord.Math.Optimization
             double[] s = new double[n];
             double[] r = new double[n];
             double[] w_new = new double[n];
-
 
             double f = Function(w);
             double[] g = Gradient(w);
@@ -319,7 +317,7 @@ namespace Accord.Math.Optimization
             }
         }
 
-        int trcg(double delta, double[] g, double[] s, double[] r)
+        private int trcg(double delta, double[] g, double[] s, double[] r)
         {
             int n = NumberOfVariables;
             double[] d = new double[n];
@@ -330,7 +328,6 @@ namespace Accord.Math.Optimization
                 r[i] = -g[i];
                 d[i] = r[i];
             }
-
 
             double cgtol = 0; // cgtol = 0.1 * dnrm2_(&n, g, &inc);
             for (int j = 0; j < g.Length; j++)
@@ -397,7 +394,6 @@ namespace Accord.Math.Optimization
                     double dsq = delta * delta;
                     double rad = Math.Sqrt(std * std + dtd * (dsq - sts));
 
-
                     if (std >= 0)
                         alpha = (dsq - sts) / (std + rad);
                     else
@@ -442,8 +438,5 @@ namespace Accord.Math.Optimization
 
             return cg_iter;
         }
-
     }
 }
-
-

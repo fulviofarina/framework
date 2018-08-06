@@ -23,33 +23,32 @@
 namespace Accord.Collections
 {
     using System;
-    using System.Text;
 
     /// <summary>
     ///   Tree node for binary trees.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TNode">The class type for the nodes of the tree.</typeparam>
-    /// 
+    ///
     public class BinaryNode<TNode> : IEquatable<TNode> // TODO: Try to remove IEquatable
         where TNode : BinaryNode<TNode>
     {
         /// <summary>
         ///   Gets or sets the left subtree of this node.
         /// </summary>
-        /// 
+        ///
         public TNode Left { get; set; }
 
         /// <summary>
         ///   Gets or sets the right subtree of this node.
         /// </summary>
-        /// 
+        ///
         public TNode Right { get; set; }
 
         /// <summary>
         ///   Gets whether this node is a leaf (has no children).
         /// </summary>
-        /// 
+        ///
         public bool IsLeaf
         {
             get { return Left == default(TNode) && Right == default(TNode); }
@@ -62,11 +61,10 @@ namespace Accord.Collections
         /// <returns>
         /// true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
         /// </returns>
-        /// 
+        ///
         public bool Equals(TNode other)
         {
             return this == other;
         }
     }
-
 }

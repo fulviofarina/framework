@@ -23,23 +23,18 @@
 namespace Accord.Math.Distances
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.CompilerServices;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///   Bray-Curtis distance.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public sealed class BrayCurtis : IDistance<double[]>
     {
         /// <summary>
         ///   Initializes a new instance of the <see cref="BrayCurtis"/> class.
         /// </summary>
-        /// 
+        ///
         public BrayCurtis()
         {
         }
@@ -48,19 +43,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(double[] x, double[] y)
         {
             double sumP = 0;
@@ -74,6 +70,5 @@ namespace Accord.Math.Distances
 
             return sumN / sumP;
         }
-
     }
 }

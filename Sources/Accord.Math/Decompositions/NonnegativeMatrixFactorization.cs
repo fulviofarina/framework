@@ -25,12 +25,10 @@
 
 namespace Accord.Math.Decompositions
 {
-    using System;
-
     /// <summary>
     ///   Nonnegative Matrix Factorization.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   Non-negative matrix factorization (NMF) is a group of algorithms in multivariate
@@ -38,7 +36,7 @@ namespace Accord.Math.Decompositions
     ///   two matrices, <c>W</c> and <c>H</c>. The non-negative factorization enforces the
     ///   constraint that the factors <c>W</c> and <c>H</c> must be non-negative, i.e., all
     ///   elements must be equal to or greater than zero. The factorization is not unique.</para>
-    ///   
+    ///
     ///   <para>
     ///     References:
     ///     <list type="bullet">
@@ -50,12 +48,12 @@ namespace Accord.Math.Decompositions
     ///         Lee, D., Seung, H., 1999. Learning the Parts of Objects by Non-Negative
     ///         Matrix Factorization. Nature 401, 788–791. </description></item>
     ///       <item><description>
-    ///         Michael W. Berry, et al. (June 2006). Algorithms and Applications for 
+    ///         Michael W. Berry, et al. (June 2006). Algorithms and Applications for
     ///         Approximate Nonnegative Matrix Factorization. </description></item>
     ///     </list>
     ///   </para>
     /// </remarks>
-    /// 
+    ///
     public class NonnegativeMatrixFactorization
     {
         private double[,] X;  // X is m x n (input data, must be positive)
@@ -66,11 +64,10 @@ namespace Accord.Math.Decompositions
         private int m;   // dimension of input vector
         private int r;   // dimension of output vector (reduced dimension)
 
-
         /// <summary>
         ///   Gets the nonnegative factor matrix W.
         /// </summary>
-        /// 
+        ///
         public double[,] LeftNonnegativeFactors
         {
             get { return W; }
@@ -79,7 +76,7 @@ namespace Accord.Math.Decompositions
         /// <summary>
         ///   Gets the nonnegative factor matrix H.
         /// </summary>
-        /// 
+        ///
         public double[,] RightNonnegativeFactors
         {
             get { return H; }
@@ -88,21 +85,21 @@ namespace Accord.Math.Decompositions
         /// <summary>
         ///   Initializes a new instance of the NMF algorithm
         /// </summary>
-        /// 
+        ///
         /// <param name="value">The input data matrix (must be positive).</param>
         /// <param name="r">The reduced dimension.</param>
-        /// 
+        ///
         public NonnegativeMatrixFactorization(double[,] value, int r)
             : this(value, r, 100) { }
 
         /// <summary>
         ///   Initializes a new instance of the NMF algorithm
         /// </summary>
-        /// 
+        ///
         /// <param name="value">The input data matrix (must be positive).</param>
         /// <param name="r">The reduced dimension.</param>
         /// <param name="maxiter">The number of iterations to perform.</param>
-        /// 
+        ///
         public NonnegativeMatrixFactorization(double[,] value, int r, int maxiter)
         {
             this.X = value;
@@ -116,15 +113,15 @@ namespace Accord.Math.Decompositions
         /// <summary>
         ///    Performs NMF using the multiplicative method
         /// </summary>
-        /// 
+        ///
         /// <param name="maxiter">The maximum number of iterations</param>
-        /// 
+        ///
         /// <remarks>
         ///   At the end of the computation H contains the projected data
         ///   and W contains the weights. The multiplicative method is the
         ///   simplest factorization method.
         /// </remarks>
-        /// 
+        ///
         private void compute(int maxiter)
         {
             // chose W and H randomly, W with unit norm
@@ -137,15 +134,13 @@ namespace Accord.Math.Decompositions
             //  denominator to avoid overflow.
             double eps = 10e-9;
 
-
             for (int t = 0; t < maxiter; t++)
             {
                 var newW = new double[m, r];
                 var newH = new double[r, n];
 
-
                 // Update H using the multiplicative
-                // H = H .* (W'*A) ./ (W'*W*H + eps) 
+                // H = H .* (W'*A) ./ (W'*W*H + eps)
                 for (int i = 0; i < r; i++)
                 {
                     for (int j = i; j < r; j++)
@@ -199,9 +194,6 @@ namespace Accord.Math.Decompositions
                 W = newW;
                 H = newH;
             }
-
-           
         }
     }
-
 }

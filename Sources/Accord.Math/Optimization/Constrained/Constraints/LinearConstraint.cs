@@ -31,38 +31,38 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Constraint type.
     /// </summary>
-    /// 
+    ///
     public enum ConstraintType
     {
         /// <summary>
         ///   Equality constraint.
         /// </summary>
-        /// 
+        ///
         EqualTo = 0,
 
         /// <summary>
         ///   Inequality constraint specifying a greater than or equal to relationship.
         /// </summary>
-        /// 
+        ///
         GreaterThanOrEqualTo,
 
         /// <summary>
         ///   Inequality constraint specifying a lesser than or equal to relationship.
         /// </summary>
-        /// 
+        ///
         LesserThanOrEqualTo,
     }
 
     /// <summary>
     ///   Constraint with only linear terms.
     /// </summary>
-    /// 
+    ///
     public class LinearConstraint : IConstraint
     {
         /// <summary>
         ///   Gets the default constant violation tolerance (1e-12).
         /// </summary>
-        /// 
+        ///
         public const double DefaultTolerance = 1e-12;
 
         private int[] indices;
@@ -71,7 +71,7 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets the number of variables in the constraint.
         /// </summary>
-        /// 
+        ///
         public int NumberOfVariables { get; private set; }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Accord.Math.Optimization
         ///   objective function) of the variables participating
         ///   in this constraint.
         /// </summary>
-        /// 
+        ///
         public int[] VariablesAtIndices
         {
             get { return indices; }
@@ -117,21 +117,21 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets the type of the constraint.
         /// </summary>
-        /// 
+        ///
         public ConstraintType ShouldBe { get; set; }
 
         /// <summary>
         ///   Gets the value to be compared to the combined values
         ///   of the variables.
         /// </summary>
-        /// 
+        ///
         public double Value { get; set; }
 
         /// <summary>
         ///   Gets the violation tolerance for the constraint. Equality
         ///   constraints should set this to a small positive value.
         /// </summary>
-        /// 
+        ///
         public double Tolerance { get; set; }
 
         private LinearConstraint()
@@ -142,9 +142,9 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Constructs a new linear constraint.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of variables in the constraint.</param>
-        /// 
+        ///
         public LinearConstraint(int numberOfVariables)
             : this()
         {
@@ -160,10 +160,10 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Constructs a new linear constraint.
         /// </summary>
-        /// 
-        /// <param name="coefficients">The scalar coefficients specifying 
+        ///
+        /// <param name="coefficients">The scalar coefficients specifying
         /// how variables should be combined in the constraint.</param>
-        /// 
+        ///
         public LinearConstraint(params double[] coefficients)
             : this()
         {
@@ -179,15 +179,15 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Constructs a new linear constraint.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The objective function to which
         ///   this constraint refers to.</param>
-        /// <param name="constraint">A <see cref="System.String"/> 
+        /// <param name="constraint">A <see cref="System.String"/>
         ///   specifying this constraint, such as "ax + b = c".</param>
         /// <param name="format">The culture information specifying how
         ///   numbers written in the <paramref name="constraint"/> should
         ///   be parsed. Default is CultureInfo.InvariantCulture.</param>
-        /// 
+        ///
         public LinearConstraint(IObjectiveFunction function, string constraint, CultureInfo format)
             : this()
         {
@@ -200,12 +200,12 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Constructs a new linear constraint.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">The objective function to which
         ///   this constraint refers to.</param>
-        /// <param name="constraint">A <see cref="System.String"/> 
+        /// <param name="constraint">A <see cref="System.String"/>
         ///   specifying this constraint, such as "ax + b = c".</param>
-        /// 
+        ///
         public LinearConstraint(IObjectiveFunction function, string constraint)
             : this(function, constraint, CultureInfo.InvariantCulture)
         {
@@ -214,12 +214,12 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Constructs a new linear constraint.
         /// </summary>
-        /// 
-        /// <param name="function">The objective function to which this 
+        ///
+        /// <param name="function">The objective function to which this
         ///   constraint refers to.</param>
         /// <param name="constraint">A <see cref="Expression{T}"/> specifying
         ///   this constraint in the form of a lambda expression.</param>
-        /// 
+        ///
         public LinearConstraint(IObjectiveFunction function, Expression<Func<bool>> constraint)
             : this()
         {
@@ -232,16 +232,16 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Gets how much the constraint is being violated.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The function point.</param>
-        /// 
+        ///
         /// <returns>
         ///   How much the constraint is being violated at the given point. Positive
-        ///   value means the constraint is not being violated with the returned slack, 
+        ///   value means the constraint is not being violated with the returned slack,
         ///   while a negative value means the constraint is being violated by the returned
         ///   amount.
         /// </returns>
-        /// 
+        ///
         public double GetViolation(double[] input)
         {
             double fx = 0;
@@ -270,14 +270,14 @@ namespace Accord.Math.Optimization
         }
 
         /// <summary>
-        ///   Gets whether this constraint is being violated 
+        ///   Gets whether this constraint is being violated
         ///   (within the current tolerance threshold).
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The function point.</param>
-        /// 
+        ///
         /// <returns>True if the constraint is being violated, false otherwise.</returns>
-        /// 
+        ///
         public bool IsViolated(double[] input)
         {
             return GetViolation(input) < -Tolerance;
@@ -287,14 +287,14 @@ namespace Accord.Math.Optimization
         ///   Attempts to create a <see cref="LinearConstraint"/>
         ///   from a <see cref="System.String"/> representation.
         /// </summary>
-        /// 
+        ///
         /// <param name="str">The string containing the constraint in textual form.</param>
         /// <param name="function">The objective function to which this constraint refers to.</param>
         /// <param name="constraint">The resulting constraint, if it could be parsed.</param>
-        /// 
+        ///
         /// <returns><c>true</c> if the function could be parsed
         ///   from the string, <c>false</c> otherwise.</returns>
-        /// 
+        ///
         public static bool TryParse(string str,
             IObjectiveFunction function, out LinearConstraint constraint)
         {
@@ -305,17 +305,17 @@ namespace Accord.Math.Optimization
         ///   Attempts to create a <see cref="LinearConstraint"/>
         ///   from a <see cref="System.String"/> representation.
         /// </summary>
-        /// 
+        ///
         /// <param name="str">The string containing the constraint in textual form.</param>
         /// <param name="function">The objective function to which this constraint refers to.</param>
         /// <param name="constraint">The resulting constraint, if it could be parsed.</param>
         /// <param name="culture">The culture information specifying how
         ///   numbers written in the <paramref name="constraint"/> should
         ///   be parsed. Default is CultureInfo.InvariantCulture.</param>
-        /// 
+        ///
         /// <returns><c>true</c> if the function could be parsed
         ///   from the string, <c>false</c> otherwise.</returns>
-        /// 
+        ///
         public static bool TryParse(string str, CultureInfo culture,
             IObjectiveFunction function, out LinearConstraint constraint)
         {
@@ -354,7 +354,6 @@ namespace Accord.Math.Optimization
             return CombinedAs;
         }
 
-
         private void parseString(IObjectiveFunction function, string constraint, CultureInfo culture)
         {
             if (String.IsNullOrEmpty(constraint))
@@ -378,8 +377,6 @@ namespace Accord.Math.Optimization
             else
                 throw new FormatException("Invalid constraint type.");
 
-
-
             var terms = new Dictionary<string, double>();
 
             string separator = culture.NumberFormat.NumberDecimalSeparator;
@@ -388,7 +385,6 @@ namespace Accord.Math.Optimization
             Regex number = new Regex(@"\d*\" + separator + @"{0,1}\d+");
             Regex symbol = new Regex(@"[a-zA-Z]");
             Regex comp = new Regex(@"(>=|<=|=)");
-
 
             var sides = comp.Split(f);
             lhs = sides[0];
@@ -650,18 +646,16 @@ namespace Accord.Math.Optimization
             return null;
         }
 
-
         /// <summary>
         ///   Gets the left hand side of the constraint equation.
         /// </summary>
-        /// 
+        ///
         public Func<double[], double> Function { get; private set; }
 
         /// <summary>
         ///   Gets the gradient of the left hand side of the constraint equation.
         /// </summary>
-        /// 
+        ///
         public Func<double[], double[]> Gradient { get; private set; }
-
     }
 }

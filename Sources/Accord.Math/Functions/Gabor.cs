@@ -26,57 +26,54 @@
 namespace Accord.Math
 {
     using System;
-    using AForge.Math;
     using System.Numerics;
 
     /// <summary>
     ///   Gabor kernel types.
     /// </summary>
-    /// 
+    ///
     public enum GaborKernelKind
     {
-
         /// <summary>
         ///   Creates kernel based on the real part of the Gabor function.
         /// </summary>
-        /// 
+        ///
         Real,
 
         /// <summary>
         ///   Creates a kernel based on the imaginary part of the Gabor function.
         /// </summary>
-        /// 
+        ///
         Imaginary,
 
         /// <summary>
         ///   Creates a kernel based on the Magnitude of the Gabor function.
         /// </summary>
-        /// 
+        ///
         Magnitude,
 
         /// <summary>
         ///   Creates a kernel based on the Squared Magnitude of the Gabor function.
         /// </summary>
-        /// 
+        ///
         SquaredMagnitude
     };
 
     /// <summary>
     ///   Gabor functions.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
-    ///   This class has been contributed by Diego Catalano, author of the Catalano 
+    ///   This class has been contributed by Diego Catalano, author of the Catalano
     ///   Framework, a native port of AForge.NET and Accord.NET for Java and Android.
     /// </remarks>
-    /// 
+    ///
     public static class Gabor
     {
-
         /// <summary>
         ///   1-D Gabor function.
         /// </summary>
-        /// 
+        ///
         public static double Function1D(double x, double mean, double amplitude,
             double position, double width, double phase, double frequency)
         {
@@ -92,7 +89,7 @@ namespace Accord.Math
         /// <summary>
         ///   2-D Gabor function.
         /// </summary>
-        /// 
+        ///
         public static Complex Function2D(int x, int y, double lambda, double theta,
             double psi, double sigma, double gamma)
         {
@@ -109,7 +106,7 @@ namespace Accord.Math
         /// <summary>
         ///   Real part of the 2-D Gabor function.
         /// </summary>
-        /// 
+        ///
         public static double RealFunction2D(int x, int y, double lambda, double theta,
             double psi, double sigma, double gamma)
         {
@@ -125,7 +122,7 @@ namespace Accord.Math
         /// <summary>
         ///   Imaginary part of the 2-D Gabor function.
         /// </summary>
-        /// 
+        ///
         public static double ImaginaryFunction2D(int x, int y, double lambda, double theta,
             double psi, double sigma, double gamma)
         {
@@ -141,7 +138,7 @@ namespace Accord.Math
         /// <summary>
         ///   Computes the 2-D Gabor kernel.
         /// </summary>
-        /// 
+        ///
         public static double[,] Kernel2D(double lambda, double theta, double psi,
             double sigma, double gamma)
         {
@@ -151,7 +148,7 @@ namespace Accord.Math
         /// <summary>
         ///   Computes the 2-D Gabor kernel.
         /// </summary>
-        /// 
+        ///
         public static double[,] Kernel2D(double lambda, double theta, double psi,
             double sigma, double gamma, bool normalized)
         {
@@ -161,7 +158,7 @@ namespace Accord.Math
         /// <summary>
         ///   Computes the 2-D Gabor kernel.
         /// </summary>
-        /// 
+        ///
         public static double[,] Kernel2D(int size, double lambda, double theta, double psi,
             double sigma, double gamma, bool normalized)
         {
@@ -169,11 +166,10 @@ namespace Accord.Math
                 gamma, normalized, GaborKernelKind.Imaginary);
         }
 
-
         /// <summary>
         ///   Computes the 2-D Gabor kernel.
         /// </summary>
-        /// 
+        ///
         public static double[,] Kernel2D(int size, double lambda, double theta,
             double psi, double sigma, double gamma, bool normalized, GaborKernelKind function)
         {

@@ -30,7 +30,7 @@ namespace Accord
     ///   Minimum IReadOnlyCollection implementation for .NET 3.5 to
     ///   make Accord.NET work. This is not a complete implementation.
     /// </summary>
-    /// 
+    ///
     public interface IReadOnlyCollection<
 #if !NET35
 out

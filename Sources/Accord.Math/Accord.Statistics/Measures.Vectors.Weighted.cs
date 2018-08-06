@@ -27,17 +27,16 @@ namespace Accord.Statistics
 
     static partial class Measures
     {
-
         /// <summary>
         ///   Computes the Weighted Mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         ///   in <see param="values"/>.</param>
-        /// 
+        ///
         /// <returns>The mean of the given data.</returns>
-        /// 
+        ///
         public static double WeightedMean(this double[] values, double[] weights)
         {
             if (values.Length != weights.Length)
@@ -60,13 +59,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Weighted Mean of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="weights">A vector containing how many times each element
         /// in <see param="values"/> repeats itself in the non-weighted data.</param>
-        /// 
+        ///
         /// <returns>The mean of the given data.</returns>
-        /// 
+        ///
         public static double WeightedMean(this double[] values, int[] weights)
         {
             if (values.Length != weights.Length)
@@ -89,13 +88,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Standard Deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
-        /// 
+        ///
         /// <returns>The standard deviation of the given data.</returns>
-        /// 
+        ///
         public static double WeightedStandardDeviation(this double[] values, double[] weights)
         {
             return Math.Sqrt(WeightedVariance(values, weights));
@@ -104,14 +103,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Standard Deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>.</param>
         /// <param name="weightType">How the weights should be interpreted for the bias correction.</param>
-        /// 
+        ///
         /// <returns>The standard deviation of the given data.</returns>
-        /// 
+        ///
         public static double WeightedStandardDeviation(this double[] values, double[] weights, WeightType weightType)
         {
             return Math.Sqrt(WeightedVariance(values, weights, weightType));
@@ -120,20 +119,20 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Standard Deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
         /// <param name="weightType">How the weights should be interpreted for the bias correction.</param>
-        /// 
+        ///
         /// <returns>The standard deviation of the given data.</returns>
-        /// 
+        ///
         public static double WeightedStandardDeviation(this double[] values, double[] weights, bool unbiased, WeightType weightType)
         {
             return Math.Sqrt(WeightedVariance(values, weights, unbiased, weightType));
@@ -142,14 +141,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Standard Deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
         /// <param name="mean">The mean of the vector, if already known.</param>
-        /// 
+        ///
         /// <returns>The standard deviation of the given data.</returns>
-        /// 
+        ///
         public static double WeightedStandardDeviation(this double[] values, double[] weights, double mean)
         {
             return Math.Sqrt(WeightedVariance(values, weights, mean, true));
@@ -158,21 +157,21 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Standard Deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
         /// <param name="mean">The mean of the vector, if already known.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
         /// <param name="weightType">How the weights should be interpreted for the bias correction.</param>
-        /// 
+        ///
         /// <returns>The standard deviation of the given data.</returns>
-        /// 
+        ///
         public static double WeightedStandardDeviation(this double[] values, double[] weights, double mean,
             bool unbiased, WeightType weightType = WeightType.Fraction)
         {
@@ -182,13 +181,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the weighted Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double WeightedVariance(this double[] values, double[] weights)
         {
             return WeightedVariance(values, weights, WeightedMean(values, weights), true);
@@ -197,14 +196,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the weighted Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>.</param>
         /// <param name="weightType">How the weights should be interpreted for the bias correction.</param>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double WeightedVariance(this double[] values, double[] weights, WeightType weightType)
         {
             return WeightedVariance(values, weights, WeightedMean(values, weights), true, weightType);
@@ -213,19 +212,19 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the weighted Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double WeightedVariance(this double[] values, double[] weights, bool unbiased)
         {
             return WeightedVariance(values, weights, WeightedMean(values, weights), unbiased);
@@ -234,20 +233,20 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the weighted Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
         /// <param name="weightType">How the weights should be interpreted for the bias correction.</param>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double WeightedVariance(this double[] values, double[] weights, bool unbiased, WeightType weightType)
         {
             return WeightedVariance(values, weights, WeightedMean(values, weights), unbiased, weightType);
@@ -256,39 +255,37 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the weighted Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
         /// <param name="mean">The mean of the array, if already known.</param>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double WeightedVariance(this double[] values, double[] weights, double mean)
         {
             return WeightedVariance(values, weights, mean, true);
         }
 
-
-
         /// <summary>
         ///   Computes the weighted Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="mean">The mean of the array, if already known.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
         /// <param name="weightType">How the weights should be interpreted for the bias correction.</param>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double WeightedVariance(this double[] values, double[] weights, double mean,
             bool unbiased, WeightType weightType = WeightType.Fraction)
         {
@@ -322,13 +319,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Standard Deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="weights">A vector containing how many times each element
         /// in <see param="values"/> repeats itself in the non-weighted data.</param>
-        /// 
+        ///
         /// <returns>The standard deviation of the given data.</returns>
-        /// 
+        ///
         public static double WeightedStandardDeviation(this double[] values, int[] weights)
         {
             return Math.Sqrt(WeightedVariance(values, weights));
@@ -337,14 +334,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Standard Deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="weights">A vector containing how many times each element
         /// in <see param="values"/> repeats itself in the non-weighted data.</param>
         /// <param name="mean">The mean of the vector, if already known.</param>
-        /// 
+        ///
         /// <returns>The standard deviation of the given data.</returns>
-        /// 
+        ///
         public static double WeightedStandardDeviation(this double[] values, int[] weights, double mean)
         {
             return Math.Sqrt(WeightedVariance(values, weights, mean, true));
@@ -353,20 +350,20 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Standard Deviation of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A double array containing the vector members.</param>
         /// <param name="weights">A vector containing how many times each element
         /// in <see param="values"/> repeats itself in the non-weighted data.</param>
         /// <param name="mean">The mean of the vector, if already known.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
-        /// 
+        ///
         /// <returns>The standard deviation of the given data.</returns>
-        /// 
+        ///
         public static double WeightedStandardDeviation(this double[] values, int[] weights, double mean, bool unbiased)
         {
             return Math.Sqrt(WeightedVariance(values, weights, mean, unbiased));
@@ -375,13 +372,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the weighted Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="weights">A vector containing how many times each element
         /// in <see param="values"/> repeats itself in the non-weighted data.</param>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double WeightedVariance(this double[] values, int[] weights)
         {
             return WeightedVariance(values, weights, WeightedMean(values, weights), true);
@@ -390,19 +387,19 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the weighted Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="weights">A vector containing how many times each element
         /// in <see param="values"/> repeats itself in the non-weighted data.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double WeightedVariance(this double[] values, int[] weights, bool unbiased)
         {
             return WeightedVariance(values, weights, WeightedMean(values, weights), unbiased);
@@ -411,14 +408,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the weighted Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="weights">A vector containing how many times each element
         /// in <see param="values"/> repeats itself in the non-weighted data.</param>
         /// <param name="mean">The mean of the array, if already known.</param>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double WeightedVariance(this double[] values, int[] weights, double mean)
         {
             return WeightedVariance(values, weights, mean, true);
@@ -427,20 +424,20 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the weighted Variance of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector members.</param>
         /// <param name="weights">A vector containing how many times each element
         /// in <see param="values"/> repeats itself in the non-weighted data.</param>
         /// <param name="mean">The mean of the array, if already known.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
-        /// 
+        ///
         /// <returns>The variance of the given data.</returns>
-        /// 
+        ///
         public static double WeightedVariance(this double[] values, int[] weights, double mean,
             bool unbiased)
         {
@@ -475,13 +472,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[][] matrix, double[] weights)
         {
             return WeightedVariance(matrix, weights, WeightedMean(matrix, weights), true);
@@ -490,14 +487,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[][] matrix, double[] weights, double[] means)
         {
             return WeightedVariance(matrix, weights, means, true);
@@ -512,14 +509,14 @@ namespace Accord.Statistics
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
         /// <param name="weightType">How the weights should be interpreted for the bias correction.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[][] matrix, double[] weights, double[] means,
             bool unbiased, WeightType weightType = WeightType.Fraction)
         {
@@ -562,17 +559,16 @@ namespace Accord.Statistics
             return variance;
         }
 
-
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[,] matrix, double[] weights)
         {
             return WeightedVariance(matrix, weights, WeightedMean(matrix, weights), true);
@@ -581,14 +577,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>.</param>
         /// <param name="weightType">How the weights should be interpreted for the bias correction.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[,] matrix, double[] weights, WeightType weightType)
         {
             return WeightedVariance(matrix, weights, WeightedMean(matrix, weights), true, weightType);
@@ -597,14 +593,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[,] matrix, double[] weights, double[] means)
         {
             return WeightedVariance(matrix, weights, means, true);
@@ -613,15 +609,15 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         /// in <see param="values"/>. The sum of this array elements should add up to 1.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
         /// <param name="weightType">How the weights should be interpreted for the bias correction.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[,] matrix, double[] weights, double[] means, WeightType weightType)
         {
             return WeightedVariance(matrix, weights, means, true, weightType);
@@ -630,22 +626,22 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="weights">An unit vector containing the importance of each sample
         ///   in <see param="values"/>. How those values are interpreted depend on the
         ///   value for <paramref name="weightType"/>.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
         /// <param name="weightType">How the weights should be interpreted for the bias correction.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[,] matrix, double[] weights, double[] means,
             bool unbiased, WeightType weightType = WeightType.Fraction)
         {
@@ -687,12 +683,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[][] matrix, int[] weights)
         {
             return WeightedVariance(matrix, weights, WeightedMean(matrix, weights), true);
@@ -701,13 +697,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[][] matrix, int[] weights, double[] means)
         {
             return WeightedVariance(matrix, weights, means, true);
@@ -716,19 +712,19 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[][] matrix, int[] weights, double[] means, bool unbiased)
         {
             int rows = matrix.Length;
@@ -776,12 +772,12 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[,] matrix, int[] weights)
         {
             return WeightedVariance(matrix, weights, WeightedMean(matrix, weights), true);
@@ -790,13 +786,13 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[,] matrix, int[] weights, double[] means)
         {
             return WeightedVariance(matrix, weights, means, true);
@@ -805,19 +801,19 @@ namespace Accord.Statistics
         /// <summary>
         ///   Calculates the matrix Variance vector.
         /// </summary>
-        /// 
+        ///
         /// <param name="matrix">A matrix whose variances will be calculated.</param>
         /// <param name="means">The mean vector containing already calculated means for each column of the matrix.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
         /// <param name="unbiased">
-        ///   Pass true to compute the sample variance; or pass false to compute the 
+        ///   Pass true to compute the sample variance; or pass false to compute the
         ///   population variance. For <see cref="WeightType.Repetition">integers weights
-        ///   </see>, the bias correction is equivalent to the non-weighted case. For 
+        ///   </see>, the bias correction is equivalent to the non-weighted case. For
         ///   <see cref="WeightType.Fraction">fractional weights</see>, the variance
         ///   bias cannot be completely eliminated.</param>
-        /// 
+        ///
         /// <returns>Returns a vector containing the variances of the given matrix.</returns>
-        /// 
+        ///
         public static double[] WeightedVariance(this double[,] matrix, int[] weights, double[] means, bool unbiased)
         {
             int rows = matrix.GetLength(0);
@@ -861,14 +857,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Mode of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
         /// <param name="inPlace">True to perform the operation in place, altering the original input vector.</param>
         /// <param name="alreadySorted">Pass true if the list of values is already sorted.</param>
-        /// 
+        ///
         /// <returns>The most common value in the given data.</returns>
-        /// 
+        ///
         public static T WeightedMode<T>(this T[] values, double[] weights, bool inPlace = false, bool alreadySorted = false)
         {
             if (values.Length == 0)
@@ -883,14 +879,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Computes the Mode of the given values.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
         /// <param name="inPlace">True to perform the operation in place, altering the original input vector.</param>
         /// <param name="alreadySorted">Pass true if the list of values is already sorted.</param>
-        /// 
+        ///
         /// <returns>The most common value in the given data.</returns>
-        /// 
+        ///
         public static T WeightedMode<T>(this T[] values, int[] weights, bool inPlace = false, bool alreadySorted = false)
         {
             if (values.Length == 0)
@@ -945,7 +941,6 @@ namespace Accord.Statistics
 
             var bestValue = currentValue;
             double bestCount = currentCount;
-
 
             for (int i = 1; i < values.Length; i++)
             {
@@ -1013,7 +1008,6 @@ namespace Accord.Statistics
             var bestValue = currentValue;
             int bestCount = currentCount;
 
-
             for (int i = 1; i < values.Length; i++)
             {
                 if (currentValue.Equals(values[i]))
@@ -1039,14 +1033,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Gets the maximum value in a vector of observations that has a weight higher than zero.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="weights">A vector containing the importance of each sample in <see param="values"/>.</param>
         /// <param name="imax">The index of the maximum element in the vector, or -1 if it could not be found.</param>
         /// <param name="alreadySorted">Pass true if the list of values is already sorted.</param>
-        /// 
+        ///
         /// <returns>The maximum value in the given data.</returns>
-        /// 
+        ///
         public static double WeightedMax(this double[] values, double[] weights, out int imax, bool alreadySorted = false)
         {
             imax = -1;
@@ -1083,14 +1077,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Gets the minimum value in a vector of observations that has a weight higher than zero.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="weights">A vector containing the importance of each sample in <see param="values"/>.</param>
         /// <param name="imin">The index of the minimum element in the vector, or -1 if it could not be found.</param>
         /// <param name="alreadySorted">Pass true if the list of values is already sorted.</param>
-        /// 
+        ///
         /// <returns>The minimum value in the given data.</returns>
-        /// 
+        ///
         public static double WeightedMin(this double[] values, double[] weights, out int imin, bool alreadySorted = false)
         {
             imin = -1;
@@ -1110,7 +1104,6 @@ namespace Accord.Statistics
                 return Double.PositiveInfinity;
             }
 
-
             // Base case for non sorted arrays
             double min = Double.PositiveInfinity;
             for (int i = 0; i < values.Length; i++)
@@ -1128,14 +1121,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Gets the maximum value in a vector of observations that has a weight higher than zero.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
         /// <param name="imax">The index of the maximum element in the vector, or -1 if it could not be found.</param>
         /// <param name="alreadySorted">Pass true if the list of values is already sorted.</param>
-        /// 
+        ///
         /// <returns>The maximum value in the given data.</returns>
-        /// 
+        ///
         public static double WeightedMax(this double[] values, int[] weights, out int imax, bool alreadySorted = false)
         {
             imax = -1;
@@ -1172,14 +1165,14 @@ namespace Accord.Statistics
         /// <summary>
         ///   Gets the minimum value in a vector of observations that has a weight higher than zero.
         /// </summary>
-        /// 
+        ///
         /// <param name="values">A number array containing the vector values.</param>
         /// <param name="weights">The number of times each sample should be repeated.</param>
         /// <param name="imin">The index of the minimum element in the vector, or -1 if it could not be found.</param>
         /// <param name="alreadySorted">Pass true if the list of values is already sorted.</param>
-        /// 
+        ///
         /// <returns>The minimum value in the given data.</returns>
-        /// 
+        ///
         public static double WeightedMin(this double[] values, int[] weights, out int imin, bool alreadySorted = false)
         {
             imin = -1;
@@ -1199,7 +1192,6 @@ namespace Accord.Statistics
                 return Double.PositiveInfinity;
             }
 
-
             // Base case for non sorted arrays
             double min = Double.PositiveInfinity;
             for (int i = 0; i < values.Length; i++)
@@ -1213,7 +1205,5 @@ namespace Accord.Statistics
 
             return min;
         }
-
     }
 }
-

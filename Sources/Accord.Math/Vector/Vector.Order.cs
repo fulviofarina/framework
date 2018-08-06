@@ -22,24 +22,24 @@
 
 namespace Accord.Math
 {
-    using Accord.Math.Comparers;
     using System;
     using System.Collections.Generic;
+    using Accord.Math.Comparers;
 
     /// <summary>
     ///   Static class Vector. Defines a set of extension methods
     ///   that operates mainly on single-dimensional arrays.
     /// </summary>
-    /// 
+    ///
     /// <seealso cref="Jagged"/>
     /// <seealso cref="Vector"/>
-    /// 
+    ///
     public static partial class Vector
     {
         /// <summary>
         ///   Shuffles an array.
         /// </summary>
-        /// 
+        ///
         public static void Shuffle<T>(this T[] array)
         {
             var random = Accord.Math.Random.Generator.Random;
@@ -60,7 +60,7 @@ namespace Accord.Math
         /// <summary>
         ///   Shuffles a collection.
         /// </summary>
-        /// 
+        ///
         public static void Shuffle<T>(this IList<T> array)
         {
             var random = Accord.Math.Random.Generator.Random;
@@ -81,7 +81,7 @@ namespace Accord.Math
         /// <summary>
         ///   Sorts the elements of an entire one-dimensional array using the given comparison.
         /// </summary>
-        /// 
+        ///
         public static void Sort<T>(this T[] values, Comparison<T> comparison, bool stable = false)
         {
             if (!stable)
@@ -99,7 +99,7 @@ namespace Accord.Math
         /// <summary>
         ///   Sorts the elements of an entire one-dimensional array using the given comparison.
         /// </summary>
-        /// 
+        ///
         public static void Sort<T>(this T[] values, bool stable = false)
             where T : IComparable<T>
         {
@@ -118,7 +118,7 @@ namespace Accord.Math
         /// <summary>
         ///   Sorts the elements of an entire one-dimensional array using the given comparison.
         /// </summary>
-        /// 
+        ///
         public static void Sort<T>(this T[] values, out int[] order, bool stable = false, ComparerDirection direction = ComparerDirection.Ascending)
             where T : IComparable<T>
         {
@@ -147,14 +147,10 @@ namespace Accord.Math
                 order[i] = keys[i].Key;
         }
 
-
-
-
-
         /// <summary>
         ///   Shuffles an array.
         /// </summary>
-        /// 
+        ///
         public static T[] Shuffled<T>(this T[] array)
         {
             var clone = (T[])array.Clone();
@@ -165,7 +161,7 @@ namespace Accord.Math
         /// <summary>
         ///   Shuffles a collection.
         /// </summary>
-        /// 
+        ///
         public static TList Shuffled<TList, T>(this TList array)
             where TList : ICloneable, IList<T>
         {
@@ -177,7 +173,7 @@ namespace Accord.Math
         /// <summary>
         ///   Sorts the elements of an entire one-dimensional array using the given comparison.
         /// </summary>
-        /// 
+        ///
         public static T[] Sorted<T>(this T[] values, Comparison<T> comparison, bool stable = false)
         {
             var clone = (T[])values.Clone();
@@ -188,7 +184,7 @@ namespace Accord.Math
         /// <summary>
         ///   Sorts the elements of an entire one-dimensional array using the given comparison.
         /// </summary>
-        /// 
+        ///
         public static T[] Sorted<T>(this T[] values, bool stable = false)
             where T : IComparable<T>
         {
@@ -200,7 +196,7 @@ namespace Accord.Math
         /// <summary>
         ///   Sorts the elements of an entire one-dimensional array using the given comparison.
         /// </summary>
-        /// 
+        ///
         public static T[] Sorted<T>(this T[] values, out int[] order, bool stable = false, ComparerDirection direction = ComparerDirection.Ascending)
             where T : IComparable<T>
         {
@@ -208,6 +204,5 @@ namespace Accord.Math
             Sort(clone, out order, stable, direction);
             return clone;
         }
-
     }
 }

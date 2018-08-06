@@ -22,14 +22,14 @@
 
 namespace Accord.Math.Comparers
 {
-    using System.Collections.Generic;
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
-    ///   Elementwise comparer for integer arrays. 
+    ///   Elementwise comparer for integer arrays.
     ///   Please use ArrayComparer{T} instead.
     /// </summary>
-    /// 
+    ///
     [Obsolete("Please use ArrayComparer<T> instead.")]
     public class IntegerArrayComparer : ArrayComparer<int>
     {
@@ -38,20 +38,20 @@ namespace Accord.Math.Comparers
     /// <summary>
     ///   Elementwise comparer for arrays.
     /// </summary>
-    /// 
+    ///
     public class ArrayComparer<T> : IEqualityComparer<T[]>
         where T : IEquatable<T>
     {
         /// <summary>
         ///   Determines whether two instances are equal.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first object to compare.</param>
         /// <param name="y">The second object to compare.</param>
         /// <returns>
         ///   <c>true</c> if the specified object is equal to the other; otherwise, <c>false</c>.
         /// </returns>
-        ///   
+        ///
         public bool Equals(T[] x, T[] y)
         {
             for (int i = 0; i < x.Length; i++)
@@ -63,14 +63,14 @@ namespace Accord.Math.Comparers
         /// <summary>
         ///   Returns a hash code for a given instance.
         /// </summary>
-        /// 
+        ///
         /// <param name="obj">The instance.</param>
-        /// 
+        ///
         /// <returns>
-        ///   A hash code for the instance, suitable for use 
-        ///   in hashing algorithms and data structures like a hash table. 
+        ///   A hash code for the instance, suitable for use
+        ///   in hashing algorithms and data structures like a hash table.
         /// </returns>
-        /// 
+        ///
         public int GetHashCode(T[] obj)
         {
             unchecked
@@ -81,6 +81,5 @@ namespace Accord.Math.Comparers
                 return hash;
             }
         }
-
     }
 }

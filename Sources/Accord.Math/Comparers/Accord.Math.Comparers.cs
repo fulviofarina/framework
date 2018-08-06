@@ -22,14 +22,13 @@
 
 namespace Accord.Math.Comparers
 {
-    using System;
     using System.Runtime.CompilerServices;
 
     /// <summary>
-    ///   Comparison methods that can be used in sort 
+    ///   Comparison methods that can be used in sort
     ///   algorithms such as <see cref="Array.Sort(System.Array)"/>.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///  This namespace contains different methods for comparing elements. For
@@ -38,16 +37,16 @@ namespace Accord.Math.Comparers
     ///  sort arrays into any direction</see>, or perform <see cref="StableComparer{T}">
     ///  stable sorts</see>.
     ///  </para>
-    ///  
+    ///
     /// <para>
     ///   The namespace class diagram is shown below. </para>
     ///   <img src="..\diagrams\classes\Accord.Math.Comparers.png" />
     /// </remarks>
-    /// 
+    ///
     /// <seealso cref="Accord.Math"/>
-    ///   
+    ///
     [CompilerGenerated]
-    class NamespaceDoc
+    internal class NamespaceDoc
     {
     }
 }

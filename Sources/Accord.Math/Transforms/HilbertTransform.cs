@@ -22,36 +22,34 @@
 
 namespace Accord.Math
 {
-    using System;
-    using AForge.Math;
     using System.Numerics;
 
     /// <summary>
     ///   Discrete Hilbert Transformation.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   The discrete Hilbert transform is a transformation operating on the time
     ///   domain. It performs a 90 degree phase shift, shifting positive frequencies
     ///   by +90 degrees and negative frequencies by -90 degrees. It is useful to
     ///   create analytic representation of signals. </para>
-    ///   
+    ///
     /// <para>
     ///   The Hilbert transform can be implemented efficiently by using the Fast
     ///   Fourier Transform. After transforming a signal from the time-domain to
     ///   the frequency domain, one can zero its negative frequency components and
     ///   revert the signal back to obtain the phase shifting.</para>
-    ///   
+    ///
     ///  <para>
     ///    By applying the Hilbert transform to a signal twice, the negative of
     ///    the original signal is recovered.</para>
-    /// 
+    ///
     ///   <para>
     ///     References:
     ///     <list type="bullet">
     ///       <item><description>
-    ///        Marple, S.L., "Computing the discrete-time analytic signal via FFT," IEEE 
+    ///        Marple, S.L., "Computing the discrete-time analytic signal via FFT," IEEE
     ///        Transactions on Signal Processing, Vol. 47, No.9 (September 1999). Available on:
     ///        http://classes.engr.oregonstate.edu/eecs/winter2009/ece464/AnalyticSignal_Sept1999_SPTrans.pdf </description></item>
     ///       <item><description>
@@ -60,17 +58,16 @@ namespace Accord.Math
     ///     </list>
     ///   </para>
     /// </remarks>
-    /// 
+    ///
     public static class HilbertTransform
     {
         /// <summary>
         ///   Performs the Fast Hilbert Transform over a double[] array.
         /// </summary>
-        /// 
+        ///
         public static void FHT(double[] data, FourierTransform.Direction direction)
         {
             int N = data.Length;
-
 
             // Forward operation
             if (direction == FourierTransform.Direction.Forward)
@@ -104,7 +101,6 @@ namespace Accord.Math
                 for (int i = 0; i < N; i++)
                     data[i] = cdata[i].Imaginary;
             }
-
             else // Backward operation
             {
                 // The inverse Hilbert can be calculated by
@@ -120,11 +116,10 @@ namespace Accord.Math
             }
         }
 
-
         /// <summary>
         ///   Performs the Fast Hilbert Transform over a complex[] array.
         /// </summary>
-        /// 
+        ///
         public static void FHT(Complex[] data, FourierTransform.Direction direction)
         {
             int N = data.Length;
@@ -159,7 +154,6 @@ namespace Accord.Math
                 for (int i = 0; i < N; i++)
                     data[i] = new Complex(data[i].Real, shift[i].Imaginary);
             }
-
             else // Backward operation
             {
                 // Just discard the imaginary part
@@ -167,6 +161,5 @@ namespace Accord.Math
                     data[i] = new Complex(data[i].Real, 0.0);
             }
         }
-
     }
 }

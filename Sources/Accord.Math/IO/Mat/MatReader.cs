@@ -29,53 +29,53 @@ namespace Accord.IO
     /// <summary>
     ///   Reader for .mat files (such as the ones created by Matlab and Octave).
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
-    ///   MAT files are binary files containing variables and structures from mathematical 
+    ///   MAT files are binary files containing variables and structures from mathematical
     ///   processing programs, such as MATLAB or Octave. In MATLAB, .mat files can be created
     ///   using its <c>save</c> and <c>load</c> functions. For the moment, this reader supports
     ///   only version 5 MAT files (Matlab 5 MAT-file).</para>
-    ///   
+    ///
     /// <para>
-    ///   The MATLAB file format is documented at 
+    ///   The MATLAB file format is documented at
     ///   <a href="http://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf">
     ///   http://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf </a></para>
     /// </remarks>
-    /// 
+    ///
     /// <example>
     /// <code>
     /// // Create a new MAT file reader
     /// var reader = new MatReader(file);
-    /// 
+    ///
     /// // Extract some basic information about the file:
     /// string description = reader.Description; // "MATLAB 5.0 MAT-file, Platform: PCWIN"
     /// int    version     = reader.Version;     // 256
     /// bool   bigEndian   = reader.BigEndian;   // false
-    /// 
-    /// 
+    ///
+    ///
     /// // Enumerate the fields in the file
     /// foreach (var field in reader.Fields)
     ///   Console.WriteLine(field.Key); // "structure"
-    /// 
+    ///
     /// // We have the single following field
     /// var structure = reader["structure"];
-    /// 
+    ///
     /// // Enumerate the fields in the structure
     /// foreach (var field in structure.Fields)
     ///   Console.WriteLine(field.Key); // "a", "string"
-    /// 
+    ///
     /// // Check the type for the field "a"
     /// var aType = structure["a"].Type; // byte[,]
-    /// 
+    ///
     /// // Retrieve the field "a" from the file
     /// var a = structure["a"].GetValue&lt;byte[,]>();
-    /// 
+    ///
     /// // We can also do directly if we know the type in advance
     /// var s = reader["structure"]["string"].GetValue&lt;string>();
     /// </code>
     /// </example>
-    /// 
+    ///
     public class MatReader : IDisposable
     {
         private BinaryReader reader;
@@ -86,7 +86,7 @@ namespace Accord.IO
         /// <summary>
         ///   Gets the child nodes contained in this file.
         /// </summary>
-        /// 
+        ///
         public Dictionary<string, MatNode> Fields
         {
             get { return contents; }
@@ -95,19 +95,19 @@ namespace Accord.IO
         /// <summary>
         ///   Gets the human readable description of the MAT file.
         /// </summary>
-        /// 
+        ///
         /// <example>
         ///   An example header description could be given by
         ///   <c>"MATLAB 5.0 MAT-file, Platform: PCWIN, Created on: Thu Feb 22 03:12:25 2007"</c>.
         /// </example>
-        /// 
+        ///
         public string Description { get; private set; }
 
         /// <summary>
-        ///   Gets the version information about the file. 
+        ///   Gets the version information about the file.
         ///   This field should always contain 256.
         /// </summary>
-        /// 
+        ///
         public int Version { get; private set; }
 
         /// <summary>
@@ -115,20 +115,20 @@ namespace Accord.IO
         ///   standard for bit-order. Currently, only little
         ///   endian is supported.
         /// </summary>
-        /// 
+        ///
         public bool BigEndian { get; private set; }
 
         /// <summary>
-        ///   Gets whether matrices will be auto-transposed 
+        ///   Gets whether matrices will be auto-transposed
         ///   to .NET row and column format if necessary.
         /// </summary>
-        /// 
+        ///
         public bool Transpose { get { return autoTranspose; } }
 
         /// <summary>
         ///   Returns the underlying stream.
         /// </summary>
-        /// 
+        ///
         public Stream BaseStream
         {
             get { return reader.BaseStream; }
@@ -137,9 +137,9 @@ namespace Accord.IO
         /// <summary>
         ///   Gets a child object contained in this node.
         /// </summary>
-        /// 
+        ///
         /// <param name="key">The field name or index.</param>
-        /// 
+        ///
         public MatNode this[string key]
         {
             get { return contents[key]; }
@@ -148,9 +148,9 @@ namespace Accord.IO
         /// <summary>
         ///   Gets a child object contained in this node.
         /// </summary>
-        /// 
+        ///
         /// <param name="key">The field index.</param>
-        /// 
+        ///
         public MatNode this[int key]
         {
             get { return contents[key.ToString()]; }
@@ -159,13 +159,13 @@ namespace Accord.IO
         /// <summary>
         ///   Creates a new <see cref="MatReader"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The input stream containing the MAT file.</param>
-        /// <param name="autoTranspose">Pass <c>true</c> to automatically transpose matrices if they 
+        /// <param name="autoTranspose">Pass <c>true</c> to automatically transpose matrices if they
         ///   have been stored differently from .NET's default row-major order. Default is <c>true</c>.</param>
         /// <param name="lazy">Whether matrices should be read lazily (if set to true, only
         ///   matrices that have explicitly been asked for will be loaded).</param>
-        /// 
+        ///
         public MatReader(Stream input, bool autoTranspose = true, bool lazy = true)
             : this(new BinaryReader(input), autoTranspose: autoTranspose, lazy: lazy)
         {
@@ -174,13 +174,13 @@ namespace Accord.IO
         /// <summary>
         ///   Creates a new <see cref="MatReader"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="input">The input stream containing the MAT file.</param>
-        /// <param name="autoTranspose">Pass <c>true</c> to automatically transpose matrices if they 
+        /// <param name="autoTranspose">Pass <c>true</c> to automatically transpose matrices if they
         ///   have been stored differently from .NET's default row-major order. Default is <c>true</c>.</param>
         /// <param name="lazy">Whether matrices should be read lazily (if set to true, only
         ///   matrices that have explicitly been asked for will be loaded).</param>
-        /// 
+        ///
         public MatReader(byte[] input, bool autoTranspose = true, bool lazy = true)
             : this(new MemoryStream(input), autoTranspose: autoTranspose, lazy: lazy)
         {
@@ -189,13 +189,13 @@ namespace Accord.IO
         /// <summary>
         ///   Creates a new <see cref="MatReader"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="reader">A reader for input stream containing the MAT file.</param>
-        /// <param name="autoTranspose">Pass <c>true</c> to automatically transpose matrices if they 
+        /// <param name="autoTranspose">Pass <c>true</c> to automatically transpose matrices if they
         ///   have been stored differently from .NET's default row-major order. Default is <c>true</c>.</param>
         /// <param name="lazy">Whether matrices should be read lazily (if set to true, only
         ///   matrices that have explicitly been asked for will be loaded).</param>
-        /// 
+        ///
         public MatReader(BinaryReader reader, bool autoTranspose = true, bool lazy = true)
         {
             this.autoTranspose = autoTranspose;
@@ -214,7 +214,6 @@ namespace Accord.IO
             Description = new String(title, 0, terminator).Trim();
             Version = version;
             BigEndian = endian[0] == 'M';
-
 
             if (BitConverter.IsLittleEndian && BigEndian)
                 throw new NotSupportedException("The file bit ordering differs from the system architecture.");
@@ -243,10 +242,10 @@ namespace Accord.IO
         /// <summary>
         ///   Reads an object from a given key.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the object to be read.</typeparam>
         /// <param name="key">The name of the object.</param>
-        /// 
+        ///
         public T Read<T>(string key)
         {
             return (T)Fields[key].Value;
@@ -255,14 +254,13 @@ namespace Accord.IO
         /// <summary>
         ///   Reads an object from a given key.
         /// </summary>
-        /// 
+        ///
         /// <param name="key">The name of the object.</param>
-        /// 
+        ///
         public object Read(string key)
         {
             return Fields[key].Value;
         }
-
 
         internal static Type Translate(MatDataType type)
         {
@@ -270,36 +268,46 @@ namespace Accord.IO
             {
                 case MatDataType.miINT8:
                     return typeof(sbyte);
+
                 case MatDataType.miUINT8:
                     return typeof(byte);
+
                 case MatDataType.miINT16:
                     return typeof(short);
+
                 case MatDataType.miUINT16:
                     return typeof(ushort);
+
                 case MatDataType.miINT32:
                     return typeof(int);
+
                 case MatDataType.miUINT32:
                     return typeof(uint);
+
                 case MatDataType.miSINGLE:
                     return typeof(float);
+
                 case MatDataType.miDOUBLE:
                     return typeof(double);
+
                 case MatDataType.miINT64:
                     return typeof(long);
+
                 case MatDataType.miUINT64:
                     return typeof(ulong);
+
                 default:
                     throw new ArgumentOutOfRangeException("type");
             }
         }
 
-
         #region IDisposable members
+
         /// <summary>
         ///   Performs application-defined tasks associated with
         ///   freeing, releasing, or resetting unmanaged resources.
         /// </summary>
-        /// 
+        ///
         public void Dispose()
         {
             Dispose(true);
@@ -309,10 +317,10 @@ namespace Accord.IO
         /// <summary>
         ///   Releases unmanaged and - optionally - managed resources
         /// </summary>
-        /// 
+        ///
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged
         ///   resources; <c>false</c> to release only unmanaged resources.</param>
-        /// 
+        ///
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -330,12 +338,12 @@ namespace Accord.IO
         ///   Releases unmanaged resources and performs other cleanup operations before the
         ///   <see cref="MatReader"/> is reclaimed by garbage collection.
         /// </summary>
-        /// 
+        ///
         ~MatReader()
         {
             Dispose(false);
         }
-        #endregion
 
+        #endregion IDisposable members
     }
 }

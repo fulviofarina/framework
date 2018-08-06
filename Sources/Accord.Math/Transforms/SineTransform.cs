@@ -26,12 +26,11 @@
 namespace Accord.Math
 {
     using System;
-    using AForge.Math;
 
     /// <summary>
     ///   Discrete Sine Transform
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
     ///   In mathematics, the discrete sine transform (DST) is a Fourier-related transform
@@ -40,7 +39,7 @@ namespace Accord.Math
     ///   on real data with odd symmetry (since the Fourier transform of a real and odd function
     ///   is imaginary and odd), where in some variants the input and/or output data are shifted
     ///   by half a sample.</para>
-    ///   
+    ///
     /// <para>
     ///   References:
     ///   <list type="bullet">
@@ -52,14 +51,13 @@ namespace Accord.Math
     ///       Prentice. Hall, 1998.</description></item>
     ///   </list></para>
     /// </remarks>
-    /// 
+    ///
     public static class SineTransform
     {
-
         /// <summary>
         ///   Forward Discrete Sine Transform.
         /// </summary>
-        /// 
+        ///
         public static void DST(double[] data)
         {
             double[] result = new double[data.Length];
@@ -79,7 +77,7 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse Discrete Sine Transform.
         /// </summary>
-        /// 
+        ///
         public static void IDST(double[] data)
         {
             double[] result = new double[data.Length];
@@ -101,7 +99,7 @@ namespace Accord.Math
         /// <summary>
         ///   Forward Discrete Sine Transform.
         /// </summary>
-        /// 
+        ///
         public static void DST(double[][] data)
         {
             int rows = data.Length;
@@ -136,7 +134,7 @@ namespace Accord.Math
         /// <summary>
         ///   Inverse Discrete Sine Transform.
         /// </summary>
-        /// 
+        ///
         public static void IDST(double[][] data)
         {
             int rows = data.Length;

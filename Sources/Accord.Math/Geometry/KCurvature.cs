@@ -24,21 +24,18 @@ namespace Accord.Math.Geometry
 {
     using System;
     using System.Collections.Generic;
-    using AForge;
 
     /// <summary>
     ///   K-curvatures algorithm for local maximum contour detection.
     /// </summary>
-    /// 
+    ///
     public class KCurvature
     {
-
         /// <summary>
         ///   Gets or sets the number K of previous and posterior
         ///   points to consider when find local extremum points.
         /// </summary>
         public int K { get; set; }
-
 
         /// <summary>
         ///   Gets or sets the theta angle range (in
@@ -71,7 +68,7 @@ namespace Accord.Math.Geometry
         /// </summary>
         /// <param name="contour">A list of <see cref="IntPoint">
         /// integer points</see> defining the contour.</param>
-        /// 
+        ///
         public List<IntPoint> FindPeaks(List<IntPoint> contour)
         {
             double[] map = new double[contour.Count];
@@ -86,7 +83,6 @@ namespace Accord.Math.Geometry
                 a = contour[ai];
                 b = contour[i];
                 c = contour[ci];
-
 
                 // http://stackoverflow.com/questions/3486172/angle-between-3-points/3487062#3487062
                 //double angle = AForge.Math.Geometry.GeometryTools.GetAngleBetweenVectors(b, a, c);
@@ -104,8 +100,6 @@ namespace Accord.Math.Geometry
                 }
 
                 double rs = (rslt * 180) / Math.PI;
-
-
 
                 if (Theta.IsInside(rs))
                     map[i] = rs;
@@ -141,7 +135,5 @@ namespace Accord.Math.Geometry
 
             return peaks;
         }
-
-
     }
 }

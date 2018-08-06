@@ -27,17 +27,16 @@ namespace Accord.Math.Optimization.Losses
     /// <summary>
     ///   Hinge loss.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public class HingeLoss : LossBase<double[][]>, ILoss<double[]>, ILoss<int[]>
     {
-
         /// <summary>
         ///   Initializes a new instance of the <see cref="HingeLoss"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="expected">The expected outputs (ground truth).</param>
-        /// 
+        ///
         public HingeLoss(double[][] expected)
             : base(expected)
         {
@@ -46,9 +45,9 @@ namespace Accord.Math.Optimization.Losses
         /// <summary>
         ///   Initializes a new instance of the <see cref="HingeLoss"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="expected">The expected outputs (ground truth).</param>
-        /// 
+        ///
 
         public HingeLoss(double[] expected)
             : base(Jagged.ColumnVector(expected))
@@ -58,9 +57,9 @@ namespace Accord.Math.Optimization.Losses
         /// <summary>
         ///   Initializes a new instance of the <see cref="HingeLoss"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="expected">The expected outputs (ground truth).</param>
-        /// 
+        ///
 
         public HingeLoss(int[] expected)
             : base(Jagged.OneHot(expected))
@@ -70,9 +69,9 @@ namespace Accord.Math.Optimization.Losses
         /// <summary>
         ///   Initializes a new instance of the <see cref="HingeLoss"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="expected">The expected outputs (ground truth).</param>
-        /// 
+        ///
 
         public HingeLoss(bool[] expected)
             : base(Jagged.OneHot<double>(expected))
@@ -83,14 +82,14 @@ namespace Accord.Math.Optimization.Losses
         ///   Computes the loss between the expected values (ground truth)
         ///   and the given actual values that have been predicted.
         /// </summary>
-        /// 
+        ///
         /// <param name="actual">The actual values that have been predicted.</param>
-        /// 
+        ///
         /// <returns>
         ///   The loss value between the expected values and
         ///   the actual predicted values.
         /// </returns>
-        /// 
+        ///
         public override double Loss(double[][] actual)
         {
             double error = 0;
@@ -110,14 +109,14 @@ namespace Accord.Math.Optimization.Losses
         ///   Computes the loss between the expected values (ground truth)
         ///   and the given actual values that have been predicted.
         /// </summary>
-        /// 
+        ///
         /// <param name="actual">The actual values that have been predicted.</param>
-        /// 
+        ///
         /// <returns>
         ///   The loss value between the expected values and
         ///   the actual predicted values.
         /// </returns>
-        /// 
+        ///
         public double Loss(double[] actual)
         {
             double error = 0;
@@ -134,14 +133,14 @@ namespace Accord.Math.Optimization.Losses
         ///   Computes the loss between the expected values (ground truth)
         ///   and the given actual values that have been predicted.
         /// </summary>
-        /// 
+        ///
         /// <param name="actual">The actual values that have been predicted.</param>
-        /// 
+        ///
         /// <returns>
         ///   The loss value between the expected values and
         ///   the actual predicted values.
         /// </returns>
-        /// 
+        ///
         public double Loss(int[] actual)
         {
             int error = 0;

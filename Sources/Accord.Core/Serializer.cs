@@ -23,29 +23,24 @@
 namespace Accord.IO
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Reflection;
-    using System.Runtime.CompilerServices;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Binary;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     ///   Model serializer. Can be used to serialize and deserialize
     ///   (i.e. save and load) models from the framework to and from
     ///   the disk and other streams.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     ///   This class uses a binding mechanism to automatically convert
     ///   files saved using older versions of the framework to the new
     ///   format. If a deserialization doesn't work, please fill in a
     ///   bug report at https://github.com/accord-net/framework/issues
     /// </remarks>
-    /// 
+    ///
     public static class Serializer
     {
         private static readonly Object lockObj = new Object();
@@ -53,10 +48,10 @@ namespace Accord.IO
         /// <summary>
         ///   Saves an object to a stream.
         /// </summary>
-        /// 
+        ///
         /// <param name="obj">The object to be serialized.</param>
         /// <param name="stream">The stream to which the object is to be serialized.</param>
-        /// 
+        ///
         public static void Save<T>(this T obj, Stream stream)
         {
             new BinaryFormatter().Serialize(stream, obj);
@@ -65,10 +60,10 @@ namespace Accord.IO
         /// <summary>
         ///   Saves an object to a stream.
         /// </summary>
-        /// 
+        ///
         /// <param name="obj">The object to be serialized.</param>
         /// <param name="path">The path to the file to which the object is to be serialized.</param>
-        /// 
+        ///
         public static void Save<T>(this T obj, string path)
         {
             var dir = Path.GetDirectoryName(path);
@@ -84,9 +79,9 @@ namespace Accord.IO
         /// <summary>
         ///   Saves an object to a stream, represented as an array of bytes.
         /// </summary>
-        /// 
+        ///
         /// <param name="obj">The object to be serialized.</param>
-        /// 
+        ///
         public static byte[] Save<T>(this T obj)
         {
             byte[] bytes;
@@ -97,10 +92,10 @@ namespace Accord.IO
         /// <summary>
         ///   Saves an object to a stream.
         /// </summary>
-        /// 
+        ///
         /// <param name="obj">The object to be serialized.</param>
         /// <param name="bytes">The sequence of bytes to which the object has been serialized.</param>
-        /// 
+        ///
         public static void Save<T>(this T obj, out byte[] bytes)
         {
             using (var fs = new MemoryStream())
@@ -114,11 +109,11 @@ namespace Accord.IO
         /// <summary>
         ///   Loads an object from a stream.
         /// </summary>
-        /// 
+        ///
         /// <param name="stream">The stream from which the object is to be deserialized.</param>
-        /// 
+        ///
         /// <returns>The deserialized machine.</returns>
-        /// 
+        ///
         public static T Load<T>(Stream stream)
         {
             return Load<T>(stream, new BinaryFormatter());
@@ -127,11 +122,11 @@ namespace Accord.IO
         /// <summary>
         ///   Loads an object from a file.
         /// </summary>
-        /// 
+        ///
         /// <param name="path">The path to the file from which the object is to be deserialized.</param>
-        /// 
+        ///
         /// <returns>The deserialized object.</returns>
-        /// 
+        ///
         public static T Load<T>(string path)
         {
             using (var fs = new FileStream(path, FileMode.Open))
@@ -143,11 +138,11 @@ namespace Accord.IO
         /// <summary>
         ///   Loads an object from a stream, represented as an array of bytes.
         /// </summary>
-        /// 
+        ///
         /// <param name="bytes">The byte stream containing the object to be deserialized.</param>
-        /// 
+        ///
         /// <returns>The deserialized object.</returns>
-        /// 
+        ///
         public static T Load<T>(byte[] bytes)
         {
             using (var fs = new MemoryStream(bytes, false))
@@ -156,17 +151,16 @@ namespace Accord.IO
             }
         }
 
-
         /// <summary>
         ///   Loads a model from a stream.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the model to be loaded.</typeparam>
         /// <param name="formatter">The binary formatter.</param>
         /// <param name="stream">The stream from which to deserialize the object graph.</param>
-        /// 
+        ///
         /// <returns>The deserialized object.</returns>
-        /// 
+        ///
         public static T Load<T>(Stream stream, BinaryFormatter formatter)
         {
             lock (lockObj)
@@ -189,8 +183,6 @@ namespace Accord.IO
                 }
             }
         }
-
-
 
         private static SerializationBinder GetBinder(Type type)
         {
@@ -224,18 +216,17 @@ namespace Accord.IO
             return ((AppDomain)sender).Load(display.Name);
         }
 
-
         /// <summary>
         ///   Retrieves a value from the SerializationInfo store.
         /// </summary>
-        /// 
+        ///
         /// <typeparam name="T">The type of the value to be retrieved.</typeparam>
         /// <param name="info">The serialization info store containing the value.</param>
         /// <param name="name">The name of the value.</param>
         /// <param name="value">The value retrieved from the info store.</param>
-        /// 
+        ///
         /// <returns>The value retrieved from the info store.</returns>
-        /// 
+        ///
         public static T GetValue<T>(this SerializationInfo info, string name, out T value)
         {
             return value = (T)info.GetValue(name, typeof(T));

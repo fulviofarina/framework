@@ -23,19 +23,18 @@
 namespace Accord.Math.Distances
 {
     using System;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     ///   ArgMax distance (L0) distance.
     /// </summary>
-    /// 
+    ///
     [Serializable]
     public sealed class ArgMax : IDistance<double[]>
     {
         /// <summary>
         ///   Initializes a new instance of the <see cref="ArgMax"/> class.
         /// </summary>
-        /// 
+        ///
         public ArgMax()
         {
         }
@@ -44,19 +43,20 @@ namespace Accord.Math.Distances
         ///   Computes the distance <c>d(x,y)</c> between points
         ///   <paramref name="x"/> and <paramref name="y"/>.
         /// </summary>
-        /// 
+        ///
         /// <param name="x">The first point <c>x</c>.</param>
         /// <param name="y">The second point <c>y</c>.</param>
-        /// 
+        ///
         /// <returns>
         ///   A double-precision value representing the distance <c>d(x,y)</c>
-        ///   between <paramref name="x"/> and <paramref name="y"/> according 
+        ///   between <paramref name="x"/> and <paramref name="y"/> according
         ///   to the distance function implemented by this class.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Distance(double[] x, double[] y)
         {
             int xx = x.ArgMax();
@@ -65,6 +65,5 @@ namespace Accord.Math.Distances
                 return 0;
             return 1;
         }
-
     }
 }

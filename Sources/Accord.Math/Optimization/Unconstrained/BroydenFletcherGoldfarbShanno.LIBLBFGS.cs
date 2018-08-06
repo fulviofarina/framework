@@ -24,7 +24,6 @@
  * THE SOFTWARE.
  */
 
-
 /*
 This library is a C port of the FORTRAN implementation of Limited-memory
 Broyden-Fletcher-Goldfarb-Shanno (L-BFGS) method written by Jorge Nocedal.
@@ -58,7 +57,7 @@ method presented in:
 I would like to thank the original author, Jorge Nocedal, who has been
 distributing the efficient and explanatory implementation in an open source
 license.
-                                                        -- Naoaki Okazaki 
+                                                        -- Naoaki Okazaki
 */
 
 namespace Accord.Math.Optimization
@@ -87,8 +86,6 @@ namespace Accord.Math.Optimization
 
     internal static class LBFGS
     {
-
-
         internal static int main(double[] start, Func<double[], double> fn, Func<double[], double[]> gn,
             EventHandler<OptimizationProgressEventArgs> progress, lbfgs_parameter_t param)
         {
@@ -96,7 +93,6 @@ namespace Accord.Math.Optimization
 
             lbfgs_evaluate_t target = NewMethod(fn, gn);
             lbfgs_progress_t prog = ProgressMethod(progress);
-
 
             /*
                 Start the L-BFGS optimization; this will invoke the callback functions
@@ -148,7 +144,6 @@ namespace Accord.Math.Optimization
 
         private static lbfgs_evaluate_t NewMethod(Func<double[], double> fn, Func<double[], double[]> gn)
         {
-
             lbfgs_evaluate_t target = (object instance,
                 double[] x,
                 double[] g,
@@ -167,16 +162,16 @@ namespace Accord.Math.Optimization
             return target;
         }
 
-
-        static bool fsigndiff(double x, double y)
+        private static bool fsigndiff(double x, double y)
         {
             return ((x) * ((y) / Math.Abs((y))) < 0.0);
         }
 
-        static double[] vecalloc(int size)
+        private static double[] vecalloc(int size)
         {
             return new double[size];
         }
+
         /*
                 static void vecset(double[] x, double c, int n)
                 {
@@ -188,7 +183,8 @@ namespace Accord.Math.Optimization
                     }
                 }
         */
-        static void veccpy(double[] y, double[] x, int n)
+
+        private static void veccpy(double[] y, double[] x, int n)
         {
             int i;
 
@@ -198,7 +194,7 @@ namespace Accord.Math.Optimization
             }
         }
 
-        static void vecncpy(double[] y, double[] x, int n)
+        private static void vecncpy(double[] y, double[] x, int n)
         {
             int i;
 
@@ -208,7 +204,7 @@ namespace Accord.Math.Optimization
             }
         }
 
-        static void vecadd(double[] y, double[] x, double c, int n)
+        private static void vecadd(double[] y, double[] x, double c, int n)
         {
             int i;
 
@@ -218,7 +214,7 @@ namespace Accord.Math.Optimization
             }
         }
 
-        static void vecdiff(double[] z, double[] x, double[] y, int n)
+        private static void vecdiff(double[] z, double[] x, double[] y, int n)
         {
             int i;
 
@@ -228,7 +224,7 @@ namespace Accord.Math.Optimization
             }
         }
 
-        static void vecscale(double[] y, double c, int n)
+        private static void vecscale(double[] y, double c, int n)
         {
             int i;
 
@@ -237,18 +233,20 @@ namespace Accord.Math.Optimization
                 y[i] *= c;
             }
         }
-/*
-        static void vecmul(double[] y, double[] x, int n)
-        {
-            int i;
 
-            for (i = 0; i < n; ++i)
-            {
-                y[i] *= x[i];
-            }
-        }
-*/
-        static void vecdot(out double s, double[] x, double[] y, int n)
+        /*
+                static void vecmul(double[] y, double[] x, int n)
+                {
+                    int i;
+
+                    for (i = 0; i < n; ++i)
+                    {
+                        y[i] *= x[i];
+                    }
+                }
+        */
+
+        private static void vecdot(out double s, double[] x, double[] y, int n)
         {
             int i;
             s = 0.0;
@@ -258,13 +256,13 @@ namespace Accord.Math.Optimization
             }
         }
 
-        static void vec2norm(out double s, double[] x, int n)
+        private static void vec2norm(out double s, double[] x, int n)
         {
             vecdot(out s, x, x, n);
             s = (double)System.Math.Sqrt(s);
         }
 
-        static void vec2norminv(out double s, double[] x, int n)
+        private static void vec2norminv(out double s, double[] x, int n)
         {
             vec2norm(out s, x, n);
             s = (double)(1.0 / s);
@@ -272,9 +270,10 @@ namespace Accord.Math.Optimization
 
         /**
          * Return values of lbfgs().
-         * 
+         *
          *  Roughly speaking, a negative value indicates an error.
          */
+
         internal enum Code
         {
             /** L-BFGS reaches convergence. */
@@ -351,8 +350,7 @@ namespace Accord.Math.Optimization
             LBFGSERR_INCREASEGRADIENT,
         };
 
-
-        delegate Code line_search_proc(
+        private delegate Code line_search_proc(
             int n,
             double[] x,
             ref double f,
@@ -366,10 +364,6 @@ namespace Accord.Math.Optimization
              ref lbfgs_parameter_t param
             );
 
-
-
-
-
         /**
          * Callback interface to provide objective function and gradient evaluations.
          *
@@ -377,7 +371,7 @@ namespace Accord.Math.Optimization
          *  function and its gradients when needed. A client program must implement
          *  this function to evaluate the values of the objective function and its
          *  gradients, given current values of variables.
-         *  
+         *
          *  @param  instance    The user data sent for lbfgs() function by the client.
          *  @param  x           The current values of variables.
          *  @param  g           The gradient vector. The callback function must compute
@@ -387,7 +381,8 @@ namespace Accord.Math.Optimization
          *  @retval double The value of the objective function for the current
          *                          variables.
          */
-        delegate double lbfgs_evaluate_t(
+
+        private delegate double lbfgs_evaluate_t(
             object instance,
              double[] x,
             double[] g,
@@ -415,7 +410,8 @@ namespace Accord.Math.Optimization
          *  @retval int         Zero to continue the optimization process. Returning a
          *                      non-zero value will cancel the optimization process.
          */
-        delegate Code lbfgs_progress_t(
+
+        private delegate Code lbfgs_progress_t(
             object instance,
              double[] x,
              double[] g,
@@ -428,7 +424,7 @@ namespace Accord.Math.Optimization
             Code ls
             );
 
-        class callback_data_t
+        private class callback_data_t
         {
             public int n;
             public object instance;
@@ -436,7 +432,7 @@ namespace Accord.Math.Optimization
             public lbfgs_progress_t proc_progress;
         };
 
-        class iteration_data_t
+        private class iteration_data_t
         {
             public double alpha;
             public double[] s;     /* [n] */
@@ -444,7 +440,7 @@ namespace Accord.Math.Optimization
             public double ys;     /* vecdot(y, s) */
         };
 
-        static lbfgs_parameter_t _defparam = new lbfgs_parameter_t()
+        private static lbfgs_parameter_t _defparam = new lbfgs_parameter_t()
         {
             m = 6,
             epsilon = 1e-5,
@@ -474,7 +470,8 @@ namespace Accord.Math.Optimization
                 {
                 }
         */
-        static Code lbfgs(
+
+        private static Code lbfgs(
             int n,
             double[] x,
             ref double ptr_fx,
@@ -511,8 +508,6 @@ namespace Accord.Math.Optimization
             cd.proc_evaluate = proc_evaluate;
             cd.proc_progress = proc_progress;
 
-
-
             if (param.max_step < param.min_step)
             {
                 return Code.LBFGSERR_INVALID_MAXSTEP;
@@ -521,7 +516,6 @@ namespace Accord.Math.Optimization
             {
                 return Code.LBFGSERR_INVALID_FTOL;
             }
-
 
             if (param.linesearch == LineSearch.RegularWolfe ||
                 param.linesearch == LineSearch.StrongWolfe)
@@ -552,6 +546,7 @@ namespace Accord.Math.Optimization
                     case LineSearch.RegularWolfe:
                         linesearch = line_search_backtracking_owlqn;
                         break;
+
                     default:
                         /* Only the backtracking method is available. */
                         return Code.LBFGSERR_INVALID_LINESEARCH;
@@ -564,11 +559,13 @@ namespace Accord.Math.Optimization
                     case LineSearch.Default:
                         linesearch = line_search_morethuente;
                         break;
+
                     case LineSearch.BacktrackingArmijo:
                     case LineSearch.RegularWolfe:
                     case LineSearch.StrongWolfe:
                         linesearch = line_search_backtracking;
                         break;
+
                     default:
                         return Code.LBFGSERR_INVALID_LINESEARCH;
                 }
@@ -685,7 +682,7 @@ namespace Accord.Math.Optimization
 
             k = 1;
             end = 0;
-            for (; ; )
+            for (;;)
             {
                 /* Store the current position and gradient vectors. */
                 veccpy(xp, x, n);
@@ -876,16 +873,14 @@ namespace Accord.Math.Optimization
                 step = 1.0;
             }
 
-        lbfgs_exit:
+            lbfgs_exit:
             /* Return the final value of the objective function. */
             ptr_fx = fx;
 
             return ret;
         }
 
-
-
-        static Code line_search_backtracking(
+        private static Code line_search_backtracking(
             int n,
             double[] x,
             ref double f,
@@ -923,7 +918,7 @@ namespace Accord.Math.Optimization
             finit = f;
             dgtest = param.ftol * dginit;
 
-            for (; ; )
+            for (;;)
             {
                 veccpy(x, xp, n);
                 vecadd(x, s, stp, n);
@@ -993,9 +988,7 @@ namespace Accord.Math.Optimization
             }
         }
 
-
-
-        static Code line_search_backtracking_owlqn(
+        private static Code line_search_backtracking_owlqn(
             int n,
             double[] x,
             ref double f,
@@ -1025,7 +1018,7 @@ namespace Accord.Math.Optimization
                 wp[i] = (xp[i] == 0.0) ? -gp[i] : xp[i];
             }
 
-            for (; ; )
+            for (;;)
             {
                 /* Update the current point. */
                 veccpy(x, xp, n);
@@ -1075,9 +1068,7 @@ namespace Accord.Math.Optimization
             }
         }
 
-
-
-        static Code line_search_morethuente(
+        private static Code line_search_morethuente(
             int n,
             double[] x,
             ref double f,
@@ -1138,7 +1129,7 @@ namespace Accord.Math.Optimization
             fx = fy = finit;
             dgx = dgy = dginit;
 
-            for (; ; )
+            for (;;)
             {
                 /*
                     Set the minimum and maximum steps to correspond to the
@@ -1285,12 +1276,7 @@ namespace Accord.Math.Optimization
                     width = Math.Abs(sty - stx);
                 }
             }
-
         }
-
-
-
-
 
         /**
          * Find a minimizer of an interpolated cubic function.
@@ -1302,6 +1288,7 @@ namespace Accord.Math.Optimization
          *  @param  fv      The value of f(v).
          *  @param  du      The value of f'(v).
          */
+
         private static void CUBIC_MINIMIZER(ref double cm, ref double u, ref double fu, ref double du, ref double v, ref double fv, ref double dv, ref double a, ref double d, ref double gamma, ref double theta, ref double p, ref double q,
             ref double r, ref double s)
         {
@@ -1333,6 +1320,7 @@ namespace Accord.Math.Optimization
          *  @param  xmin    The maximum value.
          *  @param  xmin    The minimum value.
          */
+
         private static void CUBIC_MINIMIZER2(ref double cm, ref double u, ref double fu, ref double du, ref double v,
             ref double fv, ref double dv, ref double xmin, ref double xmax, ref double a, ref double d, ref double gamma, ref double theta, ref double p, ref double q,
             ref double r, ref double s)
@@ -1373,11 +1361,13 @@ namespace Accord.Math.Optimization
          *  @param  v       The value of another point, v.
          *  @param  fv      The value of f(v).
          */
+
         public static void QUARD_MINIMIZER(ref double qm, ref double u, ref double fu, ref double du, ref double v, ref double fv, ref double a)
         {
             a = (v) - (u);
             (qm) = (u) + (du) / (((fu) - (fv)) / a + (du)) / 2 * a;
         }
+
         /**
          * Find a minimizer of an interpolated quadratic function.
          *  @param  qm      The minimizer of the interpolated quadratic.
@@ -1386,6 +1376,7 @@ namespace Accord.Math.Optimization
          *  @param  v       The value of another point, v.
          *  @param  dv      The value of f'(v).
          */
+
         public static void QUARD_MINIMIZER2(ref double qm, ref double u, ref double du, ref double v, ref double dv, ref double a)
         {
             a = (u) - (v);
@@ -1415,13 +1406,14 @@ namespace Accord.Math.Optimization
          *  @param  brackt  The pointer to the predicate if the trial value is
          *                  bracketed.
          *  @retval int     Status value. Zero indicates a normal termination.
-         *  
+         *
          *  @see
          *      Jorge J. More and David J. Thuente. Line search algorithm with
          *      guaranteed sufficient decrease. ACM Transactions on Mathematical
          *      Software (TOMS), Vol 20, No 3, pp. 286-307, 1994.
          */
-        static Code update_trial_interval(
+
+        private static Code update_trial_interval(
             ref double x,
             ref double fx,
             ref double dx,
@@ -1579,7 +1571,7 @@ namespace Accord.Math.Optimization
                     x <- x, y <- t.
                 - Case b: if f(t) <= f(x) && f'(t)*f'(x) > 0,
                     x <- t, y <- y.
-                - Case c: if f(t) <= f(x) && f'(t)*f'(x) < 0, 
+                - Case c: if f(t) <= f(x) && f'(t)*f'(x) < 0,
                     x <- t, y <- x.
              */
             if (fx < ft)
@@ -1630,11 +1622,7 @@ namespace Accord.Math.Optimization
             return 0;
         }
 
-
-
-
-
-        static double owlqn_x1norm(
+        private static double owlqn_x1norm(
              double[] x,
              int start,
              int n
@@ -1651,7 +1639,7 @@ namespace Accord.Math.Optimization
             return norm;
         }
 
-        static void owlqn_pseudo_gradient(
+        private static void owlqn_pseudo_gradient(
             double[] pg,
              double[] x,
              double[] g,
@@ -1707,7 +1695,7 @@ namespace Accord.Math.Optimization
             }
         }
 
-        static void owlqn_project(
+        private static void owlqn_project(
             double[] d,
              double[] sign,
              int start,

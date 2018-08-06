@@ -22,16 +22,15 @@
 
 namespace Accord.MachineLearning
 {
-
     /// <summary>
     ///   Common interface for score-based binary classifiers. A binary classifier can
     ///   predict whether or not an instance belongs to a class based on a decision score
     ///   (a real number) that measures the association of the input with the negative
     ///   and positive class.
     /// </summary>
-    /// 
+    ///
     /// <typeparam name="TInput">The data type for the input data. Default is double[].</typeparam>
-    /// 
+    ///
     public interface IBinaryScoreClassifier<TInput> :
         IBinaryClassifier<TInput>,
         IMulticlassOutScoreClassifier<TInput, bool>,
@@ -42,12 +41,11 @@ namespace Accord.MachineLearning
         ///   giving access to more advanced methods, such as the prediction
         ///   of integer labels.
         /// </summary>
-        /// 
+        ///
         /// <returns>This instance seen as an <see cref="IMulticlassScoreClassifier{TInput}"/>.</returns>
-        /// 
+        ///
         new IMulticlassScoreClassifier<TInput> ToMulticlass();
 
         //new IMultilabelDistanceClassifier<TInput> ToMultilabel();
     }
-
 }

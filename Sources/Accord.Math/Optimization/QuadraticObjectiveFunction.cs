@@ -32,28 +32,28 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Quadratic objective function.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
     /// <para>
-    ///   In mathematics, a quadratic function, a quadratic polynomial, a polynomial 
-    ///   of degree 2, or simply a quadratic, is a polynomial function in one or more 
+    ///   In mathematics, a quadratic function, a quadratic polynomial, a polynomial
+    ///   of degree 2, or simply a quadratic, is a polynomial function in one or more
     ///   variables in which the highest-degree term is of the second degree. For example,
     ///   a quadratic function in three variables x, y, and z contains exclusively terms
     ///   x², y², z², xy, xz, yz, x, y, z, and a constant:
     /// </para>
-    /// 
+    ///
     /// <code>
     ///   f(x,y,z) = ax² + by² +cz² + dxy + exz + fyz + gx + hy + iz + j
     /// </code>
-    /// 
+    ///
     /// <para>
     ///   Please note that the function's constructor expects the function
     ///   expression to be given on this form. Scalar values must be located
     ///   on the left of the variables, and no term should be duplicated in
     ///   the quadratic expression. Please take a look on the examples section
     ///   of this page for some examples of expected functions.</para>
-    /// 
-    /// <para>    
+    ///
+    /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description><a href="https://en.wikipedia.org/wiki/Quadratic_function">
@@ -61,78 +61,77 @@ namespace Accord.Math.Optimization
     ///       https://en.wikipedia.org/wiki/Quadratic_function </a></description></item>
     ///   </list></para>
     /// </remarks>
-    /// 
-    /// 
+    ///
+    ///
     /// <example>
     /// <para>
     ///   Examples of valid quadratic functions are:</para>
-    ///   
+    ///
     /// <code>
     ///   var f1 = new QuadraticObjectiveFunction("x² + 1");
     ///   var f2 = new QuadraticObjectiveFunction("-x*y + y*z");
     ///   var f3 = new QuadraticObjectiveFunction("-2x² + xy - y² - 10xz + z²");
     ///   var f4 = new QuadraticObjectiveFunction("-2x² + xy - y² + 5y");
     /// </code>
-    /// 
+    ///
     /// <para>
     ///   It is also possible to specify quadratic functions using lambda expressions.
     ///   In this case, it is first necessary to create some dummy symbol variables to
     ///   act as placeholders in the quadratic expressions. Their value is not important,
     ///   as they will only be used to parse the form of the expression, not its value.
     /// </para>
-    /// 
+    ///
     /// <code>
     ///   // Declare symbol variables
     ///   double x = 0, y = 0, z = 0;
-    /// 
+    ///
     ///   var g1 = new QuadraticObjectiveFunction(() => x * x + 1);
     ///   var g2 = new QuadraticObjectiveFunction(() => -x * y + y * z);
     ///   var g3 = new QuadraticObjectiveFunction(() => -2 * x * x + x * y - y * y - 10 * x * z + z * z);
     ///   var g4 = new QuadraticObjectiveFunction(() => -2 * x * x + x * y - y * y + 5 * y);
     /// </code>
-    /// 
+    ///
     /// <para>
     ///   After those functions are created, you can either query their values
     ///   using</para>
-    ///   
+    ///
     /// <code>
     ///   f1.Function(new [] { 5.0 }); // x*x+1 = x² + 1 = 25 + 1 = 26
     /// </code>
-    /// 
+    ///
     /// <para>
     ///   Or you can pass it to a quadratic optimization method such
     ///   as Goldfarb-Idnani to explore its minimum or maximal points:</para>
-    /// 
+    ///
     /// <code>
     ///   // Declare symbol variables
     ///   double x = 0, y = 0, z = 0;
-    /// 
+    ///
     ///   // Create the function to be optimized
     ///   var f = new QuadraticObjectiveFunction(() => x * x - 2 * x * y + 3 * y * y + z * z - 4 * x - 5 * y - z);
-    /// 
+    ///
     ///   // Create some constraints for the solution
     ///   var constraints = new List&lt;LinearConstraint>();
     ///   constraints.Add(new LinearConstraint(f, () => 6 * x - 7 * y &lt;= 8));
     ///   constraints.Add(new LinearConstraint(f, () => 9 * x + 1 * y &lt;= 11));
     ///   constraints.Add(new LinearConstraint(f, () => 9 * x - y &lt;= 11));
     ///   constraints.Add(new LinearConstraint(f, () => -z - y == 12));
-    /// 
+    ///
     ///   // Create the Quadratic Programming solver
     ///   GoldfarbIdnani solver = new GoldfarbIdnani(f, constraints);
-    /// 
+    ///
     ///   // Minimize the function
     ///   bool success = solver.Minimize();
-    ///   
+    ///
     ///   double value = solver.Value;
     ///   double[] solutions = solver.Solution;
     /// </code>
     /// </example>
-    /// 
+    ///
     /// <seealso cref="GoldfarbIdnani"/>
-    /// 
+    ///
     public class QuadraticObjectiveFunction : NonlinearObjectiveFunction, IObjectiveFunction
     {
-
         private Dictionary<string, double> linear;
         private Dictionary<Tuple<string, string>, double> quadratic;
 
@@ -140,23 +139,22 @@ namespace Accord.Math.Optimization
         private double[] d;
         private double c;
 
-
         /// <summary>
         ///   Gets the quadratic terms of the quadratic function.
         /// </summary>
-        /// 
+        ///
         public double[,] QuadraticTerms { get { return Q; } }
 
         /// <summary>
         ///   Gets the vector of linear terms of the quadratic function.
         /// </summary>
-        /// 
+        ///
         public double[] LinearTerms { get { return d; } }
 
         /// <summary>
         ///   Gets the constant term in the quadratic function.
         /// </summary>
-        /// 
+        ///
         public double ConstantTerm
         {
             get { return c; }
@@ -166,11 +164,11 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new objective function specified through a string.
         /// </summary>
-        /// 
+        ///
         /// <param name="quadraticTerms">A Hessian matrix of quadratic terms defining the quadratic objective function.</param>
         /// <param name="linearTerms">The vector of linear terms associated with <paramref name="quadraticTerms"/>.</param>
         /// <param name="variables">The name for each variable in the problem.</param>
-        /// 
+        ///
         public QuadraticObjectiveFunction(double[,] quadraticTerms, double[] linearTerms, params string[] variables)
         {
             if (quadraticTerms.GetLength(0) != quadraticTerms.GetLength(1))
@@ -210,10 +208,10 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new objective function specified through a string.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">A <see cref="System.String"/> containing
         /// the function in the form similar to "ax²+b".</param>
-        /// 
+        ///
         public QuadraticObjectiveFunction(string function)
             : this(function, CultureInfo.InvariantCulture)
         {
@@ -222,13 +220,13 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new objective function specified through a string.
         /// </summary>
-        /// 
+        ///
         /// <param name="function">A <see cref="System.String"/> containing
         ///   the function in the form similar to "ax²+b".</param>
         /// <param name="culture">The culture information specifying how
         ///   numbers written in the <paramref name="function"/> should
         ///   be parsed. Default is CultureInfo.InvariantCulture.</param>
-        /// 
+        ///
         public QuadraticObjectiveFunction(string function, CultureInfo culture)
         {
             var terms = parseString(function, culture);
@@ -239,10 +237,10 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a new objective function specified through a string.
         /// </summary>
-        /// 
-        /// <param name="function">A <see cref="Expression{T}"/> containing 
+        ///
+        /// <param name="function">A <see cref="Expression{T}"/> containing
         /// the function in the form of a lambda expression.</param>
-        /// 
+        ///
         public QuadraticObjectiveFunction(Expression<Func<double>> function)
         {
             var terms = new Dictionary<Tuple<string, string>, double>();
@@ -354,16 +352,14 @@ namespace Accord.Math.Optimization
             return g;
         }
 
-
-
         /// <summary>
         ///   Returns a <see cref="System.String"/> that represents this instance.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   A <see cref="System.String"/> that represents this instance.
         /// </returns>
-        /// 
+        ///
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -383,11 +379,6 @@ namespace Accord.Math.Optimization
             return sb.ToString();
         }
 
-
-
-
-
-
         private static Dictionary<Tuple<string, string>, double> parseString(string f, CultureInfo culture)
         {
             f = f.Replace("*", String.Empty).Replace(" ", String.Empty);
@@ -397,13 +388,11 @@ namespace Accord.Math.Optimization
             Regex replaceQuad = new Regex(@"([a-zA-Z])(²)");
             f = replaceQuad.Replace(f, "$1$1");
 
-
             string separator = culture.NumberFormat.NumberDecimalSeparator;
 
             Regex r = new Regex(@"[\-\+]?[\s]*((\d*\" + separator + @"{0,1}\d+)|[a-zA-Z][²]?)+");
             Regex number = new Regex(@"\d*\" + separator + @"{0,1}\d+");
             Regex symbol = new Regex(@"[a-zA-Z]");
-
 
             MatchCollection matches = r.Matches(f, 0);
 
@@ -467,7 +456,6 @@ namespace Accord.Math.Optimization
                     BinaryExpression rb = eb.Right as BinaryExpression;
                     UnaryExpression ru = eb.Right as UnaryExpression;
 
-
                     if (c != null)
                     {
                         // This is constant*expression or expression*constant
@@ -524,7 +512,7 @@ namespace Accord.Math.Optimization
                     else if (lm != null)
                     {
                         var term = Tuple.Create(lm.Member.Name, (string)null);
-                        if (!dontAdd) 
+                        if (!dontAdd)
                             terms[term] = scalar;
                     }
                     else if (lu != null)
@@ -548,11 +536,10 @@ namespace Accord.Math.Optimization
                     {
                         scalar = (double)rc.Value;
                         var term = Tuple.Create((string)null, (string)null);
-                        if (!dontAdd) 
+                        if (!dontAdd)
                             terms[term] = scalar;
                     }
                     else throw new FormatException("Unexpected expression.");
-
                 }
                 else if (expr.NodeType == ExpressionType.Subtract)
                 {
@@ -565,7 +552,6 @@ namespace Accord.Math.Optimization
                     MemberExpression rm = eb.Right as MemberExpression;
 
                     ConstantExpression rc = eb.Right as ConstantExpression;
-
 
                     if (lb != null)
                     {
@@ -653,7 +639,6 @@ namespace Accord.Math.Optimization
         private static Tuple<string, string> addTuple(Dictionary<Tuple<string, string>,
             double> terms, double v, string v1, string v2)
         {
-
             var t1 = Tuple.Create(v1, v2);
             var t2 = Tuple.Create(v2, v1);
 
@@ -662,18 +647,17 @@ namespace Accord.Math.Optimization
             return t1;
         }
 
-
         /// <summary>
         ///   Attempts to create a <see cref="QuadraticObjectiveFunction"/>
         ///   from a <see cref="System.String"/> representation.
         /// </summary>
-        /// 
+        ///
         /// <param name="str">The string containing the function in textual form.</param>
         /// <param name="function">The resulting function, if it could be parsed.</param>
-        /// 
+        ///
         /// <returns><c>true</c> if the function could be parsed
         ///   from the string, <c>false</c> otherwise.</returns>
-        /// 
+        ///
         public static bool TryParse(string str, out QuadraticObjectiveFunction function)
         {
             return TryParse(str, CultureInfo.InvariantCulture, out function);
@@ -683,16 +667,16 @@ namespace Accord.Math.Optimization
         ///   Attempts to create a <see cref="QuadraticObjectiveFunction"/>
         ///   from a <see cref="System.String"/> representation.
         /// </summary>
-        /// 
+        ///
         /// <param name="str">The string containing the function in textual form.</param>
         /// <param name="function">The resulting function, if it could be parsed.</param>
         /// <param name="culture">The culture information specifying how
         ///   numbers written in the <paramref name="function"/> should
         ///   be parsed. Default is CultureInfo.InvariantCulture.</param>
-        ///   
+        ///
         /// <returns><c>true</c> if the function could be parsed
         ///   from the string, <c>false</c> otherwise.</returns>
-        /// 
+        ///
         public static bool TryParse(string str, CultureInfo culture, out QuadraticObjectiveFunction function)
         {
             // TODO: implement this method without the try-catch block.

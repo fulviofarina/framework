@@ -23,7 +23,6 @@
 namespace Accord.Math.Random
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
 
     /// <summary>
@@ -32,29 +31,27 @@ namespace Accord.Math.Random
     ///   set the <see cref="Seed"/> property of this class to a fixed
     ///   value.
     /// </summary>
-    /// 
+    ///
     public static class Generator
     {
-
         // Random generator used to seed other generators. It is used
         // to prevent generators that have been created in short spans
         // to be initialized with the same seed.
         private static Random source = new Random();
+
         private static readonly object sourceLock = new Object();
 
         private static int? seed;
         private static readonly object seedLock = new Object();
 
-
         private static readonly ThreadLocal<Random> random = new ThreadLocal<Random>(create);
-
 
         private static Random create()
         {
-            // We initialize new Random objects using the next value from a global 
-            // static shared random generator in order to avoid creating many random 
+            // We initialize new Random objects using the next value from a global
+            // static shared random generator in order to avoid creating many random
             // objects with the random seed. This guarantees reproducibility but does
-            // not compromise the effectiveness of parallel methods that depends on 
+            // not compromise the effectiveness of parallel methods that depends on
             // the generation of true random sequences with different values.
 
             lock (sourceLock)
@@ -69,17 +66,17 @@ namespace Accord.Math.Random
         ///   Gets a reference to the random number generator used
         ///   internally by the Accord.NET classes and methods.
         /// </summary>
-        /// 
+        ///
         public static Random Random { get { return random.Value; } }
 
         /// <summary>
-        ///   Sets a random seed for the framework's main <see cref="Random">internal 
+        ///   Sets a random seed for the framework's main <see cref="Random">internal
         ///   number generator</see>. Preferably, this method should be called <b>before</b>
         ///   other computations. If set to zero, all generators will start with the same
         ///   fixed seed, <b>even among multiple threads</b>. If set to any other value,
         ///   the generators in other threads will start with fixed, but different, seeds.
         /// </summary>
-        /// 
+        ///
         public static int? Seed
         {
             get { return Generator.seed; }
@@ -112,6 +109,5 @@ namespace Accord.Math.Random
                 }
             }
         }
-
     }
 }

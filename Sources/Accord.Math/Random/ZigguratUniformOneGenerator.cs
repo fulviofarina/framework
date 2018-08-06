@@ -22,19 +22,12 @@
 
 namespace Accord.Math.Random
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.CompilerServices;
-    using System.Text;
-    using System.Threading.Tasks;
-
     /// <summary>
     ///   Uniform random number generator using the Ziggurat method.
     /// </summary>
-    /// 
+    ///
     /// <remarks>
-    /// <para>    
+    /// <para>
     ///   References:
     ///   <list type="bullet">
     ///     <item><description><a href="http://people.sc.fsu.edu/~jburkardt/c_src/ziggurat/ziggurat.html">
@@ -45,12 +38,12 @@ namespace Accord.Math.Random
     ///       A comment on the implementation of the ziggurat method,
     ///       Journal of Statistical Software, Volume 12, Number 7, February 2005.
     ///     </description></item>
-    ///     <item><description>  
+    ///     <item><description>
     ///       George Marsaglia, Wai Wan Tsang, The Ziggurat Method for Generating Random Variables,
     ///       Journal of Statistical Software, Volume 5, Number 8, October 2000, seven pages. </description></item>
     ///   </list></para>
     /// </remarks>
-    /// 
+    ///
     public sealed class ZigguratUniformOneGenerator :
         IRandomNumberGenerator<double>,
         IRandomNumberGenerator<int>,
@@ -61,7 +54,7 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Initializes a new instance of the <see cref="ZigguratExponentialGenerator"/> class.
         /// </summary>
-        /// 
+        ///
         public ZigguratUniformOneGenerator()
             : this(Generator.Random.Next())
         {
@@ -70,10 +63,10 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Initializes a new instance of the <see cref="ZigguratUniformOneGenerator"/> class.
         /// </summary>
-        /// 
+        ///
         /// <param name="seed">The random seed to use. Default is to use the next value from
         ///   the <see cref="Generator">the framework-wide random generator</see>.</param>
-        /// 
+        ///
         public ZigguratUniformOneGenerator(int seed)
         {
             jsr = (uint)seed;
@@ -82,13 +75,13 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Generates a random vector of observations from the current distribution.
         /// </summary>
-        /// 
+        ///
         /// <param name="samples">The number of samples to generate.</param>
-        /// 
+        ///
         /// <returns>
         ///   A random vector of observations drawn from this distribution.
         /// </returns>
-        /// 
+        ///
         public double[] Generate(int samples)
         {
             return Generate(samples, new double[samples]);
@@ -97,14 +90,14 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Generates a random vector of observations from the current distribution.
         /// </summary>
-        /// 
+        ///
         /// <param name="samples">The number of samples to generate.</param>
         /// <param name="result">The location where to store the samples.</param>
-        /// 
+        ///
         /// <returns>
         ///   A random vector of observations drawn from this distribution.
         /// </returns>
-        /// 
+        ///
         public double[] Generate(int samples, double[] result)
         {
             for (int i = 0; i < samples; i++)
@@ -115,14 +108,14 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Generates a random vector of observations from the current distribution.
         /// </summary>
-        /// 
+        ///
         /// <param name="samples">The number of samples to generate.</param>
         /// <param name="result">The location where to store the samples.</param>
-        /// 
+        ///
         /// <returns>
         ///   A random vector of observations drawn from this distribution.
         /// </returns>
-        /// 
+        ///
         public int[] Generate(int samples, int[] result)
         {
             for (int i = 0; i < samples; i++)
@@ -133,14 +126,14 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Generates a random vector of observations from the current distribution.
         /// </summary>
-        /// 
+        ///
         /// <param name="samples">The number of samples to generate.</param>
         /// <param name="result">The location where to store the samples.</param>
-        /// 
+        ///
         /// <returns>
         ///   A random vector of observations drawn from this distribution.
         /// </returns>
-        /// 
+        ///
         public uint[] Generate(int samples, uint[] result)
         {
             for (int i = 0; i < samples; i++)
@@ -151,14 +144,15 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Generates a random vector of observations from the current distribution.
         /// </summary>
-        /// 
+        ///
         /// <returns>
         ///   A random vector of observations drawn from this distribution.
         /// </returns>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public double Generate()
         {
             unchecked
@@ -176,10 +170,11 @@ namespace Accord.Math.Random
         /// <summary>
         ///   Generates a new non-negative integer random number.
         /// </summary>
-        /// 
+        ///
 #if NET45
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
+
         public uint Next()
         {
             uint value = jsr;
@@ -188,7 +183,6 @@ namespace Accord.Math.Random
             jsr = (jsr ^ (jsr << 5));
             return value + jsr;
         }
-
 
         int[] IRandomNumberGenerator<int>.Generate(int samples)
         {

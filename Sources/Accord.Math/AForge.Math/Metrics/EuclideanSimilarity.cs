@@ -8,8 +8,8 @@
 
 namespace Accord.Math.Metrics
 {
-    using Accord.Math.Distances;
     using System;
+    using Accord.Math.Distances;
 
     /// <summary>
     ///   Please use Accord.Math.Distances.Euclidean instead.

@@ -30,14 +30,13 @@ namespace Accord.Math.Optimization
     /// <summary>
     ///   Linear Constraint Collection.
     /// </summary>
-    /// 
+    ///
     public class LinearConstraintCollection : Collection<LinearConstraint>, IEnumerable<LinearConstraint>
     {
-
         /// <summary>
         ///   Initializes a new instance of the <see cref="LinearConstraintCollection"/> class.
         /// </summary>
-        /// 
+        ///
         public LinearConstraintCollection()
         {
         }
@@ -45,7 +44,7 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Initializes a new instance of the <see cref="LinearConstraintCollection"/> class.
         /// </summary>
-        /// 
+        ///
         public LinearConstraintCollection(IEnumerable<LinearConstraint> list)
         {
             foreach (var c in list)
@@ -55,7 +54,7 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Initializes a new instance of the <see cref="LinearConstraintCollection"/> class.
         /// </summary>
-        /// 
+        ///
         public LinearConstraintCollection(IList<LinearConstraint> list)
             : base(list)
         {
@@ -64,12 +63,12 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a matrix of linear constraints in canonical form.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of variables in the objective function.</param>
         /// <param name="b">The vector of independent terms (the right hand side of the constraints).</param>
         /// <param name="equalities">The number of equalities in the matrix.</param>
         /// <returns>The matrix <c>A</c> of linear constraints.</returns>
-        /// 
+        ///
         public double[,] CreateMatrix(int numberOfVariables, out double[] b, out int equalities)
         {
             double[] tolerances;
@@ -79,13 +78,13 @@ namespace Accord.Math.Optimization
         /// <summary>
         ///   Creates a matrix of linear constraints in canonical form.
         /// </summary>
-        /// 
+        ///
         /// <param name="numberOfVariables">The number of variables in the objective function.</param>
         /// <param name="b">The vector of independent terms (the right hand side of the constraints).</param>
         /// <param name="tolerances">The amount each constraint can be violated before the answer is declared close enough.</param>
         /// <param name="equalities">The number of equalities in the matrix.</param>
         /// <returns>The matrix <c>A</c> of linear constraints.</returns>
-        /// 
+        ///
         public double[,] CreateMatrix(int numberOfVariables, out double[] b,
             out double[] tolerances, out int equalities)
         {
@@ -144,12 +143,12 @@ namespace Accord.Math.Optimization
         ///   specifying the constraint variables and a vector specifying their
         ///   expected value.
         /// </summary>
-        /// 
+        ///
         /// <param name="a">The constraint matrix.</param>
         /// <param name="b">The constraint values.</param>
-        /// <param name="meq">The number of inequalities 
+        /// <param name="meq">The number of inequalities
         ///   at the start of the matrix <paramref name="a"/>.</param>
-        /// 
+        ///
         public static LinearConstraintCollection FromMatrix(double[,] a, double[] b, int meq)
         {
             int numberOfVariables = a.GetLength(1);
@@ -169,6 +168,5 @@ namespace Accord.Math.Optimization
 
             return new LinearConstraintCollection(constraints);
         }
-
     }
 }
